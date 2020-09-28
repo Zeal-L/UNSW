@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+<title>
+COMP1511 20T3 - 
+Week 01
+Laboratory
+Exercises
+
+</title><link href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/" rel="canonical">
+<link crossorigin="anonymous" href="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" rel="stylesheet">
+<link href="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/course.css" rel="stylesheet">
+<script crossorigin="anonymous" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" src="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/jquery.min.js.下载"></script>
+<script crossorigin="anonymous" integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU=" src="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/popper.min.js.下载"></script>
+<script crossorigin="anonymous" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" src="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/bootstrap.min.js.下载"></script>
+<script src="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/course.js.下载"></script>
+<!-- <script async src="https://static.codepen.io/assets/embed/ei.js"></script> -->
+<!-- MathJax. -->
+
+<script type="text/javascript" async="" src="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="d-flex flex-column" style="min-height: 100vh;"><div id="MathJax_Message" style="display: none;"></div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light no-print" id="header-navbar">
+<div class="container">
+<button aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right" data-target="#navmenu" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<a class="navbar-brand" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/">
+      COMP1511 20T3
+    </a>
+<div class="collapse navbar-collapse" id="navmenu">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item active"><a class="nav-link" href="https://discourse.cse.unsw.edu.au/20t3/comp1511/">Forum</a></li>
+<li class="nav-item active"><a class="nav-link" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/student/">Submissions</a></li>
+<li class="navbar-text px-2">|</li>
+<li class="nav-item active dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions#" id="week-selector" role="button">
+    Week 01 <span class="caret"></span>
+</a>
+<div aria-labelledby="week-selector" class="dropdown-menu">
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions">Week 01</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/02/questions">Week 02</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/03/questions">Week 03</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/04/questions">Week 04 (tutors only)</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/05/questions">Week 05 (tutors only)</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/06/questions">Week 06 (tutors only)</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/07/questions">Week 07 (tutors only)</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/08/questions">Week 08 (tutors only)</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/09/questions">Week 09 (tutors only)</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/10/questions">Week 10 (tutors only)</a>
+</div>
+</li>
+<li class="nav-item active dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions#" id="tlb-selector" role="button">
+    Laboratory <span class="caret"></span>
+</a>
+<div aria-labelledby="tlb-selector" class="dropdown-menu">
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/tut/01/questions">Tutorial</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions">Laboratory</a>
+</div>
+</li>
+<li class="nav-item active dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions#" id="qa-selector" role="button">
+    Exercises <span class="caret"></span>
+</a>
+<div aria-labelledby="qa-selector" class="dropdown-menu">
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/questions">Exercises</a>
+<a class="dropdown-item" href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/lab/01/answers">Sample Solutions</a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<main aria-label="Content" class="container" style="flex: 1; padding-top: 4rem;">
+<header>
+<h1 class="text-center">
+Week 01
+Laboratory
+Exercises
+</h1>
+</header>
+<div class="tutlab lab">
+<section class="exercise">
+<header><h3>Objectives</h3></header>
+<p>In this Lab, you will:</p>
+<ul>
+<li class="itemize">Learn how to access your CSE account</li>
+<li class="itemize">Become familiar with the Linux environment</li>
+<li class="itemize">Use a text editor to create small C programs</li>
+<li class="itemize">Use dcc to compile a C program</li>
+<li class="itemize">Run a C program in a Linux terminal</li>
+</ul>
+</section>
+<section class="exercise">
+<header><h3>Getting Started</h3></header>
+<p>In this first COMP1511 lab, the primary aim is for you to familiarise
+yourself with the process of creating, compiling and executing simple C
+programs.</p>
+<p>The material you will need to know can be found in the week 1 lecture
+notes.</p>
+<p>This exercise will simply ensure you are capable of writing a small program
+and getting it to run.</p>
+<p>There are no marks for this week's work, but you should practice testing and
+submitting your answers in preparation for future weeks.</p>
+<p>Once you've done this, you are free to explore some other unix commands.</p>
+<h3>Pairs</h3>
+<p>COMP1511 lab exercises can be completed in pairs. While we're online, pairs
+  are entirely optional, but if you would like to work with someone, ask them during your
+  tutorial, or talk to your tutor!
+
+</p><h3>Instructions</h3>
+<p>Note that the following instructions assume that you are using text commands
+inside a Linux terminal window. Some of the steps (e.g. creating a new
+directory) can also be completed using the graphical user interface, similar to
+what you are used to from Windows.</p>
+</section>
+<section class="exercise">
+<header><h3>Setting Up Your Own Computer to Work on COMP1511</h3></header>
+<p>Since the course this term is 100% online, you'll need to work on your own
+computer.
+</p><p>Don't worry about the age or specifications of the computer itself, even
+reasonably old computers will be able to handle the work we're doing in COMP1511.
+
+</p><p>If you don't have a computer where you live, please contact cs1511@cse.unsw.edu.au
+and we'll see what we can do to help.
+
+</p><p>It's useful to try and set up your laptop (if you have one) during a lab class
+because your tutor or other students may be able to help you with any
+problems.</p>
+<p>Otherwise, try to set up your laptop and/or desktop this week so you can
+work on COMP1511 at home.</p>
+</section>
+<section class="exercise">
+<header><h3>Logging In</h3></header>
+<p>This term, you will need to use VLab to connect to CSE. There's more
+    information about how to do that <a href="https://webcms3.cse.unsw.edu.au/COMP1511/20T3/resources/51389">at the Home Computing link</a>.
+</p><p>To log in, you use your zID (which looks something like
+<code>z1234567</code>) and your zPass (which is used to log into all other
+university online services).</p>
+<p>The CSE labs use the Linux operating system (not Windows or OSX or ...).</p>
+<p>When you log in, by default, you'll be using the xfce4 window manager, and
+you'll see a linux desktop.</p>
+<p>If you are asked to select a panel click on <b>Use default config</b>, as in
+    the image below.</p>
+<img height="300" src="./COMP1511 20T3 - Week 01 Laboratory Exercises_files/default.png">
+<p>Along with menus that you can see, such as the Applications Menu in the top
+left corner, it also has a simple menu you can access by <b>right-clicking
+anywhere on the desktop</b>.</p>
+<p>Have a look around and see if you can work out how to open a web browser.</p>
+</section>
+<section class="exercise">
+<header><h3>Exercise 0: Trying out some Linux Commands</h3></header>
+<p>Although there are lots of things you can do by using the graphical user
+interface (GUI) - clicking on menu items and icons, we really want you
+understand how to use the Linux command-line.</p>
+<p>If you get stuck with any of this, don't hesitate to ask one of your tutors
+for help, that's why they're here!</p>
+<p>If there isn't a terminal open, right click on the desktop and select 'Open
+Terminal Here'</p>
+<p>This will bring up a window where you can type in Linux commands.</p>
+<p>There are a few commands that you can use to check your account details:</p>
+<ul>
+<li><code>rquota</code> tells you how much of your disk quota you've used
+up (from creating files)</li>
+<li><code>acc</code> tells you your name, what classes you're in, where
+your home directory is and other details that may or may not be useful</li>
+</ul>
+<p>Each of these is a command, and when entering into your terminal, you need
+to press enter (or return) after each command. Try the two we just mentioned
+above.</p>
+<p>Now try running the command <code>date</code> - which prints the current
+time and date.</p>
+<p>You should see something like this:</p>
+<pre is="tty"><kbd is="sh">date</kbd>
+Monday 26 February  12:15:20 AEDT 2018
+</pre>
+<p>Now we're going to learn about some commands for working with directories
+(directories are often called folders on other operating systems).</p>
+<ul>
+<li>pwd</li>
+<li>ls</li>
+<li>cd</li>
+<li>mkdir</li>
+</ul>
+<p>The Linux command <code>pwd</code> tells you what directory you are in,
+often called your <i>current working directory</i>.</p>
+<p><code>pwd</code> stands for '<strong>p</strong>rint <strong>w</strong>orking
+<strong>d</strong>irectory'.</p>
+<p>If your username is 'z7654321', and you enter the 'pwd'
+command into the terminal, it might tell you:</p>
+<pre is="tty"><kbd is="sh">pwd</kbd>
+/import/cage/1/z7654321/Desktop
+</pre>
+<p>This means that I'm in the Desktop directory inside my (z7654321's)
+home directory<i></i>and my home directory is stored on the file server called
+<i>cage</i>.</p>
+<p>What does <code>pwd</code> print for you?</p>
+<p>The Linux command <code>ls</code> prints a <b>l</b>i<b>s</b>t of the files
+in the present directory. Since you have a new account there will probably be
+nothing in your Desktop directory.</p>
+<pre is="tty"><kbd is="sh">ls</kbd>
+</pre>
+<p>The Linux command <code>cd</code> is a command that you can use to
+<strong>c</strong>hange your <strong>d</strong>irectory.</p>
+<p>If you type in cd on its own as follows, you will move into your home
+directory.</p>
+<p>Try this out and confirm your directory has changed by running
+<code>pwd</code> again.</p>
+<pre is="tty"><kbd is="sh">pwd</kbd>
+/import/cage/1/z7654321/Desktop
+<kbd is="sh">cd</kbd>
+<kbd is="sh">pwd</kbd>
+/import/cage/1/z7654321
+</pre>
+<p>If you run <code>ls</code> you'll see what is in your home directory. Since
+you have a new account, your home directory will most likely only contain your
+Desktop and a directory called public_html (which is where you can create files
+to create websites).</p>
+<pre is="tty"><kbd is="sh">ls</kbd>
+Desktop Documents Downloads Music Pictures public_html Videos
+</pre>
+<p>The Linux command <code>mkdir</code> <strong>m</strong>a<strong>k</strong>es
+a new <strong>dir</strong>ectory. To use it you must supply the name of the
+directory you wish to create.  Lets use it to create a directory for this
+week's lab exercises.</p>
+<pre is="tty"><kbd is="sh">mkdir lab01</kbd>
+</pre>
+<p>Now the command <code>ls</code> should show you the directory you just
+created.</p>
+<pre is="tty"><kbd is="sh">ls</kbd>
+Desktop lab01 public_html
+</pre>
+<p>Now we will use <code>cd</code> in a slightly different way where we tell it
+what directory we want to change into.</p>
+<pre is="tty"><kbd is="sh">cd lab01</kbd>
+</pre>
+<p>To confirm we really are in our new created <i>lab01</i> directory type the
+  <code>pwd</code> command again.</p>
+<pre is="tty"><kbd is="sh">pwd</kbd>
+/import/cage/1/z7654321/lab01
+</pre>
+<p>If all this has worked, it's time to try compiling your first program!</p>
+</section>
+<section class="exercise">
+<header><h3>Exercise 1: Your first program</h3></header>
+<p>Now it's time to create a file. We are going to use the text editor
+<em>gedit</em>.</p>
+<div class="alert alert-info">
+<p>Tip: you can run a command to help set up your CSE account for COMP1511,
+which will configure gedit and set up some default programs.</p>
+<p>In a terminal, type (without the dollar sign):</p>
+<pre is="tty"><kbd is="sh">1511 setup</kbd></pre>
+<p>and press enter.</p>
+</div>
+<p>To create a file using gedit, type:</p>
+<pre is="tty"><kbd is="sh">gedit bad_pun.c &amp;</kbd>
+</pre>
+<p>This will open up a graphical editor where you can manipulate text.</p>
+<p>Adding the <code>&amp;</code> to the end of a command allows the GUI to
+return control to the terminal as soon as it starts (i.e. run in the
+background) rather than after it is closed. If you forget the
+<code>&amp;</code>, you will not be able to type commands into the terminal
+until the GUI application is finished. This is always a good idea when running
+a command which invokes a graphical user interface (GUI).</p>
+<p>Here's an example of a simple C program. Copy it into the gedit window, and
+save it.</p>
+<div class="highlight"><pre><span></span><span class="c1">// A simple C program that attempts to be punny</span>
+<span class="c1">// Written 23/2/2017</span>
+<span class="c1">// by Angela Finlayson (angf@cse.unsw.edu.au)</span>
+<span class="c1">// for COMP1511 Lab 01 Exercise 1</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Hello, it is good to C you!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>When you save, it will place the contents of the editor into the file
+<code>bad_pun.c</code>.</p>
+<p><b>Handy Tip 1</b>: On many linux systems copying can be achieved by simply
+highlighting with the left mouse button and pasting can be achieved by simply
+clicking with the middle button.</p>
+<p><b>Handy Tip 2</b>: Make sure gedit is displaying line numbers down the left
+hand side. This is important for when we need to fix compile time errors.</p>
+<p>The easiest way to set this up is by running <code>1511 setup</code> in your
+terminal.</p>
+<p>You can also change whether line numbers are displayed by going to the
+Edit-&gt;Preferences menu item and selecting the 'Display Line Numbers' option.</p>
+<p>Once you have pressed save, click on the Terminal window again and type this
+command to compile your program:</p>
+<pre is="tty"><kbd is="sh">dcc -o bad_pun bad_pun.c</kbd>
+</pre>
+<p>The <code>-o bad_pun</code> option tells the compiler to givethe newly
+compiled program the name <i>bad_pun</i>.</p>
+<p>Test what happens if you leave the <code>-o  bad_pun</code> option out. What
+is the default name <code>dcc</code> uses?</p>
+<p>You may wish to use the <code>rm</code> command to delete
+(<b>r</b>e<b>m</b>ove) the file created.</p>
+<p>(You can Google <em>rm</em> or <em>rm linux</em> if you are not sure how it
+works).</p>
+<p>If <code>dcc</code> does not print out any error messages, then your program
+has been successfully compiled. Otherwise you will need to find the errors in
+your code, fix them, save the file and compile again.</p>
+<p><b>Handy Tip 3</b>: Look for the line numbers that are displayed in the
+error messages as they are major clues to where the problem is in your code.</p>
+<p><b>Handy Tip 4</b>: Always start with fixing the first error first.
+Sometimes fixing one compile error, saving and recompiling can make all or some
+of the other errors go away!</p>
+<p>After successfully compiling you can check that dcc has produced an
+executable by typing <code>ls -l</code> and looking for a newly-created
+<code>bad_pun</code> file (check the file creation time to see if it really is
+new).</p>
+<p>A useful Unix command is <b>man</b> short for <b>man</b>ual. Find out what
+the <code>-l</code> option for the <code>ls</code> command you used before
+does. Type:</p>
+<pre is="tty"><kbd is="sh">man ls</kbd>
+</pre>
+<p>In the manual page you can scroll using your arrow keys on your keyboard.
+ Press 'q' to exit man.</p>
+<p>Run the program to test that it works. Type:</p>
+<p>Press 'q' to exit man.</p>
+<p>Run the program to test that it works. Type:</p>
+<pre is="tty"><kbd is="sh">./bad_pun</kbd>
+</pre>
+<p>The <code>./</code> before the program name specifies that the program is
+found in the current directory. Note that Unix executable (program) names do
+not require the <code>.exe</code> extension that you might have have seen under
+Windows.</p>
+<p>The COMP1511 class account contains a script that automatically checks your
+solution to lab exercises.</p>
+<p>While it is not important this week, lets run the <code>autotest</code>
+script so you can see what it does.</p>
+<p>You can check <code>bad_pun.c</code> like this:</p>
+<pre is="tty"><kbd is="sh">1511 autotest bad_pun bad_pun.c</kbd>
+Test 0 (./bad_pun) - passed
+1 tests passed  0 tests failed
+</pre>
+<p>Don't worry if you fail the check - and you can't see why.</p>
+<p>There are no marks for this week's lab but practice submitting your work
+electronically.</p>
+<p>You submit your work with the <code>give</code> command like this:</p>
+<pre is="tty"><kbd is="sh">give cs1511 lab01_bad_pun bad_pun.c</kbd>
+</pre>
+<p>In future weeks both members of each lab pair need to submit your work using
+<code>give</code>.</p>
+</section>
+<section class="exercise">
+<header><h3>Exercise 2: Creating an ASCII Bird</h3></header>
+<!--<h3>Exercise 2: Creating an ASCII Bird</h3>-->
+<div class="alert alert-info">
+<p>Tip: you can run a command to help set up your CSE account for COMP1511,
+which will configure gedit and set up some default programs.</p>
+<p>In a terminal, type (without the dollar sign):</p>
+<pre is="tty"><kbd is="sh">1511 setup</kbd></pre>
+<p>and press enter.</p>
+</div>
+<p>Now use the Linux command <code>cp</code> to copy <code>bad_pun.c</code> to
+a new file named <code>bird.c</code>, like this:</p>
+<pre is="tty"><kbd is="sh">cp bad_pun.c bird.c</kbd>
+</pre>
+<p>You are now ready to start editing the file <code>bird.c</code> using your
+favourite editor.</p>
+<pre is="tty"><kbd is="sh">gedit bird.c &amp;</kbd>
+</pre>
+<p>Note that the basic structure of the program can be retained; you just need
+to change the comments, and modify and/or add printf statements to the program.
+Edit the file <code>bird.c</code> to produce a new program that behaves as
+follows:</p>
+<pre is="tty"><kbd is="sh">dcc -o bird bird.c</kbd>
+<kbd is="sh">./bird</kbd>
+  ___
+ ('v')
+((___))
+ ^   ^
+</pre>
+<p>Make sure you save your modified program before you compile it.</p>
+<p>Make sure you re-compile your program every time you modify the code.</p>
+<p><b>Handy Tip 5 :</b> Linux remembers the commands we have recently typed in.
+By pressing the <kbd>UPARROW</kbd> key, it will bring up your previous command
+and save you retyping it in! Try it. You can press the <kbd>UPARROW</kbd> key
+repeatedly to go back to the second last command, third last command and so
+on.</p>
+<p><b>Handy Tip 6 :</b> At your Linux command prompt, type in <code>./b</code>
+and then press the <kbd>tab</kbd> key. Linux will automatically try to fill in
+your partially typed command for you!</p>
+<p>Again try the automatic checking script in the class account.</p>
+<pre is="tty"><kbd is="sh">1511 autotest bird bird.c</kbd>
+Test 0 (./bird) - passed
+1 tests passed  0 tests failed
+</pre>
+<p>Again don't worry if you fail the checking - and you can't see why.</p>
+<p>There are no marks for this week's lab but practice submitting your work
+electronically.</p>
+<p>You submit your work with the <code>give</code> command like this:</p>
+<pre is="tty"><kbd is="sh">give cs1511 lab01_bird bird.c</kbd>
+</pre>
+<p>In future weeks both members of each lab pair need to submit your work using
+<code>give</code>.</p>
+<div></div>
+</section>
+<section class="exercise">
+<header><h3>Exercise 3: Fixing errors in an ASCII Kangaroo</h3></header>
+<div class="alert alert-info">
+<p>Tip: you can run a command to help set up your CSE account for COMP1511,
+which will configure gedit and set up some default programs.</p>
+<p>In a terminal, type (without the dollar sign):</p>
+<pre is="tty"><kbd is="sh">1511 setup</kbd></pre>
+<p>and press enter.</p>
+</div>
+<p>Copy the program <code>kangaroo.c</code> from the course account to your
+directory by typing (make sure you type the dot at the end):</p>
+<pre is="tty"><kbd is="sh">cp ~cs1511/public_html/20T3/tlb/01/kangaroo.c .</kbd>
+</pre>
+<p>The dot '.' is a shorthand for the current directory and there is a space
+between <code>kangaroo.c</code> and the next dot. You can check that the file
+has been copied by typing:</p>
+<pre is="tty"><kbd is="sh">ls</kbd>
+bad_pun bad_pun.c bird bird.c kangaroo.c
+</pre>
+<p>You can examine the contents of the file by typing:</p>
+<pre is="tty"><kbd is="sh">less kangaroo.c</kbd>
+// A simple C program that prints an ASCII kangaroo
+// Written 7/3/2017
+/  by Andrew Taylor (andrewt@unsw.edu.au)
+// as a lab example for COMP1511
+...
+</pre>
+<p>(<code>less</code> is an improved version of an earlier utility called
+<code>more</code>, which shows you long text files one page at a time and
+allows you to go forward and back using the space bar and the 'B' key. Less is
+more! Press 'q' to exit less.)</p>
+<p>Now try to compile kangaroo.c. You should see a list of confusing error
+messages.</p>
+<pre is="tty"><kbd is="sh">dcc -o kangaroo kangaroo.c</kbd>
+kangaroo.c:4:1: error: expected identifier or ‘(’ before ‘/’ token
+ /  by Andrew Taylor (andrewt@cse.unsw.edu.au)
+...
+</pre>
+<p>Your job is to fix the errors.</p>
+<p>You'll need to use an editor to change the file <code>kangaroo.c</code></p>
+<p>Run gedit like this:</p>
+<pre is="tty"><kbd is="sh">gedit kangaroo.c &amp;</kbd>
+</pre>
+<p>When you have fixed all the errors you should be able to do this.</p>
+<pre is="tty"><kbd is="sh">dcc -o kangaroo kangaroo.c</kbd>
+<kbd is="sh">./kangaroo</kbd>
+
+  /\   ___
+ &lt;__\_/    \
+    \_  /  _\
+      \_\ / \\
+        //   \\
+      =//     \==
+
+</pre>
+<p><b>Hint</b>: the error messages are confusing but they usually indicate
+where the problem is.</p>
+<p><b>Hint</b>: treat it as a puzzle. Look for differences between your program
+and the working programs you have been shown.</p>
+<p><b>Hint</b>: all the errors but one involve a single missing character.</p>
+<p><b>Hint</b>: if it looks like there are too many backslashes in the program,
+it is correct. <b>Don't delete any backslashes</b> (you do need to add one
+backslash). It was mentioned in lectures that the backslash has a special
+interpretation in C.</p>
+<div></div>
+<p>Again try the automatic checking script in the class account.</p>
+<pre is="tty"><kbd is="sh">1511 autotest kangaroo kangaroo.c</kbd>
+Test 0 (./kangaroo) - passed
+1 tests passed  0 tests failed
+</pre>
+<p>Again don't worry if you fail the checking - and you can't see why.</p>
+<p>Submit your work with the <code>give</code> command like this:</p>
+<pre is="tty"><kbd is="sh">give cs1511 lab01_kangaroo kangaroo.c</kbd>
+</pre>
+<p>In future weeks both members of each lab pair need to submit their work
+using <code>give</code>.</p>
+</section>
+<section class="exercise">
+<header><h3>Exercise 4: Receiving Email from your tutor</h3></header>
+<p>Your tutor has sent an email to your official UNSW email account. You need
+to  reply to it. We want to make sure you can receive official emails!</p>
+</section>
+<section class="exercise">
+<header><h3>Exercise 5: Post on the Course Forum!</h3></header>
+<p>You can ask any questions you have related to COMP1511 on the <a href="https://discourse.cse.unsw.edu.au/20t3/comp1511/">course
+forum</a>.</p>
+<p>Remember never to post assessment code on the course forum. Course staff can view your recently autotested/submitted code.
+You can also post anonymously, by clicking on your profile icon in the top right, then click on your zID, 
+then click on "Enter Anonymous Mode".</p>
+<p>To make sure that you can access the course forum, please post a reply to the <a href="https://discourse.cse.unsw.edu.au/20t3/comp1511/t/welcome-to-comp1511/26/6">"Welcome to the
+COMP1511!" topic</a> introducing yourself (and optionally post a picture of a pet!).</p>
+</section>
+<section class="exercise">
+<header><h3>Exercise 6: Lab 0 (Optional)</h3></header>
+<p>CSESoc is the School's Constituent Society. This means that by doing
+COMP1511, you're automatically a member! They sometimes run a workshop called
+"Lab 0" . The workshop covers some of the basics of the School of CSE, and of
+  being in COMP1511. You can find a link to Lab 0's material under the Week 1
+  material on WebCMS (under "Tuts, Labs &amp; Tests"). You don't have to do it, but
+  if you want to learn more about CSE you can read it!
+
+    </p></section>
+<section class="exercise">
+<header><h3>Exercise 7: [Challenge] Message of the Day</h3></header>
+<p>A Message of the Day (often called an "MotD") is a message traditionally
+shown when you log into a unix system. It usually gives you a warm greeting and
+tells you some information.</p>
+<p>In this exercise, you will make your own MotD. You do not need to submit it,
+nor is it directly assessed in any way. It is, however, an opportunity for you
+to demonstrate your creative skills to your new friends and tutors. You can
+even keep adding to it throughout the term.</p>
+<p>To get started, run the following command. It will show the following
+output.</p>
+<pre is="tty"><kbd is="sh">1511 motd</kbd>
+Did not find a MotD! You should make a file called motd.c and compile it.
+</pre>
+<p>This program has just enabled an MotD on your shell, but now you need to
+specify what it will say.</p>
+<p>Make a new file called <code>motd.c</code> in your home directory. If you're
+not in your home directory, type the command <code>cd</code> to go there.</p>
+<p>You should make this program print out a message of the day, like "Hi Tom,
+I'm looking forward to COMP1511".</p>
+<p>When you're done, you can run:</p>
+<pre is="tty"><kbd is="sh">dcc -o motd motd.c</kbd>
+<kbd is="sh">./motd</kbd>
+Hi Tom, I'm looking forward to COMP1511.
+</pre>
+<p>To get rid of the message, remove the motd file:</p>
+<pre is="tty"><kbd is="sh">rm motd</kbd>
+</pre>
+<p>Now that you've got it working, here are some ways to make your motd stand
+out:</p>
+<ul>
+<li>Make some ASCII text: <a href="http://patorjk.com/software/taag/">Here's an ASCII text
+generator!</a></li>
+<li><a href="http://web.theurbanpenguin.com/adding-color-to-your-output-from-c/">Add
+some color to your message!</a></li>
+<li>Add some ASCII art (a time honored tradition in computing): <a href="https://www.asciiart.eu/">Here's one collection - google for
+more!</a></li>
+</ul>
+</section>
+<section class="exercise">
+<header><h3>Submission</h3></header>
+    
+
+
+When you are finished each exercises make sure you submit your work by running <code>give</code>.
+<p>
+You can run <code>give</code> multiple times.
+Only your last submission will be marked.
+</p><p>
+Don't submit any exercises you haven't attempted.
+</p><p>
+If you are working at home, you may find it more convenient
+to upload your work via
+<a href="https://cgi.cse.unsw.edu.au/~give/Student/give.php">give's web interface</a>.
+</p><p>
+Remember you have until
+
+<b>Week 2 Monday 20:00</b>
+
+to submit your work.
+</p><p>
+You cannot obtain marks by e-mailing your code to tutors or lecturers.
+</p><p>
+You check the files you have submitted <a href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/student/">here</a>.
+</p><p>
+Automarking will be run by the lecturer several days after the submission deadline,
+using test cases different to those <code>autotest</code> runs for you.
+(Hint: do your own testing as well as running <code>autotest</code>.)
+</p><p>
+After automarking is run by the lecturer
+you can <a href="https://cgi.cse.unsw.edu.au/~cs1511/20T3/student/">view your results here</a>.
+The resulting mark will also be available
+<a href="https://cgi.cse.unsw.edu.au/~give/Student/sturec.php">via give's web interface</a>.
+
+</p><h4>Lab Marks</h4>
+<p>
+When all components of a lab  are automarked you should be able to view the
+the marks <a href="https://cgi.cse.unsw.edu.au/~give/Student/sturec.php">via give's web interface</a>
+or by running this command on a CSE machine:
+
+</p><pre is="tty"><kbd is="sh">1511 classrun -sturec</kbd>
+</pre>
+</section>
+</div>
+</main>
+<footer class="mt-3 pt-3 bg-dark text-center no-print">
+<p class="text-muted">
+<strong>COMP1511 20T3: Programming Fundamentals</strong>
+is brought to you by <br>
+the <a href="https://www.cse.unsw.edu.au/">School of Computer Science and Engineering</a><br>
+at the <a href="https://www.unsw.edu.au/">University of New South Wales</a>, Sydney.<br>
+For all enquiries, please email the class account at
+<a href="mailto:@cse.unsw.edu.au">cs1511@cse.unsw.edu.au</a><br>
+<small>CRICOS Provider 00098G</small>
+</p>
+</footer>
+
+</body></html>

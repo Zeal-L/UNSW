@@ -70,6 +70,7 @@ int main (void)
 { 
     int shu = 7%2;
     printf ("The number is %d\n", shu);
+    
 return 0;
 }
 

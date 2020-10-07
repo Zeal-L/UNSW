@@ -35,11 +35,9 @@ void rectangle_filling (int canvas[N_ROWS][N_COLS], int start_row,int start_col,
 int main(void) {
     int canvas[N_ROWS][N_COLS];
     clearCanvas(canvas);
-    while (1) {
-            
-        int command = 0, start_row = 0, start_col = 0, end_row = 0, end_col = 0;
-        scanf("%d%d%d%d%d", &command, &start_row, &start_col, &end_row, &end_col);
-        
+
+    int command = 0, start_row = 0, start_col = 0, end_row = 0, end_col = 0;
+    while (scanf("%d%d%d%d%d", &command, &start_row, &start_col, &end_row, &end_col) == 5) {
         if (command == 1) { // command 1 means Draw Line
             //if the given command both starts and ends outside the canvas, ignore it
             if ((start_row > 0 && start_row < N_ROWS) && 
@@ -59,9 +57,14 @@ int main(void) {
                            ((end_row > 0 && end_row < N_ROWS) && (end_col > 0 && end_col < N_COLS))) {
                         //Changes the value beyond the boundary to the maximum or minimum of the border
                         if (start_row < 0) start_row = 0;
+                        if (start_row > N_ROWS) start_row = N_ROWS-1;
                         if (start_col < 0) start_col = 0;
-                        if (end_row > N_ROWS) end_row = N_ROWS;
-                        if (end_col > N_COLS) end_col = N_COLS;
+                        if (start_col > N_COLS) start_col = N_COLS-1;
+                        if (end_row > N_ROWS) end_row = N_ROWS-1;
+                        if (end_row < 0) end_row = 0;
+                        if (end_col > N_COLS) end_col = N_COLS-1;
+                        if (end_col < 0) end_col = 0;
+
                         line_drawing (canvas, start_row, start_col, end_row, end_col);
                         displayCanvas(canvas);
                         printf("\n");
@@ -87,9 +90,13 @@ int main(void) {
                            ((end_row > 0 && end_row < N_ROWS) && (end_col > 0 && end_col < N_COLS))) {
                 //Changes the value beyond the boundary to the maximum or minimum of the border
                 if (start_row < 0) start_row = 0;
+                if (start_row > N_ROWS) start_row = N_ROWS-1;
                 if (start_col < 0) start_col = 0;
-                if (end_row > N_ROWS) end_row = N_ROWS;
-                if (end_col > N_COLS) end_col = N_COLS;
+                if (start_col > N_COLS) start_col = N_COLS-1;
+                if (end_row > N_ROWS) end_row = N_ROWS-1;
+                if (end_row < 0) end_row = 0;
+                if (end_col > N_COLS) end_col = N_COLS-1;
+                if (end_col < 0) end_col = 0;
 
                 rectangle_filling(canvas, start_row, start_col, end_row, end_col);
                 displayCanvas(canvas);
@@ -98,7 +105,11 @@ int main(void) {
                 printf("\n");
             }
         }
+        
     }
+        
+        
+
     return 0;
 }
     

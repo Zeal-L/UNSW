@@ -44,26 +44,31 @@ int main(void) {
                 (start_col > 0 && start_col < N_COLS) && 
                   (end_row > 0 && end_row < N_ROWS) &&
                   (end_col > 0 && end_col < N_COLS)) {
+
                 //if the given command would not give an entirely horizontal or vertical line, ignore it
                 if (start_row == end_row || start_col == end_col) {
+
                     line_drawing (canvas, start_row, start_col, end_row, end_col);
+
                     displayCanvas(canvas);
                     printf("\n");
                     canvasGraph(canvas);
                     printf("\n");
                 }
+
             //if the given command is partially outside the canvas, only draw the section that is within the canvas
             } else if (((start_row > 0 && start_row < N_ROWS) && (start_col > 0 && start_col < N_COLS)) ||
                            ((end_row > 0 && end_row < N_ROWS) && (end_col > 0 && end_col < N_COLS))) {
+                        
                         //Changes the value beyond the boundary to the maximum or minimum of the border
-                        if (start_row < 0) start_row = 0;
-                        if (start_row > N_ROWS) start_row = N_ROWS-1;
-                        if (start_col < 0) start_col = 0;
-                        if (start_col > N_COLS) start_col = N_COLS-1;
-                        if (end_row > N_ROWS) end_row = N_ROWS-1;
-                        if (end_row < 0) end_row = 0;
-                        if (end_col > N_COLS) end_col = N_COLS-1;
-                        if (end_col < 0) end_col = 0;
+                        if (start_row < 0)          start_row = 0;
+                        if (start_row > N_ROWS)     start_row = N_ROWS-1;
+                        if (start_col < 0)          start_col = 0;
+                        if (start_col > N_COLS)     start_col = N_COLS-1;
+                        if (end_row > N_ROWS)       end_row = N_ROWS-1;
+                        if (end_row < 0)            end_row = 0;
+                        if (end_col > N_COLS)       end_col = N_COLS-1;
+                        if (end_col < 0)            end_col = 0;
 
                         line_drawing (canvas, start_row, start_col, end_row, end_col);
                         displayCanvas(canvas);
@@ -71,8 +76,8 @@ int main(void) {
                         canvasGraph(canvas);
                         printf("\n");
             }
-
-        } else if (command == 2) {
+        } 
+        if (command == 2) { // command 2 means Fill Rectangle
 
             //if the given command both starts and ends outside the canvas, ignore it
             if ((start_row > 0 && start_row < N_ROWS) && 
@@ -85,18 +90,20 @@ int main(void) {
                 printf("\n");
                 canvasGraph(canvas);
                 printf("\n");
+
             //if the given command is partially outside the canvas, only draw the section that is within the canvas
             } else if (((start_row > 0 && start_row < N_ROWS) && (start_col > 0 && start_col < N_COLS)) ||
                            ((end_row > 0 && end_row < N_ROWS) && (end_col > 0 && end_col < N_COLS))) {
+                
                 //Changes the value beyond the boundary to the maximum or minimum of the border
-                if (start_row < 0) start_row = 0;
-                if (start_row > N_ROWS) start_row = N_ROWS-1;
-                if (start_col < 0) start_col = 0;
-                if (start_col > N_COLS) start_col = N_COLS-1;
-                if (end_row > N_ROWS) end_row = N_ROWS-1;
-                if (end_row < 0) end_row = 0;
-                if (end_col > N_COLS) end_col = N_COLS-1;
-                if (end_col < 0) end_col = 0;
+                if (start_row < 0)          start_row = 0;
+                if (start_row > N_ROWS)     start_row = N_ROWS-1;
+                if (start_col < 0)          start_col = 0;
+                if (start_col > N_COLS)     start_col = N_COLS-1;
+                if (end_row > N_ROWS)       end_row = N_ROWS-1;
+                if (end_row < 0)            end_row = 0;
+                if (end_col > N_COLS)       end_col = N_COLS-1;
+                if (end_col < 0)            end_col = 0;
 
                 rectangle_filling(canvas, start_row, start_col, end_row, end_col);
                 displayCanvas(canvas);
@@ -105,11 +112,13 @@ int main(void) {
                 printf("\n");
             }
         }
+        if (command == 3) { // command 3 means Add Shade
+
+
+        }
         
     }
         
-        
-
     return 0;
 }
     

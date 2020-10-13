@@ -19,8 +19,8 @@ int main(void){
         printf("Middle: %d\n", c);
     } else {
         printf("Middle: %d\n", a * ((a<b && a>c) || (a>b && a<c)) + 
-                            b * ((b<a && b>c) || (b>a && b<c)) + 
-                            c * ((c<a && c>b) || (c>a && c<b)));
+                               b * ((b<a && b>c) || (b>a && b<c)) + 
+                               c * ((c<a && c>b) || (c>a && c<b)));
     }
     return 0;
 }

@@ -27,7 +27,11 @@ int main(void){
             printf("%s + ", words[number_1]);
         }
     } else {
-        printf("%d + ", number_1);
+        if (p_n_1 != 0) {
+            printf("%d + ", number_1);
+        } else {
+            printf("%d + ", number_1 * -1);
+        }
     }
     if (number_2 >= -10 && number_2 <= 10) {
         if (p_n_2 == 0) {
@@ -36,7 +40,11 @@ int main(void){
             printf("%s = ", words[number_2]);
         }
     } else {
-         printf("%d = ", number_2);
+        if (p_n_2 != 0) {
+            printf("%d = ", number_2);
+        } else {
+            printf("%d = ", number_2 * -1);
+        }
     }
     if (sum >= -10 && sum <= 10) {
         if (p_n_sum == 0) {
@@ -45,7 +53,11 @@ int main(void){
             printf("%s\n", words[sum]);
         }
     } else {
-        printf("%d\n", sum);
+        if (p_n_sum != 0) {
+            printf("%d\n", sum);
+        } else {
+            printf("%d\n", sum * -1);
+        }
     }
     return 0;
 }

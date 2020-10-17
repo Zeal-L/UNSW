@@ -36,7 +36,7 @@ int check_location(int start_row,int start_col,int end_row,int end_col);
 // If draw it from the bottom up then flip the start and end
 void flipping (int *cur_r, int *cur_c, int *start_r,int *start_c,int *end_r,int *end_c);
 // Copy and Paste
-int copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col);
+void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col);
 
 
 int main(void) {
@@ -106,6 +106,12 @@ int main(void) {
             int target_row, target_col;
             while (scanf("%d%d%d%d%d%d", &start_row, &start_col, &end_row, &end_col, &target_row, &target_col) == 6) {
                 copy_paste (canvas, start_row, start_col, end_row, end_col, target_row, target_col);
+
+                displayCanvas(canvas);
+                printf("\n");
+                canvasGraph(canvas);
+                printf("\n");
+
                 break;
             }
             
@@ -115,11 +121,23 @@ int main(void) {
 }
 
 // Copy and Paste
-int copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col) {
+void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col) {
 
-
-
-
+    int cur_row = end_row - start_row + 1, cur_col = end_col - start_col + 1;
+    int copy[cur_row][cur_col];
+    
+    for (int i = 0; i < cur_row; i++) {
+        for (int j = 0; j < cur_col; j++) {
+            copy[i][j] = canvas[start_row+i][start_col+j];
+        }
+    }
+    for (int i = 0; i < cur_row; i++) {
+        for (int j = 0; j < cur_col; j++) {
+            // If paste partially outside the canvas, ignore it
+            if ((target_row+i > N_ROWS-1) || (target_col+j > N_COLS-1) || (target_row+i < 0) || (start_col+j < 0)) break;
+            canvas[target_row+i][target_col+j] = copy[i][j];
+        }
+    }
 }
 
 

@@ -66,12 +66,48 @@
 //     return 0;
 // }
 
-int main (void) 
-{ 
-    int shu = 7%2;
-    printf ("The number is %d\n", shu);
+// int main (void) 
+// { 
+// //   // using getchar() to read a single character from input
+// //     int inputChar;
+// //     printf("Please enter a character: ");
+// //     inputChar = getchar();
+// //     printf("The input %c has the ASCII value %d.\n", inputChar, inputChar);
+// //     // using putchar() to write a single character to output
+// //     putchar(inputChar);
+
+//     // reading and writing lines of text
+//     char line[5];
+//     while (fgets(line, 2, stdin) != NULL) {
+//         fputs(line, stdout);
+//     }
     
-return 0;
+//     return 0;
+// }
+
+// int main(int argc, char *argv[]) {
+//     int i = 1;
+//     printf("Well actually %s says there's no such thing as ", argv[0]);
+//     while (i < argc) {
+//         fputs(argv[i], stdout);
+//         printf(" ");
+//     i++;
+//     }
+//     printf("\n");
+// }
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+    int total = 0;
+
+    int i = 1;
+    while (i < argc) {
+        //string to long integer, 十进制
+        total += strtol(argv[i], NULL, 10);
+        i++;
+    }
+    printf("Total is %d.\n", total);
 }
 
 

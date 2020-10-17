@@ -26,79 +26,103 @@ void displayCanvas(int canvas[N_ROWS][N_COLS]);
 // Clear the canvas by setting every pixel to be white.
 void clearCanvas(int canvas[N_ROWS][N_COLS]);
 // Draw Line
-void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int end_row,int end_col); 
+void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int end_row,int end_col, int new_shade); 
 // Fill Rectangle
-void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int *end_r,int *end_c); 
+void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int *end_r,int *end_c, int new_shade); 
 // Changes the value beyond the boundary to the maximum or minimum of the border
 void hold_boundary(int *start_r,int *start_c,int *end_r,int *end_c);
 // Checking the location of the given command on the canvas
 int check_location(int start_row,int start_col,int end_row,int end_col);
 // If draw it from the bottom up then flip the start and end
 void flipping (int *cur_r, int *cur_c, int *start_r,int *start_c,int *end_r,int *end_c);
+// Copy and Paste
+int copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col);
 
 
 int main(void) {
     int canvas[N_ROWS][N_COLS];
     clearCanvas(canvas);
 
-    int command = 0, start_row = 0, start_col = 0, end_row = 0, end_col = 0;
+    int command, start_row, start_col, end_row, end_col, new_shade = 0;
     int *start_r = &start_row, *start_c = &start_col, *end_r= &end_row, *end_c = &end_col;
     
-    while (scanf("%d%d%d%d%d", &command, &start_row, &start_col, &end_row, &end_col) == 5) {
-        
+    while (scanf("%d", &command) == 1) {
+
         if (command == 1) { // Draw Line
-            
-            if (check_location(start_row, start_col, end_row, end_col) == 0) {
+            while (scanf("%d%d%d%d", &start_row, &start_col, &end_row, &end_col) == 4) {
+                if (check_location(start_row, start_col, end_row, end_col) == 0) {
 
-                line_drawing(canvas, start_row, start_col, end_row, end_col);
+                    line_drawing(canvas, start_row, start_col, end_row, end_col, new_shade);
 
-                displayCanvas(canvas);
-                printf("\n");
-                canvasGraph(canvas);
-                printf("\n");
-                
-            } else if (check_location(start_row, start_col, end_row, end_col) == 1) {
+                    displayCanvas(canvas);
+                    printf("\n");
+                    canvasGraph(canvas);
+                    printf("\n");
+
+                } else if (check_location(start_row, start_col, end_row, end_col) == 1) {
                         
-                hold_boundary(start_r, start_c, end_r, end_c);
-                line_drawing(canvas, start_row, start_col, end_row, end_col);
-                
-                displayCanvas(canvas);
-                printf("\n");
-                canvasGraph(canvas);
-                printf("\n");
+                    hold_boundary(start_r, start_c, end_r, end_c);
+                    line_drawing(canvas, start_row, start_col, end_row, end_col, new_shade);
+                    
+                    displayCanvas(canvas);
+                    printf("\n");
+                    canvasGraph(canvas);
+                    printf("\n");
+                }
+                break;
             }
         } 
         if (command == 2) { // Fill Rectangle
+            while (scanf("%d%d%d%d", &start_row, &start_col, &end_row, &end_col) == 4) {
+                if (check_location(start_row, start_col, end_row, end_col) == 0) {
 
-            if (check_location(start_row, start_col, end_row, end_col) == 0) {
+                    rectangle_filling(canvas, start_r, start_c, end_r, end_c, new_shade);
+                    
+                    displayCanvas(canvas);
+                    printf("\n");
+                    canvasGraph(canvas);
+                    printf("\n");
 
-                rectangle_filling(canvas, start_r, start_c, end_r, end_c);
+                } else if (check_location(start_row, start_col, end_row, end_col) == 1) {
                 
-                displayCanvas(canvas);
-                printf("\n");
-                canvasGraph(canvas);
-                printf("\n");
+                    hold_boundary(start_r, start_c, end_r, end_c);
+                    rectangle_filling(canvas, start_r, start_c, end_r, end_c, new_shade);
 
-            } else if (check_location(start_row, start_col, end_row, end_col) == 1) {
-                
-                hold_boundary(start_r, start_c, end_r, end_c);
-                rectangle_filling(canvas, start_r, start_c, end_r, end_c);
-
-                displayCanvas(canvas);
-                printf("\n");
-                canvasGraph(canvas);
-                printf("\n");
+                    displayCanvas(canvas);
+                    printf("\n");
+                    canvasGraph(canvas);
+                    printf("\n");
+                }
+                break;
             }
-        }
-        if (command == 3) { // Add Shade
             
         }
-        
+        if (command == 3) { // Change Shade
+            int check_shade = 0;
+            scanf("%d", &check_shade);
+            if (check_shade >= 0 && check_shade <= 4) new_shade = check_shade;
+        } 
+        if (command == 4) { // Copy and Paste
+            int target_row, target_col;
+            while (scanf("%d%d%d%d%d%d", &start_row, &start_col, &end_row, &end_col, &target_row, &target_col) == 6) {
+                copy_paste (canvas, start_row, start_col, end_row, end_col, target_row, target_col);
+                break;
+            }
+            
+        }
     }
-        
     return 0;
 }
-    
+
+// Copy and Paste
+int copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col) {
+
+
+
+
+}
+
+
 
 // Display the canvas graph.
 void canvasGraph(int canvas[N_ROWS][N_COLS]) {
@@ -173,7 +197,7 @@ void flipping (int *cur_r, int *cur_c, int *start_r,int *start_c,int *end_r,int 
 }
 
 //Draw Line
-void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int end_row,int end_col) { 
+void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int end_row,int end_col, int new_shade) { 
 
     int cur_row, cur_col;
     int *cur_r = &cur_row, *cur_c = &cur_col, 
@@ -186,17 +210,17 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
 
          if (start_row <= end_row && start_col == end_col) { // from top to bottom
             while (cur_row <= end_row) {
-                canvas[cur_row][cur_col] = BLACK;
+                canvas[cur_row][cur_col] = new_shade;
                 cur_row++;
             }
         } else if (start_col <= end_col && start_row == end_row) { // from left to right
             while (cur_col <= end_col) {
-                canvas[cur_row][cur_col] = BLACK;
+                canvas[cur_row][cur_col] = new_shade;
                 cur_col++;
             }
         } else if (start_col >= end_col && start_row == end_row) { // from right to left
             while (cur_col >= end_col) {
-                canvas[cur_row][cur_col] = BLACK;
+                canvas[cur_row][cur_col] = new_shade;
                 cur_col--;
             }
             
@@ -204,7 +228,7 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
     } else if (start_row - end_row == start_col - end_col) { // Or 45° Diagonals ---- top-left to bottom-right 
         int counter = 0;
         while (counter <= end_row - start_row) {
-            canvas[cur_row][cur_col] = BLACK;
+            canvas[cur_row][cur_col] = new_shade;
             cur_row++;
             cur_col++;
             counter++;
@@ -213,7 +237,7 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
     } else if (start_row - end_row == -1 * (start_col - end_col)) { // Or 45° Diagonals ---- top-right to bottom-left
         int counter = 0;
         while (counter <= start_col - end_col) {
-            canvas[cur_row][cur_col] = BLACK;
+            canvas[cur_row][cur_col] = new_shade;
             cur_row++;
             cur_col--;
             counter++;
@@ -222,7 +246,7 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
 }
 
 // Fill Rectangle
-void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int *end_r,int *end_c) {
+void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int *end_r,int *end_c, int new_shade) {
 
     int cur_row, cur_col;
     int *cur_r = &cur_row, *cur_c = &cur_col;
@@ -232,7 +256,7 @@ void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int
         while (cur_row <= *end_r) {
             cur_col = *start_c;
             while (cur_col <= *end_c) {
-                canvas[cur_row][cur_col] = BLACK;
+                canvas[cur_row][cur_col] = new_shade;
                 cur_col++;
             }
             cur_row++;
@@ -241,7 +265,7 @@ void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int
         while (cur_row <= *end_r) {
             cur_col = *start_c;
             while (cur_col >= *end_c) {
-                canvas[cur_row][cur_col] = BLACK;
+                canvas[cur_row][cur_col] = new_shade;
                 cur_col--;
             }
             cur_row++;

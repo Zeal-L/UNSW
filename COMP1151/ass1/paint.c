@@ -37,10 +37,13 @@ int check_location(int start_row,int start_col,int end_row,int end_col);
 void flipping (int *start_r,int *start_c,int *end_r,int *end_c);
 // Copy and Paste
 void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col);
+// Macro Playback
+void macro_play(int canvas[N_ROWS][N_COLS], int macro_store[10][5], int row_offset, int col_offset, int num_commands, int new_shade);
+
 
 
 int main(void) {
-    int canvas[N_ROWS][N_COLS], macro_store[0][0];
+    int canvas[N_ROWS][N_COLS], macro_store[10][5];
     clearCanvas(canvas);
 
     int command, start_row, start_col, end_row, end_col, new_shade = 0, num_commands = 0;;
@@ -83,9 +86,8 @@ int main(void) {
         }
         if (command == 5) { // Macro Record
             while (scanf("%d", &num_commands) == 1) {
-                macro_store[num_commands][5];
                 for (int i = 0; i < num_commands; i++) {
-                    for (int j = 0; j <= 5; j++) {
+                    for (int j = 0; j < 5; j++) {
                         scanf("%d", &macro_store[i][j]);
                     }
                 }
@@ -95,27 +97,32 @@ int main(void) {
         if (command == 6) { // Macro Playback
             int row_offset = 0, col_offset = 0;
             while (scanf("%d%d", &row_offset, &col_offset) == 2) { 
-                if (num_commands != 0) { // Check if command 5 has been used
-                    if (row_offset == 0 && col_offset == 0) { // If there is no change, just execute the Macro
-                        for (int i = 0; i < num_commands; i++) {
-                            if (macro_store[i][0] == 1) { // Draw Line
-
-                            } else if (macro_store[i][0] == 2) { // Fill Rectangle
-
-                            }
-                        }
-
-                    } else { // // apply the changes
-                        
-                    }
-                }
+                macro_play (canvas, macro_store, row_offset, col_offset, num_commands, new_shade);
                 break;
             }
-        
         }
     }
     return 0;
 }
+
+// Macro Playback
+void macro_play(int canvas[N_ROWS][N_COLS], int macro_store[10][5], int row_offset, int col_offset, int num_commands, int new_shade) {
+    if (num_commands != 0) { // Check if command 5 has been used
+        for (int i = 0; i < num_commands; i++) {
+            macro_store[i][1] += row_offset;
+            macro_store[i][2] += col_offset;
+            macro_store[i][3] += row_offset;
+            macro_store[i][4] += col_offset;
+            if (macro_store[i][0] == 1) { // Draw Line
+                line_drawing(canvas, macro_store[i][1], macro_store[i][2], macro_store[i][3], macro_store[i][4], new_shade, macro_store[i][0]);
+            } else if (macro_store[i][0] == 2) { // Fill Rectangle
+                rectangle_filling(canvas, &macro_store[i][1], &macro_store[i][2], &macro_store[i][3], &macro_store[i][4], new_shade, macro_store[i][0]);
+            }
+        }
+    }
+}
+
+
 
 // Copy and Paste
 void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col) {
@@ -136,8 +143,6 @@ void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int e
         }
     }
 }
-
-
 
 // Display the canvas graph.
 void canvasGraph(int canvas[N_ROWS][N_COLS]) {
@@ -307,7 +312,7 @@ void hold_boundary(int *start_r,int *start_c,int *end_r,int *end_c, int command)
     if ((*start_r - *end_r == *start_c - *end_c) || (*start_r - *end_r == -1 * (*start_c - *end_c))) {
         // Boundary for Diagonals, Shorten both the protruding rows and columns
         int temp_start_row = *start_r, temp_start_col = *start_c, temp_end_row = *end_r, temp_end_col = *end_c;
-        if (*start_r - *end_r == *start_c - *end_c) { // 45° Diagonals ---- top-left to bottom-right
+        if ((*start_r - *end_r == *start_c - *end_c) && (command == 1)) { // 45° Diagonals ---- top-left to bottom-right
             if (*end_r > N_ROWS-1) { // Lower right corner protruding
                 while ((*end_r > N_ROWS-1) || (*end_c > N_COLS-1)) {
                     temp_end_row--;

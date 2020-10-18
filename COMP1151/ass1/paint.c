@@ -26,55 +26,59 @@ void displayCanvas(int canvas[N_ROWS][N_COLS]);
 // Clear the canvas by setting every pixel to be white.
 void clearCanvas(int canvas[N_ROWS][N_COLS]);
 // Draw Line
-void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int end_row,int end_col, int new_shade, int command); 
+void line_drawing(int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int new_shade, int command); 
 // Fill Rectangle
-void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int *end_r,int *end_c, int new_shade, int command); 
+void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r, int *start_c, int *end_r, int *end_c, int new_shade, int command); 
 // Changes the value beyond the boundary to the maximum or minimum of the border
-void hold_boundary(int *start_r,int *start_c,int *end_r,int *end_c, int command);
+void hold_boundary(int *start_r, int *start_c, int *end_r, int *end_c, int command);
 // Checking the location of the given command on the canvas
-int check_location(int start_row,int start_col,int end_row,int end_col);
+int check_location(int start_row, int start_col, int end_row, int end_col);
 // If draw it from the bottom up then flip the start and end
-void flipping (int *start_r,int *start_c,int *end_r,int *end_c);
+void flipping(int *start_r, int *start_c,int *end_r, int *end_c);
 // Copy and Paste
 void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col);
 // Macro Playback
 void macro_play(int canvas[N_ROWS][N_COLS], int macro_store[10][5], int row_offset, int col_offset, int num_commands, int new_shade);
-
+// Sets all canvas to be blank
+void clear_canvas_store(int canvas_store[5][N_ROWS][N_COLS]);
+// Displays the saved canvas
+void display_canvas_store(int canvas_store[5][N_ROWS][N_COLS], int canvas_number);
 
 
 int main(void) {
-    int canvas[N_ROWS][N_COLS], macro_store[10][5];
+    int canvas[N_ROWS][N_COLS], macro_store[10][5], canvas_store[5][N_ROWS][N_COLS];
+    int canvas_number = 0;
     clearCanvas(canvas);
-
+    // Sets all canvas to be blank
+    clear_canvas_store(canvas_store);
     int command, start_row, start_col, end_row, end_col, new_shade = 0, num_commands = 0;;
     int *start_r = &start_row, *start_c = &start_col, *end_r= &end_row, *end_c = &end_col;
     
     while (scanf("%d", &command) == 1) {
-
         if (command == 1) { // Draw Line
             while (scanf("%d%d%d%d", &start_row, &start_col, &end_row, &end_col) == 4) {
                 line_drawing(canvas, start_row, start_col, end_row, end_col, new_shade, command);
                 break;
+                // I use "break" here because I'm sure it makes my code simpler and more readable. 
+                // Otherwise I would need to add an extra variable to check 
+                // if the user is entering an integer and if it's time to end the loop. 
+                // All of the following "break" are used for this purpose only and have no other purpose.
             }
-        } 
-        if (command == 2) { // Fill Rectangle
+        } else if (command == 2) { // Fill Rectangle
             while (scanf("%d%d%d%d", &start_row, &start_col, &end_row, &end_col) == 4) {
                 rectangle_filling(canvas, start_r, start_c, end_r, end_c, new_shade, command);
                 break;
             }
-            
-        }
-        if (command == 3) { // Change Shade
+        } else if (command == 3) { // Change Shade
             int check_shade = 0;
             while (scanf("%d", &check_shade) == 1) {
                 if (check_shade >= 0 && check_shade <= 4) new_shade = check_shade;
                 break;
             }
-        } 
-        if (command == 4) { // Copy and Paste
+        } else if (command == 4) { // Copy and Paste
             int target_row, target_col;
             while (scanf("%d%d%d%d%d%d", &start_row, &start_col, &end_row, &end_col, &target_row, &target_col) == 6) {
-                copy_paste (canvas, start_row, start_col, end_row, end_col, target_row, target_col);
+                copy_paste(canvas, start_row, start_col, end_row, end_col, target_row, target_col);
 
                 displayCanvas(canvas);
                 printf("\n");
@@ -83,8 +87,7 @@ int main(void) {
 
                 break;
             }
-        }
-        if (command == 5) { // Macro Record
+        } else if (command == 5) { // Macro Record
             while (scanf("%d", &num_commands) == 1) {
                 for (int i = 0; i < num_commands; i++) {
                     for (int j = 0; j < 5; j++) {
@@ -93,16 +96,59 @@ int main(void) {
                 }
                 break;
             }
-        }
-        if (command == 6) { // Macro Playback
+        } else if (command == 6) { // Macro Playback
             int row_offset = 0, col_offset = 0;
             while (scanf("%d%d", &row_offset, &col_offset) == 2) { 
-                macro_play (canvas, macro_store, row_offset, col_offset, num_commands, new_shade);
+                macro_play(canvas, macro_store, row_offset, col_offset, num_commands, new_shade);
                 break;
+            }
+        } else if (command == 7) { // Save state
+            if (canvas_number > 4) {
+                for (int i = 1; i < 5; i++) {
+                    for (int row = 0; row < N_ROWS; row++) {
+                        for (int col = 0; col < N_COLS; col++) {
+                            canvas_store[i-1][row][col] = canvas_store[i][row][col];
+                        }
+                    }
+                }
+                canvas_number = 4;
+            }
+            for (int row = 0; row < N_ROWS; row++) {
+                for (int col = 0; col < N_COLS; col++) {
+                    canvas_store[canvas_number][row][col] = canvas[row][col];
+                }
+            }
+            canvas_number++;
+
+        }
+    }
+    display_canvas_store(canvas_store, canvas_number);
+    displayCanvas(canvas);
+    return 0;
+}
+
+// Displays the saved canvas
+void display_canvas_store(int canvas_store[5][N_ROWS][N_COLS], int canvas_number) {
+    for (int i = 0; i < canvas_number; i++) {
+        for (int row = 0; row < N_ROWS; row++) {
+            for (int col = 0; col < N_COLS; col++) {
+                printf("%d ", canvas_store[i][row][col]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
+
+// Sets all canvas to be blank
+void clear_canvas_store(int canvas_store[5][N_ROWS][N_COLS]) {
+    for (int i = 0; i < 5; i++) {
+        for (int row = 0; row < N_ROWS; row++) {
+            for (int col = 0; col < N_COLS; col++) {
+                canvas_store[i][row][col] = WHITE;
             }
         }
     }
-    return 0;
 }
 
 // Macro Playback
@@ -122,8 +168,6 @@ void macro_play(int canvas[N_ROWS][N_COLS], int macro_store[10][5], int row_offs
     }
 }
 
-
-
 // Copy and Paste
 void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int target_row, int target_col) {
 
@@ -138,7 +182,8 @@ void copy_paste (int canvas[N_ROWS][N_COLS], int start_row, int start_col, int e
     for (int i = 0; i < cur_row; i++) {
         for (int j = 0; j < cur_col; j++) {
             // If paste partially outside the canvas, ignore it
-            if ((target_row+i > N_ROWS-1) || (target_col+j > N_COLS-1) || (target_row+i < 0) || (start_col+j < 0)) break;
+            if ((target_row+i > N_ROWS-1) || (target_col+j > N_COLS-1) || 
+                       (target_row+i < 0) || (start_col+j < 0)) break;
             canvas[target_row+i][target_col+j] = copy[i][j];
         }
     }
@@ -203,7 +248,7 @@ void clearCanvas(int canvas[N_ROWS][N_COLS]) {
 }
 
 //Draw Line
-void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int end_row,int end_col, int new_shade, int command) { 
+void line_drawing(int canvas[N_ROWS][N_COLS], int start_row, int start_col, int end_row, int end_col, int new_shade, int command) { 
 
     int *start_r = &start_row, *start_c = &start_col, *end_r = &end_row, *end_c = &end_col;
     // if the given command both starts and ends outside the canvas, ignore it
@@ -213,8 +258,7 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
 
     // Draw only perfectly horizontal or vertical lines
     if (start_row == end_row || start_col == end_col) {
-
-         if (start_row <= end_row && start_col == end_col) { // from top to bottom
+        if (start_row <= end_row && start_col == end_col) { // from top to bottom
             while (cur_row <= end_row) {
                 canvas[cur_row][cur_col] = new_shade;
                 cur_row++;
@@ -229,7 +273,6 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
                 canvas[cur_row][cur_col] = new_shade;
                 cur_col--;
             }
-            
         } 
     } else if (start_row - end_row == start_col - end_col) { // Or 45° Diagonals ---- top-left to bottom-right 
         int counter = 0;
@@ -239,7 +282,6 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
             cur_col++;
             counter++;
         }
-
     } else if (start_row - end_row == -1 * (start_col - end_col)) { // Or 45° Diagonals ---- top-right to bottom-left
         int counter = 0;
         while (counter <= start_col - end_col) {
@@ -256,8 +298,7 @@ void line_drawing(int canvas[N_ROWS][N_COLS], int start_row,int start_col,int en
 }
 
 // Fill Rectangle
-void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int *end_r,int *end_c, int new_shade, int command) {
-
+void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r, int *start_c, int *end_r, int *end_c, int new_shade, int command) {
     int start_row = *start_r, start_col = *start_c, end_row = *end_r, end_col = *end_c;
     // if the given command both starts and ends outside the canvas, ignore it
     if (check_location(start_row, start_col, end_row, end_col) == -1) return;
@@ -290,7 +331,7 @@ void rectangle_filling(int canvas[N_ROWS][N_COLS], int *start_r,int *start_c,int
 }
 
 //If draw it from the bottom up then flip the start and end, otherwise do nothing
-void flipping (int *start_r,int *start_c,int *end_r,int *end_c) {
+void flipping (int *start_r, int *start_c, int *end_r, int *end_c) {
     int cur_r = *start_r;
     int cur_c = *start_c;
     if (*start_r > *end_r) { 
@@ -304,49 +345,38 @@ void flipping (int *start_r,int *start_c,int *end_r,int *end_c) {
 }
 
 //Changes the value beyond the boundary to the maximum or minimum of the border
-void hold_boundary(int *start_r,int *start_c,int *end_r,int *end_c, int command) {
-
+void hold_boundary(int *start_r, int *start_c, int *end_r, int *end_c, int command) {
     flipping (start_r, start_c, end_r, end_c);
-
     // Checking if it is 45° Diagonals
     if ((*start_r - *end_r == *start_c - *end_c) || (*start_r - *end_r == -1 * (*start_c - *end_c))) {
-        // Boundary for Diagonals, Shorten both the protruding rows and columns
-        int temp_start_row = *start_r, temp_start_col = *start_c, temp_end_row = *end_r, temp_end_col = *end_c;
+        // Diagonals' Boundary, Shorten both the protruding rows and columns
         if ((*start_r - *end_r == *start_c - *end_c) && (command == 1)) { // 45° Diagonals ---- top-left to bottom-right
             if (*end_r > N_ROWS-1) { // Lower right corner protruding
                 while ((*end_r > N_ROWS-1) || (*end_c > N_COLS-1)) {
-                    temp_end_row--;
-                    temp_end_col--;
-                    *end_r = temp_end_row;
-                    *end_c = temp_end_col;
+                    (*end_r)--;
+                    (*end_c)--;
                 }
             } else if (*start_r < 0) { // Top left corner protrusion
                 while ((*start_r < 0) || (*start_c < 0)) {
-                    temp_start_row++;
-                    temp_start_col++;
-                    *start_r = temp_start_row;
-                    *start_c = temp_start_col;
+                    (*start_r)++;
+                    (*start_c)++;
                 }
             }
         } else if (*start_r - *end_r == -1 * (*start_c - *end_c)) { // 45° Diagonals ---- top-right to bottom-left
             if (*end_r > N_ROWS-1) { // Lower left corner protruding
                 while ((*end_r > N_ROWS-1) || (*end_c < 0)) {
-                    temp_end_row--;
-                    temp_end_col++;
-                    *end_r = temp_end_row;
-                    *end_c = temp_end_col;
+                    (*end_r)--;
+                    (*end_c)++;
                 }
             } else if (*start_r < 0) { // Top right corner protruding
                 while ((*start_r < 0) || (*start_c > N_COLS-1)) {
-                    temp_start_row++;
-                    temp_start_col--;
-                    *start_r = temp_start_row;
-                    *start_c = temp_start_col;
+                    (*start_r)++;
+                    (*start_c)--;
                 }
             }
         }
     } else if ((*start_r == *end_r || *start_c == *end_c) || (command == 2)) {
-        // Normal boundary
+        // Boundary for such as Straight lines and quadrilaterals
         if (*start_r < 0)          *start_r = 0;
         if (*start_r > N_ROWS)     *start_r = N_ROWS-1;
         if (*start_c < 0)          *start_c = 0;
@@ -368,7 +398,8 @@ int check_location(int start_row, int start_col, int end_row, int end_col) {
           (end_col >= 0 && end_col < N_COLS)) {
         return 0;
     }
-    // if the given command is partially outside the canvas, only draw the section that is within the canvas
+    // if the given command is partially outside the canvas, 
+    // only draw the section that is within the canvas
     if (((start_row >= 0 && start_row < N_ROWS) && (start_col >= 0 && start_col < N_COLS)) ||
             ((end_row >= 0 && end_row < N_ROWS) && (end_col >= 0 && end_col < N_COLS))) {
         return 1;

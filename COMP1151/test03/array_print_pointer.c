@@ -41,6 +41,10 @@ int main(int argc, char *argv[]){
     // Pass in the array and a pointer to the 
     // last element that should be printed
     array_print_pointer(nums2, last2);
+
+    // int nums3[LENGTH] = {1,5,4,3,5,6,7,8,9,10};
+    // int *last3 = &nums3[2];
+    // array_print_pointer(nums3, last3);
     return 0;
 }
 
@@ -50,7 +54,7 @@ int main(int argc, char *argv[]){
 
 // Assumes that the pointer is aimed at one of the array elements.
 void array_print_pointer(int nums[LENGTH], int *last) {
-    for (int i = 0; i != *last; i++) {
+    for (int i = 0; &nums[i] != last+1; i++) {
         printf("%d ", nums[i]);
     }
 }

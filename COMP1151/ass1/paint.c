@@ -2,7 +2,7 @@
 // paint.c
 //
 // This program was written by Zeal Liang (z5325156)
-// on 4/10/2020
+// on 25/10/2020
 //
 // Version 1.0.0 (2020-10-04): Assignment released.
 
@@ -26,7 +26,7 @@ void clearCanvas(int canvas[N_ROWS][N_COLS]);
 // Display the canvas graph.
 void canvasGraph(int canvas[N_ROWS][N_COLS]);
 
-// Sets all canvas to be blank
+// Set all canvas to be blank
 void clearCanvasStore(int canvas_store[5][N_ROWS][N_COLS]);
 // Save the current canvas state in canvas store
 int saveCanvas(
@@ -86,8 +86,8 @@ int main(void) {
     int command, start_row, start_col, end_row, end_col;
     int *start_r = &start_row, *start_c = &start_col;
     int *end_r= &end_row, *end_c = &end_col;
-    int shade = 0, num_commands = 0;
-    
+    int shade = 0, num_commands = 0, check_shade = 0;
+
     while (scanf("%d", &command) == 1) {
         if (command == 1) { // Draw Line
             if (scanf("%d %d %d %d", &start_row, &start_col, &end_row, &end_col) == 4) {
@@ -99,10 +99,9 @@ int main(void) {
                 rectangleFilling (canvas, start_r, start_c, end_r, end_c, shade);
             }
 
-        } else if (command == 3) { // Change Shade
-            int check_shade = 0;
-            if (scanf("%d", &check_shade) == 1) {
-                if (check_shade >= 0 && check_shade <= 4) shade = check_shade;
+        } else if ((command == 3) && (scanf("%d", &check_shade) == 1)) { // Change Shade
+            if (check_shade >= 0 && check_shade <= 4) {
+                shade = check_shade;
             }
 
         } else if (command == 4) { // Copy and Paste
@@ -126,9 +125,9 @@ int main(void) {
     }
     displayCanvasStore(canvas_store, canvas_number);
     displayCanvas(canvas);
-    // printf("\n");
-    // canvasGraph(canvas);
-    // printf("\n");
+    printf("\n");
+    canvasGraph(canvas);
+    printf("\n");
     return 0;
 }
 
@@ -138,6 +137,8 @@ int saveCanvas(
     int canvas_s[5][N_ROWS][N_COLS], 
     int canvas_n
 ) {
+    // If more than 5 saves are made within the program, 
+    // only the last 5 should be kept
     for (int i = 1; i < 5 && canvas_n > 4; i++) {
         for (int row = 0; row < N_ROWS; row++) {
             for (int col = 0; col < N_COLS; col++) {
@@ -168,7 +169,7 @@ void displayCanvasStore(int canvas_store[5][N_ROWS][N_COLS], int canvas_n) {
     }
 }
 
-// Sets all canvas to be blank
+// Set all canvas to be blank
 void clearCanvasStore(int canvas_store[5][N_ROWS][N_COLS]) {
     for (int i = 0; i < 5; i++) {
         for (int row = 0; row < N_ROWS; row++) {
@@ -226,7 +227,7 @@ void copyPaste (int canvas[N_ROWS][N_COLS]) {
         int *start_r = &start_row, *start_c = &start_col; 
         int *end_r= &end_row, *end_c = &end_col;
         flipping(start_r, start_c, end_r, end_c);
-        // If copy it from the Top-right to bottom_left then flip the start and end column 
+        // If copy it from the Top-right to bottom-left then flip the start and end column 
         if (start_col > end_col) {
             int temp_col = start_col;
             start_col = end_col;
@@ -394,7 +395,8 @@ void rectangleFilling(
     int canvas[N_ROWS][N_COLS], int *start_r, int *start_c, 
     int *end_r, int *end_c, int shade
 ) {
-    int start_row = *start_r, start_col = *start_c, end_row = *end_r, end_col = *end_c;
+    int start_row = *start_r, start_col = *start_c;
+    int end_row = *end_r, end_col = *end_c;
     // if the given command both starts and ends outside the canvas, ignore it
     if (checkLocation(start_row, start_col, end_row, end_col) == -1) {
         return;

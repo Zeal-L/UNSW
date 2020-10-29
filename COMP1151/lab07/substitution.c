@@ -14,7 +14,9 @@
 int substitutionCipher(int character, char argv[]);
 
 int main(int argc, char *argv[]) {
-    
+
+    if (strlen(argv[1]) != 26) return 0;
+
     int character = getchar();
     while (character != EOF) {
     

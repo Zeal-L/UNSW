@@ -36,7 +36,7 @@
 
 // Zeal Liang, September 2020, First week of COMP1511
 
-#include <stdio.h>//#include is a special tag for our compiler
+// #include <stdio.h>//#include is a special tag for our compiler
 // It asks the compiler to grab another file of code and add it to ours
 // In this case, it’s the Standard Input Output Library, allowing us to make text appear on the screen (as well as other things)
 
@@ -98,16 +98,49 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-int main(int argc, char *argv[]) {
-    int total = 0;
+#include <string.h>
+struct Books {
+    char  title[50];
+    char  author[50];
+    char  subject[100];
+    int   book_id;
+} Book = {"C 语言", "咲萌", "结构体", 123456}; // 定义时指定初始值
 
-    int i = 1;
-    while (i < argc) {
-        //string to long integer, 十进制
-        total += strtol(argv[i], NULL, 10);
-        i++;
-    }
-    printf("Total is %d.\n", total);
+void printBook( struct Books *book );
+
+int main(int argc, char *argv[]) {
+    
+    struct Books Book1;
+    strcpy(Book1.title, "C Programming");
+    strcpy(Book1.author, "咲萌"); 
+    strcpy(Book1.subject, "C Programming Tutorial");
+    Book1.book_id = 6495407;
+
+    printf("title : %s\nauthor: %s\nsubject: %s\nbook_id: %d\n\n", 
+            Book.title, Book.author, Book.subject, Book.book_id);
+    printBook(&Book1);
+    
+    struct Books *struct_pointer = &Book1;
+    (*struct_pointer).book_id    = 10;
+    struct_pointer->book_id      = 10;
+    
+    printBook(struct_pointer);
+    return 0;
 }
+
+void printBook( struct Books *book )
+{
+    printf( "Book title  : %s\n", book->title);
+    printf( "Book author : %s\n", book->author);
+    printf( "Book subject: %s\n", book->subject);
+    printf( "Book book_id: %d\n", book->book_id);
+}
+// <string.h> has access to some very useful functions
+// Note that char *s is equivalent to char s[] as a function input
+// ● int strlen(char *s) - return the length of the string (not including \0)
+// ● strcpy and strncpy - copy the contents of one string into another
+// ● strcat and strncat - attach one string to the end of another
+// ● strcmp and variations - compare two strings
+// ● strchr and strrchr - find the first or last occurrence of a character
 
 

@@ -72,6 +72,8 @@ Playlist newPlaylist(char name[MAX_LEN], int selected);
 int checkValidStrings(char string[MAX_LEN]);
 // Looking for a Playlist with the same name.
 Playlist searchPlaylist(Library library, char target[MAX_LEN]);
+// Find the selected Playlist.
+Playlist findSelectPlaylist(Playlist curr_p);
 
 // Function prototypes for helper functions. 
 static void print_playlist(int number, char playlistName[MAX_LEN]);
@@ -225,6 +227,8 @@ void select_previous_playlist(Library library) {
     }
 }
 
+
+
 // Add a new Track to the selected Playlist.
 int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN], 
     int trackLengthInSec, int position) {
@@ -235,13 +239,7 @@ int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN],
 
     // Find the selected Playlist.
     Playlist curr_p = library->head;
-    Playlist selected_p = NULL;
-    while(curr_p != NULL) {
-        if (curr_p->selected == 1) {
-            selected_p = curr_p;
-        } 
-        curr_p = curr_p->next;
-    }
+    Playlist selected_p = findSelectPlaylist(curr_p);
 
     // Check if the input is valid.
     if (checkValidStrings(title) == 0 
@@ -293,7 +291,31 @@ int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN],
 // Calculate the total length of the selected Playlist in minutes and seconds.
 void playlist_length(Library library, int *playlistMinutes, int *playlistSeconds) {
 
-    
+    if (library->head == NULL) {
+        *playlistMinutes = -1;
+        *playlistSeconds = -1;
+        return;
+    }
+
+    // Find the selected Playlist.
+    Playlist curr_p = library->head;
+    Playlist selected_p = findSelectPlaylist(curr_p);
+
+    // Initializing
+    *playlistMinutes = 0;
+    *playlistSeconds = 0;
+    if (selected_p->tracks == NULL) {
+        return;
+    }
+
+    Track curr_track = selected_p->tracks;
+    while(curr_track != NULL) {
+        *playlistMinutes += curr_track->length.minutes;
+        *playlistSeconds += curr_track->length.seconds;
+        curr_track = curr_track->next;
+    }
+    *playlistMinutes += *playlistSeconds / 60;
+    *playlistSeconds = *playlistSeconds % 60;
 
 }
 
@@ -306,15 +328,122 @@ void playlist_length(Library library, int *playlistMinutes, int *playlistSeconds
 // of the Library.
 void delete_track(Library library, char track[MAX_LEN]) {
 
+    if (library->head == NULL) {
+        return;
+    }
+
+    // Find the selected Playlist.
+    Playlist curr_p = library->head;
+    Playlist selected_p = findSelectPlaylist(curr_p);
+
+    if (selected_p->tracks == NULL) {
+        return;
+    }
+
+    Track curr_track = selected_p->tracks;
+    Track prev_track = NULL;
+    // deleting the first track in the playlist.
+    if (strcmp(track, curr_track->title) == 0) {
+        Track to_delete = curr_track;
+        selected_p->tracks = curr_track->next;
+        free(to_delete);
+
+    // deliting the middle or the end track in the playlist.
+    } else {
+        while(curr_track != NULL) {
+            if (strcmp(track, curr_track->title) == 0) {
+                Track to_delete = curr_track;
+                prev_track->next = to_delete->next;
+                free(to_delete);
+            }
+            prev_track = curr_track;
+            curr_track = curr_track->next;
+        }
+    }
+
 }
 
 // Delete the selected Playlist and select the next Playlist in the Library.
 void delete_playlist(Library library) {
+    if (library->head == NULL) {
+        return;
+    }
 
+    // Find the selected Playlist and the Playlist before it.
+    Playlist curr_p = library->head;
+    Playlist selected_p = NULL;
+    Playlist prev_p = NULL;
+    Playlist selected_prev = NULL;
+    while(curr_p != NULL) {
+        if (curr_p->selected == 1) {
+            selected_prev = prev_p;
+            selected_p = curr_p;
+        } 
+        prev_p = curr_p;
+        curr_p = curr_p->next;
+    }
+
+    // Deliting all Tracks (if any)
+    if (selected_p->tracks != NULL) {
+        Track curr_track = selected_p->tracks;
+        while (curr_track != NULL) {
+            Track to_delete = curr_track;
+            curr_track = curr_track->next;
+            free(to_delete);
+        }
+    }
+    // Deliting the first Playlist.
+    if (selected_p == library->head) {
+        library->head = selected_p->next;
+        free(selected_p);
+        // If the first playlist is not the last Playlist.
+        if (library->head != NULL) {
+            library->head->selected = 1;
+        } 
+    } else {
+        // Deliting the last Playlist.
+        if (selected_p->next == NULL) {
+            selected_prev->next = NULL;
+            library->head->selected = 1;
+            free(selected_p);
+
+        // Deliting the middle Playlist.
+        } else {
+            selected_p->next->selected = 1;
+            selected_prev->next = selected_p->next;
+            free(selected_p);
+        }
+        
+    }
+    
 }
 
 // Delete an entire Library and its associated Playlists and Tracks.
 void delete_library(Library library) {
+
+    if (library->head == NULL) {
+        free(library);
+        return;
+    }
+
+    // Deliting all Playlists (if any)
+    Playlist curr_p = library->head;
+    while (curr_p != NULL) {
+        // Deliting all Tracks (if any)
+        if (curr_p->tracks != NULL) {
+            Track curr_track = curr_p->tracks;
+            while (curr_track != NULL) {
+                Track to_delete = curr_track;
+                curr_track = curr_track->next;
+                free(to_delete);
+            }
+        }
+
+        Playlist to_delete = curr_p;
+        curr_p = curr_p->next;
+        free(to_delete);
+    }
+    free(library);
 
 }
 
@@ -407,4 +536,16 @@ Playlist searchPlaylist(Library library, char target[MAX_LEN]) {
 
     // NULL is returned if there is no matching Playlist.
     return NULL;
+}
+
+// Find the selected Playlist.
+Playlist findSelectPlaylist(Playlist curr_p) {
+    Playlist selected_p = NULL;
+    while(curr_p != NULL) {
+        if (curr_p->selected == 1) {
+            selected_p = curr_p;
+        } 
+        curr_p = curr_p->next;
+    }
+    return selected_p;
 }

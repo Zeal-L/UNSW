@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
     struct Books *struct_pointer = &Book1;
     (*struct_pointer).book_id    = 10;
     struct_pointer->book_id      = 10;
-    
+
     printBook(struct_pointer);
     return 0;
 }

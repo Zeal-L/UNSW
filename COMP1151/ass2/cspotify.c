@@ -68,12 +68,24 @@ struct track {
 
 // Create and initialize a new Playlist.
 Playlist newPlaylist(char name[MAX_LEN], int selected);
+// Create and initialize a new Track.
+Track newTrack(char title[MAX_LEN], char artist[MAX_LEN], 
+    int minutes, int seconds);
 // Check if the strings are alphanumeric.
 int checkValidStrings(char string[MAX_LEN]);
 // Looking for a Playlist with the same name.
 Playlist searchPlaylist(Library library, char target[MAX_LEN]);
 // Find the selected Playlist.
 Playlist findSelectPlaylist(Playlist curr_p);
+// Looking for a Track with the same name, and cut it out from the Playlist.
+Track cutTrack(Playlist curr_p, char target[MAX_LEN]);
+// Soundex encoding from a string.
+char *soundexAlg(char artist[MAX_LEN]);
+// Removes a specific element from a string.
+void deleteElement(char *artist, int index);
+// Moves the specified Track from the 
+// current Playlist to the specified Playlist.
+void moveTrack(Track curr_track, Playlist curr_p, Playlist p_to_paste);
 
 // Function prototypes for helper functions. 
 static void print_playlist(int number, char playlistName[MAX_LEN]);
@@ -227,8 +239,6 @@ void select_previous_playlist(Library library) {
     }
 }
 
-
-
 // Add a new Track to the selected Playlist.
 int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN], 
     int trackLengthInSec, int position) {
@@ -249,14 +259,9 @@ int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN],
         return ERROR_INVALID_INPUTS;
     }
 
-    // Initializing the new Track.
-    Track new_track = malloc(sizeof(struct track));
-    strcpy(new_track->title, title);
-    strcpy(new_track->artist, artist);
-    new_track->length.minutes = trackLengthInSec / 60;
-    new_track->length.seconds = trackLengthInSec % 60;
-    new_track->next = NULL;
-
+    // Create and initialize a new Track.
+    Track new_track = newTrack(title, artist, trackLengthInSec / 60, trackLengthInSec % 60);
+    
     // Inserting at the front of the Playlist.
     Track curr_t = selected_p->tracks;
     if (position == 0) {
@@ -430,21 +435,17 @@ void delete_library(Library library) {
     Playlist curr_p = library->head;
     while (curr_p != NULL) {
         // Deliting all Tracks (if any)
-        if (curr_p->tracks != NULL) {
-            Track curr_track = curr_p->tracks;
-            while (curr_track != NULL) {
-                Track to_delete = curr_track;
-                curr_track = curr_track->next;
-                free(to_delete);
-            }
+        Track curr_track = curr_p->tracks;
+        while (curr_track != NULL) {
+            Track to_delete = curr_track;
+            curr_track = curr_track->next;
+            free(to_delete);
         }
-
         Playlist to_delete = curr_p;
         curr_p = curr_p->next;
         free(to_delete);
     }
     free(library);
-
 }
 
 
@@ -456,13 +457,82 @@ void delete_library(Library library) {
 // destination Playlist.
 int cut_and_paste_track(Library library, char trackTitle[MAX_LEN], 
     char destPlaylist[MAX_LEN]) {
+    if (library->head == NULL) {
+        return ERROR_NOT_FOUND;
+    }
+
+    // Find the selected Playlist.
+    Playlist curr_p = library->head;
+    Playlist selected_p = findSelectPlaylist(curr_p);
+
+    // Looking for the destination Playlist.
+    Playlist p_to_paste = searchPlaylist(library, destPlaylist);
+    if (p_to_paste == NULL) {
+        return ERROR_NOT_FOUND;
+    }
+
+    // Looking for a Track with the same name, and cut it out from the Playlist.
+    Track track_been_cut = cutTrack(selected_p, trackTitle);
+    if (track_been_cut == NULL) {
+        return ERROR_NOT_FOUND;
+    }
+    
+    // If the Playlist has no existing tracks, add it into the head.
+    if (p_to_paste->tracks == NULL) {
+        p_to_paste->tracks = track_been_cut;
+
+    // If has, add it into the end of the Playlist
+    } else {
+        Track curr_track = p_to_paste->tracks;
+        while (curr_track->next != NULL) {
+            curr_track = curr_track->next;
+        }
+        curr_track->next = track_been_cut;
+    }
+
+    // The Track has been successfully moved.
     return SUCCESS;
 }
+
 
 // Print out all Tracks with artists that have the same Soundex Encoding 
 // as the given artist.
 void soundex_search(Library library, char artist[MAX_LEN]) {
 
+    if (library->head == NULL) {
+        return;
+    }
+    // check that the given artist name contains only 
+    // alphabetical letters.
+    for (int i = 0; artist[i] != '\0' && artist[i] != '\n'; i++) {
+        if (! ((artist[i] >= 'A' && artist[i] <= 'Z') 
+            || (artist[i] >= 'a' && artist[i] <= 'z'))) {
+            return;
+        }
+    }
+
+    // Searching through all Playlists (if any)
+    Playlist curr_p = library->head;
+    while (curr_p != NULL) {
+        Track curr_track = curr_p->tracks;
+        // Searching through all Tracks (if any)
+        while (curr_track != NULL) {
+            char *encoded_a = soundexAlg(curr_track->artist);
+            char *encoded_b = soundexAlg(artist);
+            if (strcmp(encoded_a, encoded_b) == 0) {
+                print_track(
+                    curr_track->title, 
+                    curr_track->artist, 
+                    curr_track->length.minutes,
+                    curr_track->length.seconds
+                );
+            }
+            free(encoded_a);
+            free(encoded_b);
+            curr_track = curr_track->next;
+        }
+        curr_p = curr_p->next;
+    }
 }
 
 
@@ -473,14 +543,121 @@ void soundex_search(Library library, char artist[MAX_LEN]) {
 // Move all Tracks matching the Soundex encoding of the given artist 
 // to a new Playlist.
 int add_filtered_playlist(Library library, char artist[MAX_LEN]) {
+
+    // Check that the given artist name contains only 
+    // alphabetical letters.
+    for (int i = 0; artist[i] != '\0' && artist[i] != '\n'; i++) {
+        if (! ((artist[i] >= 'A' && artist[i] <= 'Z') 
+            || (artist[i] >= 'a' && artist[i] <= 'z'))) {
+            return ERROR_INVALID_INPUTS;
+        }
+    }
+
+    // Check if a Playlist with the same artist name already exists.
+    Playlist curr_p = library->head;
+    while(curr_p != NULL) {
+        if (strcmp(curr_p->name, artist) == 0) {
+            return ERROR_INVALID_INPUTS;
+        } 
+        curr_p = curr_p->next;
+    }
+
+    add_playlist(library, artist);
+    Playlist p_to_paste = searchPlaylist(library, artist);
+
+    // Searching through all Playlists (if any)
+    curr_p = library->head;
+    while (curr_p->next != NULL) {
+        Track curr_track = curr_p->tracks;
+        // Searching through all Tracks (if any)
+        while (curr_track != NULL) {
+            char *encoded_a = soundexAlg(curr_track->artist);
+            char *encoded_b = soundexAlg(artist);
+            if (strcmp(encoded_a, encoded_b) == 0) {
+                // Move all Tracks matching the Soundex encoding 
+                // of the given artist to a new Playlist.
+                moveTrack(curr_track, curr_p, p_to_paste);
+                curr_track = curr_p->tracks;
+            } else {
+                curr_track = curr_track->next;
+            }
+            free(encoded_a);
+            free(encoded_b);
+        }
+        curr_p = curr_p->next;
+    }
+
     return SUCCESS;
 }
+
 
 // Reorder the selected Playlist in the given order specified by the order array.
 void reorder_playlist(Library library, int order[MAX_LEN], int length) {
 
-}
+    if (library->head == NULL) {
+        return;
+    }
 
+    // Find the selected Playlist.
+    Playlist curr_p = library->head;
+    Playlist selected_p = findSelectPlaylist(curr_p);
+    if (selected_p->tracks == NULL) {
+        return;
+    }
+
+    Playlist new_p = newPlaylist(selected_p->name, 1);
+
+    // Copy the Tracks to the new Playlist in the order given
+    for (int i = 0; i < length; i++) {
+        Track curr_track =  selected_p->tracks;
+        // Find the Track you currently need to copy.
+        for (int j = 0; j != order[i]; j++) {
+            curr_track = curr_track->next;
+        }
+        // Create and initialize a new Track.
+        Track new_track = newTrack(curr_track->title, curr_track->artist, 
+            curr_track->length.minutes, curr_track->length.seconds);
+        new_p->size++;
+
+        // If the Playlist has no existing tracks, add it into the head.
+        if (new_p->tracks == NULL) {
+            new_p->tracks = new_track;
+
+        // If has, add it into the end of the Playlist.
+        } else {
+            Track temp_track = new_p->tracks;
+            while (temp_track->next != NULL) {
+                temp_track = temp_track->next;
+            }
+            temp_track->next = new_track;
+        }
+    }
+
+    // Replace the old Playlist with the new Playlist.
+    Playlist temp_p = library->head;
+    Playlist prev_p = NULL;
+    while(temp_p != selected_p) {
+        prev_p = temp_p;
+        temp_p = temp_p->next;
+    }
+    if (prev_p == NULL) {
+        new_p->next = temp_p->next;
+        library->head = new_p;
+    } else {
+        prev_p->next = new_p;
+        new_p->next = temp_p->next;
+    }
+    
+    // Delite all Tracks in the old Playlist(if any).
+    Track curr_track = selected_p->tracks;
+    while (curr_track != NULL) {
+        Track to_delete = curr_track;
+        curr_track = curr_track->next;
+        free(to_delete);
+    }
+    // Then delete the old Playlist.
+    free(selected_p);
+}
 
 /*****************
 > Helper Functions
@@ -508,6 +685,20 @@ Playlist newPlaylist(char name[MAX_LEN], int selected) {
     new_playlist->size = 0;
     new_playlist->next = NULL;
     return new_playlist;
+}
+
+// Create and initialize a new Track.
+Track newTrack(char title[MAX_LEN], char artist[MAX_LEN], 
+    int minutes, int seconds) {
+
+    Track new_track = malloc(sizeof(struct track));
+    strcpy(new_track->title, title);
+    strcpy(new_track->artist, artist);
+    new_track->length.minutes = minutes;
+    new_track->length.seconds = seconds;
+    new_track->next = NULL;
+
+    return new_track;
 }
 
 // Check if the strings are alphanumeric.
@@ -548,4 +739,135 @@ Playlist findSelectPlaylist(Playlist curr_p) {
         curr_p = curr_p->next;
     }
     return selected_p;
+}
+
+// Looking for a Track with the same name, and cut it out from the Playlist.
+Track cutTrack(Playlist curr_p, char target[MAX_LEN]) {
+
+    Track curr_track = curr_p->tracks;
+    Track prev_track = NULL;
+    while(curr_track != NULL) {
+        if (strcmp(target, curr_track->title) == 0) {
+            // Cutting the first track from the Playlist.
+            if (curr_track == curr_p->tracks) {
+                curr_p->tracks = curr_track->next;
+
+            // Cutting the milddle or the last track from the Playlist.
+            } else {
+                prev_track->next = curr_track->next;
+            }
+            curr_track->next = NULL;
+            return curr_track;
+        }
+        prev_track = curr_track;
+        curr_track = curr_track->next;
+    }
+
+    // NULL is returned if there is no matching Track.
+    return NULL;
+}
+
+// Soundex encoding from a string.
+char *soundexAlg(char artist[MAX_LEN]) {
+
+    char *encoded = malloc(sizeof(char[MAX_LEN]));
+    strcpy(encoded, artist);
+
+    // Replace all uppercase letters in the string with 
+    // lowercase letters.
+    for (int i = 0; encoded[i] != '\0'; i++) {
+        if (encoded[i] >= 'A' && encoded[i] <= 'Z') {
+            encoded[i] += 32;
+        }
+    }
+
+    // Save the first letter in advance.
+    char first_letter = encoded[0];
+
+    // Map all occurrences of a, e, i, o, u, y, h, w. to zero (0).
+    for (int i = 0; encoded[i] != '\0'; i++) {
+        if (   encoded[i] == 'a' || encoded[i] == 'e' 
+            || encoded[i] == 'i' || encoded[i] == 'o' 
+            || encoded[i] == 'u' || encoded[i] == 'y' 
+            || encoded[i] == 'h' || encoded[i] == 'w') {
+                encoded[i] = '0';
+        // Replace all consonants after the first letter with digits based on the 
+        // b, f, p, v → 1
+        } else if ( encoded[i] == 'b' || encoded[i] == 'f' 
+                || encoded[i] == 'p' || encoded[i] == 'v') {
+            encoded[i] = '1';
+        // c, g, j, k, q, s, x, z → 2
+        } else if (encoded[i] == 'c' || encoded[i] == 'g' 
+                || encoded[i] == 'j' || encoded[i] == 'k' 
+                || encoded[i] == 'q' || encoded[i] == 's' 
+                || encoded[i] == 'x' || encoded[i] == 'z') {
+            encoded[i] = '2';
+        // d，t → 3
+        } else if (encoded[i] == 'd' || encoded[i] == 't') {
+            encoded[i] = '3';
+        // l → 4
+        } else if (encoded[i] == 'l') {
+            encoded[i] = '4';
+        // m, n → 5
+        } else if (encoded[i] == 'm' || encoded[i] == 'n') {
+            encoded[i] = '5';
+        // r → 6
+        } else if (encoded[i] == 'r') {
+            encoded[i] = '6';
+        }
+    }
+    
+    // Replace all adjacent same digits with one digit, 
+    // and then remove all the zero (0) digits
+    for (int i = 0; encoded[i] != '\0'; i++) {
+        if (encoded[i] == encoded[i+1] || encoded[i] == '0') {
+            deleteElement(encoded, i);
+            i--;
+        }
+    }
+
+    // If the first digit matches the numerical encoding 
+    // of the first letter, remove the digit. (done before)
+    encoded[0] = first_letter-32;
+
+    // Append 3 zeros if result contains less than 3 digits. 
+    // Remove all except first letter and 3 digits after it.
+    int counter = 0;
+    while (encoded[counter] != '\0') {
+        counter++;
+    }
+    if (counter < 4) {
+        for (int i = counter; i < 4; i++) {
+            encoded[i] = '0';
+        }
+    }
+    return encoded;
+}
+
+// Removes a specific element from a string.
+void deleteElement(char *encoded, int index) {
+    for(int i = index; encoded[i] != '\0'; i++) {
+        encoded[i] = encoded[i+1];
+    }
+}
+
+// Moves the specified Track from the 
+// current Playlist to the specified Playlist.
+void moveTrack(Track curr_track, Playlist curr_p, Playlist p_to_paste) {
+    // Looking for a Track with the same name, 
+    // and cut it out from the Playlist.
+    Track track_been_cut = cutTrack(curr_p, curr_track->title);
+
+    // If the Playlist has no existing tracks, add it into the head.
+    if (p_to_paste->tracks == NULL) {
+        p_to_paste->tracks = track_been_cut;
+
+    // If has, add it into the end of the Playlist
+    } else {
+        Track temp_track = p_to_paste->tracks;
+        while (temp_track->next != NULL) {
+            temp_track = temp_track->next;
+        }
+        temp_track->next = track_been_cut;
+    }
 }

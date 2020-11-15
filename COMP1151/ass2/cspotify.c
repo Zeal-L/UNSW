@@ -90,7 +90,10 @@ void moveTrack(Track curr_track, Playlist curr_p, Playlist p_to_paste);
 // Function prototypes for helper functions. 
 static void print_playlist(int number, char playlistName[MAX_LEN]);
 static void print_selected_playlist(int number, char playlistName[MAX_LEN]);
-static void print_track(char title[MAX_LEN], char artist[MAX_LEN], int minutes, int seconds);
+static void print_track(
+    char title[MAX_LEN], char artist[MAX_LEN], 
+    int minutes, int seconds
+);
 
 /******************************************************************************/
 // You need to implement the following functions.
@@ -120,11 +123,11 @@ int add_playlist(Library library, char playlistName[MAX_LEN]) {
         Playlist new_p = newPlaylist(playlistName, 1);
         library->head = new_p;
 
-    // If there's already a Playlist in the library.
+        // If there's already a Playlist in the library.
     } else if (library->head != NULL) {
         Playlist new_p = newPlaylist(playlistName, 0);
         Playlist curr_p = library->head;
-        while(curr_p->next != NULL) {
+        while (curr_p->next != NULL) {
             curr_p = curr_p->next;
         }
         curr_p->next = new_p;
@@ -148,7 +151,7 @@ void print_library(Library library) {
 
         // Print all the tracks in the Playlist (if any).
         Track curr_track = curr_p->tracks;
-        while(curr_track != NULL) {
+        while (curr_track != NULL) {
             print_track(
                 curr_track->title, 
                 curr_track->artist, 
@@ -194,13 +197,13 @@ void select_next_playlist(Library library) {
     }
     Playlist curr_p = library->head;
     Playlist new_selected = NULL;
-    while(curr_p != NULL) {
+    while (curr_p != NULL) {
         // If the currently selected Playlist is the last Playlist in the Library, 
         // make the first Playlist in the Library become the new selected Playlist.
         if (curr_p->selected == 1 && curr_p->next == NULL) {
             curr_p->selected = 0;
             library->head->selected = 1;
-        } else if(curr_p->selected == 1 && curr_p->next != NULL) {
+        } else if (curr_p->selected == 1 && curr_p->next != NULL) {
             curr_p->selected = 0;
             new_selected = curr_p->next;
         }
@@ -228,7 +231,7 @@ void select_previous_playlist(Library library) {
         }
         prev_p->selected = 1;
     } else {
-        while(curr_p != NULL) {
+        while (curr_p != NULL) {
             if (curr_p->selected == 1) {
                 curr_p->selected = 0;
                 prev_p->selected = 1;
@@ -260,7 +263,8 @@ int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN],
     }
 
     // Create and initialize a new Track.
-    Track new_track = newTrack(title, artist, trackLengthInSec / 60, trackLengthInSec % 60);
+    Track new_track = newTrack(title, artist, 
+        trackLengthInSec / 60, trackLengthInSec % 60);
     
     // Inserting at the front of the Playlist.
     Track curr_t = selected_p->tracks;
@@ -268,7 +272,7 @@ int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN],
         new_track->next = selected_p->tracks;
         selected_p->tracks = new_track;
 
-    // Inserting at the end of the Playlist.
+        // Inserting at the end of the Playlist.
     } else if (position == selected_p->size) {
         // If there's no tracks.
         if (selected_p->size == 0) {
@@ -281,7 +285,7 @@ int add_track(Library library, char title[MAX_LEN], char artist[MAX_LEN],
             curr_t->next = new_track;
         }
 
-    // Inserting in the middle of the Playlist.
+        // Inserting in the middle of the Playlist.
     } else {
         for (int i = 0; i < position-1; i++) {
             curr_t = curr_t->next;
@@ -314,7 +318,7 @@ void playlist_length(Library library, int *playlistMinutes, int *playlistSeconds
     }
 
     Track curr_track = selected_p->tracks;
-    while(curr_track != NULL) {
+    while (curr_track != NULL) {
         *playlistMinutes += curr_track->length.minutes;
         *playlistSeconds += curr_track->length.seconds;
         curr_track = curr_track->next;
@@ -353,9 +357,9 @@ void delete_track(Library library, char track[MAX_LEN]) {
         selected_p->tracks = curr_track->next;
         free(to_delete);
 
-    // deliting the middle or the end track in the playlist.
+        // deliting the middle or the end track in the playlist.
     } else {
-        while(curr_track != NULL) {
+        while (curr_track != NULL) {
             if (strcmp(track, curr_track->title) == 0) {
                 Track to_delete = curr_track;
                 prev_track->next = to_delete->next;
@@ -379,7 +383,7 @@ void delete_playlist(Library library) {
     Playlist selected_p = NULL;
     Playlist prev_p = NULL;
     Playlist selected_prev = NULL;
-    while(curr_p != NULL) {
+    while (curr_p != NULL) {
         if (curr_p->selected == 1) {
             selected_prev = prev_p;
             selected_p = curr_p;
@@ -412,7 +416,7 @@ void delete_playlist(Library library) {
             library->head->selected = 1;
             free(selected_p);
 
-        // Deliting the middle Playlist.
+            // Deliting the middle Playlist.
         } else {
             selected_p->next->selected = 1;
             selected_prev->next = selected_p->next;
@@ -481,7 +485,7 @@ int cut_and_paste_track(Library library, char trackTitle[MAX_LEN],
     if (p_to_paste->tracks == NULL) {
         p_to_paste->tracks = track_been_cut;
 
-    // If has, add it into the end of the Playlist
+        // If has, add it into the end of the Playlist
     } else {
         Track curr_track = p_to_paste->tracks;
         while (curr_track->next != NULL) {
@@ -555,7 +559,7 @@ int add_filtered_playlist(Library library, char artist[MAX_LEN]) {
 
     // Check if a Playlist with the same artist name already exists.
     Playlist curr_p = library->head;
-    while(curr_p != NULL) {
+    while (curr_p != NULL) {
         if (strcmp(curr_p->name, artist) == 0) {
             return ERROR_INVALID_INPUTS;
         } 
@@ -623,7 +627,7 @@ void reorder_playlist(Library library, int order[MAX_LEN], int length) {
         if (new_p->tracks == NULL) {
             new_p->tracks = new_track;
 
-        // If has, add it into the end of the Playlist.
+            // If has, add it into the end of the Playlist.
         } else {
             Track temp_track = new_p->tracks;
             while (temp_track->next != NULL) {
@@ -636,7 +640,7 @@ void reorder_playlist(Library library, int order[MAX_LEN], int length) {
     // Replace the old Playlist with the new Playlist.
     Playlist temp_p = library->head;
     Playlist prev_p = NULL;
-    while(temp_p != selected_p) {
+    while (temp_p != selected_p) {
         prev_p = temp_p;
         temp_p = temp_p->next;
     }
@@ -671,7 +675,10 @@ static void print_selected_playlist(int number, char playlistName[MAX_LEN]) {
     printf("[*] %d. %s\n", number, playlistName);
 }
 
-static void print_track(char title[MAX_LEN], char artist[MAX_LEN], int minutes, int seconds) {
+static void print_track(
+    char title[MAX_LEN], char artist[MAX_LEN], 
+    int minutes, int seconds
+) {
     printf("       - %-32s    %-24s    %02d:%02d\n", title, artist, 
         minutes, seconds);
 }
@@ -718,7 +725,7 @@ int checkValidStrings(char string[MAX_LEN]) {
 // Looking for a Playlist with the same name.
 Playlist searchPlaylist(Library library, char target[MAX_LEN]) {
     Playlist curr_p = library->head;
-    while(curr_p != NULL) {
+    while (curr_p != NULL) {
         if (strcmp(target, curr_p->name) == 0) {
             return curr_p;
         }
@@ -732,7 +739,7 @@ Playlist searchPlaylist(Library library, char target[MAX_LEN]) {
 // Find the selected Playlist.
 Playlist findSelectPlaylist(Playlist curr_p) {
     Playlist selected_p = NULL;
-    while(curr_p != NULL) {
+    while (curr_p != NULL) {
         if (curr_p->selected == 1) {
             selected_p = curr_p;
         } 
@@ -746,13 +753,13 @@ Track cutTrack(Playlist curr_p, char target[MAX_LEN]) {
 
     Track curr_track = curr_p->tracks;
     Track prev_track = NULL;
-    while(curr_track != NULL) {
+    while (curr_track != NULL) {
         if (strcmp(target, curr_track->title) == 0) {
             // Cutting the first track from the Playlist.
             if (curr_track == curr_p->tracks) {
                 curr_p->tracks = curr_track->next;
 
-            // Cutting the milddle or the last track from the Playlist.
+                // Cutting the milddle or the last track from the Playlist.
             } else {
                 prev_track->next = curr_track->next;
             }
@@ -786,32 +793,32 @@ char *soundexAlg(char artist[MAX_LEN]) {
 
     // Map all occurrences of a, e, i, o, u, y, h, w. to zero (0).
     for (int i = 0; encoded[i] != '\0'; i++) {
-        if (   encoded[i] == 'a' || encoded[i] == 'e' 
+        if (encoded[i] == 'a' || encoded[i] == 'e' 
             || encoded[i] == 'i' || encoded[i] == 'o' 
             || encoded[i] == 'u' || encoded[i] == 'y' 
             || encoded[i] == 'h' || encoded[i] == 'w') {
-                encoded[i] = '0';
-        // Replace all consonants after the first letter with digits based on the 
-        // b, f, p, v → 1
-        } else if ( encoded[i] == 'b' || encoded[i] == 'f' 
+            encoded[i] = '0';
+            // Replace all consonants after the first letter with digits based on the 
+            // b, f, p, v → 1
+        } else if (encoded[i] == 'b' || encoded[i] == 'f' 
                 || encoded[i] == 'p' || encoded[i] == 'v') {
             encoded[i] = '1';
-        // c, g, j, k, q, s, x, z → 2
+            // c, g, j, k, q, s, x, z → 2
         } else if (encoded[i] == 'c' || encoded[i] == 'g' 
                 || encoded[i] == 'j' || encoded[i] == 'k' 
                 || encoded[i] == 'q' || encoded[i] == 's' 
                 || encoded[i] == 'x' || encoded[i] == 'z') {
             encoded[i] = '2';
-        // d，t → 3
+            // d，t → 3
         } else if (encoded[i] == 'd' || encoded[i] == 't') {
             encoded[i] = '3';
-        // l → 4
+            // l → 4
         } else if (encoded[i] == 'l') {
             encoded[i] = '4';
-        // m, n → 5
+            // m, n → 5
         } else if (encoded[i] == 'm' || encoded[i] == 'n') {
             encoded[i] = '5';
-        // r → 6
+            // r → 6
         } else if (encoded[i] == 'r') {
             encoded[i] = '6';
         }
@@ -862,7 +869,7 @@ void moveTrack(Track curr_track, Playlist curr_p, Playlist p_to_paste) {
     if (p_to_paste->tracks == NULL) {
         p_to_paste->tracks = track_been_cut;
 
-    // If has, add it into the end of the Playlist
+        // If has, add it into the end of the Playlist
     } else {
         Track temp_track = p_to_paste->tracks;
         while (temp_track->next != NULL) {

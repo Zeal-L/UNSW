@@ -311,6 +311,19 @@ void test_soundex_search(void) {
         return;
     }
 
+    // Test 2:  Check invalid inputs
+    // TODO: 
+    Library testLibrary_3 = create_library();
+    add_playlist(testLibrary_3, "123");
+    add_track(testLibrary_3, "aaa", "zeal", 100, 0);
+    char printText_3[10000];
+    CAPTURE(soundex_search(testLibrary_3, "++++"), printText_3, 10000);
+    if (string_contains(printText_3, "aaa")) {
+        printf("DOES NOT MEET SPEC\n");
+        return;
+    }
+
+
     printf("MEETS SPEC\n");
 }
 

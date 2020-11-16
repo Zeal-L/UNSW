@@ -160,11 +160,8 @@ void print_library(Library library) {
             );
             curr_track = curr_track->next;
         }
-
         curr_p = curr_p->next;
     }
-
-
 }
 
 // Rename the name of an existing Playlist.

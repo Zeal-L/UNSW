@@ -40,15 +40,15 @@ struct node *delete_contains(int value, struct node *head) {
     struct node *prev_head = NULL;
     while (curr_head != NULL) {
         if (curr_head->data == value) {
-            if (curr_head->next == NULL) {
-                prev_head->next = curr_head->next;
-                free(curr_head);
-                return head;
-            } else if (curr_head == head) {
+            if (curr_head == head) {
                 prev_head = curr_head->next;
                 free(curr_head);
                 return prev_head;
-            }
+            } else if (curr_head->next == NULL) {
+                prev_head->next = curr_head->next;
+                free(curr_head);
+                return head;
+            } 
             prev_head->next = curr_head->next;
             free(curr_head);
             return head;

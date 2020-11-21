@@ -116,6 +116,15 @@ void test_rename_playlist(void) {
         return;
     }
 
+    // Test 4: Rename playlist multiple
+    Library testLibrary3 = create_library();
+    add_playlist(testLibrary3, "Favourites");
+    int result_2 = rename_playlist(testLibrary3, "Favourites", "/-*+++&(#&^%");
+    if (result_2 != ERROR_INVALID_INPUTS) {
+        printf("DOES NOT MEET SPEC\n");
+        return;
+    }
+
     printf("MEETS SPEC\n");
 }
 
@@ -311,8 +320,7 @@ void test_soundex_search(void) {
         return;
     }
 
-    // Test 2:  Check invalid inputs
-    // TODO: 
+    // Test 3:  Check invalid inputs
     Library testLibrary_3 = create_library();
     add_playlist(testLibrary_3, "123");
     add_track(testLibrary_3, "aaa", "zeal", 100, 0);
@@ -322,7 +330,6 @@ void test_soundex_search(void) {
         printf("DOES NOT MEET SPEC\n");
         return;
     }
-
 
     printf("MEETS SPEC\n");
 }

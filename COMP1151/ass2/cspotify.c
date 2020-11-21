@@ -111,6 +111,7 @@ Library create_library(void) {
     return newLibrary;
 }
 
+
 // Add a new Playlist to the Library.
 int add_playlist(Library library, char playlistName[MAX_LEN]) {
     // Check if the Playlist name is valid.

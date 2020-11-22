@@ -1,4 +1,4 @@
-# COMP1151
+# COMP1511
 I took this course in the first semester of my first year at UNSW.
 
 This repository contains all the Assignments and Lab Exercises I have done in this course. 

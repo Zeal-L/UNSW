@@ -1,0 +1,27 @@
+A 123
+A 456
+A 789
+a aaa zeal 100 0
+a bbb ZEAL 100 1
+a lll viki 100 2
+S
+a ccc zeall 100 0
+a ooo viki 100 1
+S
+a ddd zeeal 100 0
+P
+F Zeal
+P
+
+
+A 123
+A 456
+A 789
+S
+a aaa zeal 100 0
+a bbb Zeal 100 1
+a CCC zeall 100 2
+a ddd zeeal 100 3
+P
+r 4
+2 3 0 1

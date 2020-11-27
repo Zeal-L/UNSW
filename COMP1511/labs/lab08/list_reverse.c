@@ -45,6 +45,17 @@ struct node *reverse(struct node *head) {
     }
 
     return prev;
+
+    
+    // Node *RevereseLr1(Node *node) {
+    // if(node==NULL||node->next==NULL)
+    //     return node;
+    //     Node *nextnode=node->next;
+    //     node->next=NULL;
+    //     Node *reversenode = RevereseLr1(nextnode);
+    //     nextnode->next=node;
+    //     return reversenode;
+    // }
     
     // 需要注意的是，最后返回反转后链表的头节点时，应该是prev，
     // 而不是current，因为最终退出循环时，current保存的是原链表的最后一个结点，

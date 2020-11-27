@@ -1,0 +1,22 @@
+[COMP1511 Practice Final Exam]
+You should edit the empty space between the curly braces.
+You should not edit anything else in this file.
+
+You can test this file conforms to the correct syntax with "1511 autotest-pracexam prac_mc"
+
+You should submit this file with the command "give cs1511 prac_mc prac_mc.txt"
+
+If you need a new copy of the file, move this file to a safe place,
+then run "1511 fetch-pracexam".
+
+q1: What would `part1_q1.c` print? (see the exam paper for details)
+Enter your answer inside the curly braces (extra spaces will be ignored)
+[q1] {{{ 3 }}}
+
+q2: Which issues would `part1_q2.c` have? (see the exam paper for details)
+Enter your answer as a string of letters inside the curly braces (extra spaces will be ignored)
+[q2]{{{ A  }}}
+
+q2: What code should go in the indicated place? (see the exam paper for details)
+Enter your answer inside the curly brackets (extra spaces will be ignored)
+[q3]{{{ sizeof(struct node) }}}

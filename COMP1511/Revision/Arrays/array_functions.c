@@ -1,8 +1,8 @@
+// Zeal L (abc982210694@gmail.com)
+// 2020-11-27 17:57:36
+// Zid: z5325156
+// 
 // Some useful array functions
-// Created by
-//  ... (z0000000)
-// Created on 2019-??-??
-// Tutor's name (day_hH-lab)
 
 #include <stdio.h>
 #include <assert.h>

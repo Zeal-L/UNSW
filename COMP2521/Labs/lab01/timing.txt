@@ -1,0 +1,31 @@
+Input	Has	   Initial	Number	AvgTime	AvgTime
+Size	Dups   Order	of runs	forusel	forsort
+
+10000	no	random	    7	0.206	0.004
+10000	no	sorted	    8	0.276	0
+10000	no	reverse	    6	0.002	0
+10000	yes	random	    5	0.038	0.004
+10000	yes	sorted	    4	0.211	0.004
+10000	yes	reverse	    10	0.004	0.004
+
+40000	no	random	    4	6.7	    0.02
+40000	no	sorted	    4	4.37	0.008
+40000	no	reverse	    6	0.012	0.008
+40000	yes	random	    8	6.64	0.24
+40000	yes	sorted	    6	6.72	0.02
+40000	yes	reverse	    10	0.12	0.12
+
+The various types of data have basically no significant 
+impact on the average time-cost for sort.
+
+What I think is of more interest is the average time-cost for useIntList.
+
+From the above data, it is easy to see that the average time-cost for the 
+data in reverse order is always the fastest, regardless of whether the total 
+amount of data is 10,000 or 40,000, and regardless of whether the data is duplicated or not.
+The fastest speed can even reach a hundred times faster. 
+
+I think the reason behind this speed is that in the algorithm I wrote, the Smallest value case, 
+which deals with reverse order, is the one with the lowest complexity, 
+it has no other part of the iterative loop, and only calls one function. 
+Most of the operations are done directly with pointers, so it is far more efficient than those complex case.

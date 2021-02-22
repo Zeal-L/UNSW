@@ -128,11 +128,11 @@ void IntListInsertInOrder(IntList L, int v)
 	}
 
 	// Value somewhere in the middle case
-	struct IntListNode *n = newIntListNode(v);
 	struct IntListNode *curr = L->first;
 	
 	while (curr->next) {
 		if (v >= curr->data && v < curr->next->data) {
+			struct IntListNode *n = newIntListNode(v);
 			n->next = curr->next;
 			curr->next = n;
 			L->size++;
@@ -142,7 +142,6 @@ void IntListInsertInOrder(IntList L, int v)
 	}
 	// Largest value case
 	IntListInsert(L, v);
-	
 }
 
 /**

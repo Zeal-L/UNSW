@@ -1,0 +1,33 @@
+Testing TreeSearchBetween
+
+Inserting: 11 13 17 19 23 29 31 37 41 43
+Searching between 17 and 31
+Search returned: 17 19 23 29 31
+
+Inserting: 11 13 17 19 23 29 31 37 41 43
+Searching between 38 and 49
+Search returned: 41 43
+
+Inserting: 11 13 17 19 23 29 31 37 41 43
+Searching between 10 and 20
+Search returned: 11 13 17 19
+
+Inserting: 11 13 17 19 23 29 31 37 41 43
+Searching between 32 and 35
+Search returned:
+
+Inserting: 29 17 11 13 23 19 41 31 37 43
+Searching between 22 and 38
+Search returned: 23 29 31 37
+
+Inserting: 29 17 11 13 23 19 41 31 37 43
+Searching between 12 and 35
+Search returned: 13 17 19 23 29 31
+
+Inserting: 29 17 11 13 23 19 41 31 37 43
+Searching between 30 and 38
+Search returned: 31 37
+
+Inserting: 29 17 11 13 23 19 41 31 37 43
+Searching between 40 and 47
+Search returned: 41 43

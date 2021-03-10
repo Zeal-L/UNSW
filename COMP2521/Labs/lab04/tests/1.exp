@@ -1,0 +1,36 @@
+Testing compareByName
+
+Comparing:
+A = 1|Doe|John
+B = 2|May|Jane
+compareByName says: A is less than B
+
+Comparing:
+A = 1|May|John
+B = 2|Doe|Jane
+compareByName says: A is greater than B
+
+Comparing:
+A = 1|Doe|Jane
+B = 2|Doe|John
+compareByName says: A is less than B
+
+Comparing:
+A = 1|Doe|John
+B = 2|Doe|Jane
+compareByName says: A is greater than B
+
+Comparing:
+A = 1|Doe|John
+B = 2|Doe|John
+compareByName says: A is less than B
+
+Comparing:
+A = 1|Doe|John
+B = 1|Doe|John
+compareByName says: A is equal to B
+
+Comparing:
+A = 2|Doe|John
+B = 1|Doe|John
+compareByName says: A is greater than B

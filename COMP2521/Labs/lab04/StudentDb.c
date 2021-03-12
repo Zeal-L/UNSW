@@ -38,6 +38,7 @@ int compareByName(Record r1, Record r2) {
     char *g1 = RecordGetGivenName(r1);
     char *g2 = RecordGetGivenName(r2);
     return strcmp(f1, f2) ? strcmp(f1, f2) : strcmp(g1, g2) ? strcmp(g1, g2) : compareByZid(r1, r2);
+    //return strcmp(RecordGetFamilyName(r1), RecordGetFamilyName(r2)) ? strcmp(RecordGetFamilyName(r1), RecordGetFamilyName(r2)) : strcmp(RecordGetGivenName(r1), RecordGetGivenName(r2)) ? strcmp(RecordGetGivenName(r1), RecordGetGivenName(r2)) : compareByZid(r1, r2);
 }
 
 ////////////////////////////////////////////////////////////////////////

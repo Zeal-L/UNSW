@@ -1,0 +1,35 @@
+
+NOTE:
+- Your time complexities should be expressed in big-O notation and be in
+  terms of n, where n is the number of people who  have  been  added  to
+  Friendbook.
+
+===============
+  FbUnfriend
+===============
+
+- Worst case time complexity: O(1)
+
+- Explanation: 
+  There are no loops or recursions, 
+  just simple assignment and judgment operations
+
+===============
+FbMutualFriends
+===============
+
+- Worst case time complexity: O(n)
+
+- Explanation: 
+  Need to loop through the entire map to compare if it is a friend.
+
+===============
+ FbFriendRecs1
+===============
+
+- Worst case time complexity: O(n^2)
+
+- Explanation: 
+Need to loop to find friends first, then find their friends through them, 
+there are two levels of loops, so it's n^2
+The algorithm part and the output part are both n^2, and the overall is still n^2

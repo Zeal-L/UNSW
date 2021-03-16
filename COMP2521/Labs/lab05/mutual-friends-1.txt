@@ -1,0 +1,7 @@
++ Harry
++ Ron
++ Hermione
+f Harry Ron
+f Ron Hermione
+m Harry Hermione
+q

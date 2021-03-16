@@ -180,9 +180,7 @@ static Record doTreeSearch(Tree t, Node n, Record rec) {
 
 List TreeSearchBetween(Tree t, Record lower, Record upper) {
     List l = ListNew();
-
     doTreeSearchBetween(t, t->root, lower, upper, l);
-
     return l;
 }
 
@@ -198,7 +196,6 @@ static void doTreeSearchBetween(Tree t, Node n, Record lower,
     }
     if (t->compare(upper, n->rec) >= 0)
         doTreeSearchBetween(t, n->right, lower, upper, l);
-    
 }
 
 ////////////////////////////////////////////////////////////////////////

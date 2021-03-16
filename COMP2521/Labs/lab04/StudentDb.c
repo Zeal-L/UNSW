@@ -33,12 +33,9 @@ int compareByZid(Record r1, Record r2) {
  * - A positive number if the first record is greater than the second
  */
 int compareByName(Record r1, Record r2) {
-    char *f1 = RecordGetFamilyName(r1);
-    char *f2 = RecordGetFamilyName(r2);
-    char *g1 = RecordGetGivenName(r1);
-    char *g2 = RecordGetGivenName(r2);
-    return strcmp(f1, f2) ? strcmp(f1, f2) : strcmp(g1, g2) ? strcmp(g1, g2) : compareByZid(r1, r2);
-    //return strcmp(RecordGetFamilyName(r1), RecordGetFamilyName(r2)) ? strcmp(RecordGetFamilyName(r1), RecordGetFamilyName(r2)) : strcmp(RecordGetGivenName(r1), RecordGetGivenName(r2)) ? strcmp(RecordGetGivenName(r1), RecordGetGivenName(r2)) : compareByZid(r1, r2);
+    int cmp_f = strcmp(RecordGetFamilyName(r1), RecordGetFamilyName(r2));
+    int cmp_g = strcmp(RecordGetGivenName(r1), RecordGetGivenName(r2));
+    return cmp_f ? cmp_f : cmp_g ? cmp_g : compareByZid(r1, r2);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -103,8 +100,8 @@ Record DbFindByZid(StudentDb db, int zid) {
 
 List DbFindByName(StudentDb db, char *familyName, char *givenName) {
 
-    Record d1 = RecordNew(1, familyName, givenName);
-    Record d2 = RecordNew(9999999, familyName, givenName);
+    Record d1 = RecordNew(MIN_ZID, familyName, givenName);
+    Record d2 = RecordNew(MAX_ZID, familyName, givenName);
 
     List l = TreeSearchBetween(db->byName, d1 , d2);
     

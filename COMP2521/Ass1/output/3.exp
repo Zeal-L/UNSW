@@ -1,0 +1,60 @@
+Testing DbFindByFlightNumber
+Using sample DB from testAss1.c
+
+Searching for flights with flight number QF409
+Found flights:
+QF409|SYD|MEL|Monday 0705|90
+QF409|SYD|MEL|Monday 0800|90
+QF409|SYD|MEL|Tuesday 0705|90
+QF409|SYD|MEL|Wednesday 0705|90
+QF409|SYD|MEL|Wednesday 0800|90
+QF409|SYD|MEL|Thursday 0705|90
+QF409|SYD|MEL|Friday 0705|90
+QF409|SYD|MEL|Saturday 0705|90
+QF409|SYD|MEL|Saturday 0800|90
+QF409|SYD|MEL|Sunday 0705|90
+
+Searching for flights with flight number VA323
+Found flights:
+VA323|MEL|BNE|Tuesday 1100|110
+VA323|MEL|BNE|Thursday 1130|110
+VA323|MEL|BNE|Friday 1100|110
+VA323|MEL|BNE|Sunday 1130|110
+
+Searching for flights with flight number JQ771
+Found flights:
+JQ771|ADL|MEL|Monday 1405|105
+JQ771|ADL|MEL|Tuesday 1155|105
+JQ771|ADL|MEL|Tuesday 1405|105
+JQ771|ADL|MEL|Wednesday 1405|105
+JQ771|ADL|MEL|Thursday 1155|105
+JQ771|ADL|MEL|Thursday 1405|105
+JQ771|ADL|MEL|Friday 1405|105
+JQ771|ADL|MEL|Saturday 1155|105
+JQ771|ADL|MEL|Sunday 1155|105
+
+Searching for flights with flight number JQ560
+Found flights:
+JQ560|MEL|BNE|Monday 0900|85
+JQ560|MEL|BNE|Tuesday 0900|85
+JQ560|MEL|BNE|Thursday 0900|85
+JQ560|MEL|BNE|Friday 0900|85
+
+Searching for flights with flight number QF500
+Found flights:
+QF500|SYD|BNE|Monday 0400|30
+QF500|SYD|BNE|Tuesday 0400|30
+QF500|SYD|BNE|Wednesday 0400|30
+QF500|SYD|BNE|Thursday 0400|30
+QF500|SYD|BNE|Friday 0400|30
+QF500|SYD|BNE|Saturday 0400|30
+QF500|SYD|BNE|Sunday 0400|30
+
+Searching for flights with flight number QF530
+Found flights:
+QF530|SYD|BNE|Monday 1305|30
+QF530|SYD|BNE|Wednesday 1305|30
+QF530|SYD|BNE|Thursday 1305|30
+QF530|SYD|BNE|Friday 1305|30
+QF530|SYD|BNE|Sunday 1305|30
+

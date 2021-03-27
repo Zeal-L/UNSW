@@ -1,0 +1,46 @@
+Testing DbFindByDepartureAirportDay
+Using sample DB from testAss1.c
+
+Searching for flights from SYD on Monday
+Found flights:
+QF500|SYD|BNE|Monday 0400|30
+QF409|SYD|MEL|Monday 0705|90
+QF409|SYD|MEL|Monday 0800|90
+QF530|SYD|BNE|Monday 1305|30
+
+Searching for flights from SYD on Tuesday
+Found flights:
+QF500|SYD|BNE|Tuesday 0400|30
+QF409|SYD|MEL|Tuesday 0705|90
+
+Searching for flights from SYD on Wednesday
+Found flights:
+QF500|SYD|BNE|Wednesday 0400|30
+QF409|SYD|MEL|Wednesday 0705|90
+QF409|SYD|MEL|Wednesday 0800|90
+QF530|SYD|BNE|Wednesday 1305|30
+
+Searching for flights from SYD on Thursday
+Found flights:
+QF500|SYD|BNE|Thursday 0400|30
+QF409|SYD|MEL|Thursday 0705|90
+QF530|SYD|BNE|Thursday 1305|30
+
+Searching for flights from SYD on Friday
+Found flights:
+QF500|SYD|BNE|Friday 0400|30
+QF409|SYD|MEL|Friday 0705|90
+QF530|SYD|BNE|Friday 1305|30
+
+Searching for flights from SYD on Saturday
+Found flights:
+QF500|SYD|BNE|Saturday 0400|30
+QF409|SYD|MEL|Saturday 0705|90
+QF409|SYD|MEL|Saturday 0800|90
+
+Searching for flights from SYD on Sunday
+Found flights:
+QF500|SYD|BNE|Sunday 0400|30
+QF409|SYD|MEL|Sunday 0705|90
+QF530|SYD|BNE|Sunday 1305|30
+

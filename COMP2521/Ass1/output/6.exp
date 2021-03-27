@@ -1,0 +1,23 @@
+Testing DbFindNextFlight
+Using sample DB from testAss1.c
+
+Finding first available flight at SYD from Monday 0705
+Found flight:
+QF409|SYD|MEL|Monday 0705|90
+
+Finding first available flight at SYD from Monday 0706
+Found flight:
+QF409|SYD|MEL|Monday 0800|90
+
+Finding first available flight at SYD from Monday 1406
+Found flight:
+QF500|SYD|BNE|Tuesday 0400|30
+
+Finding first available flight at SYD from Wednesday 1200
+Found flight:
+QF530|SYD|BNE|Wednesday 1305|30
+
+Finding first available flight at SYD from Sunday 1400
+Found flight:
+QF500|SYD|BNE|Monday 0400|30
+

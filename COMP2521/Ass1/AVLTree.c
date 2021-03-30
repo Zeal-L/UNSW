@@ -107,8 +107,8 @@ static Record doTreeSearch(Tree t, Node n, Record rec) {
 
 #define MAX(a, b)   (a > b ? a : b) // Return the maximum value
 #define GET_H(t)   (t == NULL ? -1 : t->height) // Get Height
-#define L(n) (n->left) // Get Left Child
-#define R(n) (n->right) // Get Right Child
+#define LEFT(n) (n->left) // Get Left Child
+#define RIGHT(n) (n->right) // Get Right Child
 
 static Node doTreeInsert(Tree t, Node n, Record rec, bool *res);
 static Node rotateRight(Node n1);
@@ -116,11 +116,7 @@ static Node rotateLeft(Node n2);
 
 static void doTreeSearchBetween(Tree t, Node n, Record lower,
                                 Record upper, List l);
-
 static Record doTreeNext(Tree t, Node n, Record rec);
-
-static void Display(Node root, int ident);
-
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -139,22 +135,23 @@ static Node doTreeInsert(Tree t, Node n, Record rec, bool *res) {
     } else {
         int cmp = t->compare(rec, n->rec);
         if (cmp < 0) {
-            L(n) = doTreeInsert(t, L(n), rec, res);
+            LEFT(n) = doTreeInsert(t, LEFT(n), rec, res);
         } else if (cmp > 0) {
-            R(n) = doTreeInsert(t, R(n), rec, res);
+            RIGHT(n) = doTreeInsert(t, RIGHT(n), rec, res);
         }
-        int l_height = GET_H(L(n));
-        int r_height = GET_H(R(n));
+        // Maintaining Balance/Height after each insertion
+        int l_height = GET_H(LEFT(n));
+        int r_height = GET_H(RIGHT(n));
         if (l_height - r_height > 1) {
-            if (t->compare(rec, L(n)->rec) > 0)
-                L(n) = rotateLeft(L(n));
+            if (t->compare(rec, LEFT(n)->rec) > 0)
+                LEFT(n) = rotateLeft(LEFT(n));
             n = rotateRight(n);
         } else if (r_height - l_height > 1) {
-            if (t->compare(rec, R(n)->rec) < 0)
-                R(n) = rotateRight(R(n));
+            if (t->compare(rec, RIGHT(n)->rec) < 0)
+                RIGHT(n) = rotateRight(RIGHT(n));
             n = rotateLeft(n);
         }
-        n->height = MAX(GET_H(L(n)), GET_H(R(n))) + 1;
+        n->height = MAX(GET_H(LEFT(n)), GET_H(RIGHT(n))) + 1;
         return n;
     }
 }
@@ -165,9 +162,9 @@ static Node rotateRight(Node n1) {
     Node n2 = n1->left;
     n1->left = n2->right;
     n2->right = n1;
-
-    n1->height = MAX(GET_H(L(n1)), GET_H(R(n1))) + 1;
-    n2->height = MAX(GET_H(L(n2)), GET_H(R(n2))) + 1;
+    // Update Height after rotation
+    n1->height = MAX(GET_H(LEFT(n1)), GET_H(RIGHT(n1))) + 1;
+    n2->height = MAX(GET_H(LEFT(n2)), GET_H(RIGHT(n2))) + 1;
     return n2;
 }
 
@@ -177,9 +174,9 @@ static Node rotateLeft(Node n2) {
     Node n1 = n2->right;
     n2->right = n1->left;
     n1->left = n2;
-
-    n2->height = MAX(GET_H(L(n2)), GET_H(R(n2))) + 1;
-    n1->height = MAX(GET_H(L(n1)), GET_H(R(n1))) + 1;
+    // Update Height after rotation
+    n2->height = MAX(GET_H(LEFT(n2)), GET_H(RIGHT(n2))) + 1;
+    n1->height = MAX(GET_H(LEFT(n1)), GET_H(RIGHT(n1))) + 1;
     return n1;
 }
 
@@ -195,18 +192,17 @@ static void doTreeSearchBetween(Tree t, Node n, Record lower,
                                 Record upper, List l) {
     if (n == NULL) return;
     if (t->compare(lower, n->rec) <= 0) {
-        doTreeSearchBetween(t, L(n), lower, upper, l);
+        doTreeSearchBetween(t, LEFT(n), lower, upper, l);
         if (t->compare(upper, n->rec) >= 0)
             ListAppend(l, n->rec);
     }
     if (t->compare(upper, n->rec) >= 0)
-        doTreeSearchBetween(t, R(n), lower, upper, l);
+        doTreeSearchBetween(t, RIGHT(n), lower, upper, l);
 }
 
 ////////////////////////////////////////////////////////////////////////
 
 Record TreeNext(Tree t, Record r) {
-    //Display(t->root, 0);
     return doTreeNext(t, t->root, r);
 }
 
@@ -214,13 +210,15 @@ static Record doTreeNext(Tree t, Node n, Record rec) {
     if (!n) return NULL;
     int cmp = t->compare(rec, n->rec);
     if (cmp <= 0) {
-        Record temp = doTreeNext(t, L(n), rec);
+        Record temp = doTreeNext(t, LEFT(n), rec);
         return temp ? temp : n->rec;
     } else {
-        return doTreeNext(t, R(n), rec);
+        return doTreeNext(t, RIGHT(n), rec);
     }
 }
 
+
+static void Display(Node root, int ident);
 // An array, the length of the array is not less than the height of the binary tree, 
 // here it is assumed to be one hundred
 // Used to mark whether the current node is the left or right children of the parent node, 

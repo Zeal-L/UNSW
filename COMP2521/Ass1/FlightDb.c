@@ -14,7 +14,7 @@ struct flightDb {
     Tree NF;
 };
 
-
+// In increasing order of  (day, hour, min).
 int compareByFN(Record r1, Record r2) {
 	int cmp_f = strcmp(RecordGetFlightNumber(r1), RecordGetFlightNumber(r2));
 	int cmp_d = RecordGetDepartureDay(r1) - RecordGetDepartureDay(r2);
@@ -23,6 +23,8 @@ int compareByFN(Record r1, Record r2) {
 	return cmp_f ? cmp_f : cmp_d ? cmp_d : cmp_h ? cmp_h : cmp_m;
 
 }
+
+// In increasing order  of (hour, min, flight number).
 int compareByDAD(Record r1, Record r2) {
     int cmp_a = strcmp(RecordGetDepartureAirport(r1), RecordGetDepartureAirport(r2));
     int cmp_d = RecordGetDepartureDay(r1) - RecordGetDepartureDay(r2);
@@ -32,6 +34,7 @@ int compareByDAD(Record r1, Record r2) {
     return cmp_a ? cmp_a : cmp_d ? cmp_d : cmp_h ? cmp_h : cmp_m ? cmp_m : cmp_f;
 }
 
+// In increasing  order  of (day, hour, min, flight number).
 int compareBetweenTimes(Record r1, Record r2) {
     int cmp_d = RecordGetDepartureDay(r1) - RecordGetDepartureDay(r2);
 	int cmp_h = RecordGetDepartureHour(r1) - RecordGetDepartureHour(r2);
@@ -40,6 +43,7 @@ int compareBetweenTimes(Record r1, Record r2) {
     return cmp_d ? cmp_d : cmp_h ? cmp_h : cmp_m ? cmp_m : cmp_f;
 }
 
+// In increasing  order  of (day, hour, min)
 int compareNextFlight(Record r1, Record r2) {
     int cmp_a = strcmp(RecordGetDepartureAirport(r1), RecordGetDepartureAirport(r2));
     int cmp_d = RecordGetDepartureDay(r1) - RecordGetDepartureDay(r2);
@@ -111,6 +115,7 @@ bool     DbInsertRecord(FlightDb db, Record r) {
  */
 List     DbFindByFlightNumber(FlightDb db, char *flightNumber) {
 	
+    // Dummy records
 	Record d1 = RecordNew(flightNumber, "", "", 0, 0, 00, 0);
     Record d2 = RecordNew(flightNumber, "", "", 6, 23, 59, 0);
 
@@ -135,6 +140,7 @@ List     DbFindByFlightNumber(FlightDb db, char *flightNumber) {
 List     DbFindByDepartureAirportDay(FlightDb db, char *departureAirport,
                                      int day) {
 
+    // Dummy records
 	Record d1 = RecordNew("", departureAirport, "", day, 0, 00, 0);
     Record d2 = RecordNew("zzzzzzzz", departureAirport, "", day, 23, 59, 0);
 
@@ -161,6 +167,7 @@ List     DbFindBetweenTimes(FlightDb db,
                             int day1, int hour1, int min1, 
                             int day2, int hour2, int min2) {
 
+    // Dummy records
 	Record d1 = RecordNew("", "", "", day1, hour1, min1, 0);
     Record d2 = RecordNew("zzzzzzzz", "", "", day2, hour2, min2, 0);
 
@@ -182,6 +189,7 @@ List     DbFindBetweenTimes(FlightDb db,
 Record   DbFindNextFlight(FlightDb db, char *departureAirport, 
                           int day, int hour, int min) {
 	
+    // Dummy records
     Record dummy = RecordNew("", departureAirport, "", day, hour, min, 0);
     Record r = TreeNext(db->NF, dummy);
     // If don't find one in this week, check next week's flights

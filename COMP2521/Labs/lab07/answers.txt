@@ -7,7 +7,7 @@ NOTE:
   solveBfs
 ============
 
-- Worst case time complexity: O(...)
+- Worst case time complexity: O(n)
 
 - Explanation: ...
 
@@ -15,7 +15,7 @@ NOTE:
   solveDfs
 ============
 
-- Worst case time complexity: O(...)
+- Worst case time complexity: O(n)
 
 - Explanation: ...
 

@@ -112,7 +112,7 @@ int findPath(Graph g, Vertex src, Vertex dest, int max, int *path)
         }
     }
     QueueFree(q);
-	return found ? counter : 0;
+	return counter;
 }
 
 ////////////////////////////////////////////////////////////////////////

@@ -9,7 +9,7 @@
 #include "FloydWarshall.h"
 #include "Graph.h"
 
-static ShortestPaths spsnew(int num);
+static ShortestPaths spsNew(int num);
 
 /**
  * Finds all shortest paths between all pairs of nodes.
@@ -23,7 +23,7 @@ static ShortestPaths spsnew(int num);
 ShortestPaths FloydWarshall(Graph g) {
 	assert(g != NULL);
 	int num = GraphNumVertices(g);
-	ShortestPaths sps = spsnew(num);
+	ShortestPaths sps = spsNew(num);
 
 	for (int u = 0; u < num; u++) {
 		AdjList l = GraphOutIncident(g, u);
@@ -43,8 +43,8 @@ ShortestPaths FloydWarshall(Graph g) {
 	for (int k = 0; k < num; k++) {
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < num; j++) {
-				// Because INFINITY is not truly infinite, we skip this operation in order 
-				// to avoid large negative numbers due to exceeding the range of int types.
+				// Because INFINITY is not truly infinite, we skip this operation 
+				// in order to avoid large negative numbers due to integer overflow.
 				if (sps.dist[i][k] == INFINITY || sps.dist[k][j] == INFINITY) continue;
 				// Edge Relaxation.
 				if (sps.dist[i][j] > sps.dist[i][k] + sps.dist[k][j]) {
@@ -58,7 +58,7 @@ ShortestPaths FloydWarshall(Graph g) {
 	return sps;
 }
 
-static ShortestPaths spsnew(int num) {
+static ShortestPaths spsNew(int num) {
 	ShortestPaths sps;
 	sps.numNodes = num;
 	sps.dist = malloc(num * sizeof(int *));

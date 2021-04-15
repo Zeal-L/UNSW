@@ -10,7 +10,7 @@
 #include "FloydWarshall.h"
 #include "Graph.h"
 
-static EdgeValues evsnew(Graph g);
+static EdgeValues evsNew(Graph g);
 
 /**
  * Finds  the  edge  betweenness  centrality  for each edge in the given
@@ -20,7 +20,7 @@ static EdgeValues evsnew(Graph g);
 EdgeValues edgeBetweennessCentrality(Graph g) {
 	assert(g != NULL);
 	int num = GraphNumVertices(g);
-	EdgeValues evs = evsnew(g);
+	EdgeValues evs = evsNew(g);
 	ShortestPaths paths = FloydWarshall(g);
 	
 	for (int s = 0; s < num; s++) {
@@ -46,7 +46,7 @@ EdgeValues edgeBetweennessCentrality(Graph g) {
 	return evs;
 }
 
-static EdgeValues evsnew(Graph g) {
+static EdgeValues evsNew(Graph g) {
 	int num = GraphNumVertices(g);
 	EdgeValues evs;
 	evs.numNodes = num;

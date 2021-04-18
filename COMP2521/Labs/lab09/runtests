@@ -1,0 +1,20 @@
+#!/bin/sh
+
+for size in 20000 50000
+do
+	for order in random sorted reversed
+	do
+		echo === Testing for $order input, size $size ===
+		for i in 1 
+		do
+			case $order in
+				random)   flag="R" ;;
+				sorted)   flag="A" ;;
+				reversed) flag="D" ;;
+			esac
+			{ ./gen $size $flag | /usr/bin/time -f "%U" ./sortA > /dev/null ; }
+		done
+		echo ""
+	done
+done
+

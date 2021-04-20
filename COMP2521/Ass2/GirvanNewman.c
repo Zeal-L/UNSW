@@ -33,11 +33,9 @@ Dendrogram GirvanNewman(Graph g) {
 
 	doGirvanNewman(g, den, isolatedV);
 	
-
 	freeShortestPaths(paths);
 	return den;
 }
-
 
 static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *isolatedV) {
 	
@@ -173,7 +171,7 @@ static int checkSingleIsolated(bool *isolatedV, int num) {
 }
 
 static Dendrogram denNew(int v) {
-	Dendrogram den = malloc(sizeof(struct DNode));
+	Dendrogram den = malloc(sizeof(*den));
 	assert(den != NULL);
 	den->vertex = v;
 	den->left = den->right = NULL;

@@ -13,7 +13,7 @@
 
 static Dendrogram denNew(int v);
 static void removeHighestEdges(Graph g, bool *isolatedV, int *componentA, int *componentB);
-
+static bool *findComponent(Graph g, int componentV);
 static int checkSingleIsolated(bool *isolatedV, int num);
 static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *isolatedV);
 
@@ -25,89 +25,71 @@ static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *isolatedV);
  */
 Dendrogram GirvanNewman(Graph g) {
 	assert(g != NULL);
-	ShortestPaths paths = FloydWarshall(g);
 	Dendrogram den = denNew(-1);
 	int num = GraphNumVertices(g);
-	bool isolatedV[num];
-	for (int i = 0; i < num; i++) isolatedV[i] = true;
+	bool component[num];
+	for (int i = 0; i < num; i++) component[i] = true;
 
-	doGirvanNewman(g, den, isolatedV);
+	doGirvanNewman(g, den, component);
 	
-	freeShortestPaths(paths);
 	return den;
 }
 
-static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *isolatedV) {
-	
+static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *component) {
 	int num = GraphNumVertices(g);
-
+	////////////////////////////////////////////////////////////////////////
 	// Stop cases
-	int single = checkSingleIsolated(isolatedV, num);
-	if (single >= 0) {	// Single component left.
-		isolatedV[single] = false;
+	int single = checkSingleIsolated(component, num);
+	if (single >= 0) {	// Single vertex left.
 		return denNew(single);
-
-	} else if (single == -2) { // Last Two component in that subtree.
+	} else if (single == -2) { // Last Two vertexes in that subtree/component.
 		for (int i = 0; i < num; i++) {
-			if (isolatedV[i] == true) {
-				isolatedV[i] = false;
+			if (component[i] == true) {
 				if (den->left == NULL) den->left = denNew(i);
 				else if (den->right == NULL) den->right = denNew(i);
 			}
 		}
 		return NULL;
 	}
-	
-	int componentA = 0;
-	int componentB = 0;
-	bool *isolatedA = malloc(sizeof(bool) * num);
-	bool *isolatedB = malloc(sizeof(bool) * num);
-	for (int i = 0; i < num; i++) isolatedA[i] = isolatedB[i] = false;
-	
-	if (single == -1) removeHighestEdges(g, isolatedV, &componentA, &componentB);
-	
-	ShortestPaths paths = FloydWarshall(g);
-	// Updata isolatedA and isolatedB after removeHighestEdges.
-	for (int i = 0; i < num; i++) {
-		if (paths.dist[componentA][i] != INFINITY 
-			|| paths.dist[i][componentA] != INFINITY) {
-			isolatedA[i] = true;
-		} else if (paths.dist[componentB][i] != INFINITY 
-			|| paths.dist[i][componentB] != INFINITY) {
-			isolatedB[i] = true;
-		}
-	}
-	freeShortestPaths(paths);
-	
 
-	int singleA = checkSingleIsolated(isolatedA, num);
-	int singleB = checkSingleIsolated(isolatedB, num);
+	////////////////////////////////////////////////////////////////////////
+	// Remove highest edges and calculate the newly created component part
+	int isolated_A = 0;
+	int isolated_B = 0;
+	// If the number of remaining vertices is greater than 2 then keep removing it
+	if (single == -1) removeHighestEdges(g, component, &isolated_A, &isolated_B);
+	// Updata isolatedV and isolatedB after removeHighestEdges.
+	bool *component_A = findComponent(g, isolated_A);
+	bool *component_B = findComponent(g, isolated_B);
+	int single_A = checkSingleIsolated(component_A, num);
+	int single_B = checkSingleIsolated(component_B, num);
 
+	////////////////////////////////////////////////////////////////////////
 	// Different recursion cases.
-	if (singleA < 0) { // Two or more Vertexs in one component case.
+	if (single_A < 0) { // Two or more Vertexs in one component case.
 		den->left = denNew(-1);
-		doGirvanNewman(g, den->left, isolatedA);
+		doGirvanNewman(g, den->left, component_A);
 	} else { // Single Vertex case.
-		den->left = doGirvanNewman(g, den, isolatedA);
+		den->left = doGirvanNewman(g, den, component_A);
 	}
 	// Same as above but in right subtree.
-	if (singleB < 0) {
+	if (single_B < 0) {
 		den->right = denNew(-1);
-		doGirvanNewman(g, den->right, isolatedB);
+		doGirvanNewman(g, den->right, component_B);
 	} else {
-		den->right = doGirvanNewman(g, den, isolatedB);
+		den->right = doGirvanNewman(g, den, component_B);
 	}
 
-	free(isolatedA);
-	free(isolatedB);
+	free(component_A);
+	free(component_B);
 	return NULL;
 }
 
 // remove Highest Edges in the given graph
 // If there are muilple sedges with the same 
 // Betweenness Centrality Remove them simultaneously.
-// componentA and B record the index of the two components created after removal.
-static void removeHighestEdges(Graph g, bool *isolatedV, int *componentA, int *componentB) {
+// isolated A and B record the index of the two components created after removal.
+static void removeHighestEdges(Graph g, bool *component, int *isolated_A, int *isolated_B) {
 	EdgeValues evs = edgeBetweennessCentrality(g);
 	int num = GraphNumVertices(g);
 	int max = -1;
@@ -119,7 +101,7 @@ static void removeHighestEdges(Graph g, bool *isolatedV, int *componentA, int *c
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < num; j++) {
 				if (evs.values[i][j] >= max && GraphIsAdjacent(g, i, j) 
-					&& isolatedV[i] && isolatedV[j]) { // make sure we only remove 
+					&& component[i] && component[j]) { // make sure we only remove 
 					max = evs.values[i][j];			   // edges in curr component
 					max_i = i;
 					max_j = j;
@@ -130,10 +112,12 @@ static void removeHighestEdges(Graph g, bool *isolatedV, int *componentA, int *c
 		
 		GraphRemoveEdge(g, max_i, max_j);
 		ShortestPaths paths = FloydWarshall(g);
+		// Confirms that the two vertices belong to different 
+		// components before assigning the value to isolated A and B
 		if (paths.dist[max_i][max_j] == INFINITY 
 			&& paths.dist[max_j][max_i] == INFINITY) {
-			*componentA = max_i;
-			*componentB = max_j;
+			*isolated_A = max_i;
+			*isolated_B = max_j;
 		} 
 		freeShortestPaths(paths);
 		
@@ -144,23 +128,22 @@ static void removeHighestEdges(Graph g, bool *isolatedV, int *componentA, int *c
 	// In case if no two new components are created after 
 	// removingHighestEdges, then continue to removeHighestEdges.
 	ShortestPaths p = FloydWarshall(g);
-	if (p.dist[*componentA][*componentB] != INFINITY) {
-		removeHighestEdges(g, isolatedV, componentA, componentB);
+	if (p.dist[*isolated_A][*isolated_B] != INFINITY) {
+		removeHighestEdges(g, component, isolated_A, isolated_B);
 	}
 	freeShortestPaths(p);
-	
 	freeEdgeValues(evs);
 }
 
-// Check if there is a single componet in the given array
-// Return positive number as index when there're only one component.
-// Return -2 is there are two components left.
-// Return -1 is there are more then 2 components.
-static int checkSingleIsolated(bool *isolatedV, int num) {
+// Check if there is a single vertex in the given component
+// Return positive number as index when there're only one vertex.
+// Return -2 if there are two vertexes left.
+// Return -1 if there are more then 2 vertexes.
+static int checkSingleIsolated(bool *component, int num) {
 	int counter = 0;
 	int single = -1;
 	for (int i = 0; i < num; i++) {
-		if (isolatedV[i] == true) {
+		if (component[i] == true) {
 			single = i;
 			counter++;
 		}
@@ -177,6 +160,25 @@ static Dendrogram denNew(int v) {
 	den->left = den->right = NULL;
 	return den;
 }
+
+// Find all connected vertices based on the 
+// vertice given, and return this component.
+static bool *findComponent(Graph g, int isolated_V) {
+	int num = GraphNumVertices(g);
+	bool *component = malloc(sizeof(bool) * num);
+	for (int i = 0; i < num; i++) component[i] = false;
+
+	ShortestPaths paths = FloydWarshall(g);
+	for (int i = 0; i < num; i++) {
+		if (paths.dist[isolated_V][i] != INFINITY 
+			|| paths.dist[i][isolated_V] != INFINITY) {
+			component[i] = true;
+		} 
+	}
+	freeShortestPaths(paths);
+	return component;
+}
+
 
 /**
  * Frees all memory associated with the given Dendrogram  structure.  We

@@ -58,7 +58,7 @@ static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *component) {
 	int isolated_B = 0;
 	// If the number of remaining vertices is greater than 2 then keep removing it
 	if (single == -1) removeHighestEdges(g, component, &isolated_A, &isolated_B);
-	// Updata isolatedV and isolatedB after removeHighestEdges.
+	// Updata component A and B after remove Highest Edges.
 	bool *component_A = findComponent(g, isolated_A);
 	bool *component_B = findComponent(g, isolated_B);
 	int single_A = checkSingleIsolated(component_A, num);
@@ -86,7 +86,7 @@ static Dendrogram doGirvanNewman(Graph g, Dendrogram den, bool *component) {
 }
 
 // remove Highest Edges in the given graph
-// If there are muilple sedges with the same 
+// If there are mutiple sedges with the same 
 // Betweenness Centrality Remove them simultaneously.
 // isolated A and B record the index of the two components created after removal.
 static void removeHighestEdges(Graph g, bool *component, int *isolated_A, int *isolated_B) {

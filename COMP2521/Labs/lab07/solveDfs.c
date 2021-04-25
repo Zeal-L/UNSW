@@ -27,7 +27,7 @@ bool solve(Maze m) {
     Cell **path = createCellMatrix(height, width);
     Stack s = StackNew();
 
-    MazeSetDisplayPause(40);
+    MazeSetDisplayPause(220);
     bool found = findPathDFS(m, MazeGetStart(m), visited, path, s);
     
     freeBoolMatrix(visited);
@@ -42,6 +42,7 @@ bool findPathDFS(Maze m, Cell src, bool **visited, Cell **path, Stack s) {
     StackPush(s, src);
     while (!found && !StackIsEmpty(s)) {
         Cell v = StackPop(s);
+        visited[v.row][v.col] = true;
         if (MazeVisit(m, v)) {
             found = true;
             displayTraceBack(m, path, v);
@@ -58,7 +59,7 @@ bool findPathDFS(Maze m, Cell src, bool **visited, Cell **path, Stack s) {
 void move(Maze m, Cell src, Cell *v, bool **visited, Cell **path, Stack s) {
     if (validCell(m, *v) && !MazeIsWall(m, *v) 
         && !visited[v->row][v->col]) {
-        visited[v->row][v->col] = true;
+        
         path[v->row][v->col] = src;
         StackPush(s, *v);
     }

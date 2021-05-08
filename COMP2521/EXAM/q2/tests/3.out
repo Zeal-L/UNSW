@@ -1,0 +1,18 @@
+Using comparison function: compareByZid
+
+Tree:
+50|Jones|Ram
++--L: 65|Singh|Samuel
+|     +--L: 12|Zhou|Layla
+|     |     +--L: X
+|     |     +--R: X
+|     +--R: X
++--R: 80|Lee|Emma
+      +--L: 72|Brown|Olivia
+      |     +--L: X
+      |     +--R: X
+      +--R: 91|Yang|Sophia
+            +--L: X
+            +--R: X
+
+isBST returned: 0

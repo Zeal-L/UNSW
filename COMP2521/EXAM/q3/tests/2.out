@@ -1,0 +1,21 @@
+nV: 8
+src: 2
+srcViralLoad: 89
+
+Edge inserted: 0-1
+Edge inserted: 1-2
+Edge inserted: 2-3
+Edge inserted: 3-4
+Edge inserted: 4-5
+Edge inserted: 3-6
+Edge inserted: 6-7
+
+Viral load:
+ trasmissionArray[0] is     32.040 
+ trasmissionArray[1] is     53.400 
+ trasmissionArray[2] is     89.000 
+ trasmissionArray[3] is     53.400 
+ trasmissionArray[4] is     32.040 
+ trasmissionArray[5] is     19.224 
+ trasmissionArray[6] is     32.040 
+ trasmissionArray[7] is     19.224 

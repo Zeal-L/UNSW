@@ -1,0 +1,10 @@
+Using comparison function: compareByZid
+
+Tree:
+50|Smith|John
++--L: X
++--R: 65|Ng|Rita
+      +--L: X
+      +--R: X
+
+isBST returned: 1

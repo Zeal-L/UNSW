@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"code-runner.executorMap": {
+			"haskell": "cd $dir && stack run $fileName"
+		},
+		"haskell.ghcMod.executablePath": "stack", 
+		"haskell.hlint.executablePath": "C:/Users/Zeal/AppData/Roaming/local/bin/hlint",
+		"editor.fontFamily": "Hack, '微软雅黑', monospace",
+		"files.autoSave": "afterDelay",
+		"code-runner.saveAllFilesBeforeRun": true,
+		"code-runner.runInTerminal": true,
+		"diffEditor.ignoreTrimWhitespace": false,
+		"workbench.colorTheme": "Monokai",
+		"workbench.iconTheme": "vscode-icons",
+		"explorer.confirmDelete": false,
+		"cSpell.words": [
+			"Inor"
+		]
+	}
+}

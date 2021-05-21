@@ -3,4 +3,4 @@ module Main where
 import Notes
 
 main :: IO ()
-main = isInorDe [1,2,3]
+main = checkOrder [1..10]

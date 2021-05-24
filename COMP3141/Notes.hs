@@ -7,8 +7,12 @@ module Notes (
           maximum',   take',
           reverse',   zip',
           quicksort,  mergeSort,
-          printN,     空格分割
+          printN,     空格分割,
+          roots,      map',
+          not'
     ) where
+
+import Data.Char  -- For map'
 
 -- ! ---------------------------------------------------------------------------
  
@@ -154,19 +158,36 @@ printN n str = putStrLn str >> printN (n - 1) str
 
 -- ! ---------------------------------------------------------------------------
 
--- Stack
-pop :: [a] -> ([a], a)
-pop (x:xs) = (xs, x)
+roots :: (Float, Float, Float) -> (Float, Float)  
+roots (a,b,c) = (x1, x2) where 
+   x1 = e + sqrt d / (2 * a) 
+   x2 = e - sqrt d / (2 * a) 
+   d = b * b - 4 * a * c  
+   e = - b / (2 * a)  
+   
+-- ! ---------------------------------------------------------------------------
 
-push :: a -> [a] -> [a]
-push = (:)
-
-peek :: [a] -> a
-peek = head
-
-getSize :: [Integer] -> Integer
-getSize = length2
+map' :: (a -> b) -> [a] -> [b] 
+map' _ [] = [] 
+map' func (x : abc) = func x : map func abc  
 
 -- ! ---------------------------------------------------------------------------
 
+-- Lambda表达式
+-- whatever :: IO ()
+-- whatever = do 
+--    putStrLn "The successor of 4 is:"  
+--    print ((\x -> x + 1) 4)
 
+-- ! ---------------------------------------------------------------------------
+
+-- Function composition
+-- (not'.even)(16) == not' $ even (16)
+not'  :: Bool -> String 
+not' x = if x 
+            then "This is an Even Number" 
+         else "This is an Odd number" 
+
+
+
+-- ! ---------------------------------------------------------------------------

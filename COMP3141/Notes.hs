@@ -1,60 +1,60 @@
 module Notes (           
-          hypotenuse, identifyCamel,
-          double,     dividesEvenly,
-          factorial,  length1,
-          length2,    increasing,
-          decreasing, checkOrder,
-          maximum',   take',
-          reverse',   zip',
-          quicksort,  mergeSort,
-          printN,     空格分割,
-          roots,      map',
-          not'
-    ) where
+        hypotenuse, identifyCamel,
+        double,     dividesEvenly,
+        factorial,  length1,
+        length2,    increasing,
+        decreasing, checkOrder,
+        maximum',   take',
+        reverse',   zip',
+        quicksort,  mergeSort,
+        printN,     空格分割,
+        roots,      map',
+        not'
+) where
 
 import Data.Char  -- For map'
 
 -- ! ---------------------------------------------------------------------------
- 
+
 hypotenuse :: Floating a => a -> a -> a
 hypotenuse a b = sqrt (a ^ (2 :: Int) + b ^ (2 :: Int))
 
 -- ! ---------------------------------------------------------------------------
- 
+
 identifyCamel :: (Eq a, Num a) => a -> [Char]
 identifyCamel humps = if humps == 1
                       then "dromedary"
                       else "Bactrian"
 
 -- ! ---------------------------------------------------------------------------
- 
+
 double :: Num a => a -> a
 double x = 2 * x
 
 -- ! ---------------------------------------------------------------------------
- 
+
 dividesEvenly :: Int -> Int -> Bool
 dividesEvenly x y = (y `div` x) * x == y
 
 -- ! ---------------------------------------------------------------------------
- 
+
 factorial :: Integral a => a -> a
 factorial 0 = 1
 factorial n = n * factorial (n - 1)
 
 -- ! ---------------------------------------------------------------------------
- 
+
 length1 :: Num a => [a] -> a
 length1 xs = sum [1 | _ <- xs]
 
 -- ! ---------------------------------------------------------------------------
- 
+
 length2 :: Num a => [a] -> a
 length2 [] = 0
 length2 (_:xs) = 1 + length2 xs
 
 -- ! ---------------------------------------------------------------------------
- 
+
 increasing :: Ord a => [a] -> Bool
 increasing (x:y:ys) = x <= y && increasing (y:ys)
 increasing _ = True
@@ -73,14 +73,14 @@ checkOrder x
           only_one = length x == 1
 
 -- ! ---------------------------------------------------------------------------
- 
+
 maximum' :: Ord a => [a] -> a
 maximum' [] = error "maximum of empty list"
 maximum' [x] = x
 maximum' (x:xs) = max x (maximum' xs)
 
 -- ! ---------------------------------------------------------------------------
- 
+
 take' :: (Ord t, Num t) => t -> [a] -> [a]
 take' n _
     | n <= 0 = []
@@ -88,7 +88,7 @@ take' _ [] = []
 take' n (x:xs) = x : take' (n - 1) xs
 
 -- ! ---------------------------------------------------------------------------
- 
+
 reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = reverse' xs ++ [x]
@@ -164,7 +164,7 @@ roots (a,b,c) = (x1, x2) where
    x2 = e - sqrt d / (2 * a) 
    d = b * b - 4 * a * c  
    e = - b / (2 * a)  
-   
+
 -- ! ---------------------------------------------------------------------------
 
 map' :: (a -> b) -> [a] -> [b] 
@@ -187,7 +187,5 @@ not'  :: Bool -> String
 not' x = if x 
             then "This is an Even Number" 
          else "This is an Odd number" 
-
-
 
 -- ! ---------------------------------------------------------------------------

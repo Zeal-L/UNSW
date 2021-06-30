@@ -1,0 +1,39 @@
+外网最有名的教材 Learn You a Haskell for Great Good!
+http://learnyouahaskell.com/chapters
+下面是github的翻译版
+https://github.com/MnO2/learnyouahaskell-zh/tree/master/zh-cn
+可以配合这个视频食用
+https://www.bilibili.com/video/BV1Me411s7oF?from=search&seid=3574966748188864623
+
+然后下面的博客是一个系列--按照顺序看就行
+Haskell 环境搭建指南
+https://www.luogu.com.cn/blog/HoshinoTented/haskell-huan-jing-da-jian-zhi-na
+haskell入门语法手册
+https://www.luogu.com.cn/blog/i-love-illya/haskell-ru-men-yu-fa-shou-ce
+Haskell 如何打造爆款数据类型
+https://www.luogu.com.cn/blog/HoshinoTented/haskell-ru-he-da-zao-bao-kuan-shuo-ju-lei-xing
+如何在 OI 中愉快地 Haskell
+https://www.luogu.com.cn/blog/HoshinoTented/how-to-haskell-in-oi
+是类型类！还有函子，可应用函子和单子！
+https://www.luogu.com.cn/blog/HoshinoTented/typeclass-functor-applicative-and-monad
+
+更多的基础教程
+https://www.yiibai.com/haskell/
+https://github.com/alpacaaa/zero-bullshit-haskell
+Real World Haskell 中文版
+https://rwh.readthedocs.io/en/latest/chp/1.html
+
+清华函数式编程公开课
+https://space.bilibili.com/18709997/channel/detail?cid=144336&ctype=0
+PPT如下
+https://github.com/winterland1989/magic-haskell/tree/gh-pages/%E6%B8%85%E5%8D%8E2019Haskell%E8%AF%BE%E7%A8%8B
+
+更多B站Haskell视频
+https://www.bilibili.com/video/BV14s411e7JK?from=search&seid=3574966748188864623
+https://www.bilibili.com/video/BV1YA411v74t?from=search&seid=3574966748188864623
+https://www.bilibili.com/video/BV16x411y7d7?from=search&seid=3574966748188864623
+上海大学开源社区Haskell与函数式编程技术分享
+https://www.bilibili.com/video/BV1YW411y7Fp?from=search&seid=3574966748188864623
+
+学习Haskell必备的搜索网站，可以直接根据input type和outputtype检索函数
+https://hoogle.haskell.org/

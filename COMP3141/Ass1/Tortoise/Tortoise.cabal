@@ -1,0 +1,30 @@
+name: Tortoise
+version: 1.0
+cabal-version: >= 1.11
+build-type: Simple
+license: AllRightsReserved
+stability: experimental
+x-ghc-framework-version: 7.10.3-6.29-1
+x-last-ide-version: HfM1.4.0
+Executable Tortoise
+  default-language: Haskell2010
+  main-is: Main.hs
+  buildable: True
+  build-depends:
+      base -any,
+      JuicyPixels -any,
+      Rasterific -any,
+      QuickCheck -any
+  other-modules:
+      TortoiseGraphics, Tortoise, TortoiseCombinators
+Executable TortoiseTests
+  default-language: Haskell2010
+  main-is: Tests.hs
+  buildable: True
+  build-depends:
+      base -any,
+      QuickCheck -any,
+      tasty -any,
+      tasty-quickcheck -any
+  other-modules:
+      Tortoise, TortoiseCombinators, TestSupport

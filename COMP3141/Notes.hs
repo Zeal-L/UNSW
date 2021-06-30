@@ -1,19 +1,11 @@
-module Notes (           
-        hypotenuse, identifyCamel,
-        double,     dividesEvenly,
-        factorial,  length1,
-        length2,    increasing,
-        decreasing, checkOrder,
-        maximum',   take',
-        reverse',   zip',
-        quicksort,  mergeSort,
-        printN,     空格分割,
-        roots,      map',
-        not'
-) where
-
-import Data.Char  -- For map'
-
+-- For map'
+import Data.Char
+import Data.List
+-- For prop_reverse
+import Test.QuickCheck ((==>), Positive(..))
+import Test.QuickCheck.Property (Property)
+import Debug.Trace ()
+import qualified Data.Maybe as Maybes
 -- ! ---------------------------------------------------------------------------
 
 hypotenuse :: Floating a => a -> a -> a
@@ -64,9 +56,9 @@ decreasing (x:y:ys) = x >= y && decreasing (y:ys)
 decreasing _ = True
 
 checkOrder :: (Ord a, Show a) => [a] -> IO ()
-checkOrder x 
+checkOrder x
     | empty || only_one = error "No order"
-    | increasing x = putStrLn $ "The list " ++ show x ++ " is in increasing order."                 
+    | increasing x = putStrLn $ "The list " ++ show x ++ " is in increasing order."
     | decreasing x = putStrLn $ "The list " ++ show x ++ " is in decreasing order."
     | otherwise    = error "No order"
     where empty    = null x
@@ -95,9 +87,9 @@ reverse' (x:xs) = reverse' xs ++ [x]
 
 -- ! ---------------------------------------------------------------------------
 
-zip' :: [a] -> [b] -> [(a,b)]  
-zip' _ [] = []  
-zip' [] _ = []  
+zip' :: [a] -> [b] -> [(a,b)]
+zip' _ [] = []
+zip' [] _ = []
 zip' (x:xs) (y:ys) = (x,y):zip' xs ys
 
 -- ! ---------------------------------------------------------------------------
@@ -105,10 +97,17 @@ zip' (x:xs) (y:ys) = (x,y):zip' xs ys
 -- 快速排序 :: 数组 -> 排序后的数组
 quicksort :: Ord a => [a] -> [a]
 quicksort [] = []
-quicksort (x:xs) = 
+quicksort (x:xs) =
     let smallerSorted = quicksort [a | a <- xs, a <= x]
         biggerSorted = quicksort [a | a <- xs, a > x]
     in smallerSorted ++ [x] ++ biggerSorted
+
+-- qsort :: Ord a => [a] -> [a]
+-- qsort [] = []
+-- qsort (x:xs) = qsort smaller ++ [x] ++ qsort larger
+--     where
+--     smaller = filter (\ a-> a <= x) xs
+--     larger = filter (\ b-> b > x) xs
 
 -- ! ---------------------------------------------------------------------------
 
@@ -123,7 +122,7 @@ mergeSort xs = merge (mergeSort $ fst subs) (mergeSort $ snd subs)      -- 把 (
 merge :: (Eq a, Ord a) => [a] -> [a] -> [a]
 merge [] ys = ys    -- 如果有任意一个数组为空, 则返回非空的那个数组
 merge xs [] = xs
-merge (x:xs) (y:ys) = if x < y 
+merge (x:xs) (y:ys) = if x < y
                       then x : merge xs (y:ys)      -- 如果 第一个数组的首元素小于 第二个数组的首元素, 则 排序剩下的两个数组, 并将 第一个数组的首元素添加在排序后的数组之前
                       else y : merge (x:xs) ys            -- 这里跟上面差不多啦
 
@@ -138,15 +137,15 @@ data People = People {
 } deriving (Show)
 
 data Tree a = Leaf { value :: a }
-    | Node { 
+    | Node {
         left :: Tree a,
-        value :: a, 
+        value :: a,
         right :: Tree a }
     deriving (Show)
 
 -- ! ---------------------------------------------------------------------------
 
--- E.g Use of Monad 
+-- E.g Use of Monad
 printN :: Int -> String -> IO ()
 printN 0 _ = return ()
 printN n str = putStrLn str >> printN (n - 1) str
@@ -158,34 +157,161 @@ printN n str = putStrLn str >> printN (n - 1) str
 
 -- ! ---------------------------------------------------------------------------
 
-roots :: (Float, Float, Float) -> (Float, Float)  
-roots (a,b,c) = (x1, x2) where 
-   x1 = e + sqrt d / (2 * a) 
-   x2 = e - sqrt d / (2 * a) 
-   d = b * b - 4 * a * c  
-   e = - b / (2 * a)  
+roots :: (Float, Float, Float) -> (Float, Float)
+roots (a,b,c) = (x1, x2) where
+   x1 = e + sqrt d / (2 * a)
+   x2 = e - sqrt d / (2 * a)
+   d = b * b - 4 * a * c
+   e = - b / (2 * a)
 
 -- ! ---------------------------------------------------------------------------
 
-map' :: (a -> b) -> [a] -> [b] 
-map' _ [] = [] 
-map' func (x : abc) = func x : map func abc  
+map' :: (a -> b) -> [a] -> [b]
+map' _ [] = []
+map' func (x : xs) = func x : map' func xs
 
 -- ! ---------------------------------------------------------------------------
 
 -- Lambda表达式
+-- define a one-use function without giving it a name.
 -- whatever :: IO ()
--- whatever = do 
---    putStrLn "The successor of 4 is:"  
+-- whatever = do
+--    putStrLn "The successor of 4 is:"
 --    print ((\x -> x + 1) 4)
 
 -- ! ---------------------------------------------------------------------------
 
 -- Function composition
--- (not'.even)(16) == not' $ even (16)
-not'  :: Bool -> String 
-not' x = if x 
-            then "This is an Even Number" 
-         else "This is an Odd number" 
+-- (not'.even) 16 == not' $ even (16) == not' (even 16)
+not'  :: Bool -> String
+not' x = if x
+            then "This is an Even Number"
+         else "This is an Odd number"
 
 -- ! ---------------------------------------------------------------------------
+
+{-| Triple a list
+
+>>>triple "5"
+WAS "111111"
+NOW "555"
+
+>>> triple "ab"
+"ababab"
+
+prop> \(l::[Int]) -> length (triple l) == 3 * length l
++++ OK, passed 100 tests.
+
+-}
+
+triple :: [a] -> [a]
+triple l = l ++ l ++ l
+
+-- ! ---------------------------------------------------------------------------
+
+-- check property
+{-
+>>> import Test.QuickCheck
+>>> quickCheck prop_reverse
++++ OK, passed 100 tests.
+
+-}
+
+prop_reverse :: Eq a => [a] -> [a] -> Bool
+prop_reverse xs ys =
+    reverse' (xs ++ ys) == reverse' ys ++ reverse' xs
+
+
+
+{- Mersenne prime property
+prop> prop_mersennePrime
+*** Failed! Falsified (after 24 tests):
+Positive {getPositive = 11}
+
+-}
+prop_mersennePrime :: Positive Int -> Test.QuickCheck.Property.Property
+prop_mersennePrime (Positive n) = isPrime n ==> isPrime $ 2^n - 1
+
+isPrime :: Int -> Bool
+isPrime = null . primeFactors
+
+-- List the prime factors of a number (not including itself)
+primeFactors :: Int -> [Int]
+primeFactors x
+  = filter (isFactor x) $ takeWhile (smallFactor x) primes
+  where
+    isFactor :: Int -> Int -> Bool
+    isFactor xx y = xx `mod` y == 0
+
+    smallFactor :: Int -> Int -> Bool
+    smallFactor xx y = y * y <= xx
+
+-- List of all primes in order
+primes :: [Int]
+primes = 2 : filter isPrime [3..]
+
+-- ! ---------------------------------------------------------------------------
+
+{-  substitution cipher
+prop> \ xs -> encipher (encipher xs) == xs
++++ OK, passed 100 tests.
+
+prop> \ xs -> length xs == length (encipher xs)
++++ OK, passed 100 tests.
+
+>>> import Test.QuickCheck
+>>> import Data.Char
+>>> quickCheck (\ xs -> encipher (map toUpper xs) == map toUpper (encipher xs))
++++ OK, passed 100 tests.
+
+
+prop> \ a b -> encipher (a ++ b) == encipher a ++ encipher b
++++ OK, passed 100 tests.
+
+prop> \ x -> (encipher $ map toUpper x) == (map toUpper $ encipher x)
++++ OK, passed 100 tests.
+
+prop> \ x -> not (null x) ==> 26 - ord (head x) == ord (head (encipher x))
+*** Failed! Falsified (after 1 test and 1 shrink):
+"a"
+-}
+
+encipher :: String -> String
+encipher =
+  let
+    table = table' 'A' 'Z' ++ table' 'a' 'z'
+    table' a z = zip [a..z] (reverse [a..z])
+  in
+    map $ \x -> Maybes.fromMaybe x (lookup x table)
+
+-- ! ---------------------------------------------------------------------------
+
+toHex :: Int -> String
+toHex 0 = ""
+toHex n =
+  let
+    (d,r) = n `divMod` 16
+  in
+    toHex d ++ ["0123456789ABCDEF" !! r]
+
+fromHex :: String -> Int
+fromHex = fst . foldr eachChar (0,1)
+  where
+    eachChar c (sum, m) =
+      case elemIndex (toUpper c) "0123456789ABCDEF" of
+        Just i  -> (sum + i * m, m * 16)
+        Nothing -> (sum        , m * 16)
+
+-- ! ---------------------------------------------------------------------------
+
+dedup :: (Eq a) => [a] -> [a]  -- == nub
+dedup (x:y:xs) | x == y    = dedup (y:xs)
+               | otherwise = x : dedup (y:xs)
+dedup xs = xs
+
+sorted :: (Ord a) => [a] -> Bool
+sorted (x:y:xs) = x <= y && sorted (y:xs)
+sorted _xs       = True
+
+-- ! ---------------------------------------------------------------------------
+

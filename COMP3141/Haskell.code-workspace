@@ -8,7 +8,7 @@
 		"code-runner.executorMap": {
 			"haskell": "cd $dir && stack run $fileName"
 		},
-		"haskell.ghcMod.executablePath": "stack", 
+		"haskell.ghcMod.executablePath": "stack",
 		"haskell.hlint.executablePath": "C:/Users/Zeal/AppData/Roaming/local/bin/hlint",
 		"editor.fontFamily": "Hack, '微软雅黑', monospace",
 		"files.autoSave": "afterDelay",
@@ -19,7 +19,10 @@
 		"workbench.iconTheme": "vscode-icons",
 		"explorer.confirmDelete": false,
 		"cSpell.words": [
-			"Inor"
+			"Inor",
+			"Invis",
+			"Submap",
+			"combinators"
 		]
-	}
+	},
 }

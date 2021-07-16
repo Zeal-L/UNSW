@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE UndecidableInstances #-}
 -- For map'
 import Data.Char
 import Data.List
@@ -136,12 +138,12 @@ data People = People {
     age :: Int
 } deriving (Show)
 
-data Tree a = Leaf { value :: a }
-    | Node {
-        left :: Tree a,
-        value :: a,
-        right :: Tree a }
-    deriving (Show)
+-- data Tree a = Leaf { value :: a }
+--     | Node {
+--         left :: Tree a,
+--         value :: a,
+--         right :: Tree a }
+--     deriving (Show)
 
 -- ! ---------------------------------------------------------------------------
 
@@ -297,10 +299,10 @@ toHex n =
 fromHex :: String -> Int
 fromHex = fst . foldr eachChar (0,1)
   where
-    eachChar c (sum, m) =
+    eachChar c (sum', m) =
       case elemIndex (toUpper c) "0123456789ABCDEF" of
-        Just i  -> (sum + i * m, m * 16)
-        Nothing -> (sum        , m * 16)
+        Just i  -> (sum' + i * m, m * 16)
+        Nothing -> (sum'        , m * 16)
 
 -- ! ---------------------------------------------------------------------------
 

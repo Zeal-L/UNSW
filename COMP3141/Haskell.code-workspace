@@ -22,7 +22,8 @@
 			"Inor",
 			"Invis",
 			"Submap",
-			"combinators"
+			"combinators",
+			"tokenise"
 		]
 	},
 }

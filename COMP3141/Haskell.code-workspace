@@ -19,10 +19,12 @@
 		"workbench.iconTheme": "vscode-icons",
 		"explorer.confirmDelete": false,
 		"cSpell.words": [
+			"BLANKLINE",
 			"Inor",
 			"Invis",
 			"Submap",
 			"combinators",
+			"favourite",
 			"tokenise"
 		]
 	},

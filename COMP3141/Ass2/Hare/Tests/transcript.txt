@@ -1,0 +1,171 @@
+Name: Tortoise, Simon The
+Student ID: 4444444
+
+Academic Career 1 of 2: Undergraduate
+Program: Tortoise Science
+26/02/2013: Completed Program
+26/02/2013: Tortoise Science  Honours
+Beginning of  Undergraduate  Record
+
+Semester 1 2008
+UOCs: ********
+2008 S1 TORT1917 Higher Tortoising 1              6.00     6.00   94   HD
+2008 S1 SHEL1603 Tortoise Shell Cleaning          6.00     6.00   74   CR
+2008 S1 TURT1000 Turtlese Communication 1A        6.00     6.00   80   DN
+2008 S1 MATH1131 Mathematics 1A                   6.00     6.00   59   PS
+
+Term WAM:   76.750  Term Totals     24.00     24.00
+Good Standing
+
+Semester 2 2008
+UOCs: ******
+2008 S2 TORT1927 Tortoise Graphics and Algos      6.00     6.00   98   HD
+2008 S2 TURT1001 Turtlese Communication 1B        6.00     6.00   58   PS
+2008 S2 MATH1231 Mathematics 1B                   6.00     6.00   57   PS
+
+Term WAM:   71.000  Term Totals     42.00     42.00
+Good Standing
+
+Semester 1 2009
+UOCs: ********
+2009 S1 TURT2630 Intermediate Turtlese A          6.00     6.00   56   PS
+2009 S1 TORT2041 Bash Tortoise Shells             6.00     6.00   90   HD
+2009 S1 TORT2121 Looking Under the Shell          6.00     6.00   69   CR
+2009 S1 TORT2911 Eng. Design in Tortoising        6.00     6.00   89   HD
+
+Term WAM:   76.000  Term Totals     24.00     24.00
+Good Standing
+
+Semester 2 2009
+UOCs: ****
+2009 S2 TURT2631 Intermediate Turtlese B          6.00     6.00   54   PS
+2009 S2 TORT3161 Concepts of Tortoising Lang.     6.00     6.00   91   HD
+
+Term WAM:   72.500  Term Totals     12.00     12.00
+Good Standing
+
+Semester 1 2010
+UOCs: ****
+2010 S1 COMP3141 Software Sys Des&Implementat'n   6.00     6.00   93   HD
+2010 S1 TORT3901 Special Project A                6.00     6.00   98   HD
+
+Term WAM:   95.500  Term Totals     12.00     12.00
+Good Standing
+
+Semester 2 2010
+UOCs: *****
+2010 S2 TORT3151 Byzantine Tortoises              6.00     6.00   87   HD
+2010 S2 TORT4181 Tortoise-based Software Safety   6.00     6.00   94   HD
+
+Term WAM:   90.500  Term Totals     12.00     12.00
+Good Standing
+
+Semester 1 2011
+UOCs: ******
+2011 S1 TORT3131 Tortoising Languages & Compilers 6.00     6.00   89   HD
+2011 S1 TORT3411 Artificial Tortoise Intelligence 6.00     6.00   75   DN
+2011 S1 TORT4141 Theory of Tortoising             6.00     6.00   71   CR
+
+Term WAM:   78.333  Term Totals     18.00     18.00
+Good Standing
+
+Semester 2 2011
+UOCs: ********
+2011 S2 TORT3171 Turtle-Oriented Programming      6.00     6.00   85   HD
+2011 S2 TORT4161 Advanced Tortoisification        6.00     6.00  100   HD
+2011 S2 TORT4418 Tortoise Representation          6.00     6.00   86   HD
+2011 S2 MATH1081 Discrete Mathematics             6.00     6.00   60   PS
+
+Term WAM:   82.750  Term Totals     24.00     24.00
+Good Standing
+
+Semester 1 2012
+UOCs: *****
+2012 S1 TORT3891 Ext Tortoise Systems             6.00     6.00   86   HD
+2012 S1 TORT4910 Thesis Part A                    3.00     3.00        SY
+2012 S1 TORT6721 (In-)Formal Tortoises            6.00     6.00   87   HD
+
+Term WAM:   86.500  Term Totals     15.00     15.00
+Good Standing
+
+Semester 2 2012
+UOCs: *****
+2012 S2 TORT4911 Thesis Part B                   15.00    15.00   96   HD
+2012 S2 TORT4920 Management and Tortoises         6.00     6.00   75   DN
+
+Term WAM:   90.000  Term Totals     21.00     21.00
+Good Standing
+
+Summer Semester 2013
+UOCs: ****
+2013 X1 TORT3902 Special Project B               12.00    12.00   93   HD
+
+Term WAM:   93.000  Term Totals     12.00     12.00
+
+3983 Science/Tortoise Science Totals
+WAM:        82.691  Units:         192.00    192.00
+
+
+
+
+
+Academic Career 2 of 2: Research
+Print Date: 10/12/2017
+Program: Tortoise Science and Eng
+04/11/2013: Prematriculant
+04/11/2013: Tortoise Science and Engineering  Research
+Beginning of  Research  Record
+
+Semester 1 2014
+
+2014 S1 TORT6752 Modelling Concurrent Tortoises   0.00     0.00   89   HD
+2014 S1 TORT9153 Algorithmic Tortoisification     0.00     0.00   86   HD
+2014 S1 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+
+Term Totals 24.00 0.00
+
+Semester 2 2014
+
+2014 S2 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+2014 S2 GSOE9400 Engineering Pgrad Research       0.00     0.00        EC
+
+Term Totals 24.00 0.00
+
+Semester 1 2015
+
+2015 S1 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+2015 S1 GSOE9400 Engineering Pgrad Research       0.00     0.00        SY
+
+Term Totals 24.00 0.00
+
+Semester 2 2015
+
+2015 S2 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+
+Term Totals 24.00 0.00
+
+Semester 1 2016
+
+2016 S1 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+
+Term Totals 24.00 0.00
+
+Semester 2 2016
+
+2016 S2 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+
+Term Totals 24.00 0.00
+
+Semester 1 2017
+
+2017 S1 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+
+Term Totals 24.00 0.00
+
+Semester 2 2017
+
+2017 S2 TORT9902 Res. Thesis Tort Sci & Eng F/T  24.00     0.00        RC
+
+Term Totals 24.00 0.00
+1650 Tortoise Science and Eng Totals
+WAM:         0.000  Units:         192.00      0.00

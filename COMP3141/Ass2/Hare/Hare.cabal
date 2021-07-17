@@ -1,0 +1,30 @@
+name: Hare
+version: 1.0
+cabal-version: >=1.11
+build-type: Simple
+license: AllRightsReserved
+stability: experimental
+data-files:
+    Untyped.hs
+    Tests/transcript.txt
+x-ghc-framework-version: 8.0.2-8.9-3
+x-last-ide-version: HfM1.5.1
+Executable HareTests
+  main-is: Tests.hs
+  buildable: True
+  build-depends:
+      base -any,
+      QuickCheck -any,
+      tasty -any,
+      tasty-quickcheck -any,
+      tasty-hunit -any,
+      transformers -any,
+      mtl -any
+  default-language: Haskell2010
+  other-modules:
+      Hare
+      HareMonad
+      Tests.UnitTests
+      Tests.Support
+      Tests.Transcript
+      Tests.Examples

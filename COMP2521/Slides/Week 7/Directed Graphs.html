@@ -1,0 +1,504 @@
+
+<!-- saved from url=(0065)http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Directed Graphs</title>
+<link href="./Directed Graphs_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Directed Graphs_files/latest.js.下载" async=""></script>
+<script src="./Directed Graphs_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Directed Graphs_files/css" rel="stylesheet"><link href="./Directed Graphs_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Directed Graphs_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Directed Graphs</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s1">Directed Graphs (Digraphs)</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s2">Digraph Applications</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s4">Transitive Closure</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s12">Digraph Traversal</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s13">Example: Web Crawling</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s14">PageRank</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [0/19]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Directed Graphs (Digraphs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Reminder: <font color="#0000BB">directed graphs</font> are ...
+</p><ul>
+<li> graphs with <i>V</i> &nbsp;vertices, <i>E</i> &nbsp;edges <i>(v,w)</i>
+</li><li> edge <i>(v,w)</i> &nbsp;has <font color="#0000BB">source</font> <i>v</i> &nbsp;and <font color="#0000BB">destination</font> <i>w</i>
+</li><li> unlike undirected graphs, 
+<i>v → w &nbsp; ≠ &nbsp; w → v</i>
+</li></ul>
+Example digraph:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/digraph0.png]" src="./Directed Graphs_files/digraph0.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [1/19]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Digraph Applications</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Potential application areas:
+</p><p>
+</p><div class="center">
+<table cellpadding="8">
+<tbody><tr><td><b>Domain</b></td><td>&nbsp;</td><td><b>Vertex</b></td><td>&nbsp;</td><td><b>Edge</b></td></tr>
+<tr><td>Web</td><td>&nbsp;</td><td>web page</td><td>&nbsp;</td><td>hyperlink</td></tr>
+<tr><td>scheduling</td><td>&nbsp;</td><td>task</td><td>&nbsp;</td><td>precedence</td></tr>
+<tr><td>chess</td><td>&nbsp;</td><td>board position</td><td>&nbsp;</td><td>legal move</td></tr>
+<tr><td>science</td><td>&nbsp;</td><td>journal article</td><td>&nbsp;</td><td>citation</td></tr>
+<tr><td>dynamic data</td><td>&nbsp;</td><td>malloc'd object</td><td>&nbsp;</td><td>pointer</td></tr>
+<tr><td>programs</td><td>&nbsp;</td><td>function</td><td>&nbsp;</td><td>function call</td></tr>
+<tr><td><large><code>make</code></large></td><td>&nbsp;</td><td>file</td><td>&nbsp;</td><td>dependency</td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [2/19]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Digraph Applications</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Problems to solve on digraphs:
+</p><ul>
+<li> is there a directed path from <i>s</i> to <i>t</i> ?
+		&nbsp;<small>(transitive closure)</small>
+</li><li> what is the shortest path from <i>s</i> to <i>t</i> ?
+		&nbsp;<small>(shortest path)</small>
+</li><li> are all vertices mutually reachable?
+		&nbsp;<small>(strong connectivity)</small>
+</li><li> how to organise a set of tasks?
+		&nbsp;<small>(topological sort)</small>
+</li><li> which web pages are "important"?
+		&nbsp;<small>(PageRank)</small>
+</li><li> how to build a web crawler?
+		&nbsp;<small>(graph traversal)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [3/19]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Problem: computing <font color="#0000BB">reachability</font> &nbsp;&nbsp; (<large><code>reachable(G,s,t)</code></large>)
+</p><p>
+Given a digraph <i>G</i> &nbsp;it is potentially useful to know
+</p><ul>
+<li> is vertex <i>t</i> &nbsp;reachable from vertex <i>s</i> ?
+</li></ul>
+Example applications:
+<ul>
+<li> can I complete a schedule from the current state?
+</li><li> is a malloc'd object being referenced by any pointer?
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [4/19]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+One possibility to implement a reachability check:
+</p><ul>
+<li> use <large><code>hasPath(G,s,t)</code></large> &nbsp; <span class="smaller">(itself implemented by DFS or BFS algorithm)</span>
+</li><li> feasible only if <i>reachable(G,s,t)</i> &nbsp;is an infrequent operation
+</li></ul>
+What about applications that frequently check reachability?
+<p>
+Would be very convenient/efficient to have:
+</p><p></p><pre>reachable(G,s,t) &nbsp;≡&nbsp; <font color="brown">G.tc</font>[s][t]
+</pre><p>
+</p><p>
+<large><code>tc[][]</code></large> is called the <font color="#0000BB">transitive closure</font> matrix
+</p><ul>
+<li> <large><code>tc[</code></large><i>s</i><large><code>][</code></large><i>t</i><large><code>]</code></large> is 1 if there is a path from <i>s</i> &nbsp;to <i>t</i>, 0 otherwise
+</li></ul>
+<p>
+Of course, if <i>V</i> &nbsp;is large, then this may not be feasible either.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [5/19]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+The <large><code>tc[][]</code></large> matrix shows all directed paths in the graph
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/tc.png]" src="./Directed Graphs_files/tc.png">
+</div><p>
+<br>
+Question: how to build <large><code>tc[][]</code></large> from <large><code>edges[][]</code></large>?
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [6/19]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<font color="brown"><b>Goal:</b></font> produce a matrix of reachability values
+</p><p>
+Observations:
+</p><ul>
+<li> ∀<i>s,t</i> ∈ vertices(<i>G</i>):
+&nbsp;<i>(s,t)</i> ∈ edges(<i>G</i>) &nbsp;⇒&nbsp; <i>tc[s][t]</i> = 1
+</li><li> ∀<i>i,s,t</i> ∈ vertices(<i>G</i>):
+&nbsp;<i>(s,i)</i> ∈ edges(<i>G</i>) ∧ <i>(i,t)</i> ∈ edges(<i>G</i>) &nbsp;⇒&nbsp; <i>tc[s][t]</i> = 1
+</li></ul>
+In other words
+<ul>
+<li> <large><code>tc[s][t]=1</code></large> if there is an edge from <i>s</i> &nbsp;to <i>t</i> &nbsp;&nbsp; <small>(path of length 1)</small>
+</li><li> <large><code>tc[s][t]=1</code></large> if there is a path from <i>s</i> &nbsp;to <i>t</i> of length 2 &nbsp;&nbsp; <small>(<i>s→i→t</i>)</small>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [7/19]</div>
+ <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Extending the above observations gives ...
+</p><p>
+An algorithm to convert <large><code>edges</code></large> into a <i>tc</i>
+</p><p></p><pre><font color="blue">makeTC(G)</font>:
+|  tc[][] = edges[][]
+|  <b>for</b> <b>all</b> i ∈ vertices(G) <b>do</b>
+|  |  <b>for</b> <b>all</b> s ∈ vertices(G) <b>do</b>
+|  |  |  <b>for</b> <b>all</b> t ∈ vertices(G) <b>do</b>
+|  |  |  |  <b>if</b> tc[s][i]=1 ∧ tc[i][t]=1 <b>then</b>
+|  |  |  |  |  tc[s][t]=1
+|  |  |  |  <b>end if</b>
+|  |  |  <b>end for</b>
+|  |  <b>end for</b>
+|  <b>end for</b>
+</pre><p>
+This is known as <font color="#0000BB">Warshall's algorithm</font>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [8/19]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+How it works …
+</p><p>
+After copying <large><code>edges[][]</code></large>, &nbsp;<large><code>tc[s][t]</code></large> is 1 if <i>s→t</i> &nbsp;exists
+</p><p>
+After first iteration (<large><code>i=0</code></large>), &nbsp;<large><code>tc[s][t]</code></large> is 1 if
+</p><ul>
+<li> either <i>s→t</i> &nbsp;exists or <i>s→0→t</i> &nbsp;exists
+</li></ul>
+After second interation (<large><code>i=1</code></large>), <large><code>tc[s][t]</code></large> is 1 if any of
+<ul>
+<li> <i>s→t</i> &nbsp; or &nbsp;
+	<i>s→0→t</i> &nbsp; or &nbsp;
+	<i>s→1→t</i> &nbsp; or &nbsp;
+	<i>s→0→1→t</i> &nbsp; or &nbsp;
+	<i>s→1→0→t</i>
+</li></ul>
+After the <i>V<sup>th</sup></i> iteration, <large><code>tc[s][t]</code></large> is 1 if
+<ul>
+<li> there is a directed path in the graph from <i>s</i> &nbsp;to <i>t</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [9/19]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Tracing Warshall's algorithm on a simple graph:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/tc-example.png]" src="./Directed Graphs_files/tc-example.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [10/19]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Transitive Closure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Cost analysis:
+</p><ul>
+<li> storage: additional <i>V<sup>2</sup></i> items &nbsp;<small>(but each item may be 1 bit)</small>
+</li><li> computation of transitive closure: <i>V<sup>3</sup></i>
+</li><li> computation of <large><code>reachable()</code></large>: <i>O(1)</i> after generating <large><code>tc[][]</code></large>
+</li></ul>
+Amortisation: need many calls to <large><code>reachable()</code></large> to justify setup cost
+<p>
+Alternative: use DFS in each call to <large><code>reachable()</code></large>
+</p><p>
+Cost analysis:
+</p><ul>
+<li> storage: cost of Stack and Set during DFS calculation
+</li><li> computation of <large><code>reachable()</code></large>: <i>O(V<sup>2</sup>)</i> &nbsp; <small>(for adjacency matrix)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [11/19]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Digraph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Same algorithms as for undirected graphs:
+</p><p>
+</p><p></p><pre><font color="blue">depthFirst(G,v)</font>:
+|  mark <i>v</i> as visited
+|  <b>for</b> <b>each</b> <i>(v,w)</i> ∈ <i>edges</i>(G) <b>do</b>
+|  |  <b>if</b> <i>w</i> has not been visited <b>then</b>
+|  |  |  <font color="blue">depthFirst(<i>w</i>)</font>
+|  |  <b>end if</b>
+|  <b>end for</b>
+
+<font color="blue">breadthFirst(G,v)</font>:
+|  enqueue <i>v</i>
+|  <b>while</b> queue not empty <b>do</b>
+|  |  <i>curr</i>=dequeue
+|  |  <b>if</b> <i>curr</i> not already visited <b>then</b>
+|  |  |  mark <i>curr</i> as visited
+|  |  |  enqueue each <i>w</i> where <i>(curr,w)</i> ∈ <i>edges</i>(G)
+|  |  <b>end if</b>
+|  <b>end while</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [12/19]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Example: Web Crawling</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="brown"><b>Goal:</b></font> visit every page on the web <br>
+<font color="brown"><b>Solution:</b></font> breadth-first search with "implicit" graph
+</p><p></p><pre style="font-size:90%"><font color="blue">webCrawl(startingURL)</font>:
+|  mark startingURL as <font color="brown">alreadySeen</font>
+|  enqueue(<font color="brown">Q</font>,startingURL)
+|  <b>while</b> not isEmpty(<font color="brown">Q</font>) <b>do</b>
+|  |  currPage=dequeue(<font color="brown">Q</font>)
+|  |  <font color="green">visit</font> currPage
+|  |  <b>for</b> <b>each</b> hyperLink on currPage <b>do</b>
+|  |  |  <b>if</b> hyperLink not <font color="brown">alreadySeen</font> <b>then</b>
+|  |  |     mark hyperLink as <font color="brown">alreadySeen</font>
+|  |  |     enqueue(<font color="brown">Q</font>,hyperLink)
+|  |  |  <b>end if</b>
+|  |  <b>end for</b>
+|  <b>end while</b>
+</pre><p>
+<large><font color="#009900"><b><code>visit</code></b></font></large> scans page and collects e.g. keywords and links
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [13/19]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ PageRank</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<font color="brown"><b>Goal:</b></font> determine which Web pages are "important"
+</p><p>
+<font color="brown"><b>Approach:</b></font> ignore page contents; focus on hyperlinks
+</p><ul>
+<li> treat Web as graph: page = vertex, hyperlink = di-edge
+</li><li> pages with many incoming hyperlinks are important
+</li><li> need to computing "incoming degree" for vertices
+</li></ul>
+Problem: the Web is a <i>very</i> large graph
+<ul>
+<li> approx. <i>10<sup>10</sup></i> pages, &nbsp; <i>10<sup>11</sup></i> hyperlinks
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [14/19]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... PageRank</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Assume for the moment that we could build a graph …
+</p><p>
+Naive PageRank algorithm:
+</p><p></p><pre><font color="blue">PageRank(myPage)</font>:
+|  rank=0
+|  <b>for</b> <b>each</b> page in the Web <b>do</b>
+|  |  <b>if</b> linkExists(page,myPage) <b>then</b>
+|  |     rank=rank+1
+|  |  <b>end if</b>
+|  <b>end for</b>
+</pre><p>
+<br>
+Note: requires <font color="#0000BB">inbound</font> link check &nbsp; <span class="smaller">(normally, we check outbound)</span>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [15/19]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... PageRank</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<i>V</i> = # pages in Web, &nbsp; <i>E</i> = # hyperlinks in Web
+</p><p>
+Costs for computing PageRank for each representation:
+</p><p>
+</p><div class="center">
+<table cellpadding="8">
+<tbody><tr>
+ <td><b>Representation</b></td><td>&nbsp;</td>
+ <td><b>linkExists(v,w)</b></td><td>&nbsp;</td>
+ <td><b>Cost</b></td>
+</tr>
+<tr>
+ <td>Adjacency&nbsp;<font color="#0000BB">matrix</font></td><td>&nbsp;</td>
+ <td><large><code>edge[v][w]</code></large></td><td>&nbsp;</td>
+ <td><i>1</i></td>
+</tr>
+<tr>
+ <td>Adjacency&nbsp;<font color="#0000BB">lists</font></td><td>&nbsp;</td>
+ <td><large><code>inLL(list[v],w)</code></large></td><td>&nbsp;</td>
+ <td><i>≅ E/V</i></td>
+</tr>
+</tbody></table>
+</div>
+<p>
+Not feasible ...
+</p><ul>
+<li> adjacency matrix ... <i>V</i> ≅ <i>10<sup>10</sup></i> ⇒ matrix has <i>10<sup>20</sup></i> cells
+</li><li> adjacency list ... <i>V</i> &nbsp;lists, each with ≅10 hyperlinks ⇒  <i>10<sup>11</sup></i> list nodes
+</li></ul>
+So how to really do it?
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [16/19]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... PageRank</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+The random web surfer strategy.
+</p><p>
+Each page typically has many outbound hyperlinks ...
+</p><ul>
+<li> choose one at random, without a <large><code>visited[]</code></large> check
+</li><li> follow link and repeat above process on destination page
+</li></ul>
+If no visited check, need a way to (mostly) avoid loops
+<p>
+Important property of this strategy
+</p><ul>
+<li> if we randomly follow links in the web …
+</li><li> … more likely to re-discover pages with many inbound links
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [17/19]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... PageRank</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Random web surfer algorithm ...
+</p><p></p><pre>curr=random page, prev=null
+<b>for</b> a long time <b>do</b>
+|  <b>if</b> curr not in array rank[] <b>then</b>
+|     rank[curr]=0
+|  <b>end if</b>
+|  rank[curr]=rank[curr]+1
+|  <b>if</b> <i>random(0,100)</i> &lt; 85 <b>then</b> <span class="comment">// with 85% chance ...</span>
+|     prev=curr               <span class="comment">// ... keep crawling</span>
+|     curr=choose hyperlink from curr
+|  <b>else</b>
+|     curr=random page, not prev <span class="comment">// avoid getting stuck</span>
+|     prev=null
+|  <b>end if</b>
+<b>end for</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [18/19]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/digraphs/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... PageRank</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Above is a very rough approximation to reality.
+</p><p>
+If you want the details ...
+</p><ul>
+<li> The Anatomy of a Large-Scale Hypertextual Web Search Engine <br>
+<font color="navy">https://research.google/pubs/pub334/</font>
+</li><li> The PageRank Citation Ranking: Bringing Order to the Web <br>
+<font color="navy">http://ilpubs.stanford.edu:8090/422/1/1999-66.pdf</font>
+</li></ul>
+And the background ...
+<ul>
+<li> Authoritative Sources in a Hyperlinked Environment <br>
+<font color="navy">https://dl.acm.org/doi/pdf/10.1145/324133.324140</font>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed Graphs [19/19]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 16 Jul 2020</span>
+ <script src="./Directed Graphs_files/prism.js.下载"></script>   
+ <script src="./Directed Graphs_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 13996px; width: 1088px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 13996px; width: 1088px;"></div></html>

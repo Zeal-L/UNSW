@@ -1,0 +1,454 @@
+
+<!-- saved from url=(0067)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Directed/Weighted Graphs</title>
+<link href="./Directed_Weighted Graphs_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Directed_Weighted Graphs_files/latest.js.下载" async=""></script>
+<script src="./Directed_Weighted Graphs_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Directed_Weighted Graphs_files/css" rel="stylesheet"><link href="./Directed_Weighted Graphs_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Directed_Weighted Graphs_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Directed/Weighted Graphs</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s1">Generalising Graphs</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s2">Directed Graphs (Digraphs)</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s6">Digraph Representation</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s9">Weighted Graphs</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s13">Weighted Graph Representation</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s17">Weighted Graph Implementation</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [0/19]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Generalising Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Discussion so far has considered graphs as
+</p><ul>
+<li> <i>V</i> = set of vertices, &nbsp; <i>E</i> = set of edges
+</li></ul>
+Real-world applications require more "precision"
+<ul>
+<li> some edges are directional &nbsp;<span class="smaller">(e.g. one-way streets)</span>
+</li><li> some edges have a cost &nbsp;<span class="smaller">(e.g. distance, traffic)</span>
+</li></ul>
+We need to consider <font color="#0000BB">directed</font> graphs and <font color="#0000BB">weighted</font> graphs
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [1/19]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Directed Graphs (Digraphs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Directed graphs</font> are ...
+</p><ul>
+<li> graphs with <i>V</i> &nbsp;vertices, <i>E</i> &nbsp;edges <i>(v,w)</i>
+</li><li> edge <i>(v,w)</i> &nbsp;has <font color="#0000BB">source</font> <i>v</i> &nbsp;and <font color="#0000BB">destination</font> <i>w</i>
+</li><li> unlike undirected graphs, 
+<i>v → w &nbsp; ≠ &nbsp; w → v</i>
+</li></ul>
+Example digraph:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/digraph0.png]" src="./Directed_Weighted Graphs_files/digraph0.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [2/19]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Directed Graphs (Digraphs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Some properties of ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/digraph0.png]" src="./Directed_Weighted Graphs_files/digraph0.png">
+</div><p>
+</p><p>
+</p><ul>
+<li> edges 1-2-3 form a cycle, &nbsp; edges 1-3-4 do <i>not</i> &nbsp;form a cycle
+</li><li> vertex 5 has a self-referencing edge <i>(5,5)</i>
+</li><li> vertices 0 and 1 reference each other, i.e. <i>(0,1)</i> &nbsp;and <i>(1,0)</i>
+</li><li> there are no paths from 5 to any other nodes
+</li><li> paths from 0→5:
+&nbsp;0-1-2-3-4-5,
+&nbsp;0-1-4-5,
+&nbsp;0-1-2-3-1-4-5
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [3/19]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Directed Graphs (Digraphs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Terminology for digraphs …
+</p><p>
+<font color="#0000BB">Directed path</font>:
+	&nbsp; sequence of <i>n ≥ 2</i> vertices <i>v<sub>1</sub> → v<sub>2</sub> → … → v<sub>n</sub></i>
+</p><ul>
+<li> where <i>(v<sub>i</sub>,v<sub>i+1</sub>) ∈ edges(G)</i> &nbsp;for all <i>v<sub>i</sub>,v<sub>i+1</sub></i> &nbsp;in sequence
+</li></ul>
+If <i>v<sub>1</sub> = v<sub>n</sub></i>, we have a <font color="#0000BB">directed cycle</font>
+<p>
+<font color="#0000BB">Degree of vertex</font>:
+	&nbsp; number of incident edges
+</p><ul>
+<li> <font color="#0000BB">outdegree</font>: &nbsp;<i>deg(v)</i> = number of edges of the form <i>(v, _)</i>
+</li><li> <font color="#0000BB">indegree</font>: &nbsp;<i>deg<sup>-1</sup>(v)</i> = number of edges of the form <i>(_, v)</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [4/19]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Directed Graphs (Digraphs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+More terminology for digraphs …
+</p><p>
+<font color="#0000BB">Reachability</font>:
+</p><ul>
+<li> <i>w</i> is reachable from <i>v</i> if <i>∃</i> directed path <i>v,…,w</i>
+</li></ul>
+<p>
+<font color="#0000BB">Strong connectivity</font>:
+</p><ul>
+<li> every vertex is reachable from every other vertex
+</li></ul>
+<p>
+<font color="#0000BB">Directed acyclic graph</font> (DAG):
+</p><ul>
+<li> contains no directed cycles
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [5/19]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Digraph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Similar set of choices as for undirectional graphs:
+</p><ul>
+<li> array of edges &nbsp; <small>(directed)</small>
+</li><li> vertex-indexed adjacency matrix &nbsp; <small>(non-symmetric)</small>
+</li><li> vertex-indexed adjacency lists
+</li></ul>
+<i>V</i> vertices identified by <i>0 .. V-1</i>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/digraph-rep.png]" src="./Directed_Weighted Graphs_files/digraph-rep.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [6/19]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Digraph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example digraph and adjacency matrix representation:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/digraph1.png]" src="./Directed_Weighted Graphs_files/digraph1.png">
+</div><p>
+</p><p>
+Undirectional <i>⇒</i> symmetric matrix <br>
+Directional <i>⇒</i> non-symmetric matrix
+</p><p>
+Maximum #edges in a digraph with V vertices: V<sup>2</sup>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [7/19]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Digraph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Costs of representations:
+	&nbsp;&nbsp; <small>(where degree <i>deg(v)</i> = #edges leaving <i>v</i>)</small>
+</p><p>
+<table cellspacing="0" cellpadding="4" border="1">
+<tbody><tr><td>&nbsp;</td><td>array<br>of edges</td><td>adjacency<br>matrix</td><td>adjacency<br>list</td></tr>
+<tr><td>space usage</td><td><i>E</i></td><td><i>V<sup>2</sup></i></td><td><i>V+E</i></td></tr>
+<tr><td>insert edge</td><td><i>E</i></td><td><i>1</i></td><td><i>1</i></td></tr>
+<tr><td>exists edge <i>(v,w)</i>?</td><td><i>E</i></td><td><i>1</i></td><td><i>deg(v)</i></td></tr>
+<tr><td>get edges leaving <i>v</i></td><td><i>E</i></td><td><i>V</i></td><td><i>deg(v)</i></td></tr>
+</tbody></table>
+</p><p>
+Overall, adjacency list representation is best
+</p><ul>
+<li> real graphs tend to be sparse <br>
+	<small>(large number of vertices, small average degree <i>deg(v)</i>)</small>
+</li><li> algorithms frequently iterate over edges from <i>v</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [8/19]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Weighted Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Graphs so far have considered
+</p><ul>
+<li> edge = an association between two vertices/nodes
+</li><li> may be a precedence in the association (directed)
+</li></ul>
+Some applications require us to consider
+<ul>
+<li> a <font color="#0000BB">cost</font> or <font color="#0000BB">weight</font> of an association
+</li><li> modelled by assigning values to edges <small>(e.g. positive reals)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [9/19]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Weighted graphs</font> are ...
+</p><ul>
+<li> graphs with <i>V</i> &nbsp;vertices, <i>E</i> &nbsp;edges <i>(s,t)</i>
+</li><li> each edge <i>(s,t,w)</i> &nbsp;connects vertices <i>s</i> &nbsp;and <i>t</i> &nbsp;and has weight <i>w</i>
+</li></ul>
+Weights can be used in both directed and undirected graphs.
+<p>
+Example weighted graphs:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/wgraph0.png]" src="./Directed_Weighted Graphs_files/wgraph0.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [10/19]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: major airline flight routes in Australia
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/flights.png]" src="./Directed_Weighted Graphs_files/flights.png">
+</div><p>
+</p><p>
+<small>Representation: &nbsp; edge = direct flight; &nbsp; weight = approx flying time (hours)</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [11/19]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Weights lead to minimisation-type questions, e.g.
+</p><p>
+1. Cheapest way to connect all vertices?
+</p><ul>
+<li> a.k.a. <font color="#0000BB">minimum spanning tree</font> problem
+</li><li> assumes: edges are weighted and undirected
+</li></ul>
+2. Cheapest way to get from <i>A</i> to <i>B</i>?
+<ul>
+<li> a.k.a <font color="#0000BB">shortest path</font> problem
+</li><li> assumes: edge weights positive, directed or undirected
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [12/19]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Weighted Graph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Weights can easily be added to:
+</p><ul>
+<li> adjacency matrix representation &nbsp; <small>(0/1 <i>→</i> int or float)</small>
+</li><li> adjacency lists representation &nbsp; <small>(add int/float to list node)</small>
+</li></ul>
+The edge list representation changes to list of <i>(s,t,w)</i> triples
+<p>
+All representations can also work with directed edges
+</p><p><br>
+Weight values are determined by domain being modelled
+</p><ul>
+<li> in some contexts weight could be zero or negative
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [13/19]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Adjacency matrix representation with weights:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/adjmatrixw.png]" src="./Directed_Weighted Graphs_files/adjmatrixw.png">
+</div><p>
+<br>
+Note: need distinguished value to indicate "no edge".
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [14/19]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Adjacency lists representation with weights:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/adjlistsw.png]" src="./Directed_Weighted Graphs_files/adjlistsw.png">
+</div><p>
+</p><p>
+<small>
+Note: if undirected, each edge appears twice with same weight
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [15/19]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graph Representation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Edge array / edge list representation with weights:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/edgelistw.png]" src="./Directed_Weighted Graphs_files/edgelistw.png">
+</div><p>
+</p><p>
+<small>
+Note: not very efficient for use in processing algorithms, but does <br>
+give a possible representation for min spanning trees or shortest paths
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [16/19]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Weighted Graph Implementation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Changes to preious grpah data structures to include weights:
+</p><p>
+<large><font color="#009900"><b><code>WGraph.h</code></b></font></large>
+</p><p></p><pre><span class="comment">// edges are pairs of vertices (end-points) plus weight</span>
+typedef struct Edge {
+   Vertex v;
+   Vertex w;
+<font color="brown">   int    weight;</font>
+} Edge;
+
+<span class="comment">// returns weight, or 0 if vertices not adjacent</span>
+<font color="brown">int</font> adjacent(Graph, Vertex, Vertex);
+</pre><p>
+</p><p>
+Note: here, we assume all weights are positive, but not required
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [17/19]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graph Implementation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<large><font color="#009900"><b><code>WGraph.c</code></b></font></large> &nbsp;<small>(assuming adjacency matrix representation)</small>
+</p><p></p><pre style="font-size:90%">typedef struct GraphRep {
+   <font color="brown">int</font> **edges;  <span class="comment">// adjacency matrix storing weights</span>
+                 <span class="comment">// 0 if nodes not adjacent</span>
+   int   nV;     <span class="comment">// #vertices</span>
+   int   nE;     <span class="comment">// #edges</span>
+} GraphRep;
+
+bool adjacent(Graph g, Vertex v, Vertex w) {
+   assert(<i>valid graph, valid vertices</i>)
+   return (g-&gt;edges[v][w] != 0);
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [18/19]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-rep2/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Weighted Graph Implementation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+More &nbsp;<large><font color="#009900"><b><code>WGraph.c</code></b></font></large>
+</p><p></p><pre style="font-size:90%">void insertEdge(Graph g, Edge e) {
+   assert(<i>valid graph, valid edge</i>)
+   <span class="comment">// edge e not already in graph</span>
+   if (g-&gt;edges[e.v][e.w] == 0) g-&gt;nE++;
+   <span class="comment">// may change weight of existing edge</span>
+   g-&gt;edges[e.v][e.w] = <font color="brown">e.weight</font>;
+   g-&gt;edges[e.w][e.v] = <font color="brown">e.weight</font>;
+}
+
+void removeEdge(Graph g, Edge e) {
+   assert(<i>valid graph, valid edge</i>)
+   <span class="comment">// edge e not in graph</span>
+   if (g-&gt;edges[e.v][e.w] == 0) return;
+   g-&gt;edges[e.v][e.w] = 0;
+   g-&gt;edges[e.w][e.v] = 0;
+   g-&gt;nE--;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Directed/Weighted Graphs [19/19]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 28 Jun 2020</span>
+ <script src="./Directed_Weighted Graphs_files/prism.js.下载"></script>   
+ <script src="./Directed_Weighted Graphs_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 13866px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 13866px; width: 1197px;"></div></html>

@@ -1,0 +1,307 @@
+
+<!-- saved from url=(0056)http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0 -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Course Review &lt;small&gt;♢ COMP2521 ♢ (21T1)&lt;/small&gt;</title>
+<link href="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/latest.js.下载" async=""></script>
+<script src="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/css" rel="stylesheet"><link href="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Course Review <small>♢ COMP2521 ♢ (21T1)</small></div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s1">Course Goals</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s3">Syllabus Detail</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s4">Course Assessment</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s5">Final Exam</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s6">Revision Strategy</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s7">Evaluation</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s8">Finally ...</a>
+</li></ul></div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [0/8]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Course Goals</div></td><td align="right"></td></tr></tbody></table>
+<p>
+COMP1511
+</p><ul>
+<li> gets you thinking like a <font color="#0000BB">programmer</font>
+</li><li> solving problems by developing programs
+</li><li> expressing your ideas in the C language
+</li></ul>
+COMP2521
+<ul>
+<li> gets you thinking like a <font color="#0000BB">computer scientist</font>
+</li><li> knowing a set of fundamental techniques/structures
+</li><li> able to reason about their applicability/effectiveness
+</li></ul>
+</div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [1/8]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Course Goals</div></td><td align="right"></td></tr></tbody></table>
+<p>
+At the end of this course you should be able to:
+</p><ul>
+<li> analyse performance characteristics of algorithms (A)
+</li><li> measure performance behaviour of programs
+</li><li> choose/develop effective data structures (DS)
+</li><li> choose/develop algorithms (A) on these data structures (DS)
+</li><li> reason about effectiveness of data structures + algos
+</li><li> package a set of DS+A as an abstract data type
+</li><li> develop and maintain 9999-line C programs
+</li></ul>
+</div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [2/8]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Syllabus Detail</div></td><td align="right"></td></tr></tbody></table>
+<p>
+For each specific data type, we considered:
+</p><ul>
+<li> implementation in C <small>(data structures, functions)</small>
+</li><li> operations <small>(e.g. new, insert, delete, search, traverse)</small>
+</li><li> analysis of efficiency of operations
+</li><li> applications of the data type
+</li></ul>
+Abstract data types
+<ul>
+<li> interface vs implementation
+</li><li> defining ADTs  in C
+</li></ul>
+Problem-solving approaches
+<ul>
+<li> recursion, divide-and-conquer, generate-and-test
+</li></ul>
+Sorting methods
+<ul>
+<li> simple sorts: selection, insertion, bubble
+</li><li> better sorts: mergesort, quicksort
+</li><li> complexity of various sorting algorithms
+</li></ul>
+Linear structures
+<ul>
+<li> linked-lists: singly linked, doubly linked
+</li><li> sets, stacks, queues, priority queues, heaps
+</li></ul>
+Trees
+<ul>
+<li> tree terminology, tree properties
+</li><li> binary search trees, recursive algorithms
+</li><li> tries, radix searching
+</li></ul>
+Balanced search trees
+<ul>
+<li> varieties of balanced trees: splay, red-black, ...
+</li><li> tree rotations, tree joins, tree merge
+</li></ul>
+Hash tables
+<ul>
+<li> hash functions
+</li><li> implementation/use of hash tables
+</li><li> collision handling: chains, linear probe, double hash
+</li></ul>
+Graphs
+<ul>
+<li> graph terminology, graph properties
+</li><li> implementation of graphs: adjacency matrix, ...
+</li><li> graph search: depth-first, breadth-first
+</li><li> minimum spanning tree, shortest path
+</li></ul>
+</div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [3/8]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Course Assessment</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p>
+
+See "<a href="http://cgi.cse.unsw.edu.au/~cs2521/21T1/admin/outline/index.php#assessment">Assessment</a>" section in the course outline. 
+</p></div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [4/8]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Final Exam</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+
+There are two parts,
+</p><ul>
+<li> <b>Part 1:</b>Multiple Choice questions (20 marks). <br>
+Part 1 uses Moodle Quiz module. You can attempt multiple times. Your final selections will be marked. Make sure to "Finish attempt" and also "Submit all and Finish".
+</li><li> <b>Part 2:</b>Programming questions (20 marks). <br>
+There are three programming questions. You can use Vlab or your own machine. You need to submit your answer files using the provided instructions in the respective questions (using the give command or via WebCMS). All answers must be submitted online.
+
+</li><li>
+<p style="background:lightyellow; padding:  10px;"><a target="_blank" href="http://www.cse.unsw.edu.au/~cs2521/21T1/sampleFinalExam/SampleExam_21T1.html">Sample Final Exam (click here)</a></p>
+</li></ul>
+
+</div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [5/8]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Revision Strategy</div></td><td align="right"></td></tr></tbody></table>
+<p>
+How to revise?
+</p><ul>
+<li> re-read lecture slides and example programs (see web)
+</li><li> review tute and lab exercises and assignments
+</li><li> come to a <font color="#0000BB">Pre Exam consultation</font> to resolve problems, they 
+will be listed on the class webpage later in Week-11
+</li><li> write some programs <br>
+	<small>(programming is a <font color="#0000BB">skill</font> that improves with practice)</small>
+</li></ul>
+
+</div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [6/8]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Evaluation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p>
+CATEI Evaluation available via myUNSW.
+</p><p>
+Tell us what you like/dislike about the course,  we do take your input seriously.
+
+</p><p>
+Thanks ... 
+</p><p>
+</p></div>
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [7/8]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week10a/#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Finally ...</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p><br></p><p>
+</p><div class="center">
+<span style="font-size:36pt"><b>
+<font color="#CC9900">T</font>
+<font color="green">h</font>
+<font color="red">a</font>
+<font color="blue">t</font>
+<font color="#CC9900">'</font>
+<font color="red">s</font>
+&nbsp;&nbsp;
+<font color="blue">A</font>
+<font color="#CC9900">l</font>
+<font color="green">l</font>
+&nbsp;&nbsp;
+<font color="red">F</font>
+<font color="blue">o</font>
+<font color="#CC9900">l</font>
+<font color="green">k</font>
+<font color="red">s</font>
+</b></span><b>
+
+<div class="center">
+<p>
+<font color="green">Good Luck with the Exams</font>
+</p><p>
+<font color="green">and with your future computing studies</font>
+</p></div>
+
+<p>
+</p><center style="font-size:4em; color:darkred;">
+
+☺ ☺  ☺   ☺   ☺  
+
+</center></b></div><b>
+<p></p>
+<p>
+
+</p></b></div><b>
+
+<div class="slideNumCl2">Course Review♢ COMP2521 (21T1) ♢ Week 10 ♢   [8/8]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 21 Apr 2021</span>
+ <script src="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/prism.js.下载"></script>   
+ <script src="./Course Review _small_♢ COMP2521 ♢ (21T1)__small__files/sg.js.下载"></script>   
+
+
+</p></b></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 7554px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 7554px; width: 1197px;"></div></html>

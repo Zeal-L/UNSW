@@ -1,0 +1,882 @@
+
+<!-- saved from url=(0057)https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Abstract Data Types</title>
+<link href="./Abstract Data Types_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Abstract Data Types_files/latest.js.下载" async=""></script>
+<script src="./Abstract Data Types_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Abstract Data Types_files/css" rel="stylesheet"><link href="./Abstract Data Types_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Abstract Data Types_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
+.MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
+.mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
+.mjx-full-width {text-align: center; display: table-cell!important; width: 10000em}
+.mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
+.mjx-math * {display: inline-block; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box!important; box-sizing: content-box!important; text-align: left}
+.mjx-numerator {display: block; text-align: center}
+.mjx-denominator {display: block; text-align: center}
+.MJXc-stacked {height: 0; position: relative}
+.MJXc-stacked > * {position: absolute}
+.MJXc-bevelled > * {display: inline-block}
+.mjx-stack {display: inline-block}
+.mjx-op {display: block}
+.mjx-under {display: table-cell}
+.mjx-over {display: block}
+.mjx-over > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-under > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-stack > .mjx-sup {display: block}
+.mjx-stack > .mjx-sub {display: block}
+.mjx-prestack > .mjx-presup {display: block}
+.mjx-prestack > .mjx-presub {display: block}
+.mjx-delim-h > .mjx-char {display: inline-block}
+.mjx-surd {vertical-align: top}
+.mjx-mphantom * {visibility: hidden}
+.mjx-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 2px 3px; font-style: normal; font-size: 90%}
+.mjx-annotation-xml {line-height: normal}
+.mjx-menclose > svg {fill: none; stroke: currentColor}
+.mjx-mtr {display: table-row}
+.mjx-mlabeledtr {display: table-row}
+.mjx-mtd {display: table-cell; text-align: center}
+.mjx-label {display: table-row}
+.mjx-box {display: inline-block}
+.mjx-block {display: block}
+.mjx-span {display: inline}
+.mjx-char {display: block; white-space: pre}
+.mjx-itable {display: inline-table; width: auto}
+.mjx-row {display: table-row}
+.mjx-cell {display: table-cell}
+.mjx-table {display: table; width: 100%}
+.mjx-line {display: block; height: 0}
+.mjx-strut {width: 0; padding-top: 1em}
+.mjx-vsize {width: 0}
+.MJXc-space1 {margin-left: .167em}
+.MJXc-space2 {margin-left: .222em}
+.MJXc-space3 {margin-left: .278em}
+.mjx-chartest {display: block; visibility: hidden; position: absolute; top: 0; line-height: normal; font-size: 500%}
+.mjx-chartest .mjx-char {display: inline}
+.mjx-chartest .mjx-box {padding-top: 1000px}
+.MJXc-processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MJXc-processed {display: none}
+.mjx-test {font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.mjx-test.mjx-test-display {display: table!important}
+.mjx-test.mjx-test-inline {display: inline!important; margin-right: -1px}
+.mjx-test.mjx-test-default {display: block!important; clear: both}
+.mjx-ex-box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60ex}
+.mjx-test-inline .mjx-left-box {display: inline-block; width: 0; float: left}
+.mjx-test-inline .mjx-right-box {display: inline-block; width: 0; float: right}
+.mjx-test-display .mjx-right-box {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+#MathJax_CHTML_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.mjx-chtml .mjx-noError {line-height: 1.2; vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+.MJXc-TeX-unknown-R {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: normal}
+.MJXc-TeX-unknown-I {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: normal}
+.MJXc-TeX-unknown-B {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: bold}
+.MJXc-TeX-unknown-BI {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: bold}
+.MJXc-TeX-ams-R {font-family: MJXc-TeX-ams-R,MJXc-TeX-ams-Rw}
+.MJXc-TeX-cal-B {font-family: MJXc-TeX-cal-B,MJXc-TeX-cal-Bx,MJXc-TeX-cal-Bw}
+.MJXc-TeX-frak-R {font-family: MJXc-TeX-frak-R,MJXc-TeX-frak-Rw}
+.MJXc-TeX-frak-B {font-family: MJXc-TeX-frak-B,MJXc-TeX-frak-Bx,MJXc-TeX-frak-Bw}
+.MJXc-TeX-math-BI {font-family: MJXc-TeX-math-BI,MJXc-TeX-math-BIx,MJXc-TeX-math-BIw}
+.MJXc-TeX-sans-R {font-family: MJXc-TeX-sans-R,MJXc-TeX-sans-Rw}
+.MJXc-TeX-sans-B {font-family: MJXc-TeX-sans-B,MJXc-TeX-sans-Bx,MJXc-TeX-sans-Bw}
+.MJXc-TeX-sans-I {font-family: MJXc-TeX-sans-I,MJXc-TeX-sans-Ix,MJXc-TeX-sans-Iw}
+.MJXc-TeX-script-R {font-family: MJXc-TeX-script-R,MJXc-TeX-script-Rw}
+.MJXc-TeX-type-R {font-family: MJXc-TeX-type-R,MJXc-TeX-type-Rw}
+.MJXc-TeX-cal-R {font-family: MJXc-TeX-cal-R,MJXc-TeX-cal-Rw}
+.MJXc-TeX-main-B {font-family: MJXc-TeX-main-B,MJXc-TeX-main-Bx,MJXc-TeX-main-Bw}
+.MJXc-TeX-main-I {font-family: MJXc-TeX-main-I,MJXc-TeX-main-Ix,MJXc-TeX-main-Iw}
+.MJXc-TeX-main-R {font-family: MJXc-TeX-main-R,MJXc-TeX-main-Rw}
+.MJXc-TeX-math-I {font-family: MJXc-TeX-math-I,MJXc-TeX-math-Ix,MJXc-TeX-math-Iw}
+.MJXc-TeX-size1-R {font-family: MJXc-TeX-size1-R,MJXc-TeX-size1-Rw}
+.MJXc-TeX-size2-R {font-family: MJXc-TeX-size2-R,MJXc-TeX-size2-Rw}
+.MJXc-TeX-size3-R {font-family: MJXc-TeX-size3-R,MJXc-TeX-size3-Rw}
+.MJXc-TeX-size4-R {font-family: MJXc-TeX-size4-R,MJXc-TeX-size4-Rw}
+.MJXc-TeX-vec-R {font-family: MJXc-TeX-vec-R,MJXc-TeX-vec-Rw}
+.MJXc-TeX-vec-B {font-family: MJXc-TeX-vec-B,MJXc-TeX-vec-Bx,MJXc-TeX-vec-Bw}
+@font-face {font-family: MJXc-TeX-ams-R; src: local('MathJax_AMS'), local('MathJax_AMS-Regular')}
+@font-face {font-family: MJXc-TeX-ams-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_AMS-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_AMS-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-B; src: local('MathJax_Caligraphic Bold'), local('MathJax_Caligraphic-Bold')}
+@font-face {font-family: MJXc-TeX-cal-Bx; src: local('MathJax_Caligraphic'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-cal-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-R; src: local('MathJax_Fraktur'), local('MathJax_Fraktur-Regular')}
+@font-face {font-family: MJXc-TeX-frak-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-B; src: local('MathJax_Fraktur Bold'), local('MathJax_Fraktur-Bold')}
+@font-face {font-family: MJXc-TeX-frak-Bx; src: local('MathJax_Fraktur'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-frak-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-BI; src: local('MathJax_Math BoldItalic'), local('MathJax_Math-BoldItalic')}
+@font-face {font-family: MJXc-TeX-math-BIx; src: local('MathJax_Math'); font-weight: bold; font-style: italic}
+@font-face {font-family: MJXc-TeX-math-BIw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Math-BoldItalic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Math-BoldItalic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Math-BoldItalic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-R; src: local('MathJax_SansSerif'), local('MathJax_SansSerif-Regular')}
+@font-face {font-family: MJXc-TeX-sans-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-B; src: local('MathJax_SansSerif Bold'), local('MathJax_SansSerif-Bold')}
+@font-face {font-family: MJXc-TeX-sans-Bx; src: local('MathJax_SansSerif'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-sans-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-I; src: local('MathJax_SansSerif Italic'), local('MathJax_SansSerif-Italic')}
+@font-face {font-family: MJXc-TeX-sans-Ix; src: local('MathJax_SansSerif'); font-style: italic}
+@font-face {font-family: MJXc-TeX-sans-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-script-R; src: local('MathJax_Script'), local('MathJax_Script-Regular')}
+@font-face {font-family: MJXc-TeX-script-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Script-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Script-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-type-R; src: local('MathJax_Typewriter'), local('MathJax_Typewriter-Regular')}
+@font-face {font-family: MJXc-TeX-type-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Typewriter-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Typewriter-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-R; src: local('MathJax_Caligraphic'), local('MathJax_Caligraphic-Regular')}
+@font-face {font-family: MJXc-TeX-cal-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-B; src: local('MathJax_Main Bold'), local('MathJax_Main-Bold')}
+@font-face {font-family: MJXc-TeX-main-Bx; src: local('MathJax_Main'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-main-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Main-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-I; src: local('MathJax_Main Italic'), local('MathJax_Main-Italic')}
+@font-face {font-family: MJXc-TeX-main-Ix; src: local('MathJax_Main'); font-style: italic}
+@font-face {font-family: MJXc-TeX-main-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Main-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-R; src: local('MathJax_Main'), local('MathJax_Main-Regular')}
+@font-face {font-family: MJXc-TeX-main-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-I; src: local('MathJax_Math Italic'), local('MathJax_Math-Italic')}
+@font-face {font-family: MJXc-TeX-math-Ix; src: local('MathJax_Math'); font-style: italic}
+@font-face {font-family: MJXc-TeX-math-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size1-R; src: local('MathJax_Size1'), local('MathJax_Size1-Regular')}
+@font-face {font-family: MJXc-TeX-size1-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size1-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size2-R; src: local('MathJax_Size2'), local('MathJax_Size2-Regular')}
+@font-face {font-family: MJXc-TeX-size2-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size2-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size3-R; src: local('MathJax_Size3'), local('MathJax_Size3-Regular')}
+@font-face {font-family: MJXc-TeX-size3-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size3-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size4-R; src: local('MathJax_Size4'), local('MathJax_Size4-Regular')}
+@font-face {font-family: MJXc-TeX-size4-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size4-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-vec-R; src: local('MathJax_Vector'), local('MathJax_Vector-Regular')}
+@font-face {font-family: MJXc-TeX-vec-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Vector-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Vector-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Vector-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-vec-B; src: local('MathJax_Vector Bold'), local('MathJax_Vector-Bold')}
+@font-face {font-family: MJXc-TeX-vec-Bx; src: local('MathJax_Vector'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-vec-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Vector-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Vector-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Vector-Bold.otf') format('opentype')}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Abstract Data Types</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s1">Abstract Data Types</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s2">DTs, ADTs, GADTs</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s3">Interface/Implementation</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s4">Collections</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s10">Example: Set ADT</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s12">Set ADT Interface</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s14">Set Applications</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s15">Set ADT Pre/Post-conditions</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s18">Sets as Unsorted Arrays</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s23">Sets as Sorted Arrays</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s25">Sets as Linked Lists</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s30">Sets as Bit-strings</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s34">Setting and unsetting bits </a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s36">Performance of Set Implementations</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [0/36]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Abstract Data Types</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <font color="#0000BB">data type</font> is ...
+</p><ul>
+<li> a set of <font color="#0000BB">values</font> &nbsp; <small>(atomic or structured values)</small>
+</li><li> a collection of <font color="#0000BB">operations</font> on those values
+</li></ul>
+An <font color="#0000BB">abstract data type</font> is ...
+<ul>
+<li> an approach to implementing data types
+</li><li> separates <font color="#0000BB">interface</font> from <font color="#0000BB">implementation</font>
+</li><li> users of the ADT see only the interface
+</li><li> builders of the ADT provide an implementation
+</li></ul>
+<small>
+E.g. do you know what a (<large><code>FILE *</code></large>) looks like? do you want/need to know?
+</small>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [1/36]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ DTs, ADTs, GADTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+We want to distinguish ...
+</p><p>
+DT = (non-abstract) <font color="#0000BB">d</font>ata <font color="#0000BB">t</font>ype &nbsp; <small>(e.g. C strings)</small>
+</p><ul>
+<li> internals of data structures are visible &nbsp; <small>(e.g. <large><code>char s[10];</code></large>)</small>
+</li></ul>
+ADT = <font color="#0000BB">a</font>bstract <font color="#0000BB">d</font>ata <font color="#0000BB">t</font>ype &nbsp; <small>(e.g. C files)</small>
+<ul>
+<li> can have multiple instances &nbsp; <small>(e.g. <large><code>Set a, b, c;</code></large>)</small>
+</li></ul>
+GADT = <font color="#0000BB">g</font>eneric (polymorphic) <font color="#0000BB">a</font>bstract <font color="#0000BB">d</font>ata <font color="#0000BB">t</font>ype
+<ul>
+<li> can have multiple instances &nbsp; <small>(e.g. <large><code>Set&lt;int&gt; a, b, c;</code></large>)</small>
+</li><li> can have multiple types &nbsp; <small>(e.g. <large><code>Set&lt;int&gt; a; Set&lt;char&gt; b;</code></large>)</small>
+</li><li> not available natively in the C language
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [2/36]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Interface/Implementation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+ADT <font color="#0000BB">interface</font> provides
+</p><ul>
+<li> a user-view of the data structure (e.g. <large><code>FILE*</code></large>)
+</li><li> function signatures (prototypes) for all operations
+</li><li> semantics of operations (via documentation)
+</li><li> a contract between ADT and its clients
+</li></ul>
+ADT <font color="#0000BB">implementation</font> gives
+<ul>
+<li> concrete definition of the data structures
+</li><li> definition of functions for all operations
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [3/36]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Collections</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Many of the ADTs we deal with ...
+</p><ul>
+<li> consist of a <font color="#0000BB">collection</font> of <font color="#0000BB">items</font>
+</li><li> where each item may be a simple type or an ADT
+</li><li> and items often have a <font color="#0000BB">key</font> <small>(to identify them)</small>
+</li></ul>
+Collections may be categorised by ...
+<ul>
+<li> <font color="#0000BB">structure</font>:
+&nbsp; <small>linear (list), branching (tree), cyclic (graph)</small>
+</li><li> <font color="#0000BB">usage</font>:
+&nbsp; <small>set, matrix, stack, queue, search-tree, dictionary, ...</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [4/36]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Collections</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Collection structures:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/structures.png]" src="./Abstract Data Types_files/structures.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [5/36]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Collections</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Or even a hybrid structure like ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/structures2.png]" src="./Abstract Data Types_files/structures2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [6/36]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Collections</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Or this ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/structures3.png]" src="./Abstract Data Types_files/structures3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [7/36]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Collections</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Or this ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/structures4.png]" src="./Abstract Data Types_files/structures4.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [8/36]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Collections</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Typical operations on collections
+</p><ul>
+<li> <font color="#0000BB">create</font> an empty collection
+</li><li> <font color="#0000BB">insert</font> one item into the collection
+</li><li> <font color="#0000BB">remove</font> one item from the collection
+</li><li> <font color="#0000BB">find</font> an item in the collection
+</li><li> <font color="#0000BB">check</font> properties of the collection <small>(size,empty?)</small>
+</li><li> <font color="#0000BB">drop</font> the entire collection
+</li><li> <font color="#0000BB">display</font> the collection
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [9/36]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Example: Set ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<font color="#0000BB">Set</font> data type: collection of unique integer values.
+</p><p>
+"Book-keeping" operations:
+</p><ul>
+<li> <large><code>Set newSet()</code></large> ... create new empty set
+</li><li> <large><code>void dropSet(Set)</code></large> ... free memory used by set
+</li><li> <large><code>void showSet(Set)</code></large> ... display as <large><code>{1,2,3...}</code></large>
+</li></ul>
+Assignment operations:
+<ul>
+<li> <large><code>void readSet(FILE*,Set)</code></large> ... read+insert set values
+</li><li> <large><code>Set SetCopy(Set)</code></large> ... make a copy of a set
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [10/36]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Set ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Data-type operations:
+</p><ul>
+<li> <large><code>void SetInsert(Set,int)</code></large> ... add number into set
+</li><li> <large><code>void SetDelete(Set,int)</code></large> ... remove number from set
+</li><li> <large><code>int SetMember(Set,int)</code></large> ... set membership test
+</li><li> <large><code>Set SetUnion(Set,Set)</code></large> ... union
+</li><li> <large><code>Set SetIntersect(Set,Set)</code></large> ... intersection
+</li><li> <large><code>int SetCard(Set)</code></large> ... cardinality (#elements)
+</li></ul>
+<small>
+Note: union and intersection return a newly-created <large><code>Set</code></large>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [11/36]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Set ADT Interface</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre><small>
+// Set.h ... interface to Set ADT
+
+#ifndef SET_H
+#define SET_H
+
+#include &lt;stdio.h&gt;
+#include &lt;stdbool.h&gt;
+
+typedef struct SetRep *Set;
+
+Set newSet();              <span class="comment">// create new empty set</span>
+void dropSet(Set);         <span class="comment">// free memory used by set</span>
+Set SetCopy(Set);          <span class="comment">// make a copy of a set</span>
+void SetInsert(Set,int);   <span class="comment">// add value into set</span>
+void SetDelete(Set,int);   <span class="comment">// remove value from set</span>
+bool SetMember(Set,int);   <span class="comment">// set membership</span>
+Set SetUnion(Set,Set);     <span class="comment">// union</span>
+Set SetIntersect(Set,Set); <span class="comment">// intersection</span>
+int SetCard(Set);          <span class="comment">// cardinality</span>
+void showSet(Set);         <span class="comment">// display set on stdout</span>
+void readSet(FILE *, Set); <span class="comment">// read+insert set values</span>
+
+#endif
+</small></pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [12/36]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Set ADT Interface</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example set client: set of small odd numbers
+</p><p></p><pre>#include "Set.h"
+...
+Set s = newSet();
+for (int i = 1; i &lt; 26; i += 2)
+    SetInsert(s,i);
+showSet(s); putchar('\n');
+</pre><p>
+</p><p>
+Outputs:
+</p><p></p><pre>{1,3,5,7,9,11,13,15,17,19,21,23,25}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [13/36]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Set Applications</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: eliminating duplicates
+</p><p></p><pre>#include "Set.h"
+...
+<span class="comment">// scan a list of items in a file</span>
+int item;
+Set seenItems = newSet();
+FILE *in = fopen(<i>FileName</i>,"r");
+while (fscanf(in, "%d", &amp;item) == 1) {
+   if (!SetMember(seenItems, item)) {
+      SetInsert(seenItems, item);
+      <i>process</i> item;
+   }
+}
+fclose(in);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [14/36]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Set ADT Pre/Post-conditions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Each <large><code>Set</code></large> operation has well-defined semantics.
+</p><p>
+Express these semantics in detail via statements of:
+</p><ul>
+<li> what conditions need to hold at start of function
+</li><li> what will hold at end of function <small>(assuming successful)</small>
+</li></ul>
+<br>
+<i>Could</i>&nbsp; implement condition-checking via <large><code>assert()</code></large>s
+<p>
+But only during the development/testing phase
+</p><ul>
+<li> <large><code>assert()</code></large> does not provide useful error-handling
+</li></ul>
+<p>
+At the very least, implement as comments at start of functions.
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [15/36]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Set ADT Pre/Post-conditions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+If <large><code>x</code></large> is a variable of type <large><code>T</code></large>, where <large><code>T</code></large> is an ADT
+</p><ul>
+<li> <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-1-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-1" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-2" class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.462em;">p</span></span><span id="MJXc-Node-4" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.396em; padding-bottom: 0.298em;">t</span></span><span id="MJXc-Node-5" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-6" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">(</span></span><span id="MJXc-Node-7" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">x</span></span><span id="MJXc-Node-8" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mi>t</mi><mi>r</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-1">ptr(x)</script> is the pointer stored in <large><code>x</code></large>
+</li><li> <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-2-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-9" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-10" class="mjx-mrow"><span id="MJXc-Node-11" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">v</span></span><span id="MJXc-Node-12" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">a</span></span><span id="MJXc-Node-13" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.462em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-14" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">(</span></span><span id="MJXc-Node-15" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">x</span></span><span id="MJXc-Node-16" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mi>a</mi><mi>l</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-2">val(x)</script> is the abstract value represented by <large><code>*x</code></large>
+</li><li> <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-3-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-17" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-18" class="mjx-mrow"><span id="MJXc-Node-19" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">v</span></span><span id="MJXc-Node-20" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">a</span></span><span id="MJXc-Node-21" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.462em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-22" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.429em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-23" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.462em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-24" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">(</span></span><span id="MJXc-Node-25" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.462em; padding-bottom: 0.265em; padding-right: 0.12em;">T</span></span><span id="MJXc-Node-26" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="margin-top: -0.163em; padding-bottom: 0.528em;">,</span></span><span id="MJXc-Node-27" class="mjx-mi MJXc-space1"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">x</span></span><span id="MJXc-Node-28" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi><mo stretchy="false">(</mo><mi>T</mi><mo>,</mo><mi>x</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-3">valid(T,x)</script> indicates that
+<ul>
+<li> the collection of values in <large><code>*x</code></large> <br>
+	satisfies all constraints on "correct" values of type <large><code>T</code></large>
+</li></ul>
+</li><li> <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-4-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msup&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;&amp;#x2032;&lt;/mo&gt;&lt;/msup&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-29" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-30" class="mjx-mrow"><span id="MJXc-Node-31" class="mjx-msup"><span class="mjx-base"><span id="MJXc-Node-32" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">x</span></span></span><span class="mjx-sup" style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0px; padding-right: 0.071em;"><span id="MJXc-Node-33" class="mjx-mo" style=""><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.265em; padding-bottom: 0.331em;">′</span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>x</mi><mo>′</mo></msup></math></span></span><script type="math/tex" id="MathJax-Element-4">x'</script> &nbsp;is an updated version of <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-5-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-34" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-35" class="mjx-mrow"><span id="MJXc-Node-36" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">x</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi></math></span></span><script type="math/tex" id="MathJax-Element-5">x</script> &nbsp; <span class="smaller">(note: <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-6-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;&amp;#x2032;&lt;/mo&gt;&lt;/msup&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-37" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-38" class="mjx-mrow"><span id="MJXc-Node-39" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.234em; padding-bottom: 0.466em;">p</span></span><span id="MJXc-Node-40" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.389em; padding-bottom: 0.273em;">t</span></span><span id="MJXc-Node-41" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.234em; padding-bottom: 0.273em;">r</span></span><span id="MJXc-Node-42" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.466em; padding-bottom: 0.582em;">(</span></span><span id="MJXc-Node-43" class="mjx-msup"><span class="mjx-base"><span id="MJXc-Node-44" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.234em; padding-bottom: 0.273em;">x</span></span></span><span class="mjx-sup" style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0px; padding-right: 0.071em;"><span id="MJXc-Node-45" class="mjx-mo" style=""><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.273em; padding-bottom: 0.312em;">′</span></span></span></span><span id="MJXc-Node-46" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.466em; padding-bottom: 0.582em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mi>t</mi><mi>r</mi><mo stretchy="false">(</mo><msup><mi>x</mi><mo>′</mo></msup><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-6">ptr(x')</script> == <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-7-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-47" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-48" class="mjx-mrow"><span id="MJXc-Node-49" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.234em; padding-bottom: 0.466em;">p</span></span><span id="MJXc-Node-50" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.389em; padding-bottom: 0.273em;">t</span></span><span id="MJXc-Node-51" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.234em; padding-bottom: 0.273em;">r</span></span><span id="MJXc-Node-52" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.466em; padding-bottom: 0.582em;">(</span></span><span id="MJXc-Node-53" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.234em; padding-bottom: 0.273em;">x</span></span><span id="MJXc-Node-54" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.466em; padding-bottom: 0.582em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mi>t</mi><mi>r</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-7">ptr(x)</script>)</span>
+</li><li> <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-8-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-55" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-56" class="mjx-mrow"><span id="MJXc-Node-57" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-58" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-59" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">s</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi><mi>e</mi><mi>s</mi></math></span></span><script type="math/tex" id="MathJax-Element-8">res</script> is the value returned by a function
+</li></ul>
+Can also use math/logic notation as used in pseudocode.
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [16/36]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Set ADT Pre/Post-conditions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Examples of defining pre-/post-conditions:
+</p><p></p><pre>// pre:  true
+// post: valid(Set,res) and res = {}
+Set newSet() { ... }
+
+// pre:  valid(Set,s) and valid(int n)
+// post: n ∈ s'
+void SetInsert(Set s, int n) { ... }
+
+// pre:  valid(Set,s1) and valid(Set,s2)
+// post: ∀ n ∈ res, n ∈ s1 or n ∈ s2
+Set SetUnion(Set s1, Set s2) { ... }
+
+// pre:  valid(Set,s)
+// post: res = |s|
+int SetCard(Set s)  { ... }
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [17/36]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sets as Unsorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Concrete data structure:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/set-array.png]" src="./Abstract Data Types_files/set-array.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [18/36]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Unsorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete data structure (in C):
+</p><p></p><pre>#define MAXELEMS 1000
+
+<span class="comment">// concrete data structure</span>
+struct SetRep {
+    int elems[MAXELEMS];
+    int nelems;
+};
+</pre><p>
+Need to set upper bound on number of elements
+</p><p>
+Could do statically (as above) or dynamically
+</p><p></p><pre>Set newSet(int maxElems) { ... }
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [19/36]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Unsorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Set creation:
+</p><p></p><pre><span class="comment">// create new empty set</span>
+Set newSet()
+{
+   Set s = malloc(sizeof(struct SetRep));
+   if (s == NULL) {
+      fprintf(stderr, "Insufficient memory\n");
+      exit(EXIT_FAILURE);
+   }
+   s-&gt;nelems = 0;
+   <span class="comment">// assert(isValid(s));</span>
+   return s;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [20/36]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Unsorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Checking membership:
+</p><p></p><pre><span class="comment">// set membership test</span>
+int SetMember(Set s, int n)
+{   
+   <span class="comment">// assert(isValid(s));</span>
+   int i; 
+   for (i = 0; i &lt; s-&gt;nelems; i++)
+      if (s-&gt;elems[i] == n) return TRUE;
+   return FALSE;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [21/36]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Unsorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Costs for set operations on unsorted array:
+</p><ul>
+<li> <font color="#0000BB">card</font>: read from struct; &nbsp; constant cost &nbsp; <i>O(1)</i>
+</li><li> <font color="#0000BB">member</font>: scan list from start; &nbsp; linear cost &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">insert</font>: duplicate check, add at end; &nbsp; linear cost &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">delete</font>: find, copy last into gap; &nbsp; linear cost &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">union</font>: copy s1, insert each item from s2; &nbsp; quadratic cost &nbsp; <i>O(nm)</i>
+</li><li> <font color="#0000BB">intersect</font>: scan for each item in s1; &nbsp; quadratic cost &nbsp; <i>O(nm)</i>
+</li></ul>
+Assuming: s1 has <i>n</i> items, s2 has <i>m</i> items
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [22/36]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sets as Sorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Same data structure as for unsorted array.
+</p><p>
+Differences in
+</p><ul>
+<li> membership test ... can use binary search
+</li><li> insertion ... binary search and then shift up and insert
+</li><li> deletion ... binary search and then shift down
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [23/36]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s25"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Sorted Arrays</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Costs for set operations on sorted array:
+</p><ul>
+<li> <font color="#0000BB">card</font>: read from struct; &nbsp; <i>O(1)</i>
+</li><li> <font color="#0000BB">member</font>: binary search; &nbsp; <i>O(log n)</i>
+</li><li> <font color="#0000BB">insert</font>: find, shift up, insert; &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">delete</font>: find, shift down; &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">union</font>: merge = scan s1, scan s2; &nbsp; <i>O(n)</i> &nbsp; <small>(technically <i>O(n+m)</i>)</small>
+</li><li> <font color="#0000BB">intersect</font>: merge = scan s1, scan s2; &nbsp; <i>O(n)</i> &nbsp; <small>(technically <i>O(n+m)</i>)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [24/36]</div> <div class="slideCl1    " id="s25">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s24"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s26"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sets as Linked Lists</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete data structure:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/set-list.png]" src="./Abstract Data Types_files/set-list.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [25/36]</div> <div class="slideCl1    " id="s26">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s25"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s27"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Linked Lists</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete data structure (in C):
+</p><p></p><pre>typedef struct Node {
+   int  value;
+   struct Node *next;
+} Node;
+
+struct SetRep {
+   Node *elems;  <span class="comment">// pointer to first node</span>
+   Node *last;   <span class="comment">// pointer to last node</span>
+   int nelems;   <span class="comment">// number of nodes</span>
+};
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [26/36]</div> <div class="slideCl1    " id="s27">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s26"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s28"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Linked Lists</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Set creation:
+</p><p></p><pre><span class="comment">// create new empty set</span>
+Set newSet()
+{
+   Set s = malloc(sizeof(struct SetRep));
+   if (s == NULL) {...}
+   s-&gt;nelems = 0;
+   s-&gt;elems = s-&gt;last = NULL;
+   return s;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [27/36]</div> <div class="slideCl1    " id="s28">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s27"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s29"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Linked Lists</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Checking membership:
+</p><p></p><pre><span class="comment">// set membership test</span>
+int SetMember(Set s, int n)
+{
+   <span class="comment">// assert(isValid(s));</span>
+   Node *cur = s-&gt;elems;
+   while (cur != NULL) {
+      if (cur-&gt;value == n) return true;
+      cur = cur-&gt;next;
+   }
+   return false;
+}   
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [28/36]</div> <div class="slideCl1    " id="s29">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s28"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s30"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Linked Lists</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Costs for set operations on linked list:
+</p><ul>
+<li> <font color="#0000BB">insert</font>: duplicate check, insert at head; &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">delete</font>: find, unlink; &nbsp; <i>O(n)</i>
+</li><li> <font color="#0000BB">member</font>: linear search; <i>O(n)</i>
+</li><li> <font color="#0000BB">card</font>: lookup; <i>O(1)</i>
+</li><li> <font color="#0000BB">union</font>: copy s1, insert each item from s2; <i>O(nm)</i>
+</li><li> <font color="#0000BB">intersect</font>: scan for each item in s1; &nbsp; <i>O(nm)</i>
+</li></ul>
+Assume <i>n</i> = size of <i>s1</i>, <i>m</i> = size of <i>s2</i>
+<p>
+If we don't have <large><code>nelems</code></large>, <font color="#0000BB">card</font> becomes <i>O(n)</i>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [29/36]</div> <div class="slideCl1    " id="s30">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s29"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s31"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sets as Bit-strings</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Set is a very long bit-string, typically an array of <large><code>words</code></large>.
+</p><p>
+Restrict possible values that can be stored in the Set
+</p><ul>
+<li> typically restricted to 0..N-1, <small>(where N%32 == 0)</small>
+</li><li> represent each value by position in large array of bits
+</li><li> insertion means set a bit to 1 (<large><code>bit|1</code></large>)
+</li><li> deletion means set a bit to 0 (<large><code>bit&amp;0</code></large>)
+</li><li> bit position for value <large><code>i</code></large> is easy to compute
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [30/36]</div> <div class="slideCl1    " id="s31">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s30"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s32"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Bit-strings</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete data structure:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/set-bits.png]" src="./Abstract Data Types_files/set-bits.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [31/36]</div> <div class="slideCl1    " id="s32">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s31"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s33"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Bit-strings</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete data structure (in C):
+</p><p></p><pre>#define NBITS 1024
+#define NWORDS (NBITS/32)
+typedef unsigned int Word;
+typedef Word Bits[NWORDS];
+
+struct SetRep {
+   int nelems;
+   Bits bits;  <span class="comment">// Word bits[NWORDS]</span>
+};
+</pre><p>
+<large><code>Set</code></large>s defined like this can hold values in range 0..1023
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [32/36]</div> <div class="slideCl1    " id="s33">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s32"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s34"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sets as Bit-strings</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p>
+Implementation as bit-strings requires extra functions:
+</p><ul>
+<li> <large><code>getBit(Bits b, int i)</code></large> ... get value of i'th bit, 0 or 1
+</li><li> <large><code>setBit(Bits b, int i)</code></large> ... ensure i'th bit is set to 1
+</li><li> <large><code>unsetBit(Bits b, int i)</code></large> ... ensure i'th bit is set to 0
+</li></ul>
+Can be implemented efficiently, e.g.
+<p></p><pre>getBit(Bits b, int i) {
+   int whichWord = i / 32;
+   int whichBit  = i % 32;
+   Word mask = (1 &lt;&lt; whichBit)
+   return (b[whichWord] &amp; mask) &gt;&gt; whichBit;
+}
+</pre></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [33/36]</div> <div class="slideCl1    " id="s34">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s33"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s35"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Setting and unsetting bits </div></td><td align="right"></td></tr></tbody></table>
+<p>
+Setting and unsetting bits by <large><code>&amp;</code></large> and <large><code>|</code></large>
+</p><p>
+<img style="width:600px;" src="./Abstract Data Types_files/bit-setting.png">
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [34/36]</div> <div class="slideCl1    " id="s35">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s34"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s36"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Setting and unsetting bits </div></td><td align="right"></td></tr></tbody></table>
+<p>
+Powers of two by bit-shifting - don't use <large><code>pow(...)</code></large> from <large><code>math.h</code></large>!
+</p><p>
+<img style="width:600px; padding:0px 40px;" src="./Abstract Data Types_files/bit-shift.png">
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [35/36]</div> <div class="slideCl1    " id="s36">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s35"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/adts/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Performance of Set Implementations</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Performance comparison:
+</p><p>
+<table border="1" cellpadding="5" cellspacing="0">
+<tbody><tr style="background-color:#dddddd">
+<td><b>Data Structure</b></td>
+<td><b>insert</b></td>
+<td><b>delete</b></td>
+<td><b>member</b></td>
+<td><b><big>∪</big>, <big>∩</big></b></td>
+<td><b>storage</b></td>
+</tr>
+<tr>
+<td>unsorted array</td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(n.m)</i></td>
+<td><i>O(N)</i></td>
+</tr>
+<tr>
+<td>sorted array</td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(log<sub>2</sub>n)</i></td>
+<td><i>O(n+m)</i></td>
+<td><i>O(N)</i></td>
+</tr>
+<tr>
+<td>unsorted linked list</td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(n.m)</i></td>
+<td><i>O(n)</i></td>
+</tr>
+<tr>
+<td>sorted linked list</td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(n)</i></td>
+<td><i>O(n+m)</i></td>
+<td><i>O(n)</i></td>
+</tr>
+<tr>
+<td>bit-maps</td>
+<td><i>O(1)</i></td>
+<td><i>O(1)</i></td>
+<td><i>O(1)</i></td>
+<td><i>O(N)</i></td>
+<td><i>O(N)</i></td>
+</tr>
+</tbody></table>
+</p><p>
+<i>n,m</i> = #elems, &nbsp; <i>N</i> = max #elems, &nbsp;
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ Abstract Data Types ♢ [36/36]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 9 Feb 2021</span>
+ <script src="./Abstract Data Types_files/prism.js.下载"></script>   
+ <script src="./Abstract Data Types_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 25634px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 25634px; width: 1197px;"></div></html>

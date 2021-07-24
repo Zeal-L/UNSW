@@ -1,0 +1,324 @@
+
+<!-- saved from url=(0059)https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Random Numbers</title>
+<link href="./Random Numbers_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Random Numbers_files/latest.js.下载" async=""></script>
+<script src="./Random Numbers_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Random Numbers_files/css" rel="stylesheet"><link href="./Random Numbers_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Random Numbers_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Random Numbers</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s1">Random Numbers</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s3"> Linear Conguential Generators</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s8">Random Number Library</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [0/10]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Random Numbers</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+How can a computer generate a random number?
+</p><ul>
+<li> in theory, it can't, because it behaves deterministically
+</li></ul>
+<p>Software can only produce <font color="#0000BB">pseudo random numbers</font>.
+</p><ul>
+<li> a pseudo random number is one that is predictable
+</li><li> but varies enough that it appears unpredictable
+</li></ul>
+A generator of pseudo-random numbers might be "good enough"
+<ul>
+<li> if it generates values uniformly within a range
+</li><li> <small>and it is not obvious to an observer what the next number will be</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [1/10]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Random Numbers</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Ideally, we want a function <large><font color="#009900"><b><code>random()</code></b></font></large>
+</p><ul>
+<li> that produces a random number each time we call it
+</li><li> the next number is unrelated to the previous number
+</li></ul>
+Using it in the code ...
+<p></p><pre>int freq[10] = {0,0,0,0,0,0,0,0,0,0};
+for (i = 0; i &lt; 100000; i++) {
+   int n = random() % 10;
+   freq[n]++;
+}
+</pre><p>
+... after which each freq[i] should contain the same value (10000)
+</p></div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [2/10]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖  Linear Conguential Generators</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The most widely-used pseudo random number technique:
+</p><ul>
+<li> <font color="#0000BB">Linear Congruential Generator (LCG)</font>
+</li></ul>
+<p>
+LCG uses a <i>recurrence</i> relation:
+</p><ul>
+<li> <font color="#0000BB">X<sub>n+1</sub> = (a·X<sub>n</sub> + c) <i>mod</i> m</font>, where:
+<ul>
+<li> m is the "modulus"
+</li><li> a, 0 &lt; a &lt; m is the "multiplier"
+</li><li> c, 0 ≤ c ≤ m is the "increment"
+</li><li> X<sub>0</sub> is the "<font color="#0000BB">seed</font>"
+</li></ul>
+</li><li> if c=0, it is called a <font color="#0000BB">multiplicative congruential generator</font>
+</li></ul>
+
+Note: requires <font color="#0000BB">X<sub>n</sub></font> to be saved between calls to the LCG function.
+</div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [3/10]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ...  Linear Conguential Generators</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Typical implementation of an LCG
+</p><p></p><pre>#define a ???
+#define c ???
+#define m ???
+
+unsigned int random()
+{
+   <font color="red">static</font> unsigned int X;
+   X = (a * X + c) % m;
+   return X;
+}
+</pre><p>
+It is possible to omit <large><code>m</code></large> if <large><code>a</code></large> is large and we ignore overflows
+</p><ul>
+<li> effectively treat it as &nbsp; <large><code>mod 2<sup>32</sup></code></large>, so generate values 0..2<sup>32</sup>-1
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [4/10]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ...  Linear Conguential Generators</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Clearly, we need to be careful in choice of <large><code>a</code></large>, <large><code>c</code></large> and <large><code>m</code></large>
+</p><p>
+Consider the case where &nbsp;<large><code>a</code></large>=11, &nbsp;<large><code>m</code></large>=31, &nbsp;<large><code>c</code></large>=0, &nbsp;<large><code>X<sub>0</sub>=1</code></large>
+</p><p>
+An LCG would produce the sequence:
+</p><pre style="font-size:0.9em;"><font color="red">11</font>, 28, 29, 9, 6, 4, 13, 19, 23, 5, 24, 16, 21, 14,
+30, 20, 3, 2, 22, 25, 27, 18, 12, 8, 26, 7, 15, 10,
+17, 1, <font color="red">11</font>, 28, 29, 9, 6, 4, 13, 19, 23, 5, 24, 16,
+21, 14, 30, 20, 3, 2, 22, 25, 27, 18, 12, 8, 26, 7,
+15, 10, 17, 1, <font color="red">11</font>, 28, 29, 9, 6, 4, 13, ...
+</pre>
+<p>
+Observations:
+</p><ul>
+<li> all the integers from 1 to 30 appear, in "random" order
+</li><li> but the sequence repeats after every 30 numbers
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [5/10]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ...  Linear Conguential Generators</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Now consider the case where &nbsp;<large><code>a</code></large>=12, &nbsp;<large><code>m</code></large>=30, &nbsp;<large><code>c</code></large>=0, &nbsp;<large><code>X<sub>0</sub>=1</code></large>
+</p><p>
+AN LCG would produce the sequence:
+
+</p><pre style="font-size:0.9em;"><font color="red">12</font>, 24, 18, 6, <font color="red">12</font>, 24, 18, 6, <font color="red">12</font>, 24, 18, 6,
+<font color="red">12</font>, 24, 18, 6, <font color="red">12</font>, 24, 18, 6, <font color="red">12</font>, 24, 18, 6,
+<font color="red">12</font>, 24, 18, 6, <font color="red">12</font>, 24, 18, 6, ...
+</pre>
+<p>
+Does not produce all values in the range 1..30, and repeats with short period
+</p><p>
+To avoid scenarios like this ...
+</p><ul>
+<li> use large (relatively) prime values for &nbsp;<large><code>a</code></large>, &nbsp;<large><code>m</code></large>, &nbsp;<large><code>c</code></large>
+</li></ul>
+Note: same initial value for <large><code>X<sub>0</sub></code></large> always produces same sequence
+</div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [6/10]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ...  Linear Conguential Generators</div></td><td align="right"></td></tr></tbody></table>
+<p>
+It is a complex task to pick good numbers
+</p><p>
+Lewis, Goodman and Miller (1969) suggested
+</p><ul>
+<li> <font color="#0000BB">X<sub>n+1</sub> = 7<sup>5</sup>·X<sub>n</sub> mod (2<sup>31</sup>-1)</font>
+</li><li> note:
+<ul>
+<li> 7<sup>5</sup> is 16807
+</li><li> 2<sup>31</sup>-1 is 2147483674
+</li><li> X<sub>0</sub> = 0 is not a good seed value
+</li></ul>
+</li></ul>
+<p>
+Most systems use more complex LCG-based algorithms
+</p><ul>
+<li> see &nbsp;
+<a target="demo" href="http://www.mscs.dal.ca/~selinger/random/">www.mscs.dal.ca/~selinger/random/</a>
+&nbsp; for an example
+<ul>
+</ul></li></ul></div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [7/10]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Random Number Library</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Two functions are required:
+</p><p>
+</p><p></p><pre>srandom(int seed) <span class="comment">// sets its argument as the seed (X<sub>0</sub>)</span>
+
+random() <span class="comment">// uses a LCG technique to generate random </span>
+         <span class="comment">// numbers in the range 0 .. RAND_MAX </span>
+</pre><p>
+</p><p>
+where the constant <large><code>RAND_MAX</code></large> is defined in <large><code>stdlib.h</code></large>
+</p><p>
+Typically, &nbsp;<large><code>RAND_MAX</code></large> is large &nbsp;<small>(in CSE, RAND_MAX = 2147483647)</small>
+</p><p>
+The period (before repetition) is long, approximately 16·((2<sup>31</sup>)-1)
+</p></div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [8/10]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Random Number Library</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+A problem:
+</p><ul>
+<li> every time you run a program with the same seed
+</li><li> you get exactly the same sequence of 'random' numbers
+</li></ul>
+Handy if testing a program and need a repeatable "random" sequence.
+<p>
+But how to use <large><code>srandom()</code></large> to set a different seed each time?
+</p><ul>
+<li> could use the process ID &nbsp; (see <large><code>man 2 getpid</code></large>)
+</li><li> could use the current timestamp &nbsp; (see <large><code>man 3 time</code></large>)
+</li></ul>
+Note: default seed is 0, if no call to <large><code>srandom()</code></large>
+</div>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [9/10]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/random/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Random Number Library</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Random numbers are typically generated in a specific range:
+</p><p></p><pre>int randomRange(int lo, int hi)
+{
+	int n = random() % (hi-lo+1);
+	return n + lo;
+}
+</pre><p>
+</p><p><br>
+<small>
+LCG is not good for applications that need very high-quality random numbers
+</small></p><ul><small>
+<li> e.g. applications needing <i><font color="brown">cryptographically secure</font></i> random numbers
+</li></small></ul><small>
+However, LCG good enough for day-to-day use.
+</small></div><small>
+<div class="slideNumCl2">COMP2521   - Random Numbers ♢  [10/10]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 9 Feb 2021</span>
+ <script src="./Random Numbers_files/prism.js.下载"></script>   
+ <script src="./Random Numbers_files/sg.js.下载"></script>   
+
+
+</p></small></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 7610px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 7610px; width: 1197px;"></div></html>

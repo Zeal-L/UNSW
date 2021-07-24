@@ -1,0 +1,518 @@
+
+<!-- saved from url=(0068)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Performance Analysis</title>
+<link href="./Performance Analysis_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Performance Analysis_files/latest.js.下载" async=""></script>
+<script src="./Performance Analysis_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Performance Analysis_files/css" rel="stylesheet"><link href="./Performance Analysis_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Performance Analysis_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Performance Analysis</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s1">Performance</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s3">Development Strategy</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s5">Performance Analysis</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s10">Profiles</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s12"><large><font color="#009900"><b><code>gprof</code></b></font></large>: A Profiler</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s14">Profile Example</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [0/19]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Performance</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Why do we care about performance?
+</p><p>
+Good performance <i>→</i> less hardware, happy users.
+</p><p>
+Bad performance <i>→</i> more hardware, unhappy users.
+</p><p>
+Generally: &nbsp; performance = execution time
+</p><p>
+Other measures: memory/disk space, network traffic, disk i/o.
+</p><p>
+Execution time can be measured in two ways:
+</p><ul>
+<li> <font color="#0000BB">cpu</font> ... time your program spends in the processor
+</li><li> <font color="#0000BB">elapsed</font> ... wall-clock time between start and finish
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [1/19]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Performance</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+In the (distant) past, performance was a significant problem
+</p><ul>
+<li> much programming effort was spent on efficiency "tricks"
+</li></ul>
+Unfortunately, there is usually a trade-off between ...
+<ul>
+<li> execution <font color="#0000BB">efficiency</font> achieved by "tweaking" code
+</li><li> the <font color="#0000BB">understandability</font> of the code
+</li></ul>
+<br>
+<b>Knuth</b>: "Premature optimization is the root of all evil"
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [2/19]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Development Strategy</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A pragmatic approach to efficiency:
+</p><ul>
+<li> first, make the program simple, clear, robust and <font color="#0000BB">correct</font>
+</li><li> then, worry about efficiency ... if it's a problem at all
+</li></ul>
+Points to note:
+<ul>
+<li> good design is always critical <br>
+	<small>(at design time, make sensible choice of data structures, algorithms)</small>
+</li><li> can handle efficiency <small>(somewhat)</small> at system level <br>
+	<small>(e.g. buy a bigger machine, use compiler optimisation, ...)</small>
+</li></ul>
+<br>
+<b>Pike</b>: "A fast program that gets the wrong answer saves no time."
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [3/19]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Development Strategy</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Strategy for developing efficient programs:
+</p><ol>
+<li> Design the program well
+</li><li> Implement the program well  &nbsp; <span class="smaller">(choose good algorithms)<span class="smaller">
+</span></span></li><li> Test the program well
+</li><li> Only after you're sure it's working, <font color="#0000BB">measure</font> performance
+</li><li> If <small>(and only if)</small> performance is inadequate, <font color="#0000BB">find</font> the "hot spots"
+</li><li> <font color="#0000BB">Tune</font> the code to fix these
+</li><li> Repeat measure-analyse-tune cycle until performance ok
+</li></ol>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [4/19]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Performance Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Complexity/estimates give some idea of performance in advance.
+</p><p>
+Often, however ..
+</p><ul>
+<li> assumptions made in estimating performance are invalid
+</li><li> we overlook some frequent and/or expensive operation
+</li></ul>
+Best way to evaluate performance: <font color="#0000BB">measure</font> program execution.
+<p>
+Performance analysis can be:
+</p><ul>
+<li> coarse-grained ... overview of performance characteristics
+</li><li> fine-grained ... detailed description of performance
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [5/19]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Performance Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Coarse-grained performance analysis
+</p><ul>
+<li> devise a range of <i>representative</i> inputs
+</li><li> measure execution time of program on each input
+</li><li> can conveniently be combined with testing <br>
+	<span class="smaller">(but we only care about timing if correct result produced)</span>
+</li></ul>
+The Unix <large><code>time</code></large> command provides a suitable mechanism
+<p></p><pre>$ <b>time ./myProg &lt; LargeInput &gt; /dev/null</b>
+real  0m5.064s
+user  0m4.113s
+sys   0m0.802s
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [6/19]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Performance Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Components of Unix <large><code>time</code></large> output:
+</p><p>
+<large><code>real</code></large> time
+</p><ul>
+<li> elapsed time from when program starts to when it finishes
+</li><li> <small>affected by load on the system, not just the time spent by your program</small>
+</li></ul>
+<large><code>user</code></large> time
+<ul>
+<li> time spent executing the code of your program <span class="smaller">(and std libraries)</span>
+</li><li> this is the important measure of your code's efficiency
+</li></ul>
+<large><code>sys</code></large> time
+<ul>
+<li> time spent doing system calls on behalf of your program
+</li><li> could be large if e.g. substantial i/o, network usage
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [7/19]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Performance Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Using <large><code>time</code></large> for performance analysis
+</p><ul>
+<li> run the program multiple times on the same data set
+</li><li> take an average of just the <large><code>user</code></large> time
+</li><li> include <large><code>sys</code></large> time as well, if it's significant
+</li><li> repeat for several data sets of significantly different size
+</li></ul>
+Note: on a very-lightly-loaded system &nbsp;<large><code>user+sys</code></large> ≅ <large><code>real</code></large>
+<p>
+Note also: some versions of <large><code>time</code></large> have a different output format
+</p><ul>
+<li> but it's always<span class="smaller">(?)</span> possible to identify <large><code>user</code></large> and <large><code>sys</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [8/19]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Performance Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Decades of empirical study of program execution have shown ...
+</p><p>
+The 90/10 rule generally holds &nbsp; <small>(or 80/20 rule or ...)</small>:
+</p><ul>
+<li> "90% of the execution time is spent in 10% of the code"
+</li></ul>
+<p>
+Implications:
+</p><ul>
+<li> most of the code has little impact on overall performance
+</li><li> small regions of the code are bottlenecks (aka <font color="#0000BB">hot-spots</font>)
+</li></ul>
+To significantly improve performance: make bottlenecks faster.
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [9/19]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Profiles</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Need a method for locating <font color="#0000BB">hot spots</font>
+</p><p>
+An <i>execution profile</i> for a program is
+</p><ul>
+<li> the total cost of performing each <font color="#0000BB">code block</font>
+</li><li> for one execution of the program
+</li></ul>
+Cost may be measured via
+<ul>
+<li> a count of the number of times the block is executed
+</li><li> the total execution time spent within that block
+</li></ul>
+Profiles typically collected at function level
+	&nbsp; <small>(i.e. code block = function)</small>.
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [10/19]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Profiles</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A profile shows how much time is spent in each code block ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/prof-plot.png]" src="./Performance Analysis_files/prof-plot.png">
+</div><p>
+Software tools can generate profiles of program execution.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [11/19]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ <large><font color="#009900"><b><code>gprof</code></b></font></large>: A Profiler</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <large><code>gprof</code></large> command displays execution profiles ...
+</p><ul>
+<li> must compile and link program with the <large><code>-pg</code></large> flag
+</li><li> executing program creates an new <large><code>gmon.out</code></large> file
+</li><li> <large><code>gprof</code></large> reads <large><code>gmon.out</code></large> and prints profile on stdout
+</li></ul>
+<p>
+Example of use:
+</p><p></p><pre>$ <b>gcc -pg -o xyz xyz.c</b>
+$ <b>xyz</b> &lt; <b>data</b> &gt; <b>/dev/null</b>
+$ <b>gprof xyz</b> | <b>less</b>
+</pre><p>
+For further usage details, <large><code>man gprof</code></large>.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [12/19]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... <large><font color="#009900"><b><code>gprof</code></b></font></large>: A Profiler</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <large><code>gprof</code></large> command works at the function level.
+</p><p>
+It gives a <font color="#0000BB">flat profile</font> containing:
+</p><ul>
+<li> number of times each function was called
+</li><li> % of total execution time spent in the function
+</li><li> average execution time per call to that function
+</li><li> execution time for this function and its children
+</li></ul>
+<p>
+It also gives a <font color="#0000BB">call graph</font>, containing:
+</p><ul>
+<li> which functions called each function
+</li><li> which functions were called by each function
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [13/19]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Profile Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider the following program ...
+</p><p></p><pre style="font-size:80%"><span class="comment">// search for words in text containing a given substring</span>
+<span class="comment">// display each such word once (in alphabetical order)</span>
+
+int main(int argc, char*argv[])
+{
+    char  word[MAXWORD];  <span class="comment">// current word</span>
+    List  matches;        <span class="comment">// list of matched words</span>
+    char  *substring;     <span class="comment">// string to look for</span>
+    FILE  *input;         <span class="comment">// the input file</span>
+
+    <span class="comment">// ... Check command-line args, open input file ... </span>
+
+    <span class="comment">// Process the file - find the matching words</span>
+    matches = newList();
+    while (<font color="brown">getWord</font>(input, word) != NULL) {
+        if (<font color="brown">contains</font>(word,substring)
+                 &amp;&amp; !<font color="brown">member</font>(matches,word))
+            matches = <font color="brown">insert</font>(matches,word);
+    }
+    <font color="brown">printWords</font>(matches);
+    return 0;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [14/19]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Profile Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Flat profile for this program (<large><code>xwords et data3</code></large>):
+</p><p>
+</p><p></p><pre style="font-size:80%"> %  cumulative     self            self    total           
+time   seconds  seconds  calls  us/call  us/call  name    
+75.00     0.03     0.03  30212     0.99     0.99  getWord
+25.00     0.04     0.01  30211     0.33     0.33  contains
+ 0.00     0.04     0.00    489     0.00     0.00  member
+ 0.00     0.04     0.00    267     0.00     0.00  insert
+ 0.00     0.04     0.00      1     0.00 40000.00  main
+ 0.00     0.04     0.00      1     0.00     0.00  printWords
+</pre><p>
+</p><p>
+<small>The flat profile shows which functions contribute most to the execution cost.</small>
+</p><p>
+For more info on how to interpret <large><code>gprof</code></large> flat profiles, look at:
+</p><ul>
+<li> <a target="_blank" href="https://www.math.utah.edu/docs/info/gprof_5.html">The GNU Profiler: How to Understand the Flat Profile</a>
+</li></ul>
+<p>
+Note: &nbsp; <large><code>wc data3</code></large> &nbsp;<i>→</i>&nbsp; <large><code>7439  30211  188259</code></large>.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [15/19]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Profile Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:80%"> %  cumulative     self            self    total           
+time   seconds  seconds  calls  us/call  us/call  name    
+75.00     0.03     0.03  30212     0.99     0.99  getWord
+25.00     0.04     0.01  30211     0.33     0.33  contains
+ 0.00     0.04     0.00    489     0.00     0.00  member
+ 0.00     0.04     0.00    267     0.00     0.00  insert
+ 0.00     0.04     0.00      1     0.00 40000.00  main
+ 0.00     0.04     0.00      1     0.00     0.00  printWords
+</pre><p>
+</p><p>
+We can learn quite a lot from this:
+<small>
+</small></p><ul><small>
+<li> ~ 75% of the execution time is spent reading words
+</li><li> ~ 25% of the execution time is spent checking for the substring
+</li><li> because most words don't contain substring, few calls to <large><code>member()</code></large>
+</li><li> there are 30211 words in the input file <span class="smaller">(+1 <large><code>getword()</code></large> call to find EOF)</span>
+</li><li> there are 489 total incl. 267 distinct words containing the substring
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [16/19]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Profile Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Call graph for the same execution (<large><code>xwords et data3</code></large>):
+</p><p>
+</p><p></p><pre style="font-size:80%">index %time   self  children    called     name
+              0.00    0.04       1/1           _start [2]
+[1]   100.0   0.00    0.04       1         main [1]
+              0.03    0.00   30212/30212       getWord [3]
+              0.01    0.00   30211/30211       contains [4]
+              0.00    0.00     489/489         member [5]
+              0.00    0.00     267/267         insert [6]
+              0.00    0.00       1/1           printWords [7]
+-----------------------------------------------
+[2]   100.0   0.00    0.04                 _start [2]
+              0.00    0.04       1/1           main [1]
+-----------------------------------------------
+              0.03    0.00   30212/30212       main [1]
+[3]    75.0   0.03    0.00   30212         getWord [3]
+-----------------------------------------------
+              0.01    0.00   30211/30211       main [1]
+[4]    25.0   0.01    0.00   30211         contains [4]
+----------------------------------------------
+              0.00    0.00     489/489         main [1]
+[5]     0.0   0.00    0.00     489         member [5]
+-----------------------------------------------
+              0.00    0.00     267/267         main [1]
+[6]     0.0   0.00    0.00     267         insert [6]
+-----------------------------------------------
+              0.00    0.00       1/1           main [1]
+[7]     0.0   0.00    0.00       1         printWords [7]
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [17/19]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Profile Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+What does each entry mean?
+</p><p></p><pre style="font-size:80%">index %time   self  children    called     name
+              0.00    0.04       1/1           _start [2]
+[1]   <font color="brown">100.0</font>   0.00    0.04       1         <font color="brown">main</font> [1]
+              0.03    0.00   30212/30212       getWord [3]
+              0.01    0.00   30211/30211       contains [4]
+              0.00    0.00     <font color="brown">489/489</font>         member [5]
+              0.00    0.00     267/267         insert [6]
+              0.00    0.00       1/1           printWords [7]
+</pre><p>
+This entry shows info about the <large><code>main()</code></large> function
+<small>
+</small></p><ul><small>
+<li> <large><code>main()</code></large> is called once, by a <large><code>_start</code></large> "function"
+</li><li> <large><code>main()</code></large> and its called functions account for 100% of the exection time
+</li><li> <large><code>main()</code></large> calls five functions <span class="smaller">(<large><code>getWord</code></large>, <large><code>contains()</code></large>, etc.)</span>
+</li><li> all calls to the functions come from <large><code>main()</code></large>
+<ul>
+<li> of the 489 calls to <large><code>member()</code></large>, all of them are made by <large><code>main()</code></large>
+</li></ul>
+</li></small></ul><small>
+</small></div><small>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [18/19]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/performance/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Profile Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+The above call graph is unusual
+</p><ul>
+<li> there is only one level of function calls
+</li><li> none of the functions call other functions, except <large><code>main()</code></large>
+</li></ul>
+Normally, each function would call other functions
+<ul>
+<li> we can learn where each function is called from
+</li><li> we can learn which function makes the majority of those calls
+</li></ul>
+<p>
+For more info on how to interpret <large><code>gprof</code></large> call graphs, look at:
+</p><ul>
+<li> <a target="_blank" href="https://www.math.utah.edu/docs/info/gprof_6.html">The GNU Profiler: How to Read the Call Graph</a>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Performance Analysis [19/19]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 11 Jul 2020</span>
+ <script src="./Performance Analysis_files/prism.js.下载"></script>   
+ <script src="./Performance Analysis_files/sg.js.下载"></script>   
+
+
+</p></small></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 14144px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 14144px; width: 1197px;"></div></html>

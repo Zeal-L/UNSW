@@ -1,0 +1,538 @@
+
+<!-- saved from url=(0072)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Graph Traversal</title>
+<link href="./Graph Traversal_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Graph Traversal_files/latest.js.下载" async=""></script>
+<script src="./Graph Traversal_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Graph Traversal_files/css" rel="stylesheet"><link href="./Graph Traversal_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Graph Traversal_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Graph Traversal</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s1">Problems on Graphs</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s2">Graph Traversal</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s9">Depth-first Search</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s12">Depth-first Traversal Example</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s13">DFS Cost Analysis</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s14">Path Finding</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s19">Breadth-first Search</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [0/22]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Problems on Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+What kind of problems do we want to solve on graphs?
+<small>
+</small></p><ul><small>
+<li> is the graph fully-connected? 
+</li><li> can we remove an edge and keep it fully-connected?
+</li><li> is one vertex reachable starting from some other vertex?
+</li><li> what is the cheapest cost path from <i>v</i> to <i>w</i>&nbsp;?
+</li><li> which vertices are reachable from <i>v</i>&nbsp;? (transitive closure)
+</li><li> is there a cycle that passes through all vertices? (circuit)
+</li><li> is there a tree that links all vertices? (spanning tree)
+</li><li> what is the minimum spanning tree?
+</li></small></ul><small>
+</small><p><small>
+While these problems are expressed as problems on graphs, they are
+interesting because many real world problems can be mapped onto graphs,
+and the solutions to the above could then be applied in solving them.
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [1/22]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Many of the above problems can be solved by
+</p><ul>
+<li> systematic exploration of a graph, via the edges
+</li></ul>
+Algorithms for this typically require us to remember
+<ul>
+<li> what vertices we have already visited
+</li><li> the path we followed while visiting them
+</li></ul>
+Since many graph search algorithms are recursive
+<ul>
+<li> above information needs to be stored globally
+</li><li> and updated by individual calls to the recursive function
+</li></ul>
+Systematic exploration like this is called <font color="#0000BB">traversal</font> or <font color="#0000BB">search</font>.
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [2/22]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Consider two related problems on graphs ...
+</p><ul>
+<li> is there a path between two given vertices (<i>src</i>,<i>dest</i> )?
+</li><li> what is the sequence of vertices from <i>src</i> to <i>dest</i> ?
+</li></ul>
+An approach to solving this problem:
+<ul>
+<li> examine vertices adjacent to <i>src</i>
+</li><li> if any of them is <i>dest</i>, then done
+</li><li> otherwise try vertices two edges from <i>src</i>
+</li><li> repeat looking further and further from <i>src</i>
+</li></ul>
+The above summarises one form of graph traversal.
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [3/22]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+There are two strategies for graph traversal/search ...
+</p><p>
+<font color="#0000BB">Depth-first search</font> &nbsp;(DFS)
+</p><ul>
+<li> favours following path rather than neighbours
+</li><li> can be implemented recursively or iteratively (via stack)
+</li><li> full traversal produces a <font color="#0000BB">depth-first spanning tree</font>
+</li></ul>
+<font color="#0000BB">Breadth-first search</font> &nbsp;(BFS)
+<ul>
+<li> favours neighbours rather than path following
+</li><li> can be implemented iteratively (via queue)
+</li><li> full traversal produces a <font color="#0000BB">breadth-first spanning tree</font>
+</li></ul>
+<small>
+The method on the previous slide is effectively breadth-first traversal.
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [4/22]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Comparison of BFS/DFS search for checking <large><code>hasPath(a,h)</code></large>?
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/graph-search-bfs-dfs.png]" src="./Graph Traversal_files/graph-search-bfs-dfs.png">
+</div><p>
+</p><p>
+<small>Both approaches ignore some edges by remembering previously visited vertices.</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [5/22]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <font color="#0000BB">spanning tree</font> of a graph
+</p><ul>
+<li> includes all vertices, using a subset of edges, without cycles
+</li></ul>
+Consider the following graph:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/graph0.png]" src="./Graph Traversal_files/graph0.png">
+</div><p>
+Consider how DFS and BFS could produce its spanning tree
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [6/22]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Spanning tree resulting from DFS ...
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/dfs-tree.png]" src="./Graph Traversal_files/dfs-tree.png">
+</div><p>
+</p><p><br>
+Note: choose neighbours in ascending order
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [7/22]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Graph Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Spanning tree resulting from BFS ...
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/bfs-tree.png]" src="./Graph Traversal_files/bfs-tree.png">
+</div><p>
+</p><p><br>
+Note: choose neighbours in ascending order
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [8/22]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Depth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Depth-first search can be described recursively as
+</p><p></p><pre>visited = {}
+
+<font color="blue">depthFirst(G,v)</font>:
+|  visited = visited ∪ {v}
+|  <b>for</b> <b>all</b> (v,w) ∈ <font color="brown">edges</font>(G) <b>do</b>
+|  |  <b>if</b> w ∉ visited <b>then</b>
+|  |  |  depthFirst(G,w)
+|  |  <b>end if</b>
+|  <b>end for</b>
+</pre><p>
+</p><p>
+The recursion induces <font color="#0000BB">backtracking</font>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [9/22]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Depth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Recursive DFS path checking
+</p><p></p><pre style="font-size:90%">visited = {}
+
+<font color="blue">hasPath(G,src,dest)</font>:
+|  <b>Input</b>  graph G, vertices src,dest
+|  <b>Output</b> true if there is a path from src to dest,
+|         false otherwise
+|
+|  <b>return</b> <font color="blue">dfsPathCheck(G,src,dest)</font>
+</pre><p>
+<br>
+Requires wrapper around recursive function &nbsp;<large><code>dfsPathCheck()</code></large>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [10/22]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Depth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Recursive function for path checking
+</p><p></p><pre style="font-size:90%"><font color="blue">dfsPathCheck(G,v,dest)</font>:
+|  visited = visited ∪ {v}
+|  <b>for</b> <b>all</b> (v,w) ∈ edges(G) <b>do</b>
+|  |  <b>if</b> w=dest <b>then</b>   <span class="comment">// found edge to dest</span>
+|  |     <b>return</b> true
+|  |  <b>else</b> <b>if</b> w ∉ visited <b>then</b>
+|  |     <b>if</b> <font color="blue">dfsPathCheck(G,w,dest)</font> <b>then</b>
+|  |        <b>return</b> true  <span class="comment">// found path via w to dest</span>
+|  |     <b>end if</b>
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> false  <span class="comment">// no path from v to dest</span>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [11/22]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Depth-first Traversal Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Tracing the execution of <large><code>dfsPathCheck(G,0,5)</code></large> on:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/dfsPathCheck.png]" src="./Graph Traversal_files/dfsPathCheck.png">
+</div><p>
+<br>
+Reminder: we consider neighbours in ascending order
+</p><p>
+Clearly does not find the shortest path
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [12/22]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ DFS Cost Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Cost analysis:
+</p><ul>
+<li> each vertex visited at most once ⇒ cost = <i>O(V)</i>
+</li><li> visit all edges incident on visited vertices ⇒ cost = <i>O(E)</i>
+<ul>
+<li> assuming an adjacency list representation
+</li></ul>
+</li></ul>
+<br>
+Time complexity of DFS: &nbsp; <i>O(V+E)</i> &nbsp; <small>(adjacency list representation)</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [13/22]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Path Finding</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Knowing whether a path exists can be useful
+</p><p>
+Knowing what the path is, is even more useful
+</p><p>
+Strategy:
+</p><ul>
+<li> record the previously visited node as we search
+</li><li> so that we can then trace path (backwards) through graph
+</li></ul>
+<p>
+Requires a global array <span class="smaller">(not a set)</span>:
+</p><ul>
+<li> <large><code>visited[v]</code></large> contains vertex <large><code>w</code></large> from which we reached <large><code>v</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [14/22]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Path Finding</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Function to find path src→dest and print it
+</p><p></p><pre style="font-size:90%">visited[] <span class="comment">// store previously visited node</span>
+          <span class="comment">// for each vertex 0..nV-1</span>
+
+<font color="blue">findPath(G,src,dest)</font>:
+|  <b>Input</b> graph G, vertices src,dest
+|
+|  <b>for</b> <b>all</b> vertices v∈G <b>do</b>
+|     <font color="green">visited[v]=-1</font>
+|  <b>end for</b>
+|  <font color="green">visited[src]=src</font>  <span class="comment">// starting node of the path</span>
+|  <b>if</b> <font color="blue">dfsPathCheck(G,src,dest)</font> <b>then</b>
+|  |  <span class="comment">// show path in dest..src order</span>
+|  |  v=dest
+|  |  <b>while</b> v≠src <b>do</b>
+|  |     print v"-"
+|  |     v=visited[v]
+|  |  <b>end while</b>
+|  |  print src
+|  <b>end if</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [15/22]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Path Finding</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Recursive function to build path in <large><code>visited[]</code></large>
+</p><p></p><pre style="font-size:90%"><font color="blue">dfsPathCheck(G,v,dest)</font>:
+|  <b>for</b> <b>all</b> (v,w) ∈ edges(G) <b>do</b>
+|  |  <b>if</b> <font color="green">visited[w] = -1</font> <b>then</b>
+|  |     <font color="green">visited[w] = v</font>
+|  |     <b>if</b> w = dest <b>then</b>  <span class="comment">// found edge from v to dest</span>
+|  |        <b>return</b> true
+|  |     <b>else</b> <b>if</b> <font color="blue">dfsPathCheck(G,w,dest)</font> <b>then</b>
+|  |        <b>return</b> true  <span class="comment">// found path via w to dest</span>
+|  |     <b>end if</b>
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> false  <span class="comment">// no path from v to dest</span>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [16/22]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Path Finding</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+The <large><code>visited[]</code></large> array after <large><code>dfsPathCheck(G,0,7)</code></large> succeeds
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/dfsFindPath.png]" src="./Graph Traversal_files/dfsFindPath.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [17/22]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Path Finding</div></td><td align="right"></td></tr></tbody></table>
+<p>
+DFS can also be described non-recursively (via a <font color="#0000BB">stack</font>):
+</p><p></p><pre style="font-size:90%">visited[] <span class="comment">// store previously visited node</span>
+          <span class="comment">// for each vertex 0..nV-1</span>
+
+<font color="blue">findPathDFS(G,src,dest)</font>:
+|  <b>Input</b> graph G, vertices src,dest
+|
+|  <b>for</b> <b>all</b> vertices v∈G <b>do</b>
+|     visited[v]=-1
+|  <b>end for</b>
+|  found=false
+|  visited[src]=src
+|  <font color="brown">push src onto new stack S</font>
+|  <b>while</b> not found ∧ <font color="brown">S is not empty</font> <b>do</b>
+|  |  <font color="brown">pop v from S</font>
+|  |  <b>if</b> v=dest <b>then</b>
+|  |     found=true
+|  |  <b>else</b>
+|  |  |  <b>for</b> <b>each</b> (v,w)∈edges(G) with visited[w]=-1 <b>do</b>
+|  |  |     visited[w]=v
+|  |  |     <font color="brown">push w onto S</font>
+|  |  |  <b>end for</b>
+|  |  <b>end if</b>
+|  <b>end while</b>
+|  <b>if</b> found <b>then</b>
+|     display path in dest..src order
+|  <b>end if</b>
+</pre><p>
+Uses standard stack operations ... Time complexity is still <i>O(V+E)</i>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [18/22]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Breadth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Basic approach to breadth-first search (BFS):
+</p><ul>
+<li> visit and mark current vertex
+</li><li> visit all neighbours of current vertex
+</li><li> then consider neighbours of neighbours
+</li></ul>
+Notes:
+<ul>
+<li> tricky to describe recursively
+</li><li> but a minor variation on non-recursive DFS search works
+       <br> ⇒ switch the <i>stack</i> for a <i>queue</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [19/22]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Breadth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+BFS path finding algorithm:
+</p><p></p><pre style="font-size:90%">visited[] <span class="comment">// store previously visited node</span>
+          <span class="comment">// for each vertex 0..nV-1</span>
+
+<font color="blue">findPathBFS(G,src,dest)</font>:
+|  <b>Input</b>  graph G, vertices src,dest
+|
+|  <b>for</b> <b>all</b> vertices v∈G <b>do</b>
+|     visited[v]=-1
+|  <b>end for</b>
+|  found=false
+|  visited[src]=src
+|  <font color="brown">enqueue src into queue Q</font>
+|  <b>while</b> not found ∧ <font color="brown">Q is not empty</font> <b>do</b>
+|  |  <font color="brown">dequeue v from Q</font>
+|  |  <b>if</b> v=dest <b>then</b>
+|  |     found=true
+|  |  <b>else</b>
+|  |  |  <b>for</b> <b>each</b> (v,w) ∈ edges(G) with visited[w]=-1 <b>do</b>
+|  |  |     visited[w]=v
+|  |  |     <font color="brown">enqueue w into Q</font>
+|  |  |  <b>end for</b>
+|  |  <b>end if</b>
+|  <b>end while</b>
+|  <b>if</b> found <b>then</b>
+|     display path in dest..src order
+|  <b>end if</b>
+</pre><p>
+Uses standard queue operations &nbsp; <small>(enqueue, dequeue, check if empty)</small>
+</p><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [20/22]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Breadth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <large><code>visited[]</code></large> array after <large><code>findPathBFS(G,0,7)</code></large> succeeds
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/findPathBFS.png]" src="./Graph Traversal_files/findPathBFS.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [21/22]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-traversal/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Breadth-first Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Time complexity of BFS: <i>O(V+E)</i> &nbsp; <small>(same as DFS)</small>
+</p><p>
+BFS finds a "shortest" path
+</p><ul>
+<li> based on minimum # edges between <i>src</i> and <i>dest</i>.
+</li><li> stops with first-found path, if there are multiple ones
+</li></ul>
+<p><br>
+<small>
+In many applications, edges are weighted and we want path
+</small>
+</p><ul>
+<li> <small>based on minimum sum-of-weights along path <i>src</i> .. <i>dest</i></small>
+</li></ul>
+<small>
+We discuss weighted/directed graphs later.
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Traversal [22/22]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 22 Jun 2020</span>
+ <script src="./Graph Traversal_files/prism.js.下载"></script>   
+ <script src="./Graph Traversal_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 16570px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 16570px; width: 1197px;"></div></html>

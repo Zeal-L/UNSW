@@ -1,0 +1,638 @@
+
+<!-- saved from url=(0059)https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Balancing Search Trees</title>
+<link href="./Balancing Search Trees_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Balancing Search Trees_files/latest.js.下载" async=""></script>
+<script src="./Balancing Search Trees_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Balancing Search Trees_files/css" rel="stylesheet"><link href="./Balancing Search Trees_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Balancing Search Trees_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Balancing Search Trees</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s1">Balancing Binary Search Trees</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s3">Operations for Rebalancing</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s4">Tree Rotation</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s10">Insertion at Root</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s15">Tree Partitioning</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s19">Periodic Rebalancing</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s24">Randomised BST Insertion</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s27">An Application of BSTs: Sets</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [0/30]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Balancing Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Observation: order of insertion into a tree affects its height
+</p><ul>
+<li> <font color="red">worst case</font>: keys inserted in ascending/descending order <br>
+	<span class="smaller">(effectively have a linked list, so search cost is <i>O(n)</i> )
+</span></li><li> <font color="green">best case</font> <small>(for at-leaf insertion)</small>: keys inserted in pre-order <br>
+	<span class="smaller">(tree height ⇒ search cost is <i>O(log n)</i> ; tree is balanced)
+</span></li><li> <font color="blue">average case</font>: keys inserted in <font color="#0000BB">random</font> order <br>
+	<span class="smaller">(tree height ⇒ search cost is <i>O(log n )</i>; but cost ≥ best case)</span>
+
+</li></ul>
+Goal: build binary search trees which have
+<ul>
+<li> minimum height <i>⇒</i> minimum worst case search cost
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [1/30]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Balancing Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Perfectly-balanced tree with <i>N</i> nodes has
+</p><ul>
+<li> <big>∀</big> nodes, &nbsp;<small>abs(#nodes(LeftSubtree) - #nodes(RightSubtree)) &lt; 2</small>
+</li><li> height of <i>log<sub>2</sub>N</i> <i>⇒</i> worst case search <i>O(log N)</i>
+</li></ul>
+Three <i>strategies</i> to improving worst case search in BSTs:
+<ul>
+<li> <font color="#0000BB">randomise</font> &nbsp;—&nbsp; <small>reduce chance of worst-case scenario occuring</small>
+</li><li> <font color="#0000BB">amortise</font> &nbsp;—&nbsp; <small>do more work at insertion to make search faster</small>
+</li><li> <font color="#0000BB">optimise</font> &nbsp;—&nbsp; <small>implement all operations with performance bounds</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [2/30]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Operations for Rebalancing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+To assist with rebalancing, we consider new operations:
+</p><p>
+Left rotation
+</p><ul>
+<li> move right child to root; rearrange links to retain order
+</li></ul>
+Right rotation
+<ul>
+<li> move left child to root; rearrange links to retain order
+</li></ul>
+Insertion at root
+<ul>
+<li> each new item is added as the new root node
+</li></ul>
+Partition
+<ul>
+<li> rearrange tree around specified node &nbsp;<span class="smaller">(push it to root)</span>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [3/30]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Tree Rotation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Rotation operations:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/left-right-rotation.png]" src="./Balancing Search Trees_files/left-right-rotation.png">
+</div><p>
+</p><p>
+Note: tree is ordered, &nbsp; <i>t<sub>1</sub> &nbsp;&lt;&nbsp; n<sub>2</sub> &nbsp;&lt;&nbsp; t<sub>2</sub> &nbsp;&lt;&nbsp; n<sub>1</sub> &nbsp;&lt;&nbsp; t<sub>3</sub></i>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [4/30]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Rotation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Method for rotating tree T right:
+</p><ul>
+<li> n<sub>1</sub> is current root; n<sub>2</sub> is root of n<sub>1</sub>'s left subtree
+</li><li> n<sub>1</sub> gets new left subtree, which is n<sub>2</sub>'s right subtree
+</li><li> n<sub>1</sub> becomes root of n<sub>2</sub>'s new right subtree
+</li><li> n<sub>2</sub> becomes new root
+</li><li> n<sub>2</sub>'s left subtree is unchanged
+</li></ul>
+Left rotation: swap left/right in the above.
+<p>
+Rotation requires simple, localised pointer rearrangemennts
+</p><p>
+Cost of tree rotation: <i>O(1)</i>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [5/30]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Rotation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example of right rotation:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/rotr.png]" src="./Balancing Search Trees_files/rotr.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [6/30]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Rotation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm for right rotation:
+</p><p></p><pre><font color="blue">rotateRight(n<sub>1</sub>):</font>
+|  <b>Input</b>  tree n<sub>1</sub>
+|  <b>Output</b> n<sub>1</sub> rotated to the right
+|
+|  <b>if</b> n<sub>1</sub> is empty ∨ left(n<sub>1</sub>) is empty <b>then</b>
+|     <b>return</b> n<sub>1</sub>
+|  <b>end if</b>
+|  <font color="#0000BB">n<sub>2</sub>=left(n<sub>1</sub>)</font>
+|  <font color="#0000BB">left(n<sub>1</sub>)=right(n<sub>2</sub>)</font>
+|  <font color="#0000BB">right(n<sub>2</sub>)=n<sub>1</sub></font>
+|  <b>return</b> n<sub>2</sub>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [7/30]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Rotation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm for left rotation:
+</p><p></p><pre><font color="blue">rotateLeft(n<sub>2</sub>):</font>
+|  <b>Input</b>  tree n<sub>2</sub>
+|  <b>Output</b> n<sub>2</sub> rotated to the left
+|
+|  <b>if</b> n<sub>2</sub> is empty ∨ right(n<sub>2</sub>) is empty <b>then</b>
+|     <b>return</b> n<sub>2</sub>
+|  <b>end if</b>
+|  <font color="#0000BB">n<sub>1</sub>=right(n<sub>2</sub>)</font>
+|  <font color="#0000BB">right(n<sub>2</sub>)=left(n<sub>1</sub>)</font>
+|  <font color="#0000BB">left(n<sub>1</sub>)=n<sub>2</sub></font>
+|  <b>return</b> n<sub>1</sub>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [8/30]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Rotation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Cost considerations for tree rotation
+</p><ul>
+<li> the rotation operation is cheap &nbsp;<i>O(1)</i>
+</li><li> if applied appropriately, will tend to improve tree balance
+</li></ul>
+Sometimes rotation is applied from leaf to root, along one branch
+<ul>
+<li> cost of this is <i>O(height)</i>
+</li><li> payoff is improved balance which reduces height
+</li><li> reduced height pushes search cost towards <i>O(log n)</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [9/30]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Insertion at Root</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Previous discussion of BSTs did insertion at leaves.
+</p><p>
+Different approach: insert new item at root.
+</p><p>
+Potential disadvantages:
+</p><ul>
+<li> large-scale rearrangement of tree for each insert &nbsp;<span class="smaller">(apparently)</span>
+</li></ul>
+Potential advantages:
+<ul>
+<li> recently-inserted items are close to root
+</li><li> lower cost if recent items more likely to be searched
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [10/30]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion at Root</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Method for inserting at root:
+</p><ul>
+<li> base case:
+<ul>
+<li> tree is empty; make new node and make it root
+</li></ul>
+</li><li> recursive case:
+<ul>
+<li> insert new node as root of appropriate subtree
+</li><li> lift new node to root by rotation
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [11/30]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion at Root</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example of inserting at root:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/insert-root.png]" src="./Balancing Search Trees_files/insert-root.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [12/30]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion at Root</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm for inserting at root:
+</p><p></p><pre><font color="blue">insertAtRoot(t, it):</font>
+|  <b>Input</b> tree t, item it to be inserted
+|  <b>Output</b> modified tree with item at root
+|
+|  <b>if</b> t is empty tree <b>then</b>
+|     t = new node containing item
+|  <b>else</b> <b>if</b> item &lt; root(t) <b>then</b>
+|     left(t) = <font color="blue">insertAtRoot</font>(left(t), it)
+|     t = rotateRight(t)
+|  <b>else</b> <b>if</b> it &gt; root(t) <b>then</b>
+|     right(t) = <font color="blue">insertAtRoot</font>(right(t), it)
+|     t = rotateLeft(t)
+|  <b>end if</b>
+|  <b>return</b> t;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [13/30]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion at Root</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Analysis of insertion-at-root:
+</p><ul>
+<li> same complexity as for insertion-at-leaf: &nbsp;<i>O(height)</i>
+<ul>
+<li> <span class="smaller">but cost is effectively doubled ... traverse down, rotate up</span>
+</li></ul>
+</li><li> tendency to be balanced, but no balance guarantee
+</li><li> benefit comes in searching
+<ul>
+<li> for some applications, search favours recently-added items
+</li><li> insertion-at-root ensures these are close to root
+</li></ul>
+</li><li> could even consider "move to root when found"
+<ul>
+<li> effectively provides "self-tuning" search tree
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [14/30]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Tree Partitioning</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Tree partition operation <large><font color="#009900"><b><code>partition(tree,i)</code></b></font></large>
+</p><ul>
+<li> re-arranges tree so that element with index <i>i</i> &nbsp;becomes root
+</li></ul>
+<br>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/tindex.png]" src="./Balancing Search Trees_files/tindex.png">
+</div><p>
+<br>
+<small>For tree with <i>N</i> nodes, indices are <i>0 .. N-1</i>, in LNR order</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [15/30]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Partitioning</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example of partition:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/partition.png]" src="./Balancing Search Trees_files/partition.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [16/30]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Partitioning</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Implementation of partition operation:
+</p><p></p><pre><font color="blue">partition(tree,<i>i</i>):</font>
+|  <b>Input</b>  tree with n nodes, index <i>i</i>
+|  <b>Output</b> tree with <i>i</i><sup>th</sup> item moved to the root
+|
+|  m=<font color="brown">#nodes</font>(left(tree))
+|  <b>if</b> <i>i</i> &lt; m <b>then</b>
+|     left(tree)=<font color="blue">partition(left(tree),<i>i</i>)</font>
+|     tree=<font color="red">rotateRight(tree)</font>
+|  <b>else</b> <b>if</b> <i>i</i> &gt; m <b>then</b>
+|     right(tree)=<font color="blue">partition(right(tree),<i>i</i>-m-1)</font>
+|     tree=<font color="red">rotateLeft(tree)</font>
+|  <b>end if</b>
+|  <b>return</b> tree
+</pre><p>
+<small>Note: &nbsp;size(tree) = n, &nbsp; size(left(tree)) = m, &nbsp; size(right(tree)) = n-m-1</small> 
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [17/30]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Partitioning</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Analysis of tree partitioning
+</p><ul>
+<li> no requirement for search &nbsp;<span class="smaller">(using element index instead)</span>
+</li><li> after each recursive partitioning step, one rotation
+</li><li> overall cost similar to insert-at-root
+</li></ul>
+Benefits
+<ul>
+<li> tends to improve balance ⇒ improves search cost
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [18/30]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Periodic Rebalancing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+An approach to maintaining balance:
+</p><ul class="compactUL">
+<li> insert at leaves as before; &nbsp; periodically, rebalance the tree
+</li></ul>
+<p></p><pre>|  <b>Input</b>  tree, item
+|  <b>Output</b> tree with item randomly inserted
+|
+|  t=insertAtLeaf(tree,item)
+|  <b>if</b> <font color="brown">#nodes</font>(t) mod <font color="blue"><i>k</i></font> = 0 <b>then</b>
+|     t=<font color="green">rebalance</font>(t)
+|  <b>end if</b>
+|  <b>return</b> t
+</pre><p>
+When to rebalance? &nbsp; e.g. after every <i>k</i> insertions
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [19/30]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Periodic Rebalancing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+A problem with this approach ...
+</p><ul>
+<li> operation <font color="brown">#nodes()</font> has to traverse whole (sub)tree
+</li><li> to improve efficiency, change node structure
+</li></ul>
+<p></p><pre>typedef struct Node {
+   int  data;
+   <font color="blue">int  nnodes;</font>      <span class="commentR">// #nodes in my tree</span>
+   Tree left, right; <span class="commentR">// subtrees</span>
+} Node;
+</pre><p>
+But maintaining <font color="blue"><tt>nnodes</tt></font> requires extra work in other operations
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [20/30]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Periodic Rebalancing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+How to rebalance a BST? &nbsp; Move median item to root.
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/rebalance.png]" src="./Balancing Search Trees_files/rebalance.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [21/30]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Periodic Rebalancing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Implementation of rebalance:
+</p><p></p><pre><font color="blue">rebalance(t):</font>
+|  <b>Input</b>  tree t with n nodes
+|  <b>Output</b> t rebalanced
+|
+|  <b>if</b> n≥3 <b>then</b>
+|  |  <span class="comment">// put node with median key at root</span>
+|  |  t=<font color="brown">partition</font>(t,<sub><img src="./Balancing Search Trees_files/lfloor-small.gif"></sub>n/2<sub><img src="./Balancing Search Trees_files/rfloor-small.gif"></sub>)
+|  |  <span class="comment">// then rebalance each subtree</span>
+|  |  left(t)=<font color="blue">rebalance(left(t))</font>
+|  |  right(t)=<font color="blue">rebalance(right(t))</font>
+|  <b>end if</b>
+|  <b>return</b> t
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [22/30]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Periodic Rebalancing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Analysis of rebalancing: visits every node <i>⇒ O(N)</i>
+</p><p>
+Cost means not feasible to rebalance after each insertion.
+</p><p>
+When to rebalance? … Some possibilities:
+</p><ul>
+<li> after every <i>k</i> insertions
+</li><li> whenever "imbalance" exceeds threshold
+</li></ul>
+<small>Either way, we tolerate worse search performance for periods of time.</small>
+<p>
+Does it solve the problem? … Not completely &nbsp; ⇒ Solution: real balanced trees &nbsp;<small>(next week)</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [23/30]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s25"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Randomised BST Insertion</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Reminder: order of insertion can dramatically affect shape of tree
+</p><p>
+Tree ADT has no control over order that keys are supplied.
+</p><p>
+We know that inserting in random order gives <i>O(log<sub>2</sub>n)</i>  search
+</p><p>
+Can the algorithm itself introduce some <font color="#0000BB">randomness</font>?
+</p><p>
+In the hope that this randomness helps to balance the tree …
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [24/30]</div> <div class="slideCl1    " id="s25">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s24"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s26"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Randomised BST Insertion</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Approach: normally do leaf insert, randomly do root insert.
+</p><p></p><pre>insertRandom(tree,item)
+|  <b>Input</b>  tree, item
+|  <b>Output</b> tree with item randomly inserted
+|
+|  <b>if</b> tree is empty <b>then</b>
+|     <b>return</b> new node containing item
+|  <b>end if</b>
+|  <span class="comment">// <i>p</i>/<i>q</i> chance of doing root insert</span>
+|  <font color="blue"><b>if</b> <font color="red">random()</font> mod <i>q</i> &lt; <i>p</i> <b>then</b>
+|     <b>return</b> insertAtRoot(tree,item)
+|  <b>else</b></font>
+|     <b>return</b> insertAtLeaf(tree,item)
+|  <b>end if</b>
+</pre><p>
+</p><p>
+E.g. 30% chance ⇒ choose <i>p=3, q=10</i>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [25/30]</div> <div class="slideCl1    " id="s26">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s25"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s27"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Randomised BST Insertion</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Cost analysis:
+</p><ul>
+<li> similar to cost for inserting keys in random order: &nbsp;<i>O(log<sub>2</sub> n)</i>
+</li><li> does not rely on keys being supplied in random order
+</li></ul>
+Approach can also be applied to deletion:
+<ul>
+<li> standard method promotes inorder successor to root
+</li><li> for the randomised method …
+<ul>
+<li> promote inorder successor from right subtree, OR
+</li><li> promote inorder predecessor from left subtree
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [26/30]</div> <div class="slideCl1    " id="s27">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s26"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s28"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ An Application of BSTs: Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Trees provide efficient search.
+</p><p>
+Sets require efficient search
+</p><ul>
+<li> to find where to insert/delete
+</li><li> to test for set membership
+</li></ul>
+Logical to implement a set ADT via binary search tree.
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [27/30]</div> <div class="slideCl1    " id="s28">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s27"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s29"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... An Application of BSTs: Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Assuming we have BST implementation with type <large><code>Tree</code></large>
+</p><ul>
+<li> which precludes duplicate key values
+</li><li> which implements insertion, search, deletion
+</li></ul>
+then <large><code>Set</code></large> implementation is
+<ul>
+<li> <large><code>SetInsert(Set,Item)</code></large> ≡ <large><code>TreeInsert(Tree,Item)</code></large>
+</li><li> <large><code>SetDelete(Set,Item)</code></large> ≡ <large><code>TreeDelete(Tree,Item.Key)</code></large>
+</li><li> <large><code>SetMember(Set,Item)</code></large> ≡ <large><code>TreeSearch(Tree,Item.Key)</code></large>
+</li></ul>
+What about union? and intersection?
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [28/30]</div> <div class="slideCl1    " id="s29">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s28"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s30"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... An Application of BSTs: Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Sets implemented via Trees:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/set-tree.png]" src="./Balancing Search Trees_files/set-tree.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [29/30]</div> <div class="slideCl1    " id="s30">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s29"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees2/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... An Application of BSTs: Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete representation:
+</p><p></p><pre>#include &lt;Tree.h&gt;
+
+typedef struct SetRep {
+   int   nelems;
+   Tree  root;
+} SetRep;
+
+Set newSet() {
+   Set S = malloc(sizeof(SetRep));
+   assert(S != NULL);
+   S-&gt;nelems = 0;
+   S-&gt;root = newTree();
+   return S;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Balancing Search Trees ♢ [30/30]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 9 Feb 2021</span>
+ <script src="./Balancing Search Trees_files/prism.js.下载"></script>   
+ <script src="./Balancing Search Trees_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 21611px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 21611px; width: 1197px;"></div></html>

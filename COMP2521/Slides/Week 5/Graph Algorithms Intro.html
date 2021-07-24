@@ -1,0 +1,614 @@
+
+<!-- saved from url=(0070)https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Graph Algorithms Intro</title>
+<link href="./Graph Algorithms Intro_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Graph Algorithms Intro_files/latest.js.下载" async=""></script>
+<script src="./Graph Algorithms Intro_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Graph Algorithms Intro_files/css" rel="stylesheet"><link href="./Graph Algorithms Intro_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Graph Algorithms Intro_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Graph Algorithms Intro</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s1">Problems on Graphs</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s2">Cycle Checking</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s8">Connected Components</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s14">Hamiltonian Path and Circuit</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s20">Euler Path and Circuit</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [0/26]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Problems on Graphs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+What kind of problems do we want to solve on/via graphs?
+<small>
+</small></p><ul><small>
+<li> how many connected components in the graph?
+</li><li> is one vertex reachable from some other vertex? (path finding)
+</li><li> what is the cheapest cost path from <i>v</i> to <i>w</i>?
+</li><li> which vertices are reachable from <i>v</i>? (transitive closure)
+</li><li> is there a cycle somewhere in the graph?
+</li><li> is there a cycle that passes through all vertices? (circuit)
+</li><li> is there a tree that links all vertices? (spanning tree)
+</li><li> what is the minimum spanning tree?
+</li><li> …
+</li><li> can a graph be drawn in a plane with no crossing edges? (planar graphs)
+</li><li> are two graphs "equivalent"? (isomorphism)
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [1/26]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Cycle Checking</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A graph has a <font color="#0000BB">cycle</font> if
+</p><ul>
+<li> it has a path of length &gt; 2
+</li><li> with start vertex <i>src</i> = end vertex <i>dest</i>
+</li><li> and without using any edge more than once
+</li></ul>
+<p>
+This graph has 3 distinct cycles: &nbsp;0-1-2-0, &nbsp;2-3-0-2, &nbsp;0-1-2-3-0
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/cycle-graph1.png]" src="./Graph Algorithms Intro_files/cycle-graph1.png">
+</div><p>
+</p><p>
+<span class="smaller">("distinct" means the <i>set</i> &nbsp;of vertices on the path, not the order)</span>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [2/26]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Cycle Checking</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider this graph:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/cycle-graph2.png]" src="./Graph Algorithms Intro_files/cycle-graph2.png">
+</div><p>
+<br>
+This graph has many cycles e.g. &nbsp;0-4-3-0, &nbsp;2-4-5-2, &nbsp;0-1-2-5-4-6-3-0, &nbsp;...
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [3/26]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Cycle Checking</div></td><td align="right"></td></tr></tbody></table>
+<p>
+First attempt at checking for a cycle
+</p><p>
+</p><p></p><pre style="font-size:90%"><font color="blue">hasCycle(G)</font>:
+|  <b>Input</b>  graph G
+|  <b>Output</b> true if G has a cycle, false otherwise
+|
+|  choose any vertex v ∈ G
+|  <b>return</b> <font color="blue">dfsCycleCheck(G,v)</font>
+
+<font color="blue">dfsCycleCheck(G,v)</font>:
+|  mark v as visited
+|  <b>for</b> <b>each</b> (v,w) ∈ edges(G) <b>do</b>
+|  |  <b>if</b> w has been visited <b>then</b>  <span class="comment">// found cycle</span>
+|  |     <b>return</b> true
+|  |  <b>else</b> <b>if</b> <font color="blue">dfsCycleCheck(G,w)</font> <b>then</b>
+|  |     <b>return</b> true
+|  <b>end for</b>
+|  <b>return</b> false  <span class="comment">// no cycle at v</span>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [4/26]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Cycle Checking</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The above algorithm has two bugs ...
+</p><ul>
+<li> only one connected component is checked
+</li><li> <small>the loop</small> &nbsp;<large><code> <b>for</b> <b>each</b> (v,w) ∈ edges(G) <b>do</b> </code></large>&nbsp; 
+should exclude the neighbour of <i>v</i> &nbsp;from which you just came, so as to prevent a single edge <i>w-v</i> &nbsp;being classified as a cycle.
+</li></ul>
+<small>If we start from vertex 5 in the following graph, we don't find the cycle:</small>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/cycle-graph3.png]" src="./Graph Algorithms Intro_files/cycle-graph3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [5/26]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Cycle Checking</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Version of cycle checking (in C) for one connected component:
+</p><p></p><pre>bool <font color="blue">dfsCycleCheck(Graph g, Vertex v, Vertex u)</font> {
+   visited[v] = true;
+   for (Vertex w = 0; w &lt; g-&gt;nV; w++) {
+      if (adjacent(g, v, w)) {
+         if (!visited[w]) {
+            if (<font color="blue">dfsCycleCheck(g, w, v)</font>)
+               return true;
+         }
+         else if (w != u)
+            return true;
+      }
+   }
+   return false;
+}
+<p></p><pre></pre></pre></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [6/26]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Cycle Checking</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Wrapper to ensure that all connected components are checked:
+</p><p></p><pre>Vertex *visited;
+
+bool <font color="blue">hasCycle(Graph g, Vertex s)</font> {
+   bool result = false;
+   visited = calloc(g-&gt;nV,sizeof(int));
+   for (int v = 0; v &lt; g-&gt;nV; v++) {
+      for (int i = 0; i &lt; g-&gt;nV; i++)
+         visited[i] = -1;
+      if dfsCycleCheck(g, v, v)) {
+         result = true;
+         break;
+      }
+   }
+   free(visited);
+   return result;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [7/26]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Connected Components</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider these problems:
+</p><ul>
+<li> how many connected subgraphs are there?
+</li><li> are two vertices in the same connected subgraph?
+</li></ul>
+Both of the above can be solved if we can
+<ul>
+<li> build <large><code>componentOf[]</code></large> array, one element for each vertex <i>v</i>
+</li><li> indicating which connected component <i>v</i> &nbsp;is in
+</li></ul>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/components-ex.png]" src="./Graph Algorithms Intro_files/components-ex.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [8/26]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Connected Components</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm to assign vertices to connected components:
+</p><p></p><pre><font color="blue">components(G)</font>:
+|  <b>Input</b>  graph G
+|  <b>Output</b> componentOf[] filled for all V
+|
+|  <b>for</b> <b>all</b> vertices v ∈ G <b>do</b>
+|  |  <font color="green">componentOf[v]=-1</font>
+|  <b>end for</b>
+|  <font color="green">compID=0</font>  <span class="comment">// component ID</span>
+|  <b>for</b> <b>all</b> vertices v ∈ G <b>do</b>
+|  |  <b>if</b> <font color="green">componentOf[v]=-1</font> <b>then</b>
+|  |     <font color="blue">dfsComponent(G,v,<font color="green">compID</font>)</font>
+|  |     <font color="green">compID=compID+1</font>
+|  |  <b>end if</b>
+|  <b>end for</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [9/26]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Connected Components</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+DFS scan of one connected component
+</p><p>
+</p><p></p><pre><font color="blue">dfsComponent(G,v,<font color="green">id</font>):</font>
+|  <font color="green">componentOf[v]=<font color="green">id</font></font>
+|  <b>for</b> <b>each</b> (v,w) ∈ edges(G) <b>do</b>
+|     <b>if</b> <font color="green">componentOf[w]=-1</font> <b>then</b>
+|        <font color="blue">dfsComponent(G,w,<font color="green">id</font>)</font>
+|     <b>end if</b>
+|  <b>end for</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [10/26]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Connected Components</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider an application where connectivity is critical
+</p><ul>
+<li> we frequently ask questions of the kind above
+</li><li> but we cannot afford to run <large><code>components()</code></large> each time
+</li></ul>
+Add a new fields to the <large><code>GraphRep</code></large> structure:
+<p></p><pre>typedef struct GraphRep *Graph;
+
+struct GraphRep {
+   ...
+   int nC;  <span class="comment">// # connected components</span>
+   int *cc; <span class="comment">// which component each vertex is contained in</span>
+   ...      <span class="comment">// i.e. array [0..nV-1] of 0..nC-1</span>
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [11/26]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Connected Components</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+With this structure, the above tasks become trivial:
+</p><p></p><pre><span class="comment">// How many connected subgraphs are there?</span>
+int nConnected(Graph g) {
+   return g-&gt;nC;
+}
+<span class="comment">// Are two vertices in the same connected subgraph?</span>
+bool inSameComponent(Graph g, Vertex v, Vertex w) {
+   return (g-&gt;cc[v] == g-&gt;cc[w]);
+}
+</pre><p>
+<br>
+But ... introduces overheads ... maintaining <large><code>cc[]</code></large>, &nbsp;<large><code>nC</code></large>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [12/26]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Connected Components</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Consider maintenance of such a graph representation:
+</p><ul>
+<li> initially, <large><code>nC = nV</code></large> &nbsp; <small>(because no edges)</small>
+</li><li> adding an edge may reduce <large><code>nC</code></large> <br>
+	<span class="smaller">(adding edge between <i>v</i> and <i>w</i> in different components)</span>
+</li><li> removing an edge may increase <large><code>nC</code></large> <br>
+	<span class="smaller">(removing edge between <i>v</i> and <i>w</i> in same component)</span>
+</li><li> <large><code>cc[]</code></large> can simplify path checking <br>
+	<small>(ensure <large><code>v,w</code></large> are in same component before starting search)</small>
+</li></ul>
+Additional cost amortised by lower cost
+for <large><code>nConnected()</code></large> and <large><code>inSameComponent()</code></large>
+<p>
+Is it simpler to run <large><code>components()</code></large> after each edge change?
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [13/26]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Hamiltonian Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Hamiltonian path</font> problem:
+</p><ul>
+<li> find a simple path connecting two vertices <i>v,w</i> &nbsp;in graph <i>G</i>
+</li><li> such that the path includes each <font color="#0000BB">vertex</font> exactly once
+</li></ul>
+If <i>v = w</i>, then we have a <font color="#0000BB">Hamiltonian circuit</font>
+<p>
+Simple to state, but difficult to solve (<i>NP</i>-complete)
+</p><p>
+Many real-world applications require you to visit all vertices of a graph:
+</p><ul>
+<li> Travelling salesman
+</li><li> Bus routes
+</li><li> …
+</li></ul>
+<span class="smaller">
+Named after Irish mathematician/physicist/astronomer Sir William Hamilton (1805-1865)
+</span>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [14/26]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hamiltonian Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Graph and some possible Hamiltonian paths:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/hamilton1.png]" src="./Graph Algorithms Intro_files/hamilton1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [15/26]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hamiltonian Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Approach:
+</p><ul>
+<li> generate all possible simple paths (using e.g. DFS)
+</li><li> keep a counter of vertices visited in current path
+</li><li> stop when find a path containing <i>V</i> vertices
+</li></ul>
+Can be expressed via a recursive DFS algorithm
+<ul>
+<li> similar to simple path finding approach, except
+<ul>
+<li> keeps track of path length; succeeds if length = <i>v</i>
+</li><li> resets "visited" marker after unsuccessful path
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [16/26]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hamiltonian Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm for finding Hamiltonian path:
+</p><p></p><pre>visited[] <span class="comment">// array [0..nV-1] to keep track of visited vertices</span>
+
+<font color="blue">hasHamiltonianPath(G,src,dest)</font>:
+|  <b>Input</b>  graph G, plus src/dest vertices
+|  <b>Output</b> true if Hamiltonian path src...dest,
+|           false otherwise
+|
+|  <b>for</b> <b>all</b> vertices v ∈ G <b>do</b>
+|     visited[v]=false
+|  <b>end for</b>
+|  <b>return</b> <font color="blue">hamiltonR(G,src,dest,<font color="green">#vertices(G)-1</font>)</font>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [17/26]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hamiltonian Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Recursive component:
+</p><p></p><pre style="font-size:90%"><font color="blue">hamiltonR(G,v,dest,d)</font>:
+|  <b>Input</b> G    graph
+|        v    current vertex considered
+|        dest destination vertex
+|        <font color="green">d    distance "remaining" until path found</font>
+|
+|  <b>if</b> v=dest <b>then</b>
+|     <b>if</b> <font color="green">d=0</font> <b>then</b> <b>return</b> true <b>else</b> <b>return</b> false
+|  <b>else</b>
+|  |  visited[v]=true
+|  |  <b>for</b> <b>each</b> (v,w) ∈ edges(G)  where not visited[w] <b>do</b>
+|  |     <b>if</b> <font color="blue">hamiltonR(G,w,dest,<font color="green">d-1</font>)</font> <b>then</b>
+|  |        <b>return</b> true
+|  |     <b>end if</b>
+|  |  <b>end for</b>
+|  <b>end if</b>
+|  visited[v]=false           <span class="comment">// reset visited mark</span>
+|  <b>return</b> false
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [18/26]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hamiltonian Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Analysis: worst case requires <i>(V-1)!</i> paths to be examined
+</p><p>
+Consider a graph with isolated vertex and the rest fully-connected
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/hamilton-worst.png]" src="./Graph Algorithms Intro_files/hamilton-worst.png">
+</div><p>
+</p><p>
+Checking <large><code>hasHamiltonianPath(g,</code></large><i>x</i><large><code>,0)</code></large> for any <i>x</i>
+</p><ul>
+<li> requires us to consider every possible path
+</li><li> e.g 1-2-3-4, 1-2-4-3, 1-3-2-4, 1-3-4-2, 1-4-2-3, …
+</li><li> starting from any <i>x</i>, there are 3! paths ⇒ 4! total paths
+</li><li> there is no path of length 5 in these <i>(V-1)!</i> possibilities
+</li></ul>
+There is no known simpler algorithm for this task ⇒ <i>NP</i>-hard.
+<p>
+<small>
+Note, however, that the above case could be solved in constant time if <br>
+we had a fast check for 0 and <i>x</i> being in the same connected component
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [19/26]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Euler path</font> problem:
+</p><ul>
+<li> find a path connecting two vertices <i>v,w</i> in graph <i>G</i>
+</li><li> such that the path includes each <font color="#0000BB">edge</font> exactly once <br>
+	<small>(note: the path does not have to be simple ⇒ can visit vertices more than once)</small>
+</li></ul>
+If <i>v = w</i>, the we have an <font color="#0000BB">Euler circuit</font>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/euler-path-tour.png]" src="./Graph Algorithms Intro_files/euler-path-tour.png">
+</div><p>
+</p><p>
+Many real-world applications require you to visit all edges of a graph:
+</p><ul>
+<li> Postman
+</li><li> Garbage pickup
+</li><li> …
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [20/26]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<small>
+Problem named after Swiss mathematician, physicist, 
+ astronomer, logician and engineer Leonhard Euler (1707 - 1783)
+</small>
+</p><p>
+Based on a circuitous route via bridges in Konigsberg
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/Konigsberg_bridges.png]" src="./Graph Algorithms Intro_files/Konigsberg_bridges.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [21/26]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Is there a way to cross all the bridges of Konigsberg exactly once on a walk through the town?
+</p><ul>
+<li> treat land as nodes; bridges as edges
+</li></ul>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/euler-bridges.png]" src="./Graph Algorithms Intro_files/euler-bridges.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [22/26]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+One possible "brute-force" approach:
+</p><ul>
+<li> check for each path if it's an Euler path
+</li><li> would result in factorial time performance
+</li></ul>
+Can develop a better algorithm by exploiting:
+<p>
+<i>Theorem.</i> &nbsp; <font color="#0000BB">A graph has an Euler circuit</font> if and only if <br>
+&nbsp;&nbsp; it is connected and all vertices have even degree
+</p><p>
+<i>Theorem.</i> &nbsp; <font color="#0000BB">A graph has a non-circuitous Euler path</font> if and only if <br>
+&nbsp;&nbsp; it is connected and exactly two vertices have odd degree
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [23/26]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s25"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Graphs with an Euler path are often called Eulerian Graphs
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/euler-graphs.png]" src="./Graph Algorithms Intro_files/euler-graphs.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [24/26]</div> <div class="slideCl1    " id="s25">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s24"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s26"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Assume the existence of <large><code>degree(g,v)</code></large>
+</p><p>
+Algorithm to check whether a graph has an Euler path:
+</p><p></p><pre style="font-size:90%"><font color="blue">hasEulerPath(G,src,dest)</font>:
+|  <b>Input</b>  graph G, vertices src,dest
+|  <b>Output</b> true if G has Euler path from src to dest
+|         false otherwise
+|
+|  <b>if</b> src≠dest <b>then</b>
+|     <b>if</b> degree(G,src) is even ∨ degree(G,dest) is even <b>then</b>
+|        <b>return</b> false
+|     <b>end if</b>
+|  <b>end if</b>
+|  <b>for</b> <b>all</b> vertices v ∈ G <b>do</b>
+|     <b>if</b> v≠src ∧ v≠dest ∧ degree(G,v) is odd <b>then</b>
+|        <b>return</b> false
+|     <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> true
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [25/26]</div> <div class="slideCl1    " id="s26">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s25"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/graph-algos1/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Euler Path and Circuit</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Analysis of <large><code>hasEulerPath</code></large> algorithm:
+</p><ul>
+<li> assume that connectivity is already checked
+</li><li> assume that <large><code>degree()</code></large> is available via <i>O(1)</i> lookup
+</li><li> single loop over all vertices ⇒ <i>O(V)</i>
+</li></ul>
+If degree requires iteration over vertices
+<ul>
+<li> cost to compute degree of a single vertex is <i>O(V)</i>
+</li><li> overall cost is <i>O(V<sup>2</sup>)</i>
+</li></ul>
+⇒ problem tractable, even for large graphs &nbsp; <small>(unlike Hamiltonian path problem)</small>
+<p>
+For the keen, a linear-time (in the number of edges, <i>E</i>) algorithm to compute an Euler path is described in [Sedgewick] Ch.17.7.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Graph Algorithms [26/26]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 25 Jul 2020</span>
+ <script src="./Graph Algorithms Intro_files/prism.js.下载"></script>   
+ <script src="./Graph Algorithms Intro_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 19425px; width: 1088px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 19425px; width: 1088px;"></div></html>

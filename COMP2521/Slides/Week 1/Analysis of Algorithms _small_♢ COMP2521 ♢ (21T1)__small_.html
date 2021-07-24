@@ -1,0 +1,1385 @@
+
+<!-- saved from url=(0064)http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> Analysis of Algorithms &lt;small&gt;♢ COMP2521 ♢ (21T1)&lt;/small&gt;</title>
+<link href="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/latest.js.下载" async=""></script>
+<script src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/css" rel="stylesheet"><link href="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
+.MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
+.mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
+.mjx-full-width {text-align: center; display: table-cell!important; width: 10000em}
+.mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
+.mjx-math * {display: inline-block; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box!important; box-sizing: content-box!important; text-align: left}
+.mjx-numerator {display: block; text-align: center}
+.mjx-denominator {display: block; text-align: center}
+.MJXc-stacked {height: 0; position: relative}
+.MJXc-stacked > * {position: absolute}
+.MJXc-bevelled > * {display: inline-block}
+.mjx-stack {display: inline-block}
+.mjx-op {display: block}
+.mjx-under {display: table-cell}
+.mjx-over {display: block}
+.mjx-over > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-under > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-stack > .mjx-sup {display: block}
+.mjx-stack > .mjx-sub {display: block}
+.mjx-prestack > .mjx-presup {display: block}
+.mjx-prestack > .mjx-presub {display: block}
+.mjx-delim-h > .mjx-char {display: inline-block}
+.mjx-surd {vertical-align: top}
+.mjx-mphantom * {visibility: hidden}
+.mjx-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 2px 3px; font-style: normal; font-size: 90%}
+.mjx-annotation-xml {line-height: normal}
+.mjx-menclose > svg {fill: none; stroke: currentColor}
+.mjx-mtr {display: table-row}
+.mjx-mlabeledtr {display: table-row}
+.mjx-mtd {display: table-cell; text-align: center}
+.mjx-label {display: table-row}
+.mjx-box {display: inline-block}
+.mjx-block {display: block}
+.mjx-span {display: inline}
+.mjx-char {display: block; white-space: pre}
+.mjx-itable {display: inline-table; width: auto}
+.mjx-row {display: table-row}
+.mjx-cell {display: table-cell}
+.mjx-table {display: table; width: 100%}
+.mjx-line {display: block; height: 0}
+.mjx-strut {width: 0; padding-top: 1em}
+.mjx-vsize {width: 0}
+.MJXc-space1 {margin-left: .167em}
+.MJXc-space2 {margin-left: .222em}
+.MJXc-space3 {margin-left: .278em}
+.mjx-chartest {display: block; visibility: hidden; position: absolute; top: 0; line-height: normal; font-size: 500%}
+.mjx-chartest .mjx-char {display: inline}
+.mjx-chartest .mjx-box {padding-top: 1000px}
+.MJXc-processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MJXc-processed {display: none}
+.mjx-test {font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.mjx-test.mjx-test-display {display: table!important}
+.mjx-test.mjx-test-inline {display: inline!important; margin-right: -1px}
+.mjx-test.mjx-test-default {display: block!important; clear: both}
+.mjx-ex-box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60ex}
+.mjx-test-inline .mjx-left-box {display: inline-block; width: 0; float: left}
+.mjx-test-inline .mjx-right-box {display: inline-block; width: 0; float: right}
+.mjx-test-display .mjx-right-box {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+#MathJax_CHTML_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.mjx-chtml .mjx-noError {line-height: 1.2; vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+.MJXc-TeX-unknown-R {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: normal}
+.MJXc-TeX-unknown-I {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: normal}
+.MJXc-TeX-unknown-B {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: bold}
+.MJXc-TeX-unknown-BI {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: bold}
+.MJXc-TeX-ams-R {font-family: MJXc-TeX-ams-R,MJXc-TeX-ams-Rw}
+.MJXc-TeX-cal-B {font-family: MJXc-TeX-cal-B,MJXc-TeX-cal-Bx,MJXc-TeX-cal-Bw}
+.MJXc-TeX-frak-R {font-family: MJXc-TeX-frak-R,MJXc-TeX-frak-Rw}
+.MJXc-TeX-frak-B {font-family: MJXc-TeX-frak-B,MJXc-TeX-frak-Bx,MJXc-TeX-frak-Bw}
+.MJXc-TeX-math-BI {font-family: MJXc-TeX-math-BI,MJXc-TeX-math-BIx,MJXc-TeX-math-BIw}
+.MJXc-TeX-sans-R {font-family: MJXc-TeX-sans-R,MJXc-TeX-sans-Rw}
+.MJXc-TeX-sans-B {font-family: MJXc-TeX-sans-B,MJXc-TeX-sans-Bx,MJXc-TeX-sans-Bw}
+.MJXc-TeX-sans-I {font-family: MJXc-TeX-sans-I,MJXc-TeX-sans-Ix,MJXc-TeX-sans-Iw}
+.MJXc-TeX-script-R {font-family: MJXc-TeX-script-R,MJXc-TeX-script-Rw}
+.MJXc-TeX-type-R {font-family: MJXc-TeX-type-R,MJXc-TeX-type-Rw}
+.MJXc-TeX-cal-R {font-family: MJXc-TeX-cal-R,MJXc-TeX-cal-Rw}
+.MJXc-TeX-main-B {font-family: MJXc-TeX-main-B,MJXc-TeX-main-Bx,MJXc-TeX-main-Bw}
+.MJXc-TeX-main-I {font-family: MJXc-TeX-main-I,MJXc-TeX-main-Ix,MJXc-TeX-main-Iw}
+.MJXc-TeX-main-R {font-family: MJXc-TeX-main-R,MJXc-TeX-main-Rw}
+.MJXc-TeX-math-I {font-family: MJXc-TeX-math-I,MJXc-TeX-math-Ix,MJXc-TeX-math-Iw}
+.MJXc-TeX-size1-R {font-family: MJXc-TeX-size1-R,MJXc-TeX-size1-Rw}
+.MJXc-TeX-size2-R {font-family: MJXc-TeX-size2-R,MJXc-TeX-size2-Rw}
+.MJXc-TeX-size3-R {font-family: MJXc-TeX-size3-R,MJXc-TeX-size3-Rw}
+.MJXc-TeX-size4-R {font-family: MJXc-TeX-size4-R,MJXc-TeX-size4-Rw}
+.MJXc-TeX-vec-R {font-family: MJXc-TeX-vec-R,MJXc-TeX-vec-Rw}
+.MJXc-TeX-vec-B {font-family: MJXc-TeX-vec-B,MJXc-TeX-vec-Bx,MJXc-TeX-vec-Bw}
+@font-face {font-family: MJXc-TeX-ams-R; src: local('MathJax_AMS'), local('MathJax_AMS-Regular')}
+@font-face {font-family: MJXc-TeX-ams-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_AMS-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_AMS-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-B; src: local('MathJax_Caligraphic Bold'), local('MathJax_Caligraphic-Bold')}
+@font-face {font-family: MJXc-TeX-cal-Bx; src: local('MathJax_Caligraphic'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-cal-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-R; src: local('MathJax_Fraktur'), local('MathJax_Fraktur-Regular')}
+@font-face {font-family: MJXc-TeX-frak-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-B; src: local('MathJax_Fraktur Bold'), local('MathJax_Fraktur-Bold')}
+@font-face {font-family: MJXc-TeX-frak-Bx; src: local('MathJax_Fraktur'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-frak-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-BI; src: local('MathJax_Math BoldItalic'), local('MathJax_Math-BoldItalic')}
+@font-face {font-family: MJXc-TeX-math-BIx; src: local('MathJax_Math'); font-weight: bold; font-style: italic}
+@font-face {font-family: MJXc-TeX-math-BIw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Math-BoldItalic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Math-BoldItalic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Math-BoldItalic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-R; src: local('MathJax_SansSerif'), local('MathJax_SansSerif-Regular')}
+@font-face {font-family: MJXc-TeX-sans-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-B; src: local('MathJax_SansSerif Bold'), local('MathJax_SansSerif-Bold')}
+@font-face {font-family: MJXc-TeX-sans-Bx; src: local('MathJax_SansSerif'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-sans-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-I; src: local('MathJax_SansSerif Italic'), local('MathJax_SansSerif-Italic')}
+@font-face {font-family: MJXc-TeX-sans-Ix; src: local('MathJax_SansSerif'); font-style: italic}
+@font-face {font-family: MJXc-TeX-sans-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-script-R; src: local('MathJax_Script'), local('MathJax_Script-Regular')}
+@font-face {font-family: MJXc-TeX-script-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Script-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Script-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-type-R; src: local('MathJax_Typewriter'), local('MathJax_Typewriter-Regular')}
+@font-face {font-family: MJXc-TeX-type-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Typewriter-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Typewriter-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-R; src: local('MathJax_Caligraphic'), local('MathJax_Caligraphic-Regular')}
+@font-face {font-family: MJXc-TeX-cal-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-B; src: local('MathJax_Main Bold'), local('MathJax_Main-Bold')}
+@font-face {font-family: MJXc-TeX-main-Bx; src: local('MathJax_Main'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-main-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Main-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-I; src: local('MathJax_Main Italic'), local('MathJax_Main-Italic')}
+@font-face {font-family: MJXc-TeX-main-Ix; src: local('MathJax_Main'); font-style: italic}
+@font-face {font-family: MJXc-TeX-main-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Main-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-R; src: local('MathJax_Main'), local('MathJax_Main-Regular')}
+@font-face {font-family: MJXc-TeX-main-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-I; src: local('MathJax_Math Italic'), local('MathJax_Math-Italic')}
+@font-face {font-family: MJXc-TeX-math-Ix; src: local('MathJax_Math'); font-style: italic}
+@font-face {font-family: MJXc-TeX-math-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size1-R; src: local('MathJax_Size1'), local('MathJax_Size1-Regular')}
+@font-face {font-family: MJXc-TeX-size1-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size1-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size2-R; src: local('MathJax_Size2'), local('MathJax_Size2-Regular')}
+@font-face {font-family: MJXc-TeX-size2-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size2-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size3-R; src: local('MathJax_Size3'), local('MathJax_Size3-Regular')}
+@font-face {font-family: MJXc-TeX-size3-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size3-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size4-R; src: local('MathJax_Size4'), local('MathJax_Size4-Regular')}
+@font-face {font-family: MJXc-TeX-size4-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Size4-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-vec-R; src: local('MathJax_Vector'), local('MathJax_Vector-Regular')}
+@font-face {font-family: MJXc-TeX-vec-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Vector-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Vector-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Vector-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-vec-B; src: local('MathJax_Vector Bold'), local('MathJax_Vector-Bold')}
+@font-face {font-family: MJXc-TeX-vec-Bx; src: local('MathJax_Vector'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-vec-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/eot/MathJax_Vector-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/woff/MathJax_Vector-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/fonts/HTML-CSS/TeX/otf/MathJax_Vector-Bold.otf') format('opentype')}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body class="vsc-initialized" style=""><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading"> Analysis of Algorithms <small>♢ COMP2521 ♢ (21T1)</small></div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s1"> Running Time</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s2">Empirical Analysis</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s4">Theoretical Analysis</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s5">Pseudocode</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s12">The Abstract RAM Model</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s13">Primitive Operations</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s14">Counting Primitive Operations</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s15">Estimating Running Times</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s22">Big-Oh Notation</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s31">Asymptotic Analysis of Algorithms</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s32">Example: Computing Prefix Averages</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s35">Example: Binary Search</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s40">Math Needed for Complexity Analysi</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s45">Relatives of Big-Oh</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s48">Complexity Classes</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s50">Generate and Test Algorithms</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s53">Example: Subset Sum</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s60">Summary</a>
+</li></ul></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [0/60]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖  Running Time</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+<table>
+<tbody><tr><td>
+An <font color="red">algorithm</font> is a step-by-step procedure
+<ul>
+<li>for solving a problem
+</li><li>in a finite amount of time
+</li></ul>
+Most algorithms map input to output
+<ul>
+<li>running time typically grows with input size
+</li><li><font color="#0000BB">average time</font> often difficult to determine
+</li><li>Focus on <font color="#0000BB">worst case</font> running time
+<ul>
+<li><small>easier to analyse
+</small></li><li><small>crucial to many applications: finance, robotics, games, …</small>
+</li></ul>
+</li></ul>
+</td>
+<td>
+<p>
+<img style="width:80%;" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/runningTime.png"> 
+</p></td></tr>
+</tbody></table>
+
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [1/60]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Empirical Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+<table>
+<tbody><tr><td>
+<ol>
+<li> Write program that implements an algorithm<p>
+</p></li><li> Run program with inputs of varying size and composition<p>
+</p></li><li> Measure the actual running time<p>
+</p></li><li> Plot the results
+</li></ol>
+</td>
+<td>
+<p>
+<img style="width:90%;" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/experimental.png"> 
+</p></td></tr></tbody></table>
+
+</p></div>
+
+
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [2/60]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Empirical Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="blue">Limitations:</font>
+</p><ul>
+<li> requires to implement the algorithm, which may be difficult<p>
+</p></li><li> results may not be indicative of running time on other inputs<p>
+</p></li><li> same hardware and operating system must be used in order to compare two algorithms<p>
+</p></li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [3/60]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Theoretical Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li> Uses high-level description of the algorithm instead of implementation ("pseudocode")<p>
+</p></li><li> Characterises running time as a function of the input size, <font color="blue"><i>n</i></font><p>
+</p></li><li> Takes into account all possible inputs<p>
+</p></li><li> Allows us to evaluate the speed of an algorithm independent of the hardware/software environment<p>
+</p></li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [4/60]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Pseudocode</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li> More structured than English prose<p>
+</p></li><li> Less detailed than a program<p>
+</p></li><li> Preferred notation for describing algorithms<p>
+</p></li><li> Hides program design issues<p>
+</p></li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [5/60]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Pseudocode</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: <b>Find <font color="green">maximal</font> element</b> in an array
+</p><p></p><pre>arrayMax(A):
+|  <b>Input</b>  array A of n integers
+|  <b>Output</b> maximum element of A
+|
+|  currentMax=A[0]
+|  <b>for</b> <b>all</b> i=1..n-1 <b>do</b>
+|  |  <b>if</b> A[i]&gt;currentMax <b>then</b>
+|  |     currentMax=A[i]
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> currentMax
+</pre><p>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [6/60]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Pseudocode</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+</p><div style="font-size:0.7em;">
+
+Control flow
+<ul>
+<li> <b>if</b> <font color="blue">…</font> <b>then</b> <font color="blue">…</font> [<b>else</b>] <font color="blue">…</font> <b>end if</b>
+</li><li> <b>while .. do</b> <font color="blue">…</font> <b>end while</b> <br> <b>repeat</b> <font color="blue">…</font> <b>until</b> <br> <b>for [all][each] .. do</b> <font color="blue">…</font> <b>end for</b>
+</li></ul>
+Function declaration
+<ul>
+<li> <font color="blue">f(arguments):</font>
+<br>
+&nbsp;&nbsp;&nbsp; <b>Input</b> <font color="blue">…</font>
+<br>
+&nbsp;&nbsp;&nbsp; <b>Output</b> <font color="blue">…</font>
+<br>
+&nbsp;&nbsp;&nbsp; <font color="blue">…</font>
+</li></ul>
+Expressions
+<ul>
+<li> <font color="blue">=</font> &nbsp;&nbsp; assignment
+</li><li> <font color="blue">=</font> &nbsp;&nbsp; equality testing
+</li><li> <font color="blue"><i>n</i><sup>2</sup></font> &nbsp; superscripts and other mathematical formatting allowed
+</li><li> <font color="blue">swap A[i] and A[j]</font> &nbsp; verbal descriptions of <i>simple</i> operations allowed
+</li></ul>
+
+</div>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [7/60]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise : Pseudocode</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Formulate the following verbal description in pseudocode:
+</p><p><i>
+In the first phase, we iteratively pop all the elements from stack S and enqueue them in queue Q, then dequeue the element from Q and push them back onto S.
+</i></p><p><i>
+As a result, all the elements are now in reversed order on S.
+</i></p><p><i>
+In the second phase, we again pop all the elements from S, but this time we also look for the element x.
+</i></p><p><i>
+By again passing the elements through Q and back onto S, we reverse the reversal, thereby restoring the original order of the elements on S.
+</i>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [8/60]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <font color="blue">Sample solution:</font>
+<p></p><pre><small>
+<b>while</b> <img src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/not-small.gif">empty(S) <b>do</b>
+   pop e from S, enqueue e into Q
+<b>end while</b>
+<b>while</b> <img src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/not-small.gif">empty(Q) <b>do</b>
+   dequeue e from Q, push e onto S
+<b>end while</b>
+found=false
+<b>while</b> <img src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/not-small.gif">empty(S) <b>do</b>
+   pop e from S, enqueue e into Q
+   <b>if</b> e=x <b>then</b>
+      found=true
+   <b>end if</b>
+<b>end while</b>
+<b>while</b> <img src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/not-small.gif">empty(Q) <b>do</b>
+   dequeue e from Q, push e onto S
+<b>end while</b>
+</small></pre><p>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [9/60]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise : Pseudocode</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+</p><div style="font-size:0.9em;">
+Implement the following pseudocode instructions in C
+<ul>
+<li> <b>A</b> is an array of <b>int</b>s
+<pre style="font-size:0.8em; line-height:1.2em;">...
+swap A[i] and A[j]
+...
+</pre>
+</li><li> <large><code>head</code></large> points to beginning of linked list
+<pre style="font-size:0.8em; line-height:1.2em;">...
+swap head and head-&gt;next
+...
+</pre>
+</li><li> <large><code>S</code></large> is a stack
+<pre style="font-size:0.8em; line-height:1.2em;">...
+swap the top two elements on S
+...
+</pre>
+
+
+</li></ul></div>
+
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [10/60]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <ol>
+<li>
+<pre style="font-size:0.9em;"><font color="blue">int temp = A[i];
+A[i] = A[j];
+A[j] = temp;</font>
+</pre>
+</li><li>
+<pre style="font-size:0.9em;"><font color="blue">NodeT *succ = head-&gt;next;
+head-&gt;next = succ-&gt;next;
+succ-&gt;next = head;
+head = succ;</font>
+</pre>
+</li><li>
+<pre style="font-size:0.9em;"><font color="blue">x = StackPop(S);
+y = StackPop(S);
+StackPush(S, x);
+StackPush(S, y);</font>
+</pre>
+</li></ol>
+
+The following pseudocode instruction is problematic. Why?
+<pre style="font-size:0.9em;">...
+swap the two elements at the front of queue Q
+...
+</pre>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [11/60]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ The Abstract RAM Model</div></td><td align="right"></td></tr></tbody></table>
+<p>
+RAM = <font color="red">R</font>andom <font color="red">A</font>ccess <font color="red">M</font>achine
+</p><ul>
+<li> A <font color="blue">CPU</font> &nbsp; <small>(central processing unit)</small>
+</li><li> A potentially unbounded bank of <font color="blue">memory cells</font>
+<ul>
+<li> each of which can hold an arbitrary number, or character
+</li></ul>
+</li><li> Memory cells are numbered, and accessing any one of them takes CPU time
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [12/60]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Primitive Operations</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><div style="font-size:0.8em;">
+<ul>
+<li> Basic computations performed by an algorithm
+</li><li> Identifiable in pseudocode
+</li><li> Largely independent of the programming language
+</li><li> Exact definition not important &nbsp; <small>(we will shortly see why)</small>
+</li><li> Assumed to take a constant amount of time in the RAM model
+</li></ul>
+Examples:
+<ul>
+<li> evaluating an expression
+</li><li> indexing into an array
+</li><li> calling/returning from a function
+</li></ul>
+</div>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [13/60]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Counting Primitive Operations</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><div style="font-size:0.8em;">
+By inspecting the pseudocode …
+<ul>
+<li> we can determine the maximum number of primitive operations executed by an algorithm
+</li><li> as a function of the input size
+</li></ul>
+Example:
+
+</div>
+
+<pre style="font-size:0.8em;">arrayMax(A):
+|  <b>Input</b>  array A of n integers
+|  <b>Output</b> maximum element of A
+|
+|  currentMax=A[0]                   <font color="red">1</font>
+|  <b>for</b> <b>all</b> i=1..n-1 <b>do</b>               <font color="red">n+(n-1)</font>
+|  |  <b>if</b> A[i]&gt;currentMax <b>then</b>        <font color="red">2(n-1)</font>
+|  |     currentMax=A[i]             <font color="red">n-1</font>
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> currentMax                 <font color="red">1</font>
+                                     <font color="red">-------
+                             Total   5n-2</font>
+</pre>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [14/60]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Estimating Running Times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm <large><code>arrayMax</code></large> requires <font color="blue">5<i>n</i> – 2</font> primitive operations in the <i>worst</i> case
+
+</p><ul>
+<li> <small><i>best</i> case requires 4<i>n</i> – 1 operations &nbsp; (why?)</small>
+</li></ul>
+
+Define:
+<ul>
+<li> <i>a</i> … time taken by the fastest primitive operation
+</li><li> <i>b</i> … time taken by the slowest primitive operation
+</li></ul>
+
+Let <font color="#0000BB">T(n)</font> be worst-case time of <large><code>arrayMax</code></large>. Then
+<p>
+&nbsp;&nbsp; <i>a</i>·(5<i>n</i> - 2) ≤ <font color="#0000BB">T(n)</font> ≤ <i>b</i>·(5<i>n</i> - 2)
+</p><p>
+Hence, the running time <font color="#0000BB">T(n)</font> is bound by two <font color="blue">linear</font> functions
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [15/60]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Estimating Running Times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Seven commonly encountered functions for algorithm analysis
+</p><ul>
+<li> Constant ≅ <font color="blue">1</font>
+</li><li> Logarithmic ≅ <font color="blue">log <i>n</i></font>
+</li><li> Linear ≅ <font color="blue"><i>n</i></font>
+</li><li> N-Log-N ≅ <font color="blue"><i>n</i> log <i>n</i></font>
+</li><li> Quadratic ≅ <font color="blue"><i>n</i><sup>2</sup></font>
+</li><li> Cubic ≅ <font color="blue"><i>n</i><sup>3</sup></font>
+</li><li> Exponential ≅ <font color="blue">2<sup><i>n</i></sup></font>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [16/60]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Estimating Running Times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+In a log-log chart, the slope of the line corresponds to the growth rate of the function
+</p><p></p><div align="center">
+<img alt="[Diagram:Pic/growthFunctions.jpg]" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/growthFunctions.jpg">
+</div><p>
+
+</p><p>See the following chart : 
+<br><a target="_blank" href="http://bigocheatsheet.com/">http://bigocheatsheet.com/</a>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [17/60]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Estimating Running Times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+<table><tbody><tr><td>
+The growth rate is not affected by constant factors or lower-order terms
+<ul>
+<li> Examples:
+<ul>
+<li> 10<sup>2</sup><i>n</i> + 10<sup>5</sup> is a linear function
+</li><li> 10<sup>5</sup><i>n</i><sup>2</sup> + 10<sup>8</sup><i>n</i> is a quadratic function
+</li></ul>
+</li></ul>
+</td><td>
+<img style="width:460px;" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/constant.png">
+
+</td></tr></tbody></table>
+
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [18/60]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Estimating Running Times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Changing the hardware/software environment
+</p><ul>
+<li> affects <font color="#0000BB">T(n)</font> by a constant factor
+</li><li> but does not alter the growth rate of <font color="#0000BB">T(n)</font>
+</li></ul>
+<p>
+⇒ <font color="#0000BB">Linear</font> growth rate of the running time <font color="#0000BB">T(n)</font> is an intrinsic property of algorithm <large><code>arrayMax</code></large>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [19/60]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise : Estimating running times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Determine the number of primitive operations
+</p><p></p><pre>matrixProduct(A,B):
+|  <b>Input</b>  n×n matrices A, B
+|  <b>Output</b> n×n matrix A·B
+|
+|  <b>for</b> <b>all</b> i=1..n <b>do</b>
+|  |  <b>for</b> <b>all</b> j=1..n <b>do</b>
+|  |  |  C[i,j]=0
+|  |  |  <b>for</b> all k=1..n <b>do</b>
+|  |  |     C[i,j]=C[i,j]+A[i,k]·B[k,j]
+|  |  |  <b>end for</b>
+|  |  <b>end for</b>
+|  <b>end for</b>
+|  <b>return</b> C
+</pre><p>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [20/60]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise : Estimating running times</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre>matrixProduct(A,B):
+|  <b>Input</b>  n×n matrices A, B
+|  <b>Output</b> n×n matrix A·B
+|
+|  <b>for</b> <b>all</b> i=1..n <b>do</b>                     <font color="blue">2n+1</font>
+|  |  <b>for</b> <b>all</b> j=1..n <b>do</b>                  <font color="blue">n(2n+1)</font>
+|  |  |  C[i,j]=0                        <font color="blue">n<sup>2</sup></font>
+|  |  |  <b>for</b> all k=1..n <b>do</b>               <font color="blue">n<sup>2</sup>(2n+1)</font>
+|  |  |     C[i,j]=C[i,j]+A[i,k]·B[k,j]  <font color="blue">n<sup>3</sup>·5</font>
+|  |  |  <b>end for</b>
+|  |  <b>end for</b>
+|  <b>end for</b>
+|  <b>return</b> C                              <font color="blue">1</font>
+                                         <font color="blue">------------
+                                 Total   7n<sup>3</sup>+4n<sup>2</sup>+3n+2</font>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [21/60]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Big-Oh Notation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Given functions f(<i>n</i>) and g(<i>n</i>), we say that
+</p><p>
+</p><div class="center">
+f(<i>n</i>) is <font color="red">O</font>(g(<i>n</i>))
+</div>
+<p>
+if there are positive constants <font color="#0000BB">c</font> and <font color="#0000BB">n<sub>0</sub></font> such that
+</p><p>
+</p><div class="center">
+f(<i>n</i>) ≤ <font color="#0000BB">c</font>·g(<i>n</i>) &nbsp;&nbsp; ∀<i>n</i> ≥ <font color="#0000BB">n<sub>0</sub>
+</font>
+</div>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [22/60]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Big-Oh Notation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<table>
+<tbody><tr valign="top">
+<td>
+Example: function 2<i>n</i> + 10 is O(<i>n</i>)
+<ul>
+<li> 2<i>n</i>+10 ≤ <font color="#0000BB">c</font>·<i>n</i>
+<br>⇒ &nbsp; (<font color="#0000BB">c</font>-2)<i>n</i> ≥ 10
+<br>⇒ &nbsp; <i>n</i> ≥ 10/(<font color="#0000BB">c</font>-2)
+</li><li> pick <font color="#0000BB">c</font>=3 and <font color="#0000BB">n<sub>0</sub></font>=10
+</li></ul>
+</td>
+<td>&nbsp;&nbsp;</td>
+<td>
+<p></p><div align="center">
+<img alt="[Diagram:Pic/bigOh.png]" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/bigOh.png">
+</div><p>
+</p></td>
+</tr>
+</tbody></table>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [23/60]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s25"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Big-Oh Notation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+<table>
+<tbody><tr valign="top">
+<td>
+Example: function <i>n</i><sup>2</sup> is not O(<i>n</i>)
+<ul>
+<li> <i>n</i><sup>2</sup> ≤ <font color="#0000BB">c</font>·<i>n</i>
+<br>⇒ &nbsp; <i>n</i> ≤ <font color="#0000BB">c</font>
+</li><li> inequality cannot be satisfied since <font color="#0000BB">c</font> must be a constant
+</li></ul>
+</td>
+<td valign="top">
+<p></p><div align="center">
+<img alt="[Diagram:Pic/bigOh-2.png]" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/bigOh-2.png">
+</div><p>
+</p></td>
+</tr>
+</tbody></table>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [24/60]</div> <div class="slideCl1    " id="s25">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s24"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s26"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise : Big-Oh</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Show that
+</p><ol>
+<li> 7n-2 is O(n)
+
+</li><li>3n<sup>3</sup> + 20n<sup>2</sup> + 5 is O(n<sup>3</sup>)
+
+</li><li>3·log n + 5 is O(log n)
+</li></ol>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [25/60]</div> <div class="slideCl1    " id="s26">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s25"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s27"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <ol>
+<li> 7n-2 is O(n)
+<small>
+<font color="blue">
+<br>need c&gt;0 and n<sub>0</sub>≥1 such that 7n-2 ≤ c·n for n≥n<sub>0</sub>
+<br>⇒ &nbsp;true for c=7 and n<sub>0</sub>=1
+</font>
+</small>
+
+</li><li>3n<sup>3</sup> + 20n<sup>2</sup> + 5 is O(n<sup>3</sup>)
+<small>
+<font color="blue">
+<br>need c&gt;0 and n<sub>0</sub>≥1 such that 3n<sup>3</sup>+20n<sup>2</sup>+5 ≤ c·n<sup>3</sup> for n≥n<sub>0</sub>
+<br>⇒ &nbsp;true for c=4 and n<sub>0</sub>=21
+</font></small><font color="blue">
+</font>
+
+</li><li>3·log n + 5 is O(log n)
+<small>
+<font color="blue">
+<br>need c&gt;0 and n<sub>0</sub>≥1 such that 3·log n+5 ≤ c·log n for n≥n<sub>0</sub>
+<br>⇒ &nbsp;true for c=8 and n<sub>0</sub>=2
+</font></small><font color="blue">
+</font>
+</li></ol>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [26/60]</div> <div class="slideCl1    " id="s27">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s26"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s28"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖  Big-Oh and Rate of Growth</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li>Big-Oh notation gives an upper bound on the growth rate of a function
+<ul>
+<li><small>"f(n) is O(g(n))" means growth rate of f(n) no more than growth rate of g(n)</small>
+</li></ul>
+</li><li>use big-Oh to rank functions according to their rate of growth
+</li></ul>
+
+<div class="center">
+<table border="2" cellpadding="10">
+<tbody><tr><td></td><td>f(n) is O(g(n))</td><td>g(n) is O(f(n))</td></tr>
+<tr><td>g(n) grows faster</td><td align="center"><font color="red">yes</font></td><td align="center"><font color="blue">no</font></td></tr>
+<tr><td>f(n) grows faster</td><td align="center"><font color="blue">no</font></td><td align="center"><font color="red">yes</font></td></tr>
+<tr><td>same order of growth</td><td align="center"><font color="red">yes</font></td><td align="center"><font color="red">yes</font></td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [27/60]</div> <div class="slideCl1    " id="s28">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s27"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s29"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Big-Oh Rules</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li> If f(n) is a polynomial of degree d &nbsp; ⇒ f(n) is O(n<sup>d</sup>)
+<ul>
+<li> lower-order terms are ignored
+</li><li> constant factors are ignored
+</li></ul>
+</li><li> Use the smallest possible class of functions
+<ul>
+<li> say "2n is O(n)" instead of "2n is O(n<sup>2</sup>)"
+</li></ul>
+</li><li> Use the simplest expression of the class
+<ul>
+<li> say "3n + 5 is O(n)" instead of "3n + 5 is O(3n)"
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [28/60]</div> <div class="slideCl1    " id="s29">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s28"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s30"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise : Big-Oh</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Show that &nbsp; <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-1-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mstyle displaystyle=&quot;true&quot;&gt;&lt;mrow&gt;&lt;munderover&gt;&lt;mo&gt;&amp;#x2211;&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/munderover&gt;&lt;/mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/mstyle&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-1" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-2" class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mstyle"><span id="MJXc-Node-4" class="mjx-mrow"><span id="MJXc-Node-5" class="mjx-mrow" style="padding-left: 0.111em; padding-right: 0.167em;"><span id="MJXc-Node-6" class="mjx-munderover"><span class="mjx-itable"><span class="mjx-row"><span class="mjx-cell"><span class="mjx-stack"><span class="mjx-over" style="font-size: 70.7%; padding-bottom: 0.247em; padding-top: 0.141em; padding-left: 0.917em;"><span id="MJXc-Node-12" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">n</span></span></span><span class="mjx-op"><span id="MJXc-Node-7" class="mjx-mo"><span class="mjx-char MJXc-TeX-size2-R" style="padding-top: 0.725em; padding-bottom: 0.725em;">∑</span></span></span></span></span></span><span class="mjx-row"><span class="mjx-under" style="font-size: 70.7%; padding-top: 0.236em; padding-bottom: 0.141em; padding-left: 0.256em;"><span id="MJXc-Node-8" class="mjx-mrow" style=""><span id="MJXc-Node-9" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.429em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-10" class="mjx-mo" style="padding-left: 0.15em; padding-right: 0.15em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.067em; padding-bottom: 0.331em;">=</span></span><span id="MJXc-Node-11" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.363em; padding-bottom: 0.331em;">1</span></span></span></span></span></span></span></span><span id="MJXc-Node-13" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.429em; padding-bottom: 0.298em;">i</span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover></mrow><mi>i</mi></mstyle></math></span></span><script type="math/asciimath" id="MathJax-Element-1">sum_(i=1)^n i</script> &nbsp; is O(<i>n</i><sup>2</sup>)
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [29/60]</div> <div class="slideCl1    " id="s30">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s29"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s31"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <br>
+<font color="blue">
+<span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-2-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mstyle displaystyle=&quot;true&quot;&gt;&lt;mrow&gt;&lt;munderover&gt;&lt;mo&gt;&amp;#x2211;&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/munderover&gt;&lt;/mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mrow&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/mstyle&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-14" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-15" class="mjx-mrow"><span id="MJXc-Node-16" class="mjx-mstyle"><span id="MJXc-Node-17" class="mjx-mrow"><span id="MJXc-Node-18" class="mjx-mrow" style="padding-left: 0.111em; padding-right: 0.167em;"><span id="MJXc-Node-19" class="mjx-munderover"><span class="mjx-itable"><span class="mjx-row"><span class="mjx-cell"><span class="mjx-stack"><span class="mjx-over" style="font-size: 70.7%; padding-bottom: 0.247em; padding-top: 0.141em; padding-left: 0.917em;"><span id="MJXc-Node-25" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">n</span></span></span><span class="mjx-op"><span id="MJXc-Node-20" class="mjx-mo"><span class="mjx-char MJXc-TeX-size2-R" style="padding-top: 0.725em; padding-bottom: 0.725em;">∑</span></span></span></span></span></span><span class="mjx-row"><span class="mjx-under" style="font-size: 70.7%; padding-top: 0.236em; padding-bottom: 0.141em; padding-left: 0.256em;"><span id="MJXc-Node-21" class="mjx-mrow" style=""><span id="MJXc-Node-22" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.429em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-23" class="mjx-mo" style="padding-left: 0.15em; padding-right: 0.15em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.067em; padding-bottom: 0.331em;">=</span></span><span id="MJXc-Node-24" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.363em; padding-bottom: 0.331em;">1</span></span></span></span></span></span></span></span><span id="MJXc-Node-26" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.429em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-27" class="mjx-mo" style="padding-left: 0.333em; padding-right: 0.333em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.067em; padding-bottom: 0.331em;">=</span></span><span id="MJXc-Node-28" class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style="width: 3.989em; padding: 0px 0.12em;"><span class="mjx-numerator" style="width: 3.989em; top: -1.472em;"><span id="MJXc-Node-29" class="mjx-mrow"><span id="MJXc-Node-30" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-31" class="mjx-mrow"><span id="MJXc-Node-32" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">(</span></span><span id="MJXc-Node-33" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-34" class="mjx-mo" style="padding-left: 0.267em; padding-right: 0.267em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.298em; padding-bottom: 0.429em;">+</span></span><span id="MJXc-Node-35" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.363em; padding-bottom: 0.331em;">1</span></span><span id="MJXc-Node-36" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.462em; padding-bottom: 0.594em;">)</span></span></span></span></span><span class="mjx-denominator" style="width: 3.989em; bottom: -0.711em;"><span id="MJXc-Node-37" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.363em; padding-bottom: 0.331em;">2</span></span></span><span class="mjx-line" style="border-bottom: 1.8px solid; top: -0.28em; width: 3.989em;"></span></span><span class="mjx-vsize" style="height: 2.183em; vertical-align: -0.711em;"></span></span><span id="MJXc-Node-38" class="mjx-mo" style="padding-left: 0.333em; padding-right: 0.333em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.067em; padding-bottom: 0.331em;">=</span></span><span id="MJXc-Node-39" class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style="width: 3.1em; padding: 0px 0.12em;"><span class="mjx-numerator" style="width: 3.1em; top: -1.528em;"><span id="MJXc-Node-40" class="mjx-mrow"><span id="MJXc-Node-41" class="mjx-msup"><span class="mjx-base"><span id="MJXc-Node-42" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">n</span></span></span><span class="mjx-sup" style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0px; padding-right: 0.071em;"><span id="MJXc-Node-43" class="mjx-mn" style=""><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.363em; padding-bottom: 0.331em;">2</span></span></span></span><span id="MJXc-Node-44" class="mjx-mo" style="padding-left: 0.267em; padding-right: 0.267em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.298em; padding-bottom: 0.429em;">+</span></span><span id="MJXc-Node-45" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.232em; padding-bottom: 0.298em;">n</span></span></span></span><span class="mjx-denominator" style="width: 3.1em; bottom: -0.711em;"><span id="MJXc-Node-46" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.363em; padding-bottom: 0.331em;">2</span></span></span><span class="mjx-line" style="border-bottom: 1.8px solid; top: -0.28em; width: 3.1em;"></span></span><span class="mjx-vsize" style="height: 2.239em; vertical-align: -0.711em;"></span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover></mrow><mi>i</mi><mo>=</mo><mfrac><mrow><mi>n</mi><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mrow><mn>2</mn></mfrac><mo>=</mo><mfrac><mrow><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>n</mi></mrow><mn>2</mn></mfrac></mstyle></math></span></span><script type="math/asciimath" id="MathJax-Element-2">sum_(i=1)^ni = (n(n+1))/2 = (n^2+n)/2</script>
+</font><p><font color="blue">
+which is O(<i>n</i><sup>2</sup>)
+</font>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [30/60]</div> <div class="slideCl1    " id="s31">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s30"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s32"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Asymptotic Analysis of Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Asymptotic analysis</font> of algorithms determines running time in big-Oh notation:
+</p><ul>
+<li> find worst-case number of primitive operations as a function of input size
+</li><li> express this function using big-Oh notation
+</li></ul>
+Example:
+<ul>
+<li> algorithm <large><code>arrayMax</code></large> executes at most 5n – 2 primitive operations
+<br>⇒ &nbsp;algorithm <large><code>arrayMax</code></large> <font color="#0000BB">"runs in O(n) time"</font>
+</li></ul>
+Constant factors and lower-order terms eventually dropped
+<br>
+⇒ can disregard them when counting primitive operations
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [31/60]</div> <div class="slideCl1    " id="s32">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s31"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s33"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Example: Computing Prefix Averages</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+</p><ul>
+<li>The <font color="#0000BB">i-th prefix average</font> of an array X is the average of the first i elements:
+<div style="text-align:center;">
+A[i] = (X[0] + X[1] + … + X[i]) / (i+1)
+</div>
+</li></ul>
+<div>
+<img style="width:420px;" class="centerImg" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/prefixAverage.jpg">
+</div>
+<small>NB. computing the array A of prefix averages of another array X has applications in financial analysis</small>
+
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [32/60]</div> <div class="slideCl1    " id="s33">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s32"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s34"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Computing Prefix Averages</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <font color="#0000BB">quadratic</font> alogrithm to compute prefix averages:
+
+</p><pre style="font-size:0.8em;">prefixAverages1(X):
+|  <b>Input</b>  array X of n integers
+|  <b>Output</b> array A of prefix averages of X
+|
+|  <b>for</b> <b>all</b> i=0..n-1 <b>do</b>          <font color="red">O(n)</font>
+|  |  s=X[0]                    <font color="red">O(n)</font>
+|  |  <b>for</b> <b>all</b> j=1..i <b>do</b>         <font color="red">O(n<sup>2</sup>)</font>
+|  |     s=s+X[j]               <font color="red">O(n<sup>2</sup>)</font>
+|  |  <b>end for</b>
+|  |  A[i]=s/(i+1)              <font color="red">O(n)</font>
+|  <b>end for</b>
+|  <b>return</b> A                     <font color="red">O(1)</font>
+</pre>
+<p>
+</p><div class="center">
+2·O(n<sup>2</sup>) + 3·O(n) + O(1) = O(n<sup>2</sup>)
+</div>
+<p>
+⇒ <font color="#0000BB">Time complexity</font> of algorithm <large><code>prefixAverages1</code></large> is O(n<sup>2</sup>)
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [33/60]</div> <div class="slideCl1    " id="s34">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s33"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s35"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Computing Prefix Averages</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The following algorithm computes prefix averages by keeping a running sum:
+</p><pre style="font-size:0.8em; line-height:1.6em;">prefixAverages2(X):
+|  <b>Input</b>  array X of n integers
+|  <b>Output</b> array A of prefix averages of X
+|
+|  s=0
+|  <b>for</b> <b>all</b> i=0..n-1 <b>do</b>          <font color="red">O(n)</font>
+|     s=s+X[i]                  <font color="red">O(n)</font>
+|     A[i]=s/(i+1)              <font color="red">O(n)</font>
+|  <b>end for</b>
+|  <b>return</b> A                     <font color="red">O(1)</font>
+</pre>
+
+<p>
+Thus, <large><code>prefixAverages2</code></large> is O(n)
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [34/60]</div> <div class="slideCl1    " id="s35">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s34"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s36"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Example: Binary Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The following recursive algorithm searches for a value in a <font color="#0000BB">sorted</font> array:
+</p><pre style="font-size:0.8em; line-height:1.2em;"><font color="green">search(v,a,lo,hi):</font>
+|  <b>Input</b>  value v
+|         array a[lo..hi] of values
+|  <b>Output</b> true if v in a[lo..hi]
+|         false otherwise
+|
+|  mid=(lo+hi)/2
+|  <b>if</b> lo&gt;hi <b>then</b> <b>return</b> false
+|  <b>if</b> a[mid]=v <b>then</b>
+|     <b>return</b> true
+|  <b>else</b> <b>if</b> a[mid]&lt;v <b>then</b>
+|     <b>return</b> <font color="green">search(v,a,mid+1,hi)</font>
+|  <b>else</b>
+|     <b>return</b> <font color="green">search(v,a,lo,mid-1)</font>
+|  <b>end if</b>
+</pre>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [35/60]</div> <div class="slideCl1    " id="s36">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s35"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s37"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Binary Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Successful search for a value of 8:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pic/binary-search-found.png]" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/binary-search-found.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [36/60]</div> <div class="slideCl1    " id="s37">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s36"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s38"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Binary Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Unsuccessful search for a value of 7:
+</p><p>
+<img style="height:420px;" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/binary-search-failed.png">
+
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [37/60]</div> <div class="slideCl1    " id="s38">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s37"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s39"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Binary Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Cost analysis:
+</p><ul>
+<li> C<sub>i</sub> = #calls to <large><code>search()</code></large> for array of length i
+</li><li> for best case, C<sub>n</sub> = 1
+</li><li> for <large><code>a[i..j]</code></large>, <large><code>j&lt;i</code></large> (length=0)
+<ul>
+<li> C<sub>0</sub> = 0
+</li></ul>
+</li><li> for <large><code>a[i..j]</code></large>, <large><code>i≤j</code></large> (length=n)
+<ul>
+<li> C<sub>n</sub> = 1 + C<sub>n/2</sub> &nbsp; ⇒ C<sub>n</sub> = log<sub>2</sub> n
+</li></ul>
+</li></ul>
+Thus, binary search is O(log<sub>2</sub> n) or simply O(log n) &nbsp; <small>(why?)</small>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [38/60]</div> <div class="slideCl1    " id="s39">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s38"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s40"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Binary Search</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+</p><div class="zoom90">
+	
+Why logarithmic complexity is good:
+<p>
+<img style="height:420px;" src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/log-complexity.png">
+
+</p></div>
+
+
+
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [39/60]</div> <div class="slideCl1    " id="s40">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s39"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s41"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Math Needed for Complexity Analysi</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<table><tbody><tr><td width="50%" valign="top" style="font-size:1.2em;">
+<ul>
+<li> Summations
+</li><li> Logarithms
+<ul>
+<li>log<sub>b</sub> (xy) = log<sub>b</sub> x + log<sub>b</sub> y
+</li><li>log<sub>b</sub> (x/y) = log<sub>b</sub> x - log<sub>b</sub> y
+</li><li>log<sub>b</sub> x<sup>a</sup> = a log<sub>b</sub> x
+</li><li>log<sub>b</sub> a = log<sub>x</sub> a / log<sub>x</sub> b
+</li></ul>
+</li></ul></td>
+<td valign="top" style="font-size:1.2em;">
+
+<ul>
+<li>Exponentials
+<ul>
+<li>a<sup>(b+c)</sup> = a<sup>b</sup>a<sup>c</sup>
+</li><li>a<sup>bc</sup> = (a<sup>b</sup>)<sup><sup>c</sup></sup>
+</li><li>a<sup>b</sup> / a<sup>c</sup> = a<sup>(b-c)</sup>
+</li><li>b = a<sup>log<sub>a</sub>b</sup>
+</li><li>b<sup>c</sup> = a<sup>c·log<sub>a</sub>b</sup>
+</li></ul>
+</li></ul>
+
+</td></tr>
+
+<tr><td colspan="2" style="font-size:1.2em;">
+<ul>
+<li> Proof techniques
+</li><li> Summation &nbsp; (addition of sequences of numbers)
+</li><li> Basic probability &nbsp; (for average case analysis, randomised algorithms)
+</li></ul>
+</td>
+</tr></tbody></table>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [40/60]</div> <div class="slideCl1    " id="s41">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s40"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s42"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise :  Analysis of Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+What is the complexity of the following algorithm?
+</p><pre style="font-size:0.8em; line-height: 1.7em;"><font color="green">splitList(L):</font>
+|  <b>Input</b>  non-empty linked list L
+|  <b>Output</b> L split into two halves
+|
+|  <span class="comment">// use slow and fast pointer to traverse L</span>
+|  slow=head(L), fast=head(L).next
+|  <b>while</b> fast≠NULL ∧ fast.next≠NULL <b>do</b>
+|     slow=slow.next, fast=fast.next.next  <span class="comment">// advance pointers</span>
+|  <b>end while</b>
+|  cut L between slow and slow.next
+</pre>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [41/60]</div> <div class="slideCl1    " id="s42">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s41"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s43"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <br>
+<font color="blue">
+Answer: O(|L|)</font>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [42/60]</div> <div class="slideCl1    " id="s43">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s42"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s44"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Exercise :  Analysis of Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+What is the complexity of the following algorithm?
+</p><pre style="font-size:0.8em; line-height: 1.7em;">binaryConversion(n):
+|  <b>Input</b>  positive integer n
+|  <b>Output</b> binary representation of n on a stack
+|
+|  create empty stack S
+|  <b>while</b> n&gt;0 <b>do</b>
+|  |  push (n mod 2) onto S
+|  |  n=<sub><img src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/lfloor-small.gif"></sub>n/2<sub><img src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/rfloor-small.gif"></sub>
+|  <b>end while</b>
+|  <b>return</b> S
+</pre>
+Assume that creating a stack and pushing an element both are O(1) operations &nbsp; <small>("constant")</small>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [43/60]</div> <div class="slideCl1    " id="s44">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s43"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s45"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <br>
+<font color="blue">
+Answer: O(log n)</font>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [44/60]</div> <div class="slideCl1    " id="s45">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s44"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s46"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Relatives of Big-Oh</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">big-Omega</font>
+</p><ul>
+<li> f(n) is Ω(g(n)) if there is a constant c &gt; 0 and an integer constant n<sub>0</sub> ≥ 1 such that
+<p>
+</p><div class="center">
+f(n) ≥ c·g(n) &nbsp;&nbsp; ∀n ≥ n<sub>0</sub>
+</div>
+</li></ul>
+
+<p>
+<font color="#0000BB">big-Theta</font>
+</p><ul>
+<li> f(n) is Θ(g(n)) if there are constants c',c'' &gt; 0 and an integer constant n<sub>0</sub> ≥ 1 such that
+<p>
+</p><div class="center">
+c'·g(n) ≤ f(n) ≤ c''·g(n)  &nbsp;&nbsp; ∀n ≥ n<sub>0</sub>
+</div>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [45/60]</div> <div class="slideCl1    " id="s46">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s45"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s47"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Relatives of Big-Oh</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li> f(n) is <font color="red">O</font>(g(n)) if f(n) is asymptotically <font color="#0000BB">less than or equal</font> to g(n)
+</li><li> f(n) is <font color="red">Ω</font>(g(n)) if f(n) is asymptotically <font color="#0000BB">greater than or equal</font> to g(n)
+</li><li> f(n) is <font color="red">Θ</font>(g(n)) if f(n) is asymptotically <font color="#0000BB">equal</font> to g(n)
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [46/60]</div> <div class="slideCl1    " id="s47">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s46"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s48"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Relatives of Big-Oh</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Examples:
+</p><ul>
+<li> <font color="#0000BB">¼n<sup>2</sup> is Ω(n<sup>2</sup>)</font>
+<ul>
+<li> <small>need c &gt; 0 and n<sub>0</sub> ≥ 1 such that ¼n<sup>2</sup> ≥ c·n<sup>2</sup> for n≥n<sub>0</sub></small>
+</li><li> <small>let c=¼ and n<sub>0</sub>=1</small>
+</li></ul>
+
+</li><li> <font color="#0000BB">¼n<sup>2</sup> is Ω(n)</font>
+<ul>
+<li> <small>need c &gt; 0 and n<sub>0</sub> ≥ 1 such that ¼n<sup>2</sup> ≥ c·n for n≥n<sub>0</sub></small>
+</li><li> <small>let c=1 and n<sub>0</sub>=2</small>
+</li></ul>
+
+</li><li> <font color="#0000BB">¼n<sup>2</sup> is Θ(n<sup>2</sup>)</font>
+<ul>
+<li> <small>since ¼n<sup>2</sup> is in Ω(n<sup>2</sup>) and O(n<sup>2</sup>)</small>
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [47/60]</div> <div class="slideCl1    " id="s48">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s47"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s49"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Complexity Classes</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Problems in Computer Science …
+</p><ul>
+<li> some have <font color="#0000BB">polynomial</font> worst-case performance (e.g. <i>n<sup>2</sup></i>)
+</li><li> some have <font color="#0000BB">exponential</font> worst-case performance (e.g. <i>2<sup>n</sup></i>)
+</li></ul>
+Classes of problems:
+<ul>
+<li> <i>P</i> = problems for which an algorithm can compute answer in polynomial time
+</li><li> <i>NP</i> = includes problems for which no <i>P</i> algorithm is known
+</li></ul>
+<small>Beware: NP stands for "<font color="red">n</font>ondeterministic, <font color="red">p</font>olynomial time (on a theoretical <i>Turing Machine</i>)"</small>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [48/60]</div> <div class="slideCl1    " id="s49">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s48"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s50"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Complexity Classes</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Computer Science jargon for difficulty:
+</p><ul>
+<li> tractable … have a polynomial-time algorithm <small>(useful in practice)</small>
+</li><li> intractable … no tractable algorithm is known <small>(feasible only for small <i>n</i>)</small>
+</li><li> non-computable … no algorithm can exist
+</li></ul>
+<small><i>Computational complexity theory</i> deals with different degrees of intractability</small>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [49/60]</div> <div class="slideCl1    " id="s50">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s49"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s51"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Generate and Test Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+In scenarios where
+</p><ul>
+<li> it is simple to test whether a given state is a solution
+</li><li> it is easy to generate new states
+	&nbsp; <small>(preferably likely solutions)</small>
+</li></ul>
+then a <font color="#0000BB">generate and test</font> strategy can be used.
+<p>
+It is necessary that states are generated systematically
+</p><ul>
+<li> so that we are guaranteed to find a solution, or know that none exists
+<ul>
+<li>
+<small>
+some <font color="#CC9900">randomised</font> algorithms do not require this, however
+<br> (more on this later in this course)
+</small>
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [50/60]</div> <div class="slideCl1    " id="s51">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s50"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s52"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Generate and Test Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Simple example: checking whether an integer <i>n</i> is prime
+</p><ul>
+<li> generate/test all possible factors of <i>n</i>
+</li><li> if none of them pass the test &nbsp;⇒ <i>n</i> is prime
+</li></ul>
+<font color="#0000BB">Generation</font> is straightforward:
+<ul>
+<li> produce a sequence of all numbers from 2 to <i>n-1</i>
+</li></ul>
+<font color="#0000BB">Testing</font> is also straightfoward:
+<ul>
+<li> check whether next number divides <i>n</i> exactly
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [51/60]</div> <div class="slideCl1    " id="s52">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s51"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s53"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Generate and Test Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Function for primality checking:
+</p><pre style="font-size:0.9em; line-height:1.2em;">isPrime(n):
+|  <b>Input</b>  natural number n
+|  <b>Output</b> true if n prime, false otherwise
+|
+|  <b>for</b> <b>all</b> i=2..n-1 <b>do</b>      <span class="comment">// generate</span>
+|  |  <b>if</b> n mod i = 0 <b>then</b>   <span class="comment">// test</span>
+|  |     <b>return</b> false       <span class="comment">// i is a divisor =&gt; n is not prime</span>
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> true              <span class="comment">// no divisor =&gt; n is prime
+</span></pre>
+<p>
+Complexity of <large><code>isPrime</code></large> is O(n)
+</p><p>
+<small>Can be optimised: check only numbers between 2 and <span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-3-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mstyle displaystyle=&quot;true&quot;&gt;&lt;mo&gt;&amp;#x230A;&lt;/mo&gt;&lt;msqrt&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msqrt&gt;&lt;mo&gt;&amp;#x230B;&lt;/mo&gt;&lt;/mstyle&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-47" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-48" class="mjx-mrow"><span id="MJXc-Node-49" class="mjx-mstyle"><span id="MJXc-Node-50" class="mjx-mrow"><span id="MJXc-Node-51" class="mjx-mo"><span class="mjx-char MJXc-TeX-size1-R" style="padding-top: 0.623em; padding-bottom: 0.623em;">⌊</span></span><span id="MJXc-Node-52" class="mjx-msqrt"><span class="mjx-box" style="padding-top: 0.045em;"><span class="mjx-surd"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.514em; padding-bottom: 0.55em;">√</span></span><span class="mjx-box" style="padding-top: 0.188em; border-top: 2.1px solid;"><span id="MJXc-Node-53" class="mjx-mrow"><span id="MJXc-Node-54" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.221em; padding-bottom: 0.294em;">n</span></span></span></span></span></span><span id="MJXc-Node-55" class="mjx-mo"><span class="mjx-char MJXc-TeX-size1-R" style="padding-top: 0.623em; padding-bottom: 0.623em;">⌋</span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><mo>⌊</mo><msqrt><mi>n</mi></msqrt><mo>⌋</mo></mstyle></math></span></span><script type="math/asciimath" id="MathJax-Element-3">|__sqrt n__|</script> &nbsp;&nbsp;&nbsp; ⇒ &nbsp; O(<span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-4-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mstyle displaystyle=&quot;true&quot;&gt;&lt;msqrt&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/msqrt&gt;&lt;/mstyle&gt;&lt;/math&gt;" role="presentation" style="font-size: 114%; position: relative;"><span id="MJXc-Node-56" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-57" class="mjx-mrow"><span id="MJXc-Node-58" class="mjx-mstyle"><span id="MJXc-Node-59" class="mjx-mrow"><span id="MJXc-Node-60" class="mjx-msqrt"><span class="mjx-box" style="padding-top: 0.045em;"><span class="mjx-surd"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.514em; padding-bottom: 0.55em;">√</span></span><span class="mjx-box" style="padding-top: 0.188em; border-top: 2.1px solid;"><span id="MJXc-Node-61" class="mjx-mrow"><span id="MJXc-Node-62" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.221em; padding-bottom: 0.294em;">n</span></span></span></span></span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true"><msqrt><mi>n</mi></msqrt></mstyle></math></span></span><script type="math/asciimath" id="MathJax-Element-4">sqrt n</script>)</small>
+</p></div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [52/60]</div> <div class="slideCl1    " id="s53">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s52"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s54"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Problem to solve ...
+</p><p>
+Is there a subset <i>S</i> of these numbers with <i>sum(S)=1000</i>?
+</p><p></p><pre> 34,  38,  39,  43,  55,  66,  67,  84,  85,  91,
+101, 117, 128, 138, 165, 168, 169, 182, 184, 186,
+234, 238, 241, 276, 279, 288, 386, 387, 388, 389
+</pre><p>
+General problem:
+</p><ul>
+<li> given <i>n</i> integers and a target sum <i>k</i>
+</li><li> is there a subset that adds up to exactly <i>k</i>?
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [53/60]</div> <div class="slideCl1    " id="s54">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s53"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s55"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Generate and test approach:
+</p><pre style="font-size:0.9em; line-height:1.2em;">subsetsum(A,k):
+|  <b>Input</b>  set A of n integers, target sum k
+|  <b>Output</b> true if Σ<sub>b∈B</sub>b=k for some B⊆A
+|         false otherwise
+|
+|  <b>for</b> <b>each</b> subset S⊆A <b>do</b>
+|  |  <b>if</b> sum(S)=k <b>then</b>
+|  |     return true
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> false
+</pre>
+<ul>
+<li> How many subsets are there of <i>n</i> elements?
+</li><li> How could we generate them?
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [54/60]</div> <div class="slideCl1    " id="s55">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s54"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s56"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Given: a set of <large><code>n</code></large> distinct integers in an array <large><code>A</code></large> …
+</p><ul>
+<li> produce all subsets of these integers
+</li></ul>
+A method to generate subsets:
+<ul>
+<li> represent sets as <i>n</i> bits
+	&nbsp; <small>(e.g. <i>n=4</i>, <large><code>0000</code></large>, <large><code>0011</code></large>, <large><code>1111</code></large> etc.)</small>
+</li><li> bit <i>i</i> represents the <i>i <sup>th</sup></i> input number
+</li><li> if bit <i>i</i> is set to 1, then <large><code>A[i]</code></large> is in the subset
+</li><li> if bit <i>i</i> is set to 0, then <large><code>A[i]</code></large> is not in the subset
+</li><li> e.g. if <large><code>A[]=={1,2,3,5}</code></large> then <large><code>0011</code></large> represents <large><code>{1,2}</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [55/60]</div> <div class="slideCl1    " id="s56">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s55"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s57"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm:
+</p><pre style="font-size:0.9em; line-height:1.2em;">subsetsum1(A,k):
+|  <b>Input</b>  set A of n integers, target sum k
+|  <b>Output</b> true if Σ<sub>b∈B</sub>b=k for some B⊆A
+|         false otherwise
+|
+|  <b>for</b> s=0..2<sup>n</sup>-1 <b>do</b>
+|  |  <b>if</b> k = Σ<sub>(i<sup>th</sup> bit of s is 1)</sub> A[i] <b>then</b>
+|  |     return true
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> false
+</pre>
+Obviously, <large><code>subsetsum1</code></large> is O(2<sup>n</sup>)
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [56/60]</div> <div class="slideCl1    " id="s57">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s56"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s58"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+
+</p><div style="font-size:0.8em;">
+Alternative approach …
+<p>
+<large><code>subsetsum2(A,n,k)</code></large> <br>
+	<small>(returns true if any subset of A[0..<i>n</i>-1] sums to <i>k</i>; returns false otherwise)</small>
+</p><ul>
+<li> if the <i>n</i><sup>th</sup> value A[<i>n</i>-1] is part of a solution …
+<ul>
+<li> then the first <i>n</i>-1 values must sum to <i>k</i> – A[<i>n</i>-1]
+</li></ul>
+</li><li> if the <i>n</i><sup>th</sup> value is not part of a solution …
+<ul>
+<li> then the first <i>n</i>-1 values must sum to <i>k</i>
+</li></ul>
+</li><li> base cases: <i>k</i>=0 (solved by {}); <i>n</i>=0 (unsolvable if <i>k</i>&gt;0)
+</li></ul>
+</div>
+<pre style="font-size:0.8em; line-height:1.2em;"><font color="blue">subsetsum2(A,n,k):</font>
+|  <b>Input</b>  array A, index n, target sum k
+|  <b>Output</b> true if some subset of A[0..n-1] sums up to k
+|         false otherwise
+|
+|  <b>if</b> k=0 <b>then</b>
+|     <b>return</b> true   <span class="comment">// empty set solves this</span>
+|  <b>else</b> <b>if</b> n=0 <b>then</b>
+|     <b>return</b> false  <span class="comment">// no elements =&gt; no sums</span>
+|  <b>else</b>
+|     <b>return</b> <font color="blue">subsetsum2(A,n-1,<font color="red">k-A[n-1]</font>)</font> ∨ <font color="blue">subsetsum2(A,n-1,<font color="red">k</font>)</font>
+|  <b>end if</b>
+</pre>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [57/60]</div> <div class="slideCl1    " id="s58">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s57"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s59"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Cost analysis:
+</p><ul>
+<li> C<sub>i</sub> = #calls to <large><code>subsetsum2()</code></large> for array of length i
+</li><li> for best case, C<sub>n</sub> = C<sub>n-1</sub> &nbsp;&nbsp; <small>(why?)</small>
+</li><li> for worst case, C<sub>n</sub> = 2·C<sub>n-1</sub> &nbsp; ⇒ C<sub>n</sub> = 2<sup>n</sup>
+</li></ul>
+Thus, <large><code>subsetsum2</code></large> also is O(2<sup>n</sup>)
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [58/60]</div> <div class="slideCl1    " id="s59">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s58"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s60"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Example: Subset Sum</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Subset Sum is typical member of the class of <font color="#0000BB"><i>NP</i>-complete problems</font></p><p>
+</p><ul>
+<li> intractable … only algorithms with exponential performance are known<p>
+</p><ul>
+<li> <small>increase input size by 1, double the execution time</small><p>
+</p></li><li> <small>increase input size by 100, it takes 2<sup>100</sup> = 1,267,650,600,228,229,401,496,703,205,376 times as long to execute</small><p>
+</p></li></ul>
+<p>
+</p></li><li> but <span style="font-weight:bold; color:#ff2d2d;">if you can find</span> a polynomial algorithm for Subset Sum, 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold; color:#ff2d2d;">then any other <i>NP</i>-complete problem becomes <i>P</i> ! </span>
+</li></ul>
+
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [59/60]</div> <div class="slideCl1    " id="s60">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s59"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/lecs/week01b/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Summary</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li>Big-Oh notation
+</li><li>Asymptotic analysis of algorithms
+</li><li>Examples of algorithms with logarithmic, linear, polynomial, exponential complexity
+</li></ul>
+<br>
+<ul>
+<li> <small>Suggested reading:</small>
+<ul>
+<li> <small>Sedgewick, Ch.2.1-2.4,2.6</small>
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">Analysis of Algorithms ♢ COMP2521 (21T1) ♢ Week 01b ♢   [60/60]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 22 Feb 2021</span>
+ <script src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/prism.js.下载"></script>   
+ <script src="./Analysis of Algorithms _small_♢ COMP2521 ♢ (21T1)__small__files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 42878px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 42878px; width: 1197px;"></div></html>

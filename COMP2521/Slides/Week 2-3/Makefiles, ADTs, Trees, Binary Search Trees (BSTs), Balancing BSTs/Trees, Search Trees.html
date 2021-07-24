@@ -1,0 +1,833 @@
+
+<!-- saved from url=(0058)https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Trees, Search Trees </title>
+<link href="./Trees, Search Trees_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Trees, Search Trees_files/latest.js.下载" async=""></script>
+<script src="./Trees, Search Trees_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Trees, Search Trees_files/css" rel="stylesheet"><link href="./Trees, Search Trees_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Trees, Search Trees_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Trees, Search Trees </div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s1">Searching</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s4">Tree Data Structures</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s12">Binary Search Trees</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s17">Insertion into BSTs</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s21">Representing BSTs</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s24">Searching in BSTs</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s25">Insertion into BSTs</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s26">Tree Traversal</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s31">Joining Two Trees</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s36">Deletion from BSTs</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [0/45]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Searching</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<font color="#0000BB">Search</font> is an extremely common application in computing
+</p><ul>
+<li> given a (large) collection of <font color="#0000BB">items</font> and a <font color="#0000BB">key</font> value
+</li><li> find the item(s) in the collection containing that key
+<ul>
+<li> item = (<font color="blue">key</font>, val<sub>1</sub>, val<sub>2</sub>, …) &nbsp;<small>(i.e. a structured data type)</small>
+</li><li> key  = value used to distinguish items &nbsp;<small>(e.g. student ID)</small>
+</li></ul>
+</li></ul>
+Applications: &nbsp;Google, &nbsp;databases, .....
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [1/45]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Searching</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Many approaches have been developed for the "search" problem
+</p><p>
+Different approaches determined by properties of data structures:
+</p><ul>
+<li> arrays: linear, random-access, in-memory
+</li><li> linked-lists: linear, sequential access, in-memory
+</li><li> files: linear, sequential access, external
+</li></ul>
+<p>
+Search costs:
+</p><p>
+</p><div align="center">
+<table border="1" cellspacing="0" cellpadding="10">
+<tbody><tr>
+<td></td> <td>Array</td> <td>List</td> <td>File</td>
+</tr>
+<tr valign="top">
+<td>Unsorted</td>
+<td>O(n)<br><span class="smaller">(linear scan)</span></td>
+<td>O(n)<br><span class="smaller">(linear scan)</span></td>
+<td>O(n)<br><span class="smaller">(linear scan)</span></td>
+</tr>
+<tr valign="top">
+<td>Sorted</td>
+<td>O(log n)<br><span class="smaller">(binary search)</span></td>
+<td>O(n)<br><span class="smaller">(linear scan)</span></td>
+<td>O(log n)<br><span class="smaller">(lseek,lseek,...)</span></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [2/45]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Searching</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Maintaining arrays and files in sorted order is costly.
+</p><p>
+<font color="#0000BB">Search trees</font> are efficient to search but also efficient to maintain.
+</p><p>
+<small>Example: the following tree corresponds to the sorted array <large><code>[2,5,10,12,14,17,20,24,29,30,31,32]</code></large>:</small>
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/bigtree.png]" src="./Trees, Search Trees_files/bigtree.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [3/45]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Trees</font> are connected graphs
+</p><ul>
+<li> with nodes and edges (called <i>links</i>), but no cycles &nbsp;<small>(no "up-links")</small>
+</li><li> each node contains a <font color="red">data</font> value &nbsp; <small>(or key+data)</small>
+</li><li> each node has <font color="blue">links</font> to <i>≤ k</i> other child nodes
+	&nbsp; <small>(<i>k=2</i> below)</small>
+</li></ul>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/tree.png]" src="./Trees, Search Trees_files/tree.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [4/45]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Trees are used in many contexts, e.g.
+</p><ul>
+<li> representing hierarchical data structures (e.g. expressions)
+</li><li> efficient searching (e.g. sets, symbol tables, …)
+</li></ul>
+<br>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/trees.png]" src="./Trees, Search Trees_files/trees.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [5/45]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Real-world example: organisational structure
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trees_example1.png]" src="./Trees, Search Trees_files/trees_example1.png">
+</div><p>
+</p><p>
+</p><div style="font-size:67%">
+Diagram from "Data Structures and Algorithms in Java" (6th ed) by Goodrich et al
+</div>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [6/45]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Real-world example: hierarchical file system &nbsp;<span class="smaller">(e.g. Linux)</span>
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trees_example2.png]" src="./Trees, Search Trees_files/trees_example2.png">
+</div><p>
+</p><p>
+</p><div style="font-size:67%">
+Diagram from "Data Structures and Algorithms in Java" (6th ed) by Goodrich et al
+</div>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [7/45]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Real-world example: structure of a typical book
+<br>
+</p><div align="center">
+<p></p><div align="center">
+<img alt="[Diagram:Pics/trees_example3.png]" src="./Trees, Search Trees_files/trees_example3.png">
+</div><p>
+</p></div>
+<p>
+</p><div style="font-size:67%">
+Diagram from "Data Structures and Algorithms in Java" (6th ed) by Goodrich et al
+</div>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [8/45]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Real-world example: a decision tree
+<br>
+</p><div align="center">
+<p></p><div align="center">
+<img alt="[Diagram:Pics/trees_example4.png]" src="./Trees, Search Trees_files/trees_example4.png">
+</div><p>
+</p></div>
+<p>
+</p><div style="font-size:67%">
+Diagram from "Data Structures and Algorithms in Java" (6th ed) by Goodrich et al
+</div>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [9/45]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <i>binary tree</i> is either
+</p><ul class="compactUL">
+<li> empty &nbsp; <small>(contains no nodes)</small>
+</li><li> consists of a <font color="#0000BB">node</font>, with <font color="red">two</font> <font color="#0000BB">subtrees</font>
+<ul class="compactUL">
+<li> node contains a value &nbsp;<span class="smaller">(typically key+data)</span>
+</li><li> left and right subtrees are <i>binary trees</i> &nbsp;<span class="smaller">(recursive)</span>
+</li></ul>
+</li></ul>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/subtrees.png]" src="./Trees, Search Trees_files/subtrees.png">
+</div><p>
+</p></div>
+
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [10/45]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Data Structures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Other special kinds of tree
+</p><ul>
+<li> <font color="#0000BB"><i>m</i>-ary tree</font>:
+	<small>each internal node has exactly <i>m</i> children</small>
+</li><li> <font color="#0000BB">B-tree</font>:
+	<small>each internal node has <i>n/2</i> ≤ #children ≤ <i>n</i></small>
+</li><li> <font color="#0000BB">Ordered tree</font>:
+	<small> all left values &lt; root, all right values &gt; root</small>
+</li><li> <font color="#0000BB">Balanced tree</font>:
+	<small> has ≅minimal height for a given number of nodes</small>
+</li><li> <font color="#0000BB">Degenerate tree</font>:
+	<small> has ≅maximal height for a given number of nodes</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [11/45]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Binary search trees</font> (or <font color="#0000BB"> BSTs</font>) are ordered trees
+</p><ul class="compactUL">
+<li> each node is the root of 0, 1 or 2 subtrees
+</li><li> all values in any left subtree are less than root
+</li><li> all values in any right subtree are greater than root
+</li><li> these properties applies over all nodes in the tree
+</li></ul>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/three-bin-search-trees.png]" src="./Trees, Search Trees_files/three-bin-search-trees.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [12/45]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Level</font> of node = path length from root to node
+</p><p>
+<font color="#0000BB">Height</font> (or <font color="#0000BB">depth</font>) of tree = max path length from root to leaf
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/tree-depth.png]" src="./Trees, Search Trees_files/tree-depth.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [13/45]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Some properties of trees ...
+</p><p>
+<font color="#0000BB">Ordered</font>
+</p><ul>
+<li> &nbsp;∀ nodes: max(left subtree) &lt; root &lt; min(right subtree)
+</li></ul>
+<font color="#0000BB">Perfectly-balanced tree</font>
+<ul>
+<li> &nbsp;∀ nodes: #nodes(left subtree) = #nodes(right subtree)
+</li></ul>
+<font color="#0000BB">Height-balanced tree</font>
+<ul>
+<li> &nbsp;∀ nodes: height(left subtree) = height(right subtree)
+</li></ul>
+<br>
+Note: &nbsp;time complexity of tree algorithms is typically <i>O(height)</i>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [14/45]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Operations on BSTs:
+</p><ul>
+<li> <font color="#0000BB">insert</font>(Tree,Item) … add new item to tree via key
+</li><li> <font color="#0000BB">delete</font>(Tree,Key) … remove item with specified key from tree
+</li><li> <font color="#0000BB">search</font>(Tree,Key) … find item containing key in tree
+</li><li> plus, "bookkeeping" … new(), free(), show(), …
+</li></ul>
+<br>
+Notes:
+<ul>
+<li> nodes contain <large><code>Item</code></large>s; we generally show just <large><code>Item.key</code></large>
+</li><li> keys are unique &nbsp; <small>(not technically necessary)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [15/45]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Binary Search Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Examples of binary search trees:
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/binary-search-trees.png]" src="./Trees, Search Trees_files/binary-search-trees.png">
+</div><p>
+</p><p>
+Shape of tree is determined by order of insertion.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [16/45]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Insertion into BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Steps in inserting values into an initially empty BST
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/insert0.png]" src="./Trees, Search Trees_files/insert0.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [17/45]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/insert1.png]" src="./Trees, Search Trees_files/insert1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [18/45]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/insert2.png]" src="./Trees, Search Trees_files/insert2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [19/45]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/insert3.png]" src="./Trees, Search Trees_files/insert3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [20/45]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Representing BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Binary trees are typically represented by node structures
+</p><ul>
+<li> where each node contains a value, and pointers to child nodes
+</li></ul>
+Most tree algorithms move <i>down</i> the tree.<br>
+If upward movement needed, add a pointer to parent.
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/tree-rep.png]" src="./Trees, Search Trees_files/tree-rep.png">
+</div><p>
+</p></div>
+
+
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [21/45]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Representing BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p>
+Typical data structures for trees …
+</p><p></p><pre><span class="comment">// a Tree is represented by a pointer to its root node</span>
+typedef struct Node *Tree;
+
+<span class="comment">// a Node contains its data, plus left and right subtrees</span>
+typedef struct Node {
+   int  data;
+   Tree left, right;
+} Node;
+
+<span class="comment">// some macros that we will use frequently</span>
+#define data(node)  ((node)-&gt;data)
+#define left(node)  ((node)-&gt;left)
+#define right(node) ((node)-&gt;right)
+</pre>
+<p>
+Here we use a simple definition for <large><code>data</code></large> ... just a key
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [22/45]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Representing BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Abstract data vs concrete data …
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/concrete.png]" src="./Trees, Search Trees_files/concrete.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [23/45]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s25"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Searching in BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Most tree algorithms are best described recursively:
+</p><p></p><pre><font color="blue">TreeContains(tree,key):</font>
+|  <b>Input</b>  tree, key
+|  <b>Output</b> true if key found in tree, false otherwise
+|
+|  <b>if</b> tree is empty <b>then</b>
+|     <b>return</b> false
+|  <b>else</b> <b>if</b> key &lt; <font color="#CC9900">data(tree)</font> <b>then</b>
+|     <b>return</b> <font color="blue">TreeContains(left(tree),key)</font>
+|  <b>else</b> <b>if</b> key &gt; <font color="#CC9900">data(tree)</font> <b>then</b>
+|     <b>return</b> <font color="blue">TreeContains(right(tree),key)</font>
+|  <b>else</b>         <span class="comment">// found</span>
+|    <b>return</b> true
+|  <b>end if</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [24/45]</div> <div class="slideCl1    " id="s25">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s24"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s26"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Insertion into BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Insert an item into a tree; &nbsp;item becomes new leaf node
+</p><pre style="font-size:90%"><font color="blue">TreeInsert(tree,item):</font>
+|  <b>Input</b>  tree, item
+|  <b>Output</b> tree with item inserted
+|
+|  <b>if</b> tree is empty <b>then</b>
+|     <b>return</b> new node containing item
+|  <b>else</b> <b>if</b> item &lt; <font color="#CC9900">data(tree)</font> <b>then</b>
+|     left(tree) = <font color="blue">TreeInsert(left(tree),item)</font>     
+|     <b>return</b> tree
+|  <b>else</b> <b>if</b> item &gt; <font color="#CC9900">data(tree)</font> <b>then</b>
+|     right(tree) = <font color="blue">TreeInsert(right(tree),item)</font>     
+|     <b>return</b> tree
+|  <b>else</b>
+|     <b>return</b> tree    <span class="comment">// avoid duplicates</span>
+|  <b>end if</b>
+</pre>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [25/45]</div> <div class="slideCl1    " id="s26">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s25"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s27"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Tree Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Iteration (traversal) on …
+</p><ul>
+<li> <large><code>List</code></large>s … visit each value, from first to last
+</li><li> <large><code>Graph</code></large>s … visit each vertex, order determined by DFS/BFS/…
+</li></ul>
+For binary <large><code>Tree</code></large>s, several well-defined visiting orders exist:
+<ul>
+<li> <font color="#0000BB">preorder</font> (NLR) <small>… visit root, then left subtree, then right subtree</small>
+</li><li> <font color="#0000BB">inorder</font> (LNR) <small>… visit left subtree, then root, then right subtree</small>
+</li><li> <font color="#0000BB">postorder</font> (LRN) <small>… visit left subtree, then right subtree, then root</small>
+</li><li> <font color="#0000BB">level-order</font> <small>… visit root, then all its children, then all their children</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [26/45]</div> <div class="slideCl1    " id="s27">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s26"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s28"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Consider "visiting" an expression tree like:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/tree1.png]" src="./Trees, Search Trees_files/tree1.png">
+</div><p>
+</p><p>
+NLR:&nbsp; + * 1 3 - * 5 7 9  &nbsp;&nbsp; <small>(prefix-order: useful for building tree)</small> <br>
+LNR:&nbsp; 1 * 3 + 5 * 7 - 9  &nbsp;&nbsp; <small>(infix-order: "natural" order)</small> <br>
+LRN:&nbsp; 1 3 * 5 7 * 9 - +  &nbsp;&nbsp; <small>(postfix-order: useful for evaluation)</small> <br>
+Level:&nbsp; + * - 1 3 * 9 5 7  &nbsp;&nbsp; <small>(level-order: useful for printing tree)</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [27/45]</div> <div class="slideCl1    " id="s28">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s27"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s29"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Traversals for the following tree:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/bigtree.png]" src="./Trees, Search Trees_files/bigtree.png">
+</div><p>
+<br>
+NLR (preorder): &nbsp; 20 &nbsp; 10 &nbsp; 5 &nbsp; 2 &nbsp; 14 &nbsp; 12 &nbsp; 17 &nbsp; 30 &nbsp; 24 &nbsp; 29 &nbsp; 32 &nbsp; 31
+</p><p>
+LNR (inorder): &nbsp; 2 &nbsp; 5 &nbsp; 10 &nbsp; 12 &nbsp; 14 &nbsp; 17 &nbsp; 20 &nbsp; 24 &nbsp; 29 &nbsp; 30 &nbsp; 31 &nbsp; 32
+</p><p>
+LRN (postorder): &nbsp; 2 &nbsp; 5 &nbsp; 12 &nbsp; 17 &nbsp; 14 &nbsp; 10 &nbsp; 29 &nbsp; 24 &nbsp; 31 &nbsp; 32 &nbsp; 30 &nbsp; 20
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [28/45]</div> <div class="slideCl1    " id="s29">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s28"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s30"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Pseudocode for NLR traversal
+</p><p></p><pre><font color="blue">showBSTreePreorder(t):</font>
+|  <b>Input</b> tree t
+|
+|  <b>if</b> t is not empty <b>then</b>
+|  |  print data(t)
+|  |  showBSTreePreorder(left(t))
+|  |  showBSTreePreorder(right(t))
+|  <b>end if</b>
+</pre><p>
+Recursive algorithm is very simple.
+</p><p>
+Iterative version less obvious ... requires a Stack.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [29/45]</div> <div class="slideCl1    " id="s30">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s29"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s31"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tree Traversal</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Pseudocode for NLR traversal (non-recursive)
+</p><p></p><pre><font color="blue">showBSTreePreorder(t):</font>
+|  <b>Input</b> tree t
+|
+|  push t onto new stack S
+|  <b>while</b> stack is not empty <b>do</b>
+|  |  t=pop(S)
+|  |  print data(t)
+|  |  <b>if</b> right(t) is not empty <b>then</b>
+|  |     push right(t) onto S
+|  |  <b>end if</b>
+|  |  <b>if</b> left(t) is not empty <b>then</b>
+|  |     push left(t) onto S
+|  |  <b>end if</b>
+|  <b>end while</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [30/45]</div> <div class="slideCl1    " id="s31">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s30"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s32"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Joining Two Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+An auxiliary tree operation …
+</p><p>
+Tree operations so far have involved just one tree.
+</p><p>
+An operation on two trees: &nbsp; <large><code>t = TreeJoin(t<sub>1</sub>,t<sub>2</sub>)</code></large>
+</p><ul>
+<li> Pre-conditions:
+<ul>
+<li> takes two BSTs; returns a single BST
+</li><li> max(key(<large><code>t<sub>1</sub></code></large>)) &lt; min(key(<large><code>t<sub>2</sub></code></large>))
+</li></ul>
+</li><li> Post-conditions:
+<ul>
+<li> result is a BST (i.e. fully ordered)
+</li><li> containing all items from <large><code>t<sub>1</sub></code></large> and <large><code>t<sub>2</sub></code></large>
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [31/45]</div> <div class="slideCl1    " id="s32">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s31"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s33"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Joining Two Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Method for performing tree-join:
+</p><ul>
+<li> find the min node in the right subtree (<large><code>t<sub>2</sub></code></large>)
+</li><li> replace min node by its right subtree &nbsp;<span class="smaller">(possibly empty)</span>
+</li><li> elevate min node to be new root of both trees
+</li></ul>
+Advantage: doesn't increase height of tree significantly
+<p>
+x ≤ height(<large><code>t</code></large>) ≤ x+1, where x = max(height(<large><code>t<sub>1</sub></code></large>),height(<large><code>t<sub>2</sub></code></large>))
+</p><p>
+<small>Variation: choose deeper subtree; take root from there.</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [32/45]</div> <div class="slideCl1    " id="s33">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s32"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s34"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Joining Two Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Joining two trees:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/join-op.png]" src="./Trees, Search Trees_files/join-op.png">
+</div><p>
+</p><p>
+&nbsp;
+</p><p>
+Note: t2' may be less deep than t2
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [33/45]</div> <div class="slideCl1    " id="s34">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s33"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s35"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Joining Two Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Implementation of tree-join:
+</p><pre style="font-size:0.7em;">TreeJoin(t<sub>1</sub>,t<sub>2</sub>):
+|  <b>Input</b>  trees t<sub>1</sub>,t<sub>2</sub>
+|  <b>Output</b> t<sub>1</sub> and t<sub>2</sub> joined together
+|
+|  <b>if</b> t<sub>1</sub> is empty <b>then</b> <b>return</b> t<sub>2</sub>
+|  <b>else</b> <b>if</b> t<sub>2</sub> is empty <b>then</b> <b>return</b> t<sub>1</sub>
+|  <b>else</b>
+|  |  curr=t<sub>2</sub>, <font color="blue">parent</font>=NULL
+|  |  <b>while</b> left(curr) is not empty <b>do</b>     <span class="comment">// find <font color="#CC9900">min element in t<sub>2</sub></font></span>
+|  |     <font color="blue">parent</font>=curr
+|  |     curr=left(curr)
+|  |  <b>end while</b>
+|  |  <b>if</b> <font color="blue">parent</font>≠NULL <b>then</b>
+|  |     <font color="blue">left(parent)</font>=right(curr)  <span class="comment">// unlink min element from parent</span>
+|  |     <font color="green">right(curr)=t<sub>2</sub></font>
+|  |  <b>end if</b>
+|  |  <font color="green">left(curr)=t<sub>1</sub></font>
+|  |  <b>return</b> <font color="#CC9900">curr</font>                  <span class="comment">// curr is new root</span>
+|  <b>end if</b>
+</pre>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [34/45]</div> <div class="slideCl1    " id="s35">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s34"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s36"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Joining Two Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example tree join:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/treeJoin.png]" src="./Trees, Search Trees_files/treeJoin.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [35/45]</div> <div class="slideCl1    " id="s36">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s35"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s37"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Insertion into a binary search tree is easy.
+</p><p>
+Deletion from a binary search tree is harder.
+</p><p>
+Four cases to consider …
+</p><ul>
+<li> empty tree … new tree is also empty
+</li><li> zero subtrees … unlink node from parent
+</li><li> one subtree … replace by child
+</li><li> two subtrees … replace by successor, join two subtrees
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [36/45]</div> <div class="slideCl1    " id="s37">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s36"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s38"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 2: item to be deleted is a leaf (zero subtrees)
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del-k.png]" src="./Trees, Search Trees_files/del-k.png">
+</div><p>
+Just delete the item
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [37/45]</div> <div class="slideCl1    " id="s38">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s37"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s39"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 2: item to be deleted is a leaf (zero subtrees)
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del1-k.png]" src="./Trees, Search Trees_files/del1-k.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [38/45]</div> <div class="slideCl1    " id="s39">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s38"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s40"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 3: item to be deleted has one subtree
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del-p.png]" src="./Trees, Search Trees_files/del-p.png">
+</div><p>
+Replace the item by its only subtree
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [39/45]</div> <div class="slideCl1    " id="s40">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s39"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s41"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 3: item to be deleted has one subtree
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del1-p.png]" src="./Trees, Search Trees_files/del1-p.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [40/45]</div> <div class="slideCl1    " id="s41">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s40"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s42"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 4: item to be deleted has two subtrees
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del0-m.png]" src="./Trees, Search Trees_files/del0-m.png">
+</div><p>
+</p><p>
+Version 1: right child becomes new root, attach left subtree to min element of right subtree
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [41/45]</div> <div class="slideCl1    " id="s42">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s41"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s43"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 4: item to be deleted has two subtrees
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del1-m.png]" src="./Trees, Search Trees_files/del1-m.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [42/45]</div> <div class="slideCl1    " id="s43">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s42"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s44"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 4: item to be deleted has two subtrees
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del-m.png]" src="./Trees, Search Trees_files/del-m.png">
+</div><p>
+Version 2: <i><font color="blue">join</font></i> left and right subtree
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [43/45]</div> <div class="slideCl1    " id="s44">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s43"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s45"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Case 4: item to be deleted has two subtrees
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/del2-m.png]" src="./Trees, Search Trees_files/del2-m.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [44/45]</div> <div class="slideCl1    " id="s45">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s44"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/trees/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Deletion from BSTs</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Pseudocode (version 2):
+</p><pre style="font-size: 0.6em;"><font color="blue">TreeDelete(t,item):</font>
+|  <b>Input</b>  tree t, item
+|  <b>Output</b> t with item deleted
+|
+|  <b>if</b> t is not empty <b>then</b>          <span class="commentR">// nothing to do if tree is empty</span>
+|  |  <b>if</b> item &lt; <font color="#CC9900">data(t)</font> <b>then</b>       <span class="commentR">// delete item in left subtree</span>
+|  |     left(t)=<font color="blue">TreeDelete(left(t),item)</font>
+|  |  <b>else</b> <b>if</b> item &gt; <font color="#CC9900">data(t)</font> <b>then</b>  <span class="commentR">// delete item in left subtree</span>
+|  |     right(t)=<font color="blue">TreeDelete(right(t),item)</font>
+|  |  <b>else</b>                         <span class="commentR">// node 't' must be deleted</span>
+|  |  |  <b>if</b> left(t) and right(t) are empty <b>then</b> 
+|  |  |     <font color="green">new</font>=empty tree                   <span class="commentR">// 0 children</span>
+|  |  |  <b>else</b> <b>if</b> left(t) is empty <b>then</b>
+|  |  |     <font color="green">new</font>=right(t)                     <span class="commentR">// 1 child</span>
+|  |  |  <b>else</b> <b>if</b> right(t) is empty <b>then</b>
+|  |  |     <font color="green">new</font>=left(t)                      <span class="commentR">// 1 child</span>
+|  |  |  <b>else</b>
+|  |  |     <font color="green">new</font>=<font color="#0000BB">TreeJoin(left(t),right(t))</font>  <span class="commentR">// 2 children</span>
+|  |  |  <b>end if</b>
+|  |  |  free memory allocated for t
+|  |  |  t=<font color="green">new</font>
+|  |  <b>end if</b>
+|  <b>end if</b>
+|  <b>return</b> t
+</pre>
+</div>
+<div class="slideNumCl2">COMP2521 20T1 ♢ Trees, Search Trees ♢ [45/45]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 9 Feb 2021</span>
+ <script src="./Trees, Search Trees_files/prism.js.下载"></script>   
+ <script src="./Trees, Search Trees_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 31955px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 31955px; width: 1197px;"></div></html>

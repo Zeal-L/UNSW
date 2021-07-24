@@ -1,0 +1,337 @@
+
+<!-- saved from url=(0067)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Sorting (ii)</title>
+<link href="./Sorting (ii)_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Sorting (ii)_files/latest.js.下载" async=""></script>
+<script src="./Sorting (ii)_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Sorting (ii)_files/css" rel="stylesheet"><link href="./Sorting (ii)_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Sorting (ii)_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Sorting (ii)</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s1">Summary of Sorting Methods</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s4">Lower Bound for Comparison-Based Sorting</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s7">Radix Sort</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [0/11]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Summary of Sorting Methods</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Sorting = arrange a collection of <i>N</i> items in ascending order ...
+</p><p>
+Elementary sorting algorithms: &nbsp; <i>O(N<sup>2</sup>)</i> comparisons
+</p><ul>
+<li> selection sort, &nbsp; insertion sort, &nbsp; bubble sort
+</li></ul>
+Advanced sorting algorithms: &nbsp; <i>O(NlogN)</i> comparisons
+<ul>
+<li> quicksort, &nbsp; merge sort, &nbsp; heap sort <small>(priority queue)</small>
+</li></ul>
+Most are intended for use in-memory <small>(random access data structure)</small>.
+<p>
+Merge sort adapts well for use as disk-based sort.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [1/11]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Summary of Sorting Methods</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Other properties of sort algorithms: stable, adaptive
+</p><p>
+Selection sort:
+</p><ul>
+<li> stability depends on implementation
+</li><li> not adaptive
+</li></ul>
+Bubble sort:
+<ul>
+<li> is stable if items don't move past same-key items
+</li><li> adaptive if it terminates when no swaps
+</li></ul>
+Insertion sort:
+<ul>
+<li> stability depends on implementation of insertion
+</li><li> adaptive if it stops scan when position is found
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [2/11]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Summary of Sorting Methods</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Other properties of sort algorithms: stable, adaptive
+</p><p>
+Quicksort:
+</p><ul>
+<li> easy to make stable on lists; difficult on arrays
+</li><li> can be adaptive depending on implementation
+</li></ul>
+Merge sort:
+<ul>
+<li> is stable if merge operation is stable
+</li><li> can be made adaptive <small>(but version in slides is not)</small>
+</li></ul>
+Heap sort:
+<ul>
+<li> is not stable because of top-to-bottom nature of heap ordering
+</li><li> adaptive variants of heap sort exist <span class="smaller">(faster if data almost sorted)</span>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [3/11]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Lower Bound for Comparison-Based Sorting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+All of the above sorting algorithms for arrays of <i>n</i> &nbsp;elements
+</p><ul>
+<li> have <font color="#0000BB">comparing</font> whole keys as a critical operation
+</li></ul>
+Such algorithms cannot work with less than <i>O(n log n)</i> comparisons
+<p><br>
+Informal proof <span class="smaller">(for arrays with no duplicates)</span>:
+</p><ul>
+<li> there are <i>n!</i> possible permutation sequences
+</li><li> one of these possible sequences is a sorted sequence 
+</li><li> each comparision reduces # possible sequences to be considered
+</li></ul>
+<p>
+<span class="smaller">(continued ...)</span>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [4/11]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Lower Bound for Comparison-Based Sorting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Can view sorting as navigating a <font color="#0000BB">decision tree</font> ...
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/sortingLowerBound.png]" src="./Sorting (ii)_files/sortingLowerBound.png">
+</div><p>
+</p><p>
+<span class="smaller">(continued ...)</span>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [5/11]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Lower Bound for Comparison-Based Sorting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Can view the sorting process as
+</p><ul>
+<li> following a path from the root to a leaf in the decision tree
+</li><li> requiring one comparison at each level
+</li></ul>
+<p>
+For <i>n</i> &nbsp;elements, there are <i>n!</i> &nbsp;leaves
+</p><ul>
+<li> height of such a tree is <font color="brown">at least <i>log<sub>2</sub>(n!)</i></font>
+      <br>⇒ number of comparisions required is <font color="brown">at least <i>log<sub>2</sub>(n!)</i></font>
+</li></ul>
+<p>
+So, for comparison-based sorting, lower bound is <i>Ω(<i>n</i> log<sub>2</sub> <i>n</i>)</i>.
+</p><p><br>
+Are there faster algorithms not based on whole key comparison?
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [6/11]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Radix Sort</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Radix sort</font> is a non-comparative sorting algorithm.
+</p><p>
+Requires us to consider a key as a tuple
+	(k<sub>1</sub>, k<sub>2</sub>, ..., k<sub>m</sub>), e.g.
+</p><ul>
+<li> represent key 372 as (3, 7, 2)
+</li><li> represent key <large><code>"sydney"</code></large> as (s, y, d, n, e, y)
+</li></ul>
+Assume only small number of possible values for k<sub>i</sub>, e.g.
+<ul>
+<li> numeric: 0-9 ... alpha: a-z
+</li></ul>
+If keys have different lengths, pad with suitable character, e.g.
+<ul>
+<li> numeric: 123, 002, 015 ... alpha: <large><code>"abc"</code></large>, <large><code>"zz⎵"</code></large>, <large><code>"t⎵⎵"</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [7/11]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Radix Sort</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Radix sort algorithm: 
+</p><ul>
+<li> <font color="brown">stable</font> sort on k<sub>m</sub>, 
+</li><li> then <font color="brown">stable</font> sort on  k<sub>(m-1)</sub>, 
+</li><li> continue until we reach k<sub>1</sub>
+</li></ul>
+<p>
+Example:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/radix-overview.png]" src="./Sorting (ii)_files/radix-overview.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [8/11]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Radix Sort</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Stable sorting (bucket sort):
+</p><p></p><pre><span class="comment">// sort array A[n] of keys</span>
+<span class="comment">// each key is m symbols from an "alphabet"</span>
+<span class="comment">// array of buckets, one for each symbol</span>
+<b>for</b> <b>each</b> i in m .. 1 <b>do</b>
+   empty all buckets
+   <b>for</b> <b>each</b> key in A <b>do</b>
+      append key to bucket[key[i]]
+   <b>end for</b>
+   clear A
+   <b>for</b> <b>each</b> bucket in order <b>do</b>
+      <b>for</b> <b>each</b> key in bucket <b>do</b>
+         append to array
+      <b>end for</b>
+   <b>end for</b>
+<b>end for</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [9/11]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Radix Sort</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<small>
+Example:
+</small></p><ul><small>
+<li> <large><code>m</code></large> = 3, &nbsp; alphabet = {'a', 'b', 'c'}, &nbsp; B[ ] = buckets
+</li><li> A[ ] = {"abc", "cab", "baa", "a⎵⎵", "ca⎵"}
+</li></small></ul><small>
+After first pass <span class="smaller">(<large><code>i</code></large> = 3)</span>:
+<ul>
+<li> B['a'] = {"ba<font color="brown">a</font>"}, &nbsp; B['b'] = {"ca<font color="brown">b</font>"}, &nbsp; B['c'] = {"ab<font color="brown">c</font>"}, &nbsp; B['⎵'] = {"a⎵<font color="brown">⎵</font>","ca<font color="brown">⎵</font>"}
+</li><li> A[ ] = {"baa", "cab", "abc", "a⎵⎵", "ca⎵"}
+</li></ul>
+After second pass <span class="smaller">(<large><code>i</code></large> = 2)</span>:
+<ul>
+<li> B['a'] = {"b<font color="brown">a</font>a","c<font color="brown">a</font>b","c<font color="brown">a</font>⎵"}, &nbsp; B['b'] = {"a<font color="brown">b</font>c"}, &nbsp; B['c'] = {}, &nbsp; B["⎵"] = {"a<font color="brown">⎵</font>⎵"}
+</li><li> A[ ] = {"baa", "cab", "ca⎵", "abc", "a⎵⎵"}
+</li></ul>
+After third pass <span class="smaller">(<large><code>i</code></large> = 1)</span>:
+<ul>
+<li> B['a'] = {"<font color="brown">a</font>bc","<font color="brown">a</font>⎵⎵"}, &nbsp; B['b'] = {"<font color="brown">b</font>aa"}, &nbsp; B['c'] = {"<font color="brown">c</font>ab","<font color="brown">c</font>a⎵"}, &nbsp; B["⎵"] = {}
+</li><li> A[ ] = {"abc", "a⎵⎵", baa", "cab", "ca⎵"}
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [10/11]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sort-other/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Radix Sort</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Complexity analysis: 
+</p><ul>
+<li> array contains <i>n</i> &nbsp;keys, &nbsp; each key contains <i>m</i> &nbsp;symbols
+</li><li> stable sort (bucket sort) runs in time <i>O(n)</i>
+</li><li> radix sort uses stable sort <i>m</i> times
+</li></ul>
+<p>
+So, time complexity for radix sort =  <i>O(mn)</i>
+</p><p>
+Radix sort performs better than comparison-based sorting algorithms 
+</p><ul>
+<li> when keys are short (small <i>m</i> ) and arrays are large (large <i>n</i> )
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting (ii) [11/11]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 23 Jul 2020</span>
+ <script src="./Sorting (ii)_files/prism.js.下载"></script>   
+ <script src="./Sorting (ii)_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 8421px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 8421px; width: 1197px;"></div></html>

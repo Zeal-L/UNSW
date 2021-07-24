@@ -1,0 +1,409 @@
+
+<!-- saved from url=(0058)https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2-3-4 Trees</title>
+<link href="./2-3-4 Trees_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./2-3-4 Trees_files/latest.js.下载" async=""></script>
+<script src="./2-3-4 Trees_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./2-3-4 Trees_files/MathJax.js.下载"></script><link href="./2-3-4 Trees_files/css" rel="stylesheet"><link href="./2-3-4 Trees_files/prism.css" rel="stylesheet"> 
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">2-3-4 Trees</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s1">Search Cost</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s2">2-3-4 Trees</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s4">Node splitting</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s7">Data Structure</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s9">Search Cost Analysis</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s10">Insertion into 2-3-4 Trees</a>
+</li><li class="i"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s16">2-3-4 Variations</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [0/16]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Search Cost</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Critical factor determining search cost in BSTs
+</p><ul>
+<li> worst case: length of longest path
+</li><li> average case: &lt; average path length &nbsp;<span class="smaller">(not all searches end at leaves)</span>
+</li></ul>
+Either way, path length (tree depth) is a critical factor
+<p>
+In a perfectly balanced tree, max path length = <i>log<sub>2</sub>n</i>
+</p><p>
+The 2 in the path length is the branching factor &nbsp;<span class="smaller">(<i>binary</i> search tree)<span class="smaller">
+</span></span></p><p>
+What if branching factor &gt; 2?
+</p><ul>
+<li>
+&nbsp;
+log<sub><span style="color:#CC0000;font-size:90%">2</span></sub>4096 = 12,
+&nbsp;&nbsp;
+log<sub><span style="color:#CC0000;font-size:90%">4</span></sub>4096 = 6,
+&nbsp;&nbsp;
+log<sub><span style="color:#CC0000;font-size:90%">8</span></sub>4096 = 4
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [1/16]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">2-3-4 trees</font> have three kinds of nodes
+</p><ul>
+<li> 2-nodes, with two children <small>(same as normal BSTs)</small>
+</li><li> 3-nodes, two values and three children
+</li><li> 4-nodes, three values and four children
+</li></ul>
+<img style="width:600px; padding: 1px 60px;" src="./2-3-4 Trees_files/2-3-4-tree.png">
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [2/16]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+2-3-4 trees are ordered similarly to BSTs
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-order.png]" src="./2-3-4 Trees_files/2-3-4-order.png">
+</div><p>
+</p><p>
+In a <font color="#0000BB">balanced 2-3-4 tree</font>:
+</p><ul>
+<li> all leaves are at same distance from the root
+</li></ul>
+2-3-4 trees grow "upwards" from the leaves, via <font color="#0000BB">node splitting</font>.
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [3/16]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Node splitting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Insertion into a full node causes a split
+</p><ul>
+<li> middle value propagated to parent node
+</li><li> values in original node split across original node and new node
+</li></ul>
+<p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-split.png]" src="./2-3-4 Trees_files/2-3-4-split.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [4/16]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Node splitting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Intermediate stage of insert-split:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-split1.png]" src="./2-3-4 Trees_files/2-3-4-split1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [5/16]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Node splitting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Searching in 2-3-4 trees:
+</p><p></p><pre><font color="blue">Search(tree,item):</font>
+|  <b>Input</b>  tree, item
+|  <b>Output</b> address of item if found in 2-3-4 tree
+|         NULL otherwise
+|
+|  <b>if</b> tree is empty <b>then</b>
+|     <b>return</b> NULL
+|  <b>else</b>
+|  |  scan tree.data to find i such that
+|  |     tree.data[i-1] &lt; item ≤ tree.data[i]
+|  |  <b>if</b> item=tree.data[i] <b>then</b>   <span class="comment">// item found</span>
+|  |     <b>return</b> address of tree.data[i]
+|  |  <b>else</b>       <span class="comment">// keep looking in relevant subtree</span>
+|  |     <b>return</b> <font color="blue">Search(tree.child[i],item)</font>
+|  |  <b>end if</b>
+|  <b>end if</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [6/16]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Data Structure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Possible concrete 2-3-4 tree data structure:
+</p><p></p><pre>typedef struct node {
+   int          order;     <span class="comment">// 2, 3 or 4</span>
+   int          data[3];   <span class="comment">// items in node</span>
+   struct node *child[4];  <span class="comment">// links to subtrees</span>
+} node;
+</pre><p>
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-node.png]" src="./2-3-4 Trees_files/2-3-4-node.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [7/16]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Data Structure</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Finding which branch to follow
+</p><p></p><pre><span class="comment">// n is a pointer to a (struct node)</span>
+int i;
+for (i = 0; i &lt; n-&gt;order-1; i++) {
+   if (item &lt;= n-&gt;data[i]) break;
+}
+<span class="comment">// go to the i<sup>th</sup> subtree, unless item == n-&gt;data[i]</span>
+</pre><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-node1.png]" src="./2-3-4 Trees_files/2-3-4-node1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [8/16]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Search Cost Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+2-3-4 tree searching cost analysis:
+</p><ul>
+<li> as for other trees, worst case determined by height <i>h</i>
+</li><li> 2-3-4 trees are always balanced <i>⇒</i> height is <i>O(log n)</i>
+</li><li> worst case for height: all nodes are 2-nodes <br>
+	<small>(same case as for balanced BSTs, i.e. <i>h ≅ log<sub>2</sub> n</i> )</small>
+</li><li> best case for height: all nodes are 4-nodes <br>
+	<small>(balanced tree with branching factor 4, i.e. <i>h ≅ log<sub>4</sub> n</i> )</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [9/16]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Insertion into 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Insertion algorithm:
+</p><ul>
+<li> find leaf node where Item belongs (via search)
+</li><li> if not full (i.e. order &lt; 4)
+<ul>
+<li> insert Item in this node, order++
+</li></ul>
+</li><li> if node is full (i.e. contains 3 items)
+<ul>
+<li> split into two 2-nodes as leaves
+</li><li> promote middle element to parent
+</li><li> insert item into appropriate leaf 2-node
+</li><li> if parent is a 4-node
+<ul>
+<li> continue split/promote upwards
+</li></ul>
+</li><li> if promote to root, and root is a 4-node
+<ul>
+<li> split root node and add new root 
+</li></ul>
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [10/16]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Insertion into a 2-node or 3-node:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-add.png]" src="./2-3-4 Trees_files/2-3-4-add.png">
+</div><p>
+</p><p>
+Insertion into a 4-node (requires a split):
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-split.png]" src="./2-3-4 Trees_files/2-3-4-split.png">
+</div><p>
+</p><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [11/16]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Splitting the root:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-split-root.png]" src="./2-3-4 Trees_files/2-3-4-split-root.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [12/16]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Building a 2-3-4 tree … 7 insertions:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/2-3-4-insert.png]" src="./2-3-4 Trees_files/2-3-4-insert.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [13/16]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Insertion algorithm:
+</p><pre style="font-size:90%"><font color="blue">insert(tree,item):</font>
+|  <b>Input</b>  2-3-4 tree, item
+|  <b>Output</b> tree with item inserted
+|
+|  <b>if</b> tree is empty <b>then</b>
+|     <b>return</b> new node containing item
+|  <b>end if</b>
+|  node=<font color="brown">Search(tree,item)</font>
+|  parent=parent of node
+|  <b>if</b> node.order &lt; 4 <b>then</b>
+|     <font color="green"><i>insert item into node</i></font>
+|     increment node.order
+|  <b>else</b>
+|  |  promote = node.data[1]     <span class="comment">// middle value</span>
+|  |  nodeL   = new node containing data[0]
+|  |  nodeR   = new node containing data[2]
+|  |  delete node
+|  |  <b>if</b> item &lt; promote <b>then</b>
+|  |     <font color="blue">insert(nodeL,item)</font>
+|  |  <b>else</b>
+|  |     <font color="blue">insert(nodeR,item)</font>
+|  |  <b>end if</b>
+|  |  <font color="blue">insert(parent,promote)</font>
+|  |  <b>while</b> parent.order=4 <b>do</b>
+|  |     <i>continue promote/split upwards</i>
+|  |  <b>end while</b>
+|  |  <b>if</b> parent is root ∧ parent.order=4 <b>then</b>
+|  |     <i>split root, making new root</i>
+|  |  <b>end if</b>
+|  <b>end if</b>
+</pre>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [14/16]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Insertion into 2-3-4 Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Insertion cost &nbsp;<span class="smaller">(remembering that 2-3-4 trees are balanced ⇒ h = log<sub>4</sub>n)</span>
+</p><ul>
+<li>search for leaf node in which to insert = <i>O(log n)</i>
+</li><li>if node not full, insert item into node = <i>O(1)</i>
+</li><li>if node full, promote middle, create two new nodes = <i>O(1)</i>
+</li><li>if promotion propagates ...
+<ul>
+<li> best case: update parent = <i>O(1)</i>
+</li><li> worst case: propagate to root = <i>O(log n)</i>
+</li></ul>
+</li></ul>
+Overall insertion cost = <i>O(log n)</i>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [15/16]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://www.cse.unsw.edu.au/~cs2521/lecs/2-3-4/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ 2-3-4 Variations</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Variations on 2-3-4 trees …
+</p><p><br>
+Variation #1: why stop at 4? why not 2-3-4-5 trees? or <i>M</i>-way trees?
+</p><ul>
+<li> allow nodes to hold between <i>M/2</i> and <i>M-1</i> items
+</li><li> if each node is a disk-page, then we have a <font color="#0000BB">B-tree</font> <small>(databases)</small>
+</li><li> for B-trees, depending on <large><code>Item</code></large> size, <i>M &gt; 100/200/400</i>
+</li></ul>
+<br>
+Variation #2: don't have "variable-sized" nodes
+<ul>
+<li> use standard BST nodes, augmented with one extra piece of data
+</li><li> implement similar strategy as 2-3-4 trees <i>→</i> red-black trees.
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521   ♢ 2-3-4 Trees [16/16]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 9 Feb 2021</span>
+ <script src="./2-3-4 Trees_files/prism.js.下载"></script>   
+ <script src="./2-3-4 Trees_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 12516px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 12516px; width: 1197px;"></div></html>

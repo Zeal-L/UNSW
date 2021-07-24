@@ -1,0 +1,350 @@
+
+<!-- saved from url=(0062)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tries</title>
+<link href="./Tries_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Tries_files/latest.js.下载" async=""></script>
+<script src="./Tries_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Tries_files/css" rel="stylesheet"><link href="./Tries_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Tries_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Tries</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s1">Tries</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s7">Searching in Tries</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s11">Insertion into Tries</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s12">Cost Analysis</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s13">Example Trie</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s14">Compressed Tries</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [0/15]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+A <font color="#0000BB">trie</font> …
+</p><ul>
+<li> is a data structure for representing a set of strings
+<ul>
+<li> <small>e.g. all the distinct words in a document, a dictionary etc.</small>
+</li></ul>
+</li><li> supports string matching queries in <i>O(L)</i> time
+<ul>
+<li> <i>L</i> is the length of the string being searched for
+</li></ul>
+</li></ul>
+<br>
+<small>
+Note: generally assume "string" = character string; could be bit-string
+<p><br>
+Note: Trie comes from <i>re<font color="brown">trie</font>val</i> ; &nbsp;but pronounced as "try" not "tree"
+</p></small></div><small>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [1/15]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Each node in a trie …
+</p><ul>
+<li> contains one part of a key <small>(typically one character)</small>
+</li><li> may have up to 26 children
+</li><li> may be tagged as a "finishing" node
+</li><li> but even "finishing" nodes may have children
+</li><li> may contain other data for application &nbsp;<span class="smaller">(e.g. word frequency)</span>
+</li></ul>
+A "finishing" node marks the end of one key
+<ul>
+<li> this key may be a prefix of another key stored in trie
+</li></ul>
+<p>
+<font color="#0000BB">Depth</font> <i>d</i> of trie = length of longest key value
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [2/15]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Trie</font> example:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trie-example.png]" src="./Tries_files/trie-example.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [3/15]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Possible trie representation:
+</p><p></p><pre>#define ALPHABET_SIZE 26
+
+typedef struct Node *<font color="blue">Trie</font>;
+
+typedef struct Node {
+   char onechar;     <span class="comment">// current char in key</span>
+   <font color="blue">Trie</font> child[ALPHABET_SIZE];
+   bool finish;      <span class="comment">// last char in key?</span>
+   Item data;        <span class="comment">// no Item if !finish</span>
+} Node;
+
+typedef char *Key;   <span class="comment">// just lower-case letters</span>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [4/15]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Above representation is space inefficient
+</p><ul>
+<li> each node has 26 possible children
+</li><li> even with very many keys, most child links are unused
+</li></ul>
+If we allowed all ascii chars in alphabet, 128 children
+<p>
+Could reduce branching factor by reducing "alphabet"
+</p><ul>
+<li> break each 8-bit char into two 4-bit "nybbles"
+</li><li> branching factor is 16, even for full ascii char set
+</li><li> but each branch is twice as long
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [5/15]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Note: Can also use BST-like nodes <span class="smaller">(cf. red-black trees)</span> ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trie-as-bst.png]" src="./Tries_files/trie-as-bst.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [6/15]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Searching in Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Search requires traversing a path, char-by-char from Key:
+</p><p></p><pre style="font-size:90%"><font color="blue"><b>find</b></font>(trie,key):
+|  <b>Input</b>  trie, key
+|  <b>Output</b> pointer to element in trie if key found
+|         NULL otherwise
+|
+|  node=trie
+|  <b>for</b> <b>each</b> char c in key <b>do</b>
+|  |  <b>if</b> node.child[c] exists <b>then</b>
+|  |     node=node.child[c]  <span class="comment">// move down one level</span>
+|  |  <b>else</b>
+|  |     <b>return</b> NULL
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>if</b> node.finish <b>then</b>  <span class="comment">// "finishing" node reached?</span>
+|     <b>return</b> node
+|  <b>else</b>
+|     <b>return</b> NULL
+|  <b>end if</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [7/15]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Searching in Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trie-search.png]" src="./Tries_files/trie-search.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [8/15]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Searching in Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trie-search2.png]" src="./Tries_files/trie-search2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [9/15]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Searching in Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/trie-search3.png]" src="./Tries_files/trie-search3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [10/15]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Insertion into Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Insertion into a Trie ...
+</p><p></p><pre style="font-size:90%">Trie <font color="blue"><b>insert</b></font>(trie,item,key):
+|  <b>Input</b>  trie, item with key of length m
+|  <b>Output</b> trie with item inserted
+|
+|  <b>if</b> trie is empty <b>then</b>
+|  |  t=new trie node
+|  <b>end if</b>
+|  <b>if</b> m=0 <b>then</b>  <span class="comment">// end of key</span>
+|  |  t.finish=true, t.data=item
+|  <b>else</b>
+|  |  first=key[0],  rest=key[1..m-1]
+|  |  t.child[first]=insert(t.child[first],item,rest)
+|  <b>end if</b>
+|  <b>return</b> t
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [11/15]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Cost Analysis</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Analysis of standard trie:
+</p><ul>
+<li> <i>O(n)</i> &nbsp;space
+</li><li> <i>O(m)</i> &nbsp;insertion and search
+</li></ul>
+where
+<ul>
+<li> <i>n</i> … total size of text &nbsp;<small>(e.g. sum of lengths of all strings)</small>
+</li><li> <i>m</i> … length of the key string
+</li><li> <i>d</i> … size of the underlying alphabet &nbsp;<small>(e.g. 26)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [12/15]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Example Trie</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example text and corresponding trie of searchable words:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/text-trie-example.png]" src="./Tries_files/text-trie-example.png">
+</div><p>
+<small>
+Note: trie has no prefixes &nbsp;⇒&nbsp; all finishing nodes are leaves
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [13/15]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Compressed Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Compressed tries</font> …
+</p><ul>
+<li> have internal nodes of degree ≥ 2; &nbsp; each node contains ≥ 1 char
+</li><li> obtained by compressing non-branching chains of nodes
+</li></ul>
+Example:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/compressed-trie.png]" src="./Tries_files/compressed-trie.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [14/15]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/tries/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Compressed Tries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Compact representation of compressed trie to encode array <i>S</i> &nbsp;of strings:
+</p><ul>
+<li> nodes store <font color="#0000BB">ranges of indices</font> instead of substrings
+<ul>
+<li> use triple <i>(i,j,k)</i> to represent substring <i>S[i][j..k]</i>
+</li></ul>
+</li><li> requires <i>O(s)</i> space &nbsp;<small>(<i>s</i> = #strings in array <i>S</i>)</small>
+</li></ul>
+Example:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/compact-trie.png]" src="./Tries_files/compact-trie.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Tries [15/15]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 11 Jul 2020</span>
+ <script src="./Tries_files/prism.js.下载"></script>   
+ <script src="./Tries_files/sg.js.下载"></script>   
+
+
+</p></small></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 11621px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 11621px; width: 1197px;"></div></html>

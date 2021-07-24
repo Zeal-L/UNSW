@@ -1,0 +1,306 @@
+
+<!-- saved from url=(0070)http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Shortest Path Algorithms</title>
+<link href="./Shortest Path Algorithms_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Shortest Path Algorithms_files/latest.js.下载" async=""></script>
+<script src="./Shortest Path Algorithms_files/jquery.min.js.下载"></script><link href="./Shortest Path Algorithms_files/css" rel="stylesheet"><link href="./Shortest Path Algorithms_files/prism.css" rel="stylesheet"> 
+<style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./Shortest Path Algorithms_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Shortest Path Algorithms</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s1">Shortest Path</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s3">Single-source Shortest Path (SSSP)</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s4">Edge Relaxation</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s6">Dijkstra's Algorithm</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s7">Tracing Dijkstra's Algorithm</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s8">Analysis of Dijkstra's Algorithm</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [0/10]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Shortest Path</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Path</font> = sequence of edges in graph G
+</p><ul>
+<li> <small><i>p = (v<sub>0</sub>,v<sub>1</sub>,weight<sub>1</sub>), (v<sub>1</sub>,v<sub>2</sub>,weight<sub>2</sub>), …, (v<sub>m-1</sub>,v<sub>m</sub>,weight<sub>m</sub>)</i></small>
+</li></ul>
+<p>
+<font color="#0000BB">cost</font>(path) = sum of edge weights along path
+</p><p>
+<font color="#0000BB">Shortest path</font> between vertices <i>s</i> and <i>t</i>
+</p><ul>
+<li> a simple path <i>p(s,t)</i> where <i>s = first(p), t = last(p)</i>
+</li><li> no other simple path <i>q(s,t)</i> has <i>cost(q) &lt; cost(p)</i>
+</li></ul>
+Assumptions: weighted digraph, no negative weights.
+<p>
+Applications: &nbsp;navigation, &nbsp;routing in data networks, &nbsp;…
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [1/10]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Shortest Path</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Some variations on shortest path (SP) ...
+</p><p>
+<font color="#0000BB">Source-target</font> SP problem
+</p><ul>
+<li> shortest path from source vertex <i>s</i> &nbsp;to target vertex <i>t</i>
+</li></ul>
+<p>
+<font color="#0000BB">Single-source</font> SP problem
+</p><ul>
+<li> set of shortest paths from source vertex <i>s</i> &nbsp;to all other vertices
+</li></ul>
+<font color="#0000BB">All-pairs</font> SP problems
+<ul>
+<li> set of shortest paths between all pairs of vertices <i>s</i> &nbsp;and <i>t</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [2/10]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Single-source Shortest Path (SSSP)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Shortest paths from <i>s</i> &nbsp;to all other vertices
+</p><ul>
+<li> <large><code>dist[]</code></large> <i>V</i>-indexed array of cost of shortest path from <i>s</i>
+</li><li> <large><code>pred[]</code></large> <i>V</i>-indexed array of predecessor in shortest path from <i>s</i>
+</li></ul>
+Example:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/sssp.png]" src="./Shortest Path Algorithms_files/sssp.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [3/10]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Edge Relaxation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Assume: &nbsp;<large><code>dist[]</code></large> and <large><code>pred[]</code></large> as above
+</p><ul>
+<li> but containing data for shortest paths <i>discovered so far</i>
+</li></ul>
+If we have ...
+<ul>
+<li> <large><code>dist[v]</code></large> is length of shortest known path from <i>s</i> &nbsp;to <i>v</i>
+</li><li> <large><code>dist[w]</code></large> is length of shortest known path from <i>s</i> &nbsp;to <i>w</i>
+</li><li> edge <i>(v,w,weight)</i>
+</li></ul>
+<p>
+<font color="#0000BB">Relaxation</font> updates data for <i>w</i> &nbsp;if we find a shorter path from <i>s</i> &nbsp;to <i>w</i> :
+</p><ul>
+<li> if &nbsp;<large><font color="#009900"><b><code>dist[v]+weight &lt; dist[w]</code></b></font></large>&nbsp; then<br>
+	&nbsp;&nbsp; update &nbsp;<large><code>dist[w]←dist[v]+weight</code></large> &nbsp;and&nbsp; <large><code>pred[w]←v</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [4/10]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Edge Relaxation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Relaxation along edge <i>e = (v,w,3)</i> :
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relaxation.png]" src="./Shortest Path Algorithms_files/relaxation.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [5/10]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Dijkstra's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+One approach to solving single-source shortest path …
+</p><p>
+</p><p></p><pre style="font-size:90%">dist[]  <span class="comment">// array of cost of shortest path from s</span>
+pred[]  <span class="comment">// array of predecessor in shortest path from s</span>
+vSet    <span class="comment">// vertices whose shortest path from <i>s</i> is unknown</span>
+
+<font color="navy">dijkstraSSSP(G,source)</font>:
+|  <b>Input</b> graph G, source node
+|
+|  initialise all dist[] to ∞
+|  dist[source]=0
+|  initialise all pred[] to -1
+|  vSet=all vertices of G
+|  <b>while</b> vSet ≠ ∅ <b>do</b>
+|  |  <b>find</b> v ∈ vSet <b>with</b> minimum dist[v]
+|  |  <b>for</b> <b>each</b> (v,w,weight) ∈ edges(G) <b>do</b>
+|  |     <font color="green">relax along (v,w,weight)</font>
+|  |  <b>end for</b>
+|  |  vSet=vSet \ {v}
+|  <b>end while</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [6/10]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Tracing Dijkstra's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+How Dijkstra's algorithm runs when source = 0:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/dijkstra-trace.png]" src="./Shortest Path Algorithms_files/dijkstra-trace.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [7/10]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Analysis of Dijkstra's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Why Dijkstra's algorithm is correct ...
+</p><p>
+<font color="#0000BB">Hypothesis:</font>
+</p><p>
+(a) for visited <i>s</i>, dist[<i>s</i>] is shortest distance from source
+</p><p>
+(b) for unvisited <i>t</i>, dist[<i>t</i>] is shortest distance from source <i>via visited nodes</i>
+</p><p>
+Ultimately, all nodes are visited, so ...
+</p><ul>
+<li> ∀ <i>v</i>, &nbsp;dist[v] is shortest distance from source
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [8/10]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Analysis of Dijkstra's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Proof:</font>
+</p><p><small>
+Base case: no visited nodes, <i>dist[source]=0</i>, <i>dist[s]=∞</i> for all other nodes
+</small>
+</p><p>
+<small>
+Induction step:
+</small></p><ol><small>
+<li> If <i>s</i> &nbsp;is unvisited node with minimum <i>dist[s]</i>, then <i>dist[s]</i> &nbsp;is shortest distance from source to <i>s</i>:
+<ul>
+<li> if ∃ shorter path via only visited nodes, then <i>dist[s]</i> &nbsp;would have been updated when processing the predecessor of <i>s</i> on this path
+</li><li> if ∃ shorter path via an unvisited node <i>u</i>, then <i>dist[u]&lt;dist[s]</i>, which is impossible if <i>s</i> &nbsp;has min distance of all unvisited nodes
+</li></ul>
+</li><li> This implies that (a) holds for <i>s</i> &nbsp;after processing <i>s</i>
+</li><li> (b) still holds for all unvisited nodes <i>t</i> &nbsp;after processing <i>s</i>:
+<ul>
+<li> if ∃ shorter path via <i>s</i> &nbsp;we would have just updated <i>dist[t]</i>
+</li><li> if ∃ shorter path without <i>s</i> &nbsp;we would have found it previously
+</li></ul>
+</li></small></ol><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [9/10]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/shortest-path/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Analysis of Dijkstra's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Time complexity analysis …
+</p><p>
+Each edge needs to be considered once ⇒ <i>O(E)</i>.
+</p><p>
+Outer loop has <i>O(V)</i> iterations.
+</p><p>
+Implementing "<large><code><b>find</b> s ∈ vSet <b>with</b> minimum dist[s]</code></large>"
+</p><ol>
+<li> try all <large><code>s</code></large>∈<large><code>vSet</code></large> ⇒ cost = <i>O(V)</i> ⇒ overall cost = <i>O(E + V<sup>2</sup>)</i> = <i>O(V<sup>2</sup>)</i>
+</li><li> using a PQueue to implement extracting minimum
+<ul>
+<li> can improve overall cost to <i>O(E + V·log V)</i>
+</li></ul>
+</li></ol>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Shortest Path  [10/10]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 5 Jul 2020</span>
+ <script src="./Shortest Path Algorithms_files/prism.js.下载"></script>   
+ <script src="./Shortest Path Algorithms_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 8867px; width: 1088px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 8867px; width: 1088px;"></div></html>

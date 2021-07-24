@@ -1,0 +1,459 @@
+
+<!-- saved from url=(0064)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Hashing</title>
+<link href="./Hashing_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Hashing_files/latest.js.下载" async=""></script>
+<script src="./Hashing_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Hashing_files/css" rel="stylesheet"><link href="./Hashing_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Hashing_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Hashing</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s1">Associative Indexing</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s3">Hashing</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s7">Hash Table ADT</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s12">Hash Functions</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s17">Problems with Hashing</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [0/17]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Associative Indexing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Regular array indexing is positional &nbsp; <span class="smaller">(<large><code>[0]</code></large>, <large><code>[1]</code></large>, <large><code>[2]</code></large>, ...)</span>:
+</p><ul>
+<li> can access items by their position in an array
+</li><li> but generally don't know position for an item with key K
+</li><li> we need to search for the item in the collection using K
+</li><li> search can be linear (0(n)) or binary (O(log<sub>2</sub>n))
+</li></ul>
+An alternative approach to indexing:
+<ul>
+<li> use the key value as an index ... no searching needed
+</li><li> access data for item with key K as <large><code>array[K]</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [1/17]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Associative Indexing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Difference between positional and associative indexing:
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/assoc-indexing.png]" src="./Hashing_files/assoc-indexing.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [2/17]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Hashing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Hashing</font> allows us to get close to associative indexing
+</p><p>
+Ideally, we would like ...
+</p><p></p><pre>courses["COMP3311"] = "Database Systems";
+printf("%s\n", courses["COMP3311"]);
+</pre><p>
+</p><p>
+but C doesn't have non-integer index values.
+</p><p>
+Something almost as good:
+</p><p></p><pre>courses[<font color="brown"><b>h</b></font>("COMP3311")] = "Database Systems";
+printf("%s\n", courses[<font color="brown"><b>h</b></font>("COMP3311")]);
+</pre><p>
+</p><p>
+Hash function &nbsp;<font color="brown"><large><code>h</code></large></font>&nbsp; converts key to integer and uses that as the index.
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [3/17]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hashing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+What the <large><code><font color="brown">h</font></code></large> (hash) function does
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/hashing-review.png]" src="./Hashing_files/hashing-review.png">
+</div><p>
+<br>
+Converts a key value (of any type) into an integer index.
+</p><p>
+Sounds good ... in practice, not so simple ...
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [4/17]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hashing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Reminder: what we'd like ...
+</p><p></p><pre>courses[<font color="brown"><b>h</b></font>("COMP3311")] = "Database Systems";
+printf("%s\n", courses[<font color="brown"><b>h</b></font>("COMP3311")]);
+</pre><p>
+<br>
+In practice, we do something like ...
+</p><p></p><pre>key = "COMP3311";
+item = {"COMP3311","Database Systems",...};
+courses = <font color="brown">HashInsert</font>(courses, key, item);
+printf("%s\n", <font color="brown">HashGet</font>(courses, "COMP3311"));
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [5/17]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hashing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+To use arbitrary values as keys, we need ...
+</p><ul>
+<li> set of <large><code>Key</code></large> values <i>dom(<large><code>Key</code></large>)</i>, &nbsp; each key identifies one <large><code>Item</code></large>
+</li><li> an array (of size <i>N</i> ) to store <large><code>Item</code></large>s
+</li><li> a <font color="#0000BB">hash function</font> <i>h()</i> of type <i>dom(<large><code>Key</code></large>)</i> → [0..<i>N</i>-1]
+<ul>
+<li> requirement: if <i>(x = y)</i> &nbsp;then <i>h(x) = h(y)</i>
+</li><li> requirement: <i>h(x)</i> always returns same value for given <i>x</i>
+</li></ul>
+</li></ul>
+A problem: array is size <i>N</i>, &nbsp;but &nbsp;<i>dom(<large><code>Key</code></large>) <img src="./Hashing_files/gg-small.gif"> N</i>
+<p>
+So, we also need a <font color="#0000BB">collision resolution</font> method
+</p><ul>
+<li> collision = (<i>x ≠ y &nbsp;but&nbsp; h(x) = h(y)</i> )
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [6/17]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Hash Table ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Generalised ADT for a <font color="#0000BB">collection</font> of <large><code>Item</code></large>s
+</p><p>
+Interface:
+</p><p></p><pre style="font-size:90%">typedef struct CollectionRep *Collection;
+
+Collection newCollection();    <span class="comment">// make new empty collection</span>
+Item *search(Collection, Key); <span class="comment">// find item with key</span>
+void insert(Collection, Item); <span class="comment">// add item into collection</span>
+void delete(Collection, Key);  <span class="comment">// drop item with key</span>
+</pre><p>
+Implementation:
+</p><p></p><pre>typedef struct CollectionRep {
+   <span class="comment">... some data structure to hold multiple Items ...</span>
+} CollectionRep;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [7/17]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Table ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+For hash tables, make one change to "standard" Collection interface:
+</p><p></p><pre>typedef struct HashTabRep *HashTable;
+<span class="comment">// make new empty table of size N</span>
+HashTable newHashTable(<font color="red"><b>int</b></font>);
+<span class="comment">// add item into collection</span>
+void HashInsert(HashTable, Item);
+<span class="comment">// find item with key</span>
+Item *HashGet(HashTable, Key);
+<span class="comment">// drop item with key</span>
+void HashDelete(HashTable, Key);
+<span class="comment">// free memory of a HashTable</span>
+void dropHashTable(HashTable);
+</pre><p>
+</p><p>
+<small>
+i.e. we specify max # elements that can be stored in the collection
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [8/17]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Table ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example hash table implementation:
+</p><p></p><pre style="font-size:80%">typedef struct HashTabRep {
+   Item **items; <span class="comment">// array of (Item *)</span>
+   int  N;       <span class="comment">// size of array</span>
+   int  nitems;  <span class="comment">// # Items in array</span>
+} HashTabRep;
+
+HashTable <font color="navy">newHashTable</font>(int N)
+{
+   HashTable new = malloc(sizeof(HashTabRep));
+   new-&gt;items = malloc(N*sizeof(Item *));
+   new-&gt;N = N;
+   new-&gt;nitems = 0;
+   for (int i = 0; i &lt; N; i++) new-&gt;items[i] = NULL;
+   return new;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [9/17]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Table ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Hash table implementation <span class="smaller">(cont)</span>
+</p><p></p><pre style="font-size:80%">void <font color="navy">HashInsert</font>(HashTable ht, Item it) {
+   int h = <font color="green">hash</font>(key(it), ht-&gt;N);
+   <span class="comment">// assume table slot empty!?</span>
+   ht-&gt;items[h] = <font color="brown">copy</font>(it);
+   ht-&gt;nitems++;
+}
+Item *<font color="navy">HashGet</font>(HashTable ht, Key k) {
+   int h = <font color="green">hash</font>(k, ht-&gt;N);
+   Item *itp = ht-&gt;items[h];
+   if (itp != NULL &amp;&amp; <font color="brown">equal</font>(key(*itp),k))
+      return itp;
+   else
+      return NULL;
+}
+</pre><p>
+</p><p>
+<small>
+<font color="brown"><large><code>key()</code></large></font> and <font color="brown"><large><code>copy()</code></large></font> come from <large><code>Item</code></large> type; &nbsp;&nbsp; <font color="brown"><large><code>equal()</code></large></font> from <large><code>Key</code></large> type
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [10/17]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Table ADT</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Hash table implementation <span class="smaller">(cont)</span>
+</p><p></p><pre style="font-size:80%">void <font color="navy">HashDelete</font>(HashTable ht, Key k) {
+   int h = <font color="green">hash</font>(k, ht-&gt;N);
+   Item *itp = ht-&gt;items[h];
+   if (itp != NULL &amp;&amp; equal(key(*itp),k)) {
+      free(itp);
+      ht-&gt;items[h] = NULL;
+      ht-&gt;nitems--;
+   }
+}
+void <font color="navy">dropHashTable</font>(HashTable ht) {
+   for (int i = 0; i &lt; ht-&gt;N; i++) {
+      if (ht-&gt;items[i] != NULL) free(ht-&gt;items[i]);
+   }
+   free(ht);
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [11/17]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Hash Functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Characteristics of hash functions:
+</p><ul>
+<li> converts <large><code>Key</code></large> value to index value [0..N-1]
+</li><li> deterministic (key value <i>k</i> always maps to same value)
+</li><li> use <large><code>mod</code></large> function to map hash value to index value
+</li><li> spread key values <b>uniformly</b> over address range <br>
+	<small>(assumes that keys themselves are uniformly distributed)</small>
+</li><li> as much as possible, <i>h(k) ≠ h(j)</i> &nbsp;if <i>j ≠ k</i>
+</li><li> cost of computing hash function must be cheap
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [12/17]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Basic mechanism of hash functions:
+</p><p></p><pre>int hash(Key key, int N)
+{
+   int val = <font color="blue"><b><i>convert key to 32-bit int</i></b></font>;
+   return val % N;
+}
+</pre><p>
+</p><p>
+If keys are <large><code>int</code></large>s, conversion is easy <small>(identity function)</small>
+</p><p>
+How to convert keys which are strings?
+&nbsp; <small>(e.g. <large><code>"COMP1927"</code></large> or <large><code>"John"</code></large>)</small>
+</p><p>
+Definitely prefer that &nbsp;<i>hash</i>(<large><code>"cat"</code></large>,N) &nbsp;≠&nbsp; <i>hash</i>(<large><code>"dog"</code></large>,N) 
+</p><p>
+Prefer that &nbsp;<i>hash</i>(<large><code>"cat"</code></large>,N) &nbsp;≠&nbsp; <i>hash</i>(<large><code>"act"</code></large>,N) &nbsp;≠&nbsp; <i>hash</i>(<large><code>"tac"</code></large>,N)
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [13/17]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Universal hashing</font> uses entire key, with position info:
+</p><p></p><pre>int hash(char *key, int N)
+{
+   int h = 0, a = 31415, b = 21783;
+   char *c;
+   for (c = key; *c != '\0'; c++) {
+      a = a*b % (N-1);
+      h = (a * h + *c) % N;
+   }
+   return h;
+}
+</pre><p>
+</p><p>
+<small>
+Has some similarities with RNG. &nbsp;&nbsp; Aim: "spread" hash values over [0..N-1]
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [14/17]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A real hash function <small>(from PostgreSQL DBMS)</small>:
+</p><p></p><pre style="font-size:80%">hash_any(unsigned char *k, register int keylen, int N)
+{
+   register uint32 a, b, c, len;
+   <span class="comment">// set up internal state</span>
+   len = keylen;
+   a = b = 0x9e3779b9;
+   c = 3923095;
+   <span class="comment">// handle most of the key, in 12-char chunks</span>
+   while (len &gt;= 12) {
+      a += (k[0] + (k[1] &lt;&lt; 8) + (k[2] &lt;&lt; 16) + (k[3] &lt;&lt; 24));
+      b += (k[4] + (k[5] &lt;&lt; 8) + (k[6] &lt;&lt; 16) + (k[7] &lt;&lt; 24));
+      c += (k[8] + (k[9] &lt;&lt; 8) + (k[10] &lt;&lt; 16) + (k[11] &lt;&lt; 24));
+      mix(a, b, c);
+      k += 12; len -= 12;
+   }
+   <span class="comment">// collect any data from remaining bytes into a,b,c</span>
+   mix(a, b, c);
+   return c % N;
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [15/17]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Hash Functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Where <large><code>mix</code></large> is defined as:
+</p><p></p><pre style="font-size:80%">#define mix(a,b,c) \
+{ \
+  a -= b; a -= c; a ^= (c&gt;&gt;13); \
+  b -= c; b -= a; b ^= (a&lt;&lt;8);  \
+  c -= a; c -= b; c ^= (b&gt;&gt;13); \
+  a -= b; a -= c; a ^= (c&gt;&gt;12); \
+  b -= c; b -= a; b ^= (a&lt;&lt;16); \
+  c -= a; c -= b; c ^= (b&gt;&gt;5);  \
+  a -= b; a -= c; a ^= (c&gt;&gt;3);  \
+  b -= c; b -= a; b ^= (a&lt;&lt;10); \
+  c -= a; c -= b; c ^= (b&gt;&gt;15); \
+}
+</pre><p>
+i.e. scrambles all of the bits from the bytes of the key value
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [16/17]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/hashing/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Problems with Hashing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+In ideal scenarios, search cost in hash table is <i>O(1)</i>.
+</p><p>
+Problems with hashing:
+</p><ul>
+<li> hash function relies on size of array (<i>⇒</i> can't expand)
+<small>
+<ul>
+<li> changing size of array effectively changes the hash function
+</li><li> if change array size, then need to re-insert all <large><code>Item</code></large>s
+</li></ul>
+</small>
+</li><li> items are stored in (effectively) random order
+</li><li> if size(KeySpace) <img src="./Hashing_files/gg-small.gif"> size(IndexSpace), &nbsp;collisions inevitable
+<ul>
+<li> <font color="#0000BB">collision</font>: &nbsp; k ≠ j &nbsp;&amp;&amp;&nbsp; hash(k,N) = hash(j,N)
+</li></ul>
+</li><li> if <large><code>nitems</code></large> &gt; <large><code>nslots</code></large>, &nbsp;collisions inevitable
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Hashing [17/17]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 9 Jul 2020</span>
+ <script src="./Hashing_files/prism.js.下载"></script>   
+ <script src="./Hashing_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 12411px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 12411px; width: 1197px;"></div></html>

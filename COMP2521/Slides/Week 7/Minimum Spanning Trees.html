@@ -1,0 +1,404 @@
+
+<!-- saved from url=(0070)http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Minimum Spanning Trees</title>
+<link href="./Minimum Spanning Trees_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Minimum Spanning Trees_files/latest.js.下载" async=""></script>
+<script src="./Minimum Spanning Trees_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Minimum Spanning Trees_files/css" rel="stylesheet"><link href="./Minimum Spanning Trees_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Minimum Spanning Trees_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Minimum Spanning Trees</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s1">Minimum Spanning Trees</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s6">Kruskal's Algorithm</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s10">Prim's Algorithm</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s14">Sidetrack: Priority Queues</a>
+</li><li class="i"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s15">Other MST Algorithms</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [0/15]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Minimum Spanning Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Reminder: <font color="#0000BB">Spanning tree</font> <i>ST</i> of graph <i>G=(V,E)</i>
+</p><ul>
+<li> <font color="#0000BB">spanning</font> = all vertices, <font color="#0000BB">tree</font> = no cycles
+</li><li> <i>ST</i> &nbsp;is a subgraph of <i>G</i>
+	&nbsp; <small>(<i>G'=(V,E')</i> where <i>E' ⊆ E</i>)</small>
+</li><li> <i>ST</i> &nbsp;is <font color="#0000BB">connected</font> and <font color="#0000BB">acyclic</font>
+</li></ul>
+<font color="#0000BB">Minimum spanning tree</font> <i>MST</i> of graph <i>G</i>
+<ul>
+<li> <i>MST</i> &nbsp;is a spanning tree of <i>G</i>
+</li><li> sum of edge weights is no larger than any other <i>ST</i>
+</li></ul>
+Applications:
+<ul>
+<li> Computer networks, Electrical grids, Transportation networks …
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [1/15]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Minimum Spanning Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/mst-example.png]" src="./Minimum Spanning Trees_files/mst-example.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [2/15]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Minimum Spanning Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<font color="brown">Problem:</font> how to (efficiently) find MST for graph <i>G</i> ?
+</p><p>
+One possible strategy:
+</p><ul>
+<li> generate all spanning trees
+</li><li> calculate total weight of each
+</li><li> MST = ST with lowest total weight
+</li></ul>
+<br>
+Note that MST may not be unique
+<ul>
+<li> <small>e.g. if all edges have same weight, then all STs are MSTs</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [3/15]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Minimum Spanning Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Brute force solution &nbsp;<small>(using generate-and-test strategy)</small>:
+</p><p></p><pre><font color="blue">findMST(G)</font>:
+|  <b>Input</b>  graph G
+|  <b>Output</b> a minimum spanning tree of G
+|
+|  bestCost=∞
+|  <b>for</b> <b>all</b> spanning trees t of G <b>do</b>
+|  |  <b>if</b> cost(t) &lt; bestCost <b>then</b>
+|  |     bestTree=t
+|  |     bestCost=cost(t)
+|  |  <b>end if</b>
+|  <b>end for</b>
+|  <b>return</b> bestTree
+</pre><p>
+</p><p>
+Not useful in general because
+<a target="demo" href="http://en.wikipedia.org/wiki/Kirchhoff%27s_theorem">#spanning trees</a>
+is potentially large <br>
+<small>(e.g. <i>n<sup>n-2</sup></i> &nbsp;for a complete graph with <i>n</i> &nbsp;vertices)</small>
+</p><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [4/15]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Minimum Spanning Trees</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Simplifying assumption:
+</p><ul>
+<li> edges in <i>G</i> are not directed
+	&nbsp; <small>(MST for digraphs is harder)</small>
+</li></ul>
+<br>
+If edges are not weighted
+<ul>
+<li> there is no real notion of <i>minimum</i> spanning tree
+</li></ul>
+<br>
+Our MST algorithms apply to
+<ul>
+<li> weighted, &nbsp;non-directional, &nbsp;connected graphs
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [5/15]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Kruskal's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+One approach to computing MST for graph <i>G</i> with <i>V</i> &nbsp;nodes:
+</p><ol>
+<li> start with empty MST
+</li><li> consider edges in increasing weight order
+<ul>
+<li> add edge if it does not form a cycle in MST
+</li></ul>
+</li><li> repeat until <i>V-1</i> edges are added
+</li></ol>
+<br>
+<small>
+Critical operations:
+<ul>
+<li> iterating over edges in weight order
+</li><li> checking for cycles in a graph
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [6/15]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Kruskal's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Execution trace of Kruskal's algorithm:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/kruskal-trace.png]" src="./Minimum Spanning Trees_files/kruskal-trace.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [7/15]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Kruskal's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Pseudocode:
+</p><p></p><pre><font color="navy">KruskalMST(G)</font>:
+|  <b>Input</b>  graph G with n nodes
+|  <b>Output</b> a minimum spanning tree of G
+|
+|  MST=empty graph
+|  <font color="green">sort edges(G) by weight</font>
+|  <b>for</b> <b>each</b> e ∈ sortedEdgeList <b>do</b>
+|  |  MST = MST ∪ {e}  <span class="comment">// add edge</span>
+|  |  <b>if</b> MST has a cyle <b>then</b>
+|  |     MST = MST \ {e}  <span class="comment">// drop edge </span>
+|  |  <b>end if</b>
+|  |  <b>if</b> MST has n-1 edges <b>then</b>
+|  |     <b>return</b> MST
+|  |  <b>end if</b>
+|  <b>end for</b>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [8/15]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Kruskal's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Rough time complexity analysis …
+</p><ul>
+<li> sorting edge list is <i>O(E·log E)</i>
+</li><li> at least <i>V</i> &nbsp;iterations over sorted edges
+</li><li> on each iteration …
+<ul>
+<li> getting next lowest cost edge is <i>O(1)</i>
+</li><li> checking whether adding it forms a cycle: cost = <i>O(V<sup>2</sup>)</i>
+</li></ul>
+</li></ul>
+Possibilities for cycle checking:
+<ul>
+<li> use DFS … too expensive?
+</li><li> could use <i>Union-Find data structure</i> (see Sedgewick Ch.1)
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [9/15]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Prim's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Another approach to computing MST for graph <i>G=(V,E)</i>:
+</p><ol>
+<li> start from any vertex <i>v</i> and empty MST
+</li><li> choose edge not already in MST to add to MST; &nbsp;must be:
+<ul>
+<li> incident on a vertex <i>s</i> &nbsp;already connected to <i>v</i> &nbsp;in MST
+</li><li> incident on a vertex <i>t</i> &nbsp;not already connected to <i>v</i> &nbsp;in MST
+</li><li> minimal weight of all such edges
+</li></ul>
+</li><li> repeat until MST covers all vertices
+</li></ol>
+<br>
+<small>
+Critical operations:
+<ul>
+<li> checking for vertex being connected in a graph
+</li><li> finding min weight edge in a set of edges
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [10/15]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Prim's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Execution trace of Prim's algorithm (starting at <i>s</i>=0):
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/prim-trace.png]" src="./Minimum Spanning Trees_files/prim-trace.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [11/15]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Prim's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Pseudocode:
+</p><p></p><pre><font color="navy">PrimMST(G)</font>:
+|  <b>Input</b>  graph G with n nodes
+|  <b>Output</b> a minimum spanning tree of G
+|
+|  MST=empty graph
+|  usedV={0}
+|  unusedE=edges(g)
+|  <b>while</b> |usedV| &lt; n <b>do</b>
+|  |  <font color="brown"><b>find</b> e=(s,t,w) ∈ unusedE <b>such that</b> {</font>
+|  |     <font color="brown">s ∈ usedV ∧ t ∉ usedV </font>
+|  |       <font color="brown">∧ w is min weight of all such edges</font>
+|  |  <font color="brown">}</font>
+|  |  MST = MST ∪ {e}
+|  |  usedV = usedV ∪ {t}
+|  |  unusedE = unusedE \ {e}
+|  <b>end while</b>
+|  <b>return</b> MST
+</pre><p>
+Critical operation: &nbsp;finding best edge
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [12/15]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Prim's Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Rough time complexity analysis …
+</p><ul>
+<li> <i>V</i> &nbsp;iterations of outer loop
+</li><li> in each iteration, finding min-weighted edge …
+<ul>
+<li> with set of edges is <i>O(E)</i> ⇒ <i>O(V·E)</i> overall
+</li><li> with <font color="#0000BB">priority queue</font> is <i>O(log E)</i> ⇒ <i>O(V·log E)</i> overall
+</li></ul>
+</li></ul>
+Note:
+<ul>
+<li> have seen stack-based (DFS) and queue-based (BFS) traversals
+</li><li> using a <i>priority queue</i> gives another non-recursive traversal
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [13/15]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sidetrack: Priority Queues</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Some applications of queues require
+</p><ul>
+<li> items processed in order of "key"
+</li><li> rather than in order of entry <small>(FIFO — first in, first out)</small>
+</li></ul>
+<font color="#0000BB">Priority Queues</font> (<font color="#0000BB">PQueues</font>) provide this via:
+<ul>
+<li> <large><code>join</code></large>: insert item into PQueue <small>(replacing <large><code>enqueue</code></large>)</small>
+</li><li> <large><code>leave</code></large>: remove item with largest key <small>(replacing <large><code>dequeue</code></large>)</small>
+</li></ul>
+Will discuss priority queues in more detail in another video
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [14/15]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Other MST Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Boruvka's algorithm ... complexity <i>O(E·log V)</i>
+</p><ul>
+<li> the oldest MST algorithm
+</li><li> start with V separate components
+</li><li> join components using min cost links
+</li><li> continue until only a single component
+</li></ul>
+Karger, Klein, and Tarjan ... complexity <i>O(E)</i>
+<ul>
+<li> based on Boruvka, but non-deterministic
+</li><li> randomly selects subset of edges to consider
+</li><li> for the keen, here's <a href="http://cgi.cse.unsw.edu.au/~cs2521/20T2/lecs/min-span-tree/Karger95.pdf">the paper</a> describing the algorithm
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Minimum Spanning Trees [15/15]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 4 Jul 2020</span>
+ <script src="./Minimum Spanning Trees_files/prism.js.下载"></script>   
+ <script src="./Minimum Spanning Trees_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 11545px; width: 1088px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 11545px; width: 1088px;"></div></html>

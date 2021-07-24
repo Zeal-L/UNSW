@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/quizzes/1752 -->
+<html lang="en" class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="1627133878##59d5ab20b2fe48d2b477fb04397422d5133ad681">
+    <title>Quiz 4 |  COMP2521 21T1 | WebCMS3</title>
+
+    <link rel="icon" href="https://webcms3.cse.unsw.edu.au/static/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://webcms3.cse.unsw.edu.au/static/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" id="theme" href="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/teal.theme.5eefaac1024d9e1608ba6fbf46cf47c2.css">
+
+
+<script src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/Sortable.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+  <style type="text/css"></style><style type="text/css">.select-box{position:absolute;border:1px solid #ddd;border-radius:3px;box-shadow:0 0 5px rgba(0,0,0,.1);background:#fff;z-index:1000}.mention{text-decoration:none!important;color:#000!important;background-color:#dce6f8;padding:0;margin-right:.5em}.user-select{list-style-type:none;list-style:none;margin:0;padding:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5}.user-select li{display:block;padding:5px 10px;font-weight:600;cursor:pointer;border-bottom:1px solid #ddd}.user-select li small{font-weight:400;color:#767676}.user-select .selected small{color:#fff}.user-select .selected{background-color:#4078c0;color:#fff}</style><style type="text/css">.apexcharts-canvas {
+  position: relative;
+  user-select: none;
+  /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */
+}
+
+/* scrollbar is not visible by default for legend, hence forcing the visibility */
+.apexcharts-canvas ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+}
+.apexcharts-canvas ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 1px rgba(255,255,255,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.apexcharts-inner {
+  position: relative;
+}
+
+.legend-mouseover-inactive {
+  transition: 0.15s ease all;
+  opacity: 0.20;
+}
+
+.apexcharts-series-collapsed {
+  opacity: 0;
+}
+
+.apexcharts-gridline, .apexcharts-text {
+  pointer-events: none;
+}
+
+.apexcharts-tooltip {
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px -4px #999;
+  cursor: default;
+  font-size: 14px;
+  left: 62px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 12;
+  transition: 0.15s ease all;
+}
+.apexcharts-tooltip.light {
+  border: 1px solid #e3e3e3;
+  background: rgba(255, 255, 255, 0.96);
+}
+.apexcharts-tooltip.dark {
+  color: #fff;
+  background: rgba(30,30,30, 0.8);
+}
+.apexcharts-tooltip * {
+  font-family: inherit;
+}
+
+.apexcharts-tooltip .apexcharts-marker,
+.apexcharts-area-series .apexcharts-area,
+.apexcharts-line {
+  pointer-events: none;
+}
+
+.apexcharts-tooltip.active {
+  opacity: 1;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-tooltip-title {
+  padding: 6px;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.apexcharts-tooltip.light .apexcharts-tooltip-title {
+  background: #ECEFF1;
+  border-bottom: 1px solid #ddd;
+}
+.apexcharts-tooltip.dark .apexcharts-tooltip-title {
+  background: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid #222;
+}
+
+.apexcharts-tooltip-text-value,
+.apexcharts-tooltip-text-z-value {
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.apexcharts-tooltip-text-z-label:empty,
+.apexcharts-tooltip-text-z-value:empty {
+  display: none;
+}
+
+.apexcharts-tooltip-text-value, 
+.apexcharts-tooltip-text-z-value {
+  font-weight: 600;
+}
+
+.apexcharts-tooltip-marker {
+  width: 12px;
+  height: 12px;
+  position: relative;
+  top: 0px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.apexcharts-tooltip-series-group {
+  padding: 0 10px;
+  display: none;
+  text-align: left;
+  justify-content: left;
+  align-items: center;
+}
+
+.apexcharts-tooltip-series-group.active .apexcharts-tooltip-marker {
+  opacity: 1;
+}
+.apexcharts-tooltip-series-group.active, .apexcharts-tooltip-series-group:last-child {
+  padding-bottom: 4px;
+}
+.apexcharts-tooltip-y-group {
+  padding: 6px 0 5px;
+}
+.apexcharts-tooltip-candlestick {
+  padding: 4px 8px;
+}
+.apexcharts-tooltip-candlestick > div {
+  margin: 4px 0;
+}
+.apexcharts-tooltip-candlestick span.value {
+  font-weight: bold;
+}
+
+.apexcharts-xaxistooltip {
+  opacity: 0;
+  padding: 9px 10px;
+  pointer-events: none;
+  color: #373d3f;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+	background: #ECEFF1;
+  border: 1px solid #90A4AE;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-xaxistooltip:after, .apexcharts-xaxistooltip:before {
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.apexcharts-xaxistooltip:after {
+	border-color: rgba(236, 239, 241, 0);
+	border-width: 6px;
+	margin-left: -6px;
+}
+.apexcharts-xaxistooltip:before {
+	border-color: rgba(144, 164, 174, 0);
+	border-width: 7px;
+	margin-left: -7px;
+}
+
+.apexcharts-xaxistooltip-bottom:after, .apexcharts-xaxistooltip-bottom:before {
+  bottom: 100%;
+}
+
+.apexcharts-xaxistooltip-bottom:after {
+  border-bottom-color: #ECEFF1;
+}
+.apexcharts-xaxistooltip-bottom:before {
+  border-bottom-color: #90A4AE;
+}
+
+.apexcharts-xaxistooltip-top:after, .apexcharts-xaxistooltip-top:before {
+  top: 100%;
+}
+.apexcharts-xaxistooltip-top:after {
+  border-top-color: #ECEFF1;
+}
+.apexcharts-xaxistooltip-top:before {
+  border-top-color: #90A4AE;
+}
+
+.apexcharts-xaxistooltip.active {
+  opacity: 1;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-yaxistooltip {
+  opacity: 0;
+  padding: 4px 10px;
+  pointer-events: none;
+  color: #373d3f;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+	background: #ECEFF1;
+  border: 1px solid #90A4AE;
+}
+
+.apexcharts-yaxistooltip:after, .apexcharts-yaxistooltip:before {
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.apexcharts-yaxistooltip:after {
+	border-color: rgba(236, 239, 241, 0);
+	border-width: 6px;
+	margin-top: -6px;
+}
+.apexcharts-yaxistooltip:before {
+	border-color: rgba(144, 164, 174, 0);
+	border-width: 7px;
+	margin-top: -7px;
+}
+
+.apexcharts-yaxistooltip-left:after, .apexcharts-yaxistooltip-left:before {
+  left: 100%;
+}
+.apexcharts-yaxistooltip-left:after {
+  border-left-color: #ECEFF1;
+}
+.apexcharts-yaxistooltip-left:before {
+  border-left-color: #90A4AE;
+}
+
+.apexcharts-yaxistooltip-right:after, .apexcharts-yaxistooltip-right:before {
+  right: 100%;
+}
+.apexcharts-yaxistooltip-right:after {
+  border-right-color: #ECEFF1;
+}
+.apexcharts-yaxistooltip-right:before {
+  border-right-color: #90A4AE;
+}
+
+.apexcharts-yaxistooltip.active {
+  opacity: 1;
+}
+
+.apexcharts-xcrosshairs, .apexcharts-ycrosshairs {
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-xcrosshairs.active, .apexcharts-ycrosshairs.active {
+  opacity: 1;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-ycrosshairs-hidden {
+  opacity: 0;
+}
+
+.apexcharts-zoom-rect {
+  pointer-events: none;
+}
+.apexcharts-selection-rect {
+  cursor: move;
+}
+
+.svg_select_points, .svg_select_points_rot {
+  opacity: 0;
+  visibility: hidden;
+}
+.svg_select_points_l, .svg_select_points_r {
+  cursor: ew-resize;
+  opacity: 1;
+  visibility: visible;
+  fill: #888;
+}
+.apexcharts-canvas.zoomable .hovering-zoom {
+  cursor: crosshair
+}
+.apexcharts-canvas.zoomable .hovering-pan {
+  cursor: move
+}
+
+.apexcharts-xaxis,
+.apexcharts-yaxis {
+  pointer-events: none;
+}
+
+.apexcharts-zoom-icon, 
+.apexcharts-zoom-in-icon,
+.apexcharts-zoom-out-icon,
+.apexcharts-reset-zoom-icon, 
+.apexcharts-pan-icon, 
+.apexcharts-selection-icon,
+.apexcharts-menu-icon, 
+.apexcharts-toolbar-custom-icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  line-height: 24px;
+  color: #6E8192;
+  text-align: center;
+}
+
+.apexcharts-zoom-icon svg, 
+.apexcharts-zoom-in-icon svg,
+.apexcharts-zoom-out-icon svg,
+.apexcharts-reset-zoom-icon svg,
+.apexcharts-menu-icon svg {
+  fill: #6E8192;
+}
+.apexcharts-selection-icon svg {
+  fill: #444;
+  transform: scale(0.76)
+}
+.apexcharts-zoom-icon.selected svg, 
+.apexcharts-selection-icon.selected svg, 
+.apexcharts-reset-zoom-icon.selected svg {
+  fill: #008FFB;
+}
+.apexcharts-selection-icon:not(.selected):hover svg,
+.apexcharts-zoom-icon:not(.selected):hover svg, 
+.apexcharts-zoom-in-icon:hover svg, 
+.apexcharts-zoom-out-icon:hover svg, 
+.apexcharts-reset-zoom-icon:hover svg, 
+.apexcharts-menu-icon:hover svg {
+  fill: #333;
+}
+
+.apexcharts-selection-icon, .apexcharts-menu-icon {
+  position: relative;
+}
+.apexcharts-reset-zoom-icon {
+  margin-left: 5px;
+}
+.apexcharts-zoom-icon, .apexcharts-reset-zoom-icon, .apexcharts-menu-icon {
+  transform: scale(0.85);
+}
+
+.apexcharts-zoom-in-icon, .apexcharts-zoom-out-icon {
+  transform: scale(0.7)
+}
+
+.apexcharts-zoom-out-icon {
+  margin-right: 3px;
+}
+
+.apexcharts-pan-icon {
+  transform: scale(0.62);
+  position: relative;
+  left: 1px;
+  top: 0px;
+}
+.apexcharts-pan-icon svg {
+  fill: #fff;
+  stroke: #6E8192;
+  stroke-width: 2;
+}
+.apexcharts-pan-icon.selected svg {
+  stroke: #008FFB;
+}
+.apexcharts-pan-icon:not(.selected):hover svg {
+  stroke: #333;
+}
+
+.apexcharts-toolbar {
+  position: absolute;
+  z-index: 11;
+  top: 0px;
+  right: 3px;
+  max-width: 176px;
+  text-align: right;
+  border-radius: 3px;
+  padding: 0px 6px 2px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.apexcharts-toolbar svg {
+  pointer-events: none;
+}
+
+.apexcharts-menu {
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 3px;
+  right: 10px;
+  opacity: 0;
+  min-width: 110px;
+  transition: 0.15s ease all;
+  pointer-events: none;
+}
+
+.apexcharts-menu.open {
+  opacity: 1;
+  pointer-events: all;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-menu-item {
+  padding: 6px 7px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.apexcharts-menu-item:hover {
+  background: #eee;
+}
+
+@media screen and (min-width: 768px) {
+  .apexcharts-toolbar {
+    /*opacity: 0;*/
+  }
+
+  .apexcharts-canvas:hover .apexcharts-toolbar {
+    opacity: 1;
+  } 
+}
+
+.apexcharts-datalabel.hidden {
+  opacity: 0;
+}
+
+.apexcharts-pie-label,
+.apexcharts-datalabel, .apexcharts-datalabel-label, .apexcharts-datalabel-value {
+  cursor: default;
+  pointer-events: none;
+}
+
+.apexcharts-pie-label-delay {
+  opacity: 0;
+  animation-name: opaque;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+}
+
+.apexcharts-canvas .hidden {
+  opacity: 0;
+}
+
+.apexcharts-hide .apexcharts-series-points {
+  opacity: 0;
+}
+
+.apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,
+.apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events, .apexcharts-radar-series path, .apexcharts-radar-series polygon {
+  pointer-events: none;
+}
+
+/* markers */
+
+.apexcharts-marker {
+  transition: 0.15s ease all;
+}
+
+@keyframes opaque {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}</style><style type="text/css">@keyframes resizeanim { from { opacity: 0; } to { opacity: 0; } } .resize-triggers { animation: 1ms resizeanim; visibility: hidden; opacity: 0; } .resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+  <body role="document" id="webcms3top" style="" class="vsc-initialized">
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://webcms3.cse.unsw.edu.au/">WebCMS3</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+                <li><a href="https://webcms3.cse.unsw.edu.au/COMP1521/21T2/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Computer Systems Fundamentals">COMP1521</a></li>
+                <li><a href="https://webcms3.cse.unsw.edu.au/COMP3141/21T2/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Software System Design and Implementation">COMP3141</a></li>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://webcms3.cse.unsw.edu.au/search" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Search Courses"><i class="fa fa-search"></i></a></li>
+              <li class="dropdown">
+                <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/quizzes/1752#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  <div class="nav-profile-mask">
+                    <img class="profile_picture" src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/default_avatar.png">
+                  </div>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://webcms3.cse.unsw.edu.au/users/z5325156"><i class="fa fa-user"></i> Profile</a></li>
+                  <li><a href="https://webcms3.cse.unsw.edu.au/users/z5325156/settings"><i class="fa fa-cog"></i> Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="https://webcms3.cse.unsw.edu.au/logout"><i class="fa fa-sign-in"></i> Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-left">
+          <div class="col-sm-3 col-md-3 sidebar-offcanvas" id="sidebar" role="navigation">
+            <div class="sidebar hidden-print">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h4 class="panel-title"><a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/">COMP2521</a> <small>21T1</small></h4>
+    </div>
+
+  </div>
+
+  <ul class="list-group">
+            <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/">Home</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/outline">Course Outline</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://cgi.cse.unsw.edu.au/~cs2521/21T1/resources/style_guide.html">Style Guide</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/58275">Join Forum</a>
+        </li>
+        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/quizzes/1752#side-menu5" data-toggle="collapse" data-parent=".sidebar">
+            Course Work <span class="caret"></span>
+          </a>
+        </li>
+        <ul class="list-group collapse in" id="side-menu5">
+                  <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57625">Lectures</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57572">Tutorials and Labs</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57616">Assignments</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/">Quizzes</a>
+        </li>        <li class="list-group-item ">
+          <a href="http://www.cse.unsw.edu.au/~cs2521/21T1/sampleFinalExam/SampleExam_21T1.html">Sample Final Exam</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/60080">Final Exam</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57537">Practice Exercises</a>
+        </li>
+
+        </ul>
+        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/58215">View Submissions</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57770">Resources</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57614">Online Lectures, Tutorials and Labs </a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/resources/57613">Online Help Sessions</a>
+        </li>        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/timetable">Timetable</a>
+        </li>
+        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/quizzes/1752#side-menu11" data-toggle="collapse" data-parent=".sidebar">
+            Staff <span class="caret"></span>
+          </a>
+        </li>
+        <ul class="list-group collapse" id="side-menu11">
+          
+
+                     <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z8970925">Ashesh Mahidadia</a>
+    <span class="label label-primary">Lecturer</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z3531783">Jiaojiao Jiang</a>
+    <span class="label label-primary">Lecturer</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5074984">Kevin Luxa</a>
+    <span class="label label-primary">Course Admin</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z3418003">Hayden Smith</a>
+    <span class="label label-primary">Course Admin</span>
+  </li>
+
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5220277">Michelle Wong</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5074990">Benjamin Sho</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5314098">Xinran Zhu</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5204996">Braedon Wooding</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5214065">Michael Hopkins</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5127036">Minh (Duy) Nguyen</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5112735">Nanway Chen</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5169778">Angeni Bai</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5264084">Ryan King</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5191493">Yue Zhuo</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5258374">Nicholas Sims</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5303634">Hugh Wilson</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5255290">Raymond Lam</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5230768">David Connick</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5061251">Antoni Dimitriadis</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5258978">Shirley Zhou</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5162332">Ethan Brown</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5258971">Tim Zhang</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5162388">Jonah Meggs</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5080302">Lumina Gajanayake</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5258712">Anson Lee</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5158357">Yunzhu Julie Duan</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5113367">Vintony Padmadiredja</a>
+    <span class="label label-default">Tutor</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5309265">Patrick Galea</a>
+    <span class="label label-default">Lab Assistant</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5309946">Bernadette Wong</a>
+    <span class="label label-default">Lab Demonstrator</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5161594">Elizabeth Willer</a>
+    <span class="label label-default">Lab Demonstrator</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5259893">Sophie Wang</a>
+    <span class="label label-default">Lab Demonstrator</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5309306">Aisha Nauman</a>
+    <span class="label label-default">Lab Demonstrator</span>
+  </li>
+
+        <li class="list-group-item">
+    <a href="https://webcms3.cse.unsw.edu.au/users/z5257605">James Davidson</a>
+    <span class="label label-default">Lab Demonstrator</span>
+  </li>
+
+
+        </ul>
+        <li class="list-group-item ">
+          <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/">Activities</a>
+        </li>
+
+
+  </ul>
+  <div class="panel panel-default">
+    <div class="panel-footer">
+
+      <div class="pull-right"> 
+        <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/users/grades" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Grades"><i class="fa fa-bar-chart"></i></a>
+        <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/blogs/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Blog"><i class="fa fa-comment"></i></a>
+        <!--TODO: actual link and change icon-->
+        <a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/wiki/" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Wiki"><i class="fa fa-asterisk"></i></a>
+      </div>
+      Zeal Liang<br>
+      <small>Student</small>
+    </div>
+  </div>
+  
+</div>
+          </div>
+          <div class="col-sm-9 col-md-9 main">
+            <p class="visible-xs hidden-print">
+              <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas" id="toggle-menu"><i class="glyphicon glyphicon-chevron-left"></i> Toggle Menu</button>
+            </p>
+<div class="page-header">
+  <h1>Quiz 4</h1>
+</div>
+
+<div>
+  
+</div>
+
+
+    <br>
+    <legend>Student Mark Distribution</legend>
+    <div class="text-center" style="position: relative;">
+      <div id="scoreChart" width="600" height="400" style="min-height: 414px;"><div id="apexcharts1n5021fh" class="apexcharts-canvas apexcharts1n5021fh" style="width: 848px; height: 400px;"><svg id="SvgjsSvg1171" width="848" height="400" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1173" class="apexcharts-inner apexcharts-graphical" transform="translate(55.359375, 30)"><defs id="SvgjsDefs1172"><lineargradient id="SvgjsLinearGradient1176" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1177" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop1178" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop1179" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></lineargradient><clippath id="gridRectMask1n5021fh"><rect id="SvgjsRect1181" width="782.640625" height="327.348" x="0" y="0" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0"></rect></clippath><clippath id="gridRectMarkerMask1n5021fh"><rect id="SvgjsRect1182" width="790.640625" height="335.348" x="-4" y="-4" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0"></rect></clippath></defs><rect id="SvgjsRect1180" width="109.5696875" height="327.348" x="0" y="0" rx="0" ry="0" fill="url(#SvgjsLinearGradient1176)" opacity="1" stroke-width="0" stroke-dasharray="3" class="apexcharts-xcrosshairs" y2="327.348" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG1192" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1193" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"><text id="SvgjsText1194" font-family="Helvetica, Arial, sans-serif" x="78.2640625" y="354.348" text-anchor="middle" dominant-baseline="central" font-size="12px" fill="#373d3f" class="apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1195" style="font-family: Helvetica, Arial, sans-serif;">0 marks</tspan><title>0 marks</title></text><text id="SvgjsText1196" font-family="Helvetica, Arial, sans-serif" x="234.79218749999998" y="354.348" text-anchor="middle" dominant-baseline="central" font-size="12px" fill="#373d3f" class="apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1197" style="font-family: Helvetica, Arial, sans-serif;">1 mark</tspan><title>1 mark</title></text><text id="SvgjsText1198" font-family="Helvetica, Arial, sans-serif" x="391.3203125" y="354.348" text-anchor="middle" dominant-baseline="central" font-size="12px" fill="#373d3f" class="apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1199" style="font-family: Helvetica, Arial, sans-serif;">2 marks</tspan><title>2 marks</title></text><text id="SvgjsText1200" font-family="Helvetica, Arial, sans-serif" x="547.8484374999999" y="354.348" text-anchor="middle" dominant-baseline="central" font-size="12px" fill="#373d3f" class="apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1201" style="font-family: Helvetica, Arial, sans-serif;">3 marks</tspan><title>3 marks</title></text><text id="SvgjsText1202" font-family="Helvetica, Arial, sans-serif" x="704.3765625" y="354.348" text-anchor="middle" dominant-baseline="central" font-size="12px" fill="#373d3f" class="apexcharts-xaxis-label " style="font-family: Helvetica, Arial, sans-serif;"><tspan id="SvgjsTspan1203" style="font-family: Helvetica, Arial, sans-serif;">4 marks</tspan><title>4 marks</title></text></g><line id="SvgjsLine1204" x1="0" y1="326.348" x2="782.640625" y2="326.348" stroke="#4db6ac" stroke-dasharray="0" stroke-width="1"></line></g><g id="SvgjsG1212" class="apexcharts-grid"><line id="SvgjsLine1213" x1="156.528125" y1="0" x2="156.528125" y2="327.348" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1214" x1="313.05625" y1="0" x2="313.05625" y2="327.348" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1215" x1="469.58437499999997" y1="0" x2="469.58437499999997" y2="327.348" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1216" x1="626.1125" y1="0" x2="626.1125" y2="327.348" stroke="#e0e0e0" stroke-dasharray="0" class="apexcharts-gridline"></line><line id="SvgjsLine1218" x1="0" y1="327.348" x2="782.640625" y2="327.348" stroke="transparent" stroke-dasharray="0"></line><line id="SvgjsLine1217" x1="0" y1="1" x2="0" y2="327.348" stroke="transparent" stroke-dasharray="0"></line></g><g id="SvgjsG1184" class="apexcharts-bar-series apexcharts-plot-series" clip-path="url(#gridRectMask1n5021fh)"><g id="SvgjsG1185" class="apexcharts-series Students" rel="1" data:realIndex="0"><path id="apexcharts-bar-area-0" d="M23.479218749999994 327.348L23.479218749999994 324.07452L133.04890625 324.07452L133.04890625 327.348L23.479218749999994 327.348C23.479218749999994 327.348 23.479218749999994 327.348 23.479218749999994 327.348C23.479218749999994 327.348 23.47921875 327.348 23.47921875 327.348C23.47921875 327.348 23.47921875 327.348 23.47921875 327.348C23.47921875 327.348 23.479218749999994 327.348 23.479218749999994 327.348 " fill="rgba(77,182,172,0.85)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask1n5021fh)" pathTo="M 23.479218749999994 327.348L 23.479218749999994 324.07452L 133.04890625 324.07452L 133.04890625 327.348L 23.479218749999994 327.348" pathFrom="M 29.349023437499994 327.348L 29.349023437499994 327.348L 166.3111328125 327.348L 166.3111328125 327.348L 29.349023437499994 327.348L 23.479218749999994 327.348L 133.04890625 327.348L 133.04890625 327.348L 23.479218749999994 327.348" cy="324.07452" cx="180.00734375" j="0" val="3" barWidth="109.5696875"></path><path id="apexcharts-bar-area-0" d="M180.00734375 327.348L180.00734375 317.52756L289.57703125 317.52756L289.57703125 327.348L180.00734375 327.348C180.00734375 327.348 180.00734375 327.348 180.00734375 327.348C180.00734375 327.348 180.00734375 327.348 180.00734375 327.348C180.00734375 327.348 180.00734375 327.348 180.00734375 327.348C180.00734375 327.348 180.00734375 327.348 180.00734375 327.348 " fill="rgba(77,182,172,0.85)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask1n5021fh)" pathTo="M 180.00734375 327.348L 180.00734375 317.52756L 289.57703125 317.52756L 289.57703125 327.348L 180.00734375 327.348" pathFrom="M 225.0091796875 327.348L 225.0091796875 327.348L 361.9712890625 327.348L 361.9712890625 327.348L 225.0091796875 327.348L 180.00734375 327.348L 289.57703125 327.348L 289.57703125 327.348L 180.00734375 327.348" cy="317.52756" cx="336.53546874999995" j="1" val="9" barWidth="109.5696875"></path><path id="apexcharts-bar-area-0" d="M336.53546874999995 327.348L336.53546874999995 305.5248L446.10515624999994 305.5248L446.10515624999994 327.348L336.53546874999995 327.348C336.53546874999995 327.348 336.53546874999995 327.348 336.53546874999995 327.348C336.53546874999995 327.348 336.53546874999995 327.348 336.53546874999995 327.348C336.53546874999995 327.348 336.53546874999995 327.348 336.53546874999995 327.348C336.53546874999995 327.348 336.53546874999995 327.348 336.53546874999995 327.348 " fill="rgba(77,182,172,0.85)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask1n5021fh)" pathTo="M 336.53546874999995 327.348L 336.53546874999995 305.5248L 446.10515624999994 305.5248L 446.10515624999994 327.348L 336.53546874999995 327.348" pathFrom="M 420.6693359375 327.348L 420.6693359375 327.348L 557.6314453125001 327.348L 557.6314453125001 327.348L 420.6693359375 327.348L 336.53546874999995 327.348L 446.10515624999994 327.348L 446.10515624999994 327.348L 336.53546874999995 327.348" cy="305.5248" cx="493.06359374999994" j="2" val="20" barWidth="109.5696875"></path><path id="apexcharts-bar-area-0" d="M493.06359374999994 327.348L493.06359374999994 199.68228L602.63328125 199.68228L602.63328125 327.348L493.06359374999994 327.348C493.06359374999994 327.348 493.06359374999994 327.348 493.06359374999994 327.348C493.06359374999994 327.348 493.06359374999994 327.348 493.06359374999994 327.348C493.06359374999994 327.348 493.06359374999994 327.348 493.06359374999994 327.348C493.06359374999994 327.348 493.06359374999994 327.348 493.06359374999994 327.348 " fill="rgba(77,182,172,0.85)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask1n5021fh)" pathTo="M 493.06359374999994 327.348L 493.06359374999994 199.68228L 602.63328125 199.68228L 602.63328125 327.348L 493.06359374999994 327.348" pathFrom="M 616.3294921875 327.348L 616.3294921875 327.348L 753.2916015625001 327.348L 753.2916015625001 327.348L 616.3294921875 327.348L 493.06359374999994 327.348L 602.63328125 327.348L 602.63328125 327.348L 493.06359374999994 327.348" cy="199.68228" cx="649.5917187499999" j="3" val="117" barWidth="109.5696875"></path><path id="apexcharts-bar-area-0" d="M649.5917187499999 327.348C649.5917187499999 327.348 649.5917187499999 63.28728000000001 649.5917187499999 63.28728000000001C649.5917187499999 63.28728000000001 759.1614062499999 63.28728000000001 759.1614062499999 63.28728000000001C759.1614062499999 63.28728000000001 759.1614062499999 327.348 759.1614062499999 327.348C759.1614062499999 327.348 649.5917187499999 327.348 649.5917187499999 327.348 " fill="rgba(77,182,172,0.85)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask1n5021fh)" pathTo="M 649.5917187499999 327.348L 649.5917187499999 63.28728000000001L 759.1614062499999 63.28728000000001L 759.1614062499999 327.348L 649.5917187499999 327.348" pathFrom="undefinedL 649.5917187499999 327.348L 759.1614062499999 327.348L 759.1614062499999 327.348L 649.5917187499999 327.348" cy="63.28728000000001" cx="806.11984375" j="4" val="242" barWidth="109.5696875"></path><g id="SvgjsG1186" class="apexcharts-datalabels"></g></g></g><line id="SvgjsLine1219" x1="0" y1="0" x2="782.640625" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1220" x1="0" y1="0" x2="782.640625" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1221" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1222" class="apexcharts-xaxis-annotations"><line id="SvgjsLine1223" x1="547.8484374999999" y1="0" x2="547.8484374999999" y2="327.348" stroke="#000000" stroke-dasharray="1"></line><rect id="SvgjsRect1226" width="94.6875" height="16" x="500" y="-21" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="#c2c2c2" stroke-dasharray="0"></rect><text id="SvgjsText1224" font-family="Helvetica, Arial, sans-serif" x="547.8484374999999" y="-13" text-anchor="middle" dominant-baseline="central" font-size="11px" fill="#000000" class="apexcharts-xaxis-annotation-label " rel="0" style="font-family: Helvetica, Arial, sans-serif;">Your mark = 3.00</text></g><g id="SvgjsG1225" class="apexcharts-point-annotations"></g></g><g id="SvgjsG1205" class="apexcharts-yaxis" rel="0" transform="translate(22.359375, 0)"><g id="SvgjsG1206" class="apexcharts-yaxis-texts-g"><text id="SvgjsText1207" font-family="Helvetica, Arial, sans-serif" x="20" y="31.3" text-anchor="end" dominant-baseline="central" font-size="11px" fill="#373d3f" class="apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;">300</text><text id="SvgjsText1208" font-family="Helvetica, Arial, sans-serif" x="20" y="140.51600000000002" text-anchor="end" dominant-baseline="central" font-size="11px" fill="#373d3f" class="apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;">200</text><text id="SvgjsText1209" font-family="Helvetica, Arial, sans-serif" x="20" y="249.73200000000003" text-anchor="end" dominant-baseline="central" font-size="11px" fill="#373d3f" class="apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;">100</text><text id="SvgjsText1210" font-family="Helvetica, Arial, sans-serif" x="20" y="358.94800000000004" text-anchor="end" dominant-baseline="central" font-size="11px" fill="#373d3f" class="apexcharts-yaxis-label " style="font-family: Helvetica, Arial, sans-serif;">0</text></g><line id="SvgjsLine1211" x1="33" y1="25" x2="33" y2="356.348" stroke="#4db6ac" stroke-dasharray="0"></line></g></svg><div class="apexcharts-legend"></div><div class="apexcharts-tooltip light"><div class="apexcharts-tooltip-title" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div><div class="apexcharts-tooltip-series-group"><span class="apexcharts-tooltip-marker" style="background-color: rgb(0, 143, 251);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label"></span><span class="apexcharts-tooltip-text-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-toolbar"><div class="apexcharts-menu"><div class="apexcharts-menu-item exportSVG" title="Download SVG">Download SVG</div><div class="apexcharts-menu-item exportPNG" title="Download PNG">Download PNG</div></div></div></div></div>
+      <canvas id="scoreChartError" width="600" height="400" style="display: none;"></canvas>
+    <div class="resize-triggers"><div class="expand-trigger"><div style="width: 849px; height: 415px;"></div></div><div class="contract-trigger"></div></div></div>
+    <legend>Your Individual Results</legend>
+    <div class="row">
+    <div class="text-left col-md-12 col-md-offset-0">
+      <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-striped">
+          <tbody><tr>
+            <td>Deadline</td>
+            <td>
+                <small>Monday, 29 March 2021 at 5:00PM
+                </small>
+            </td>
+          </tr>
+          <tr>
+            <td>Latest Submission</td>
+            <td>
+                <small>Saturday, 20 March 2021 at 9:52PM</small>
+            </td>
+          </tr>
+            <tr>
+              <td>Raw Mark</td>
+              <td>
+                <small>3.00/4.00 (75.00%)</small>
+              </td>
+            </tr>
+            <tr>
+              <td>Late Penalty</td>
+            <td>
+              <small>N/A</small>
+            </td>
+          </tr>
+          <tr>
+            <td>Final Mark</td>
+            <td>
+              <small>3.00/4.00 (75.00%)</small>
+            </td>
+          </tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+
+
+<form action="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/quizzes/1752" method="POST" name="submit-quiz-response">
+
+  <fieldset>
+<div class="quiz-question">
+  <div style="display:none;"><input id="questions-0-csrf_token" name="questions-0-csrf_token" type="hidden" value="1627133878##59d5ab20b2fe48d2b477fb04397422d5133ad681"><input id="questions-0-question_type" name="questions-0-question_type" type="hidden" value="selection"><input id="questions-0-numeric_type" name="questions-0-numeric_type" type="hidden" value=""></div>
+  <div style="display: none;" class="fixed-q-type">
+    selection
+  </div>
+  <p><label for="questions-0-options">Question 1 (1 mark)</label></p><p></p><p>Consider the following graph
+</p><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/graph1.png">
+</p><p>Which of the following gives a valid adjacency representation of this graph?
+</p><p></p><table class="table table-bordered" id="questions-0-options"><tbody><tr><td class="col-sm-1 text-center">(a) <input checked="checked" disabled="" id="questions-0-options-36429" name="questions-0-options" type="radio" value="36429"></td><td><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/mat01.png">
+</p></td></tr><tr><td class="col-sm-1 text-center">(b) <input disabled="" id="questions-0-options-36430" name="questions-0-options" type="radio" value="36430"></td><td><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/mat02.png">
+</p></td></tr><tr><td class="col-sm-1 text-center">(c) <input disabled="" id="questions-0-options-36431" name="questions-0-options" type="radio" value="36431"></td><td><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/mat03.png">
+</p></td></tr><tr><td class="col-sm-1 text-center">(d) <input disabled="" id="questions-0-options-36432" name="questions-0-options" type="radio" value="36432"></td><td><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/mat04.png">
+</p></td></tr><tr><td class="col-sm-1 text-center">(e) <input disabled="" id="questions-0-options-36433" name="questions-0-options" type="radio" value="36433"></td><td><p>None of the above is correct</p></td></tr></tbody></table>
+
+      <p>
+      </p><div class="bg-success" style="padding-left: 5px;">
+        <span class="text-success">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Your response was correct.
+        <br> Mark:
+        1.00
+      </span>
+    </div>
+    <p>
+    </p><div class="bg-success" style="padding-left: 5px;">
+      <span class="text-success">
+         <p>
+  The edges are not directed, so the matrix has to be symmetric.
+ </p>
+ <p>
+  Along each row [v], it has a 1 value for edge incident on v
+ </p>
+      </span>
+    </div>
+  <p></p>
+
+</div><div class="quiz-question">
+  <div style="display:none;"><input id="questions-1-csrf_token" name="questions-1-csrf_token" type="hidden" value="1627133878##59d5ab20b2fe48d2b477fb04397422d5133ad681"><input id="questions-1-question_type" name="questions-1-question_type" type="hidden" value="selection"><input id="questions-1-numeric_type" name="questions-1-numeric_type" type="hidden" value=""></div>
+  <div style="display: none;" class="fixed-q-type">
+    selection
+  </div>
+  <p><label for="questions-1-options">Question 2 (1 mark)</label></p><p></p><p>Consider the following graph
+</p><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/graph4.png">
+</p><p>If we used a standard breadth-first search, starting from vertex 0, and giving priority to lower-numbered neighbours, which path would be discovered to reach vertex 8?
+</p><p></p><table class="table table-bordered" id="questions-1-options"><tbody><tr><td class="col-sm-1 text-center">(a) <input disabled="" id="questions-1-options-36434" name="questions-1-options" type="radio" value="36434"></td><td><p>0-3-5-8</p></td></tr><tr><td class="col-sm-1 text-center">(b) <input disabled="" id="questions-1-options-36435" name="questions-1-options" type="radio" value="36435"></td><td><p>0-3-4-5-8</p></td></tr><tr><td class="col-sm-1 text-center">(c) <input checked="checked" disabled="" id="questions-1-options-36436" name="questions-1-options" type="radio" value="36436"></td><td><p>0-2-6-7-8</p></td></tr><tr><td class="col-sm-1 text-center">(d) <input disabled="" id="questions-1-options-36437" name="questions-1-options" type="radio" value="36437"></td><td><p>0-1-2-3-4-5-8</p></td></tr><tr><td class="col-sm-1 text-center">(e) <input disabled="" id="questions-1-options-36438" name="questions-1-options" type="radio" value="36438"></td><td><p>None of the above paths would be chosen</p></td></tr></tbody></table>
+
+      <p>
+      </p><div class="bg-danger" style="padding-left: 5px;">
+        <span class="text-danger">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          Your response was incorrect. <br> The correct response was:
+           (a)
+
+        <br> Mark:
+        0.00
+      </span>
+    </div>
+    <p>
+    </p><div class="bg-danger" style="padding-left: 5px;">
+      <span class="text-danger">
+         <p>
+  Tracing the execution of the standard BFS path finding algorithm from slides  and textbook ...
+ </p>
+ <pre>After visiting 0
+queue: 1 2 3
+visited: 0 0 0 0 -1 -1 -1 -1 -1 
+
+After visiting 1
+queue: 2 3   (no non-visited edges)
+visited: 0 0 0 0 -1 -1 -1 -1 -1
+
+After visiting 2
+queue: 3 6
+visited: 0 0 0 0 -1 -1 2 -1 -1
+
+After visiting 3
+queue: 6 4 5
+visited: 0 0 0 0 3 3 2 -1 -1
+
+After visiting 6
+queue: 4 5 7
+visited: 0 0 0 0 3 3 2 7 -1
+
+After visiting 4
+queue: 5 7   (no non-visited edges)
+visited: 0 0 0 0 3 3 2 7 -1
+
+After visiting 5
+queue: 7 8
+visited: 0 0 0 0 3 3 2 7 5
+
+After visiting 7
+queue: 8     (no non-visited edges)
+visited: 0 0 0 0 3 3 2 7 5
+
+After visiting 8
+queue: empty
+found
+trace path back : 8 5 3 0
+</pre>
+      </span>
+    </div>
+  <p></p>
+
+</div><div class="quiz-question">
+  <div style="display:none;"><input id="questions-2-csrf_token" name="questions-2-csrf_token" type="hidden" value="1627133878##59d5ab20b2fe48d2b477fb04397422d5133ad681"><input id="questions-2-question_type" name="questions-2-question_type" type="hidden" value="selection"><input id="questions-2-numeric_type" name="questions-2-numeric_type" type="hidden" value=""></div>
+  <div style="display: none;" class="fixed-q-type">
+    selection
+  </div>
+  <p><label for="questions-2-options">Question 3 (1 mark)</label></p><p></p><p>Consider the following graph with two connected components
+</p><p><img src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/graph3.png">
+</p><p>Which of the following actions would convert this into a graph with a single connected component?
+</p><p>You must choose <em>all</em> relevant actions to obtain full marks for this question. There is more than one valid action.
+</p><p></p><table class="table table-bordered" id="questions-2-options"><tbody><tr><td class="col-sm-1 text-center">(a) <input checked="checked" disabled="" id="questions-2-options-36439" name="questions-2-options" type="checkbox" value="36439"></td><td><p>add an edge between 0 and 5</p></td></tr><tr><td class="col-sm-1 text-center">(b) <input disabled="" id="questions-2-options-36440" name="questions-2-options" type="checkbox" value="36440"></td><td><p>add an edge between 5 and 7</p></td></tr><tr><td class="col-sm-1 text-center">(c) <input checked="checked" disabled="" id="questions-2-options-36441" name="questions-2-options" type="checkbox" value="36441"></td><td><p>add an edge between 2 and 4</p></td></tr><tr><td class="col-sm-1 text-center">(d) <input disabled="" id="questions-2-options-36442" name="questions-2-options" type="checkbox" value="36442"></td><td><p>add an edge between 1 and 3</p></td></tr><tr><td class="col-sm-1 text-center">(e) <input checked="checked" disabled="" id="questions-2-options-36443" name="questions-2-options" type="checkbox" value="36443"></td><td><p>add an edge between 0 and 6</p></td></tr><tr><td class="col-sm-1 text-center">(f) <input disabled="" id="questions-2-options-36444" name="questions-2-options" type="checkbox" value="36444"></td><td><p>add an edge between 7 and 4</p></td></tr></tbody></table>
+
+      <p>
+      </p><div class="bg-success" style="padding-left: 5px;">
+        <span class="text-success">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Your response was correct.
+        <br> Mark:
+          max(0.33 + 0.33 + 0.33, 0) =
+        1.00
+      </span>
+    </div>
+    <p>
+    </p><div class="bg-success" style="padding-left: 5px;">
+      <span class="text-success">
+         <p>
+  Any edge that joins a vertex from one component to a vertex in the other component is correct.
+ </p>
+ <p>
+  Joining edges
+  <em>
+   within
+  </em>
+  a component does not help.
+ </p>
+      </span>
+    </div>
+  <p></p>
+
+</div><div class="quiz-question">
+  <div style="display:none;"><input id="questions-3-csrf_token" name="questions-3-csrf_token" type="hidden" value="1627133878##59d5ab20b2fe48d2b477fb04397422d5133ad681"><input id="questions-3-question_type" name="questions-3-question_type" type="hidden" value="selection"><input id="questions-3-numeric_type" name="questions-3-numeric_type" type="hidden" value=""></div>
+  <div style="display: none;" class="fixed-q-type">
+    selection
+  </div>
+  <p><label for="questions-3-options">Question 4 (1 mark)</label></p><p></p><p>How many edges are in a complete graph with N vertices?</p><p></p><table class="table table-bordered" id="questions-3-options"><tbody><tr><td class="col-sm-1 text-center">(a) <input disabled="" id="questions-3-options-36445" name="questions-3-options" type="radio" value="36445"></td><td><p>N-1</p></td></tr><tr><td class="col-sm-1 text-center">(b) <input disabled="" id="questions-3-options-36446" name="questions-3-options" type="radio" value="36446"></td><td><p>N</p></td></tr><tr><td class="col-sm-1 text-center">(c) <input disabled="" id="questions-3-options-36447" name="questions-3-options" type="radio" value="36447"></td><td><p>log<sub>2</sub>N</p></td></tr><tr><td class="col-sm-1 text-center">(d) <input checked="checked" disabled="" id="questions-3-options-36448" name="questions-3-options" type="radio" value="36448"></td><td><p>N(N-1)/2</p></td></tr><tr><td class="col-sm-1 text-center">(e) <input disabled="" id="questions-3-options-36449" name="questions-3-options" type="radio" value="36449"></td><td><p>N<sup>2</sup>
+</p></td></tr></tbody></table>
+
+      <p>
+      </p><div class="bg-success" style="padding-left: 5px;">
+        <span class="text-success">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Your response was correct.
+        <br> Mark:
+        1.00
+      </span>
+    </div>
+    <p>
+    </p><div class="bg-success" style="padding-left: 5px;">
+      <span class="text-success">
+         <p>
+  In a complete graph, every vertex is connected to every other vertex.
+ </p>
+ <p>
+  Each of the V vertices has (V-1) edges incident on it =&gt; V(V-1) edges
+ </p>
+ <p>
+  Since each edge handles both (v,w) and (w,v), we divide by two =&gt; V(V-1)/2
+ </p>
+      </span>
+    </div>
+  <p></p>
+
+</div>  </fieldset>
+
+
+</form>
+          </div>
+      </div>
+      <div class="row hidden-print">
+        <div class="col-sm-12">
+          <hr>
+          <p class="pull-right"><a href="https://webcms3.cse.unsw.edu.au/COMP2521/21T1/activities/quizzes/1752#webcms3top">Back to top <i class="fa fa-caret-up"></i></a></p>
+          <div class="pull-left">
+
+          <strong>COMP2521 21T1 (Data Structures and Algorithms)</strong>
+          is powered by <a href="https://webcms3.cse.unsw.edu.au/about">WebCMS3</a>
+          <h6><small>CRICOS Provider No. 00098G</small></h6>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/manifest.cfb3a155968bb33441c3.js.下载"></script>
+    <script src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/vendor.ccafba1973f262c84499.js.下载"></script>
+    <script src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/app.b49dff5297717517af10.js.下载"></script>
+
+<script src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/moment.min.js.下载"></script>
+<script type="text/javascript">
+  
+  function reloadQuestionTypes() {
+    $('div.quiz-question').each(function () {
+      let val = null
+      $(this).find("select[id$='-question-type']").each(function () {
+        val = $(this).val()
+      })
+      if (val === null) {
+        /* radio buttons do not exist in non-append mode & on quiz view page */
+        val = $(this).find('.fixed-q-type').html().match(/\w+/)[0]
+      }
+      $(this).find("input[type='hidden'][name$='-question_type']").each(function () {
+        $(this).val(val)
+      })
+      if ($(this).find('.fixed-n-type').length) {
+        const numVal = $(this).find('.fixed-n-type').html().match(/\w+/)[0]
+        $(this).find("input[type='hidden'][name$='-numeric_type']").each(function () {
+          $(this).val(numVal)
+        })
+      }
+    })
+  }
+
+  reloadQuestionTypes()
+
+
+  
+  /* there is a jquery binding for sortable but not worth the extra library */
+  const sequences = document.querySelectorAll('[id$="sequence-order-list"]')
+
+  for (const elem of sequences) {
+    Sortable.create(
+      elem, {
+        animation: 250,
+        delay: 0,
+        disabled: true,
+        onEnd: updateSequenceOrder
+      }
+    )
+  }
+
+  function updateSequenceOrder() {
+    $('input[id$="sequence-order"]').each(function () {
+      /* perhaps its overkill to repeat this for all the sequence
+         ordering questions, but i doubt there'd be that many in
+         a single quiz - this approach acts as a fail-safe as well */
+      let order = ''
+      const list = $(`#${$(this).attr('id')}-list`)
+      $(list).find('li').each(function () {
+        order += `,${$(this).attr('id')}`
+      })
+      $(this).val(order.substr(1,))
+    })
+  }
+  updateSequenceOrder()
+
+
+</script>
+<script>
+$(function() {
+  $('form').submit(function (e) {
+    let form = this;
+    e.preventDefault();
+    const box = bootbox.confirm("Are you sure you wish to submit? You may resubmit later.", function (confirmed) {
+      if (confirmed) {
+        form.submit();
+      }
+    });
+
+    /* run some arbitrary code when modal is shown */
+    box.on('shown.bs.modal', function () {
+       let due = moment('2021-03-29 17:00:00')
+     let now = moment()
+     now.seconds(0)
+     now.milliseconds(0)
+     let txt
+     let offset = due.isBefore(now) ? 1 : 0
+     if ('True' === 'True') {
+         txt = parseInt(now.diff(due, 'hours', true)) + offset + ' hour'
+     } else {
+         txt = parseInt(now.diff(due, 'days', true)) + offset + ' day'
+     }
+     const plural = (txt.match(/^1 /)) ? '' : 's'
+     if (!txt.match(/^(-|0 )/)) {
+       $('.bootbox-body').append(` A submission now would be ${txt}${plural} late.`)
+     }
+
+    });
+  });
+});
+</script>
+
+
+
+
+  <script src="./Quiz 4 _ COMP2521 21T1 _ WebCMS3_files/apexcharts.min.js.下载"></script>
+
+  
+<script type="text/javascript">
+
+$(function () {
+
+  /* render blank chart straight away to fill up the space while loading */
+  let chart
+  drawChart(Array(4 + 1).fill(''), Array(4).fill(0))
+
+  $.getJSON('/COMP2521/21T1/activities/quizzes/1752/results/json', function (data) {
+if (!data.success) {
+  /* render error message on canvas to keep consistent with old approach */
+  const elem = document.querySelector('#scoreChart')
+  elem.style.visibility = 'hidden'
+  elem.outerHTML = ''
+  const ctx = $('#scoreChartError')[0].getContext('2d')
+  $('#scoreChartError').show()
+  ctx.font = '20px sans serif'
+  ctx.fillText('Error fetching quiz data.', 155, 50)
+  ctx.textAlign = 'start'
+  return
+}
+    const dataRange = []
+    const frequencies = []
+    data.data.forEach(function (freq, val) {
+      dataRange.push(val)
+      frequencies.push(freq)
+    })
+
+    if (data.labels) {
+      const year = data.labels[0].match(/.{4}$/)[0] /* assumes all submissions were in the same year */
+      const dat = data.labels.map(function (x) {
+        return x.replace(/.{5}$/, '')
+      })
+      const rotate = (dat.length > 10) ? true : false
+      chart.updateOptions({
+        /* submission frequency graph */
+        xaxis: {
+          categories: dat,
+          labels: {
+            rotate: -45,
+            rotateAlways: rotate,
+            minHeight: 75,
+            maxHeight: 95
+          }
+        },
+        tooltip: {
+          x: {
+            formatter: function (x) {
+              return `${x}/${year}`
+            }
+          }
+        }
+      })
+    } else {
+      chart.updateOptions({
+        xaxis: {
+          categories: Array.from(Array(4 + 1).keys()),
+          labels: {
+            /* student marks graph */
+            formatter: function (val) {
+              const plural = val === 1 ? '' : 's'
+              return val + ' mark' + plural
+            }
+          }
+        }
+      })
+    }
+
+    chart.updateOptions({
+      yaxis: {
+        decimalsInFloat: 0,
+        tickAmount: (Math.max(...frequencies) === 1) ? 2 : 1, /* workaround for an odd bug in apexcharts.js */
+        max: Math.max(...frequencies),
+        min: 0,
+        forceNiceScale: true,
+        /* need to reset these settings due to apexcharts.js bug */
+        axisBorder: {
+          show: true,
+          color: '#4DB6AC',
+          offsetX: 2,
+          offsetY: -3
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: true,
+        }
+      }
+    })
+
+    chart.updateSeries(
+      [{
+        name: 'Students',
+        data: frequencies
+      }]
+    )
+
+  })
+
+  function drawChart(dataLabels, frequencies) {
+    const options = {
+      chart: {
+        height: 400,
+        type: 'bar',
+        toolbar: {
+          show: true,
+          tools: {
+            download:
+              false
+          }
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: 'bottom',
+          },
+        }
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      series: [{
+        name: 'Students',
+        data: frequencies
+      }],
+      xaxis: {
+        categories: dataLabels,
+        position: 'bottom',
+        labels: {
+          offsetY: 0,
+          show: true
+        },
+        axisBorder: {
+          show: true,
+          color: '#4DB6AC',
+          offsetY: -2
+        },
+        axisTicks: {
+          show: false
+        },
+        tooltip: {
+          enabled: false,
+        }
+      },
+      fill: {
+        colors: '#4DB6AC',
+      },
+      yaxis: {
+        decimalsInFloat: 0,
+        tickAmount: 1,
+        max: 0,
+        min: 0,
+        forceNiceScale: true,
+        axisBorder: {
+          show: true,
+          color: '#4DB6AC',
+          offsetX: 2,
+          offsetY: -3
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: true,
+        }
+      },
+      tooltip: {
+        enabled: true,
+        marker: {
+          show: false
+        }
+      },
+      grid: {
+        show: true,
+        axisBorder: {
+          show: true,
+          color: '#FFFFFF',
+          offsetX: 0,
+          offsetY: 0
+        },
+        xaxis: {
+          lines: {
+            show: true
+          }
+        },
+        yaxis: {
+          lines: {
+            show: false
+          }
+        }
+      }
+    }
+
+    /* plot student marker, if applicable */
+    if (3.00 >= 0) {
+      options['annotations'] = {
+        xaxis: [{
+          x: parseInt(3.00),
+          borderColor: '#000000',
+          label: {
+            borderWidth: 0,
+            style: {
+              color: '#000000',
+              background: '#FFFFFF'
+            },
+            orientation: 'horizontal',
+            text: 'Your mark = 3.00',
+            offsetX:
+                0
+,
+            offsetY: -10
+          }
+        }]
+      }
+    }
+
+    chart = new ApexCharts(
+      document.querySelector('#scoreChart'),
+      options
+    )
+
+    chart.render()
+  }
+
+})
+
+</script>
+
+
+
+    <script>
+      jQuery.timeago.settings.allowFuture = true;
+
+      $(function() {
+        $('*[id^="redactor"]').each(function () {
+          $(this).redactor({
+            imageUpload: "/files/redactor/upload",
+            plugins: ['table', 'fontsize', 'fontcolor', 'video', 'template']
+          });
+
+        });
+          $('.redactor').redactor({
+            imageUpload: "/files/redactor/upload",
+            plugins: ['table', 'fontsize', 'fontcolor', 'video', 'template']
+          });
+      });
+
+      $(document).ready(function() {
+        /* hack to remove awful extra padding */
+        $('.redactor-box').attr('style', 'margin: 0 !important; padding: 0 !important;');
+
+        /* force text cursor in redactor editing field */
+        $('.redactor-editor').each(function () {
+          $(this).attr('style', 'cursor: text;');
+        });
+      });
+
+      $(document).ready(function() {
+        $('[data-toggle=buttons]').click(function() {
+          /* hack to get toolbar to show */
+          setTimeout(function() {$('.redactor').scroll()}, 0);
+        });
+      });
+
+    </script>
+    <script>
+        $(document).on('change', '.btn-file :file', function() {
+          var input = $(this),
+              numFiles = input.get(0).files ? input.get(0).files.length : 1,
+              label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+          input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(document).ready( function() {
+            $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+            });
+        });
+
+      $('[data-toggle="popover"]').popover();
+    </script>
+
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        jQuery("abbr.timeago").timeago();
+      });
+
+      $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+      $(document).ready(function() {
+        $('[data-toggle=offcanvas]').click(function() {
+          $('.row-offcanvas').toggleClass('active');
+        });
+      });
+    </script>
+
+
+
+
+  
+</div><svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 4836px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 4836px; width: 1197px;"></div></html>

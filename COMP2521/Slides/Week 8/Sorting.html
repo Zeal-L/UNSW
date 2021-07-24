@@ -1,0 +1,345 @@
+
+<!-- saved from url=(0064)http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Sorting</title>
+<link href="./Sorting_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Sorting_files/latest.js.下载" async=""></script>
+<script src="./Sorting_files/jquery.min.js.下载"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><link href="./Sorting_files/css" rel="stylesheet"><link href="./Sorting_files/prism.css" rel="stylesheet"> 
+<script type="text/javascript" async="" src="./Sorting_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Sorting</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s1">Sorting</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s3">The Sorting Problem</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s8">Comparison of Sorting Algorithms</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s9">Implementing Sorting</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s10">Implementing <large><code>isSorted()</code></large></a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s11">Sorts on Linux</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s12">Describing Sorting Algorithms</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [0/12]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sorting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Sorting</font> involves arranging a collection of items in order
+</p><ul>
+<li> based on some property of the items <small>(e.g. key)</small>
+</li><li> using an ordering relation on that property
+</li></ul>
+<br>
+Why is sorting useful?
+<ul>
+<li> speeds up subsequent searching
+</li><li> arranges data in a human-useful way <br>
+	<small>(e.g. list of students in a tute class, ordered by family-name or id)</small>
+</li><li> arranges data in a computationally-useful way <br>
+	<small>(e.g. duplicate detection/removal, many DBMS operations)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [1/12]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... Sorting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Sorting occurs in many data contexts, e.g.
+</p><ul>
+<li> arrays, linked-lists &nbsp; (internal, in-memory)
+</li><li> files &nbsp; (external, on-disk)
+</li></ul>
+Different contexts generally require different approaches
+<ul>
+<li> and sorting has been well-studied over the last 50 years
+</li></ul>
+<br>
+Our view of the sorting problem:
+<ul>
+<li> arrange an array of <large><code>Item</code></large>s in ascending order
+</li><li> could sort whole array, or could sort a slice of the array
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [2/12]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ The Sorting Problem</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Arrange items in array slice <large><code>a[lo..hi]</code></large> into sorted order:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/sorting.png]" src="./Sorting_files/sorting.png">
+</div><p>
+</p><p>
+For <large><code>Item a[N]</code></large>, &nbsp;frequently <large><code>(lo == 0)</code></large>, <large><code>(hi == N-1)</code></large>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [3/12]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... The Sorting Problem</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+More formally ...
+</p><p>
+Precondition:
+</p><ul>
+<li> <large><code>lo</code></large>,<large><code>hi</code></large> are valid indexes, <small>i.e.</small> <large><code>0</code></large> <i>≤</i> <large><code>lo</code></large> &lt; <large><code>hi</code></large> <i>≤</i> <large><code>N-1</code></large>
+</li><li> <large><code>a[lo..hi]</code></large> contains defined values of type <large><code>Item</code></large>
+</li></ul>
+Postcondition:
+<ul>
+<li> <large><code>a[lo..hi]</code></large> contains same set (bag) of values
+</li><li> foreach <large><code>i</code></large> in <large><code>lo..hi-1</code></large>, &nbsp;<large><code>a[i]</code></large> ≤ <large><code>a[i+1]</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [4/12]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... The Sorting Problem</div></td><td align="right"></td></tr></tbody></table>
+<p>
+We sort arrays of <large><code>Item</code></large>s, which could be
+</p><ul>
+<li> simple values, e.g. &nbsp;<large><code>int</code></large>, &nbsp;<large><code>char</code></large>, &nbsp;<large><code>float</code></large>
+</li><li> structured values, e.g. <large><code>struct</code></large>
+</li></ul>
+Each <large><code>Item</code></large> contains a <large><code>key</code></large>, which could be
+<ul>
+<li> a simple value, or a collection of values
+</li></ul>
+The order of <large><code>key</code></large> values determines the order of the sort.
+<p>
+Duplicate <large><code>key</code></large> values are not precluded.
+</p><p><br>
+<small>
+In our discussions, we often use the <large><code>key</code></large> value as if it is the whole <large><code>Item</code></large>
+</small>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [5/12]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... The Sorting Problem</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Properties of sorting algorithms: stable, adaptive
+</p><p>
+Stable sort:
+</p><ul>
+<li> let &nbsp;<i>x</i> = <large><code>a[i]</code></large>, &nbsp;<i>y</i> = <large><code>a[j]</code></large>, &nbsp;<large><code>key(x) == key(y)</code></large>
+</li><li> "precedes" = occurs earlier in the array <small>(smaller index)</small>
+</li><li> if <i>x</i> precedes <i>y</i> in <large><code>a</code></large>, then <i>x</i> precedes <i>y</i> in sorted <large><code>a</code></large>
+</li></ul>
+<p>
+Adaptive:
+</p><ul>
+<li> behaviour/performance of algorithm affected by data values 
+</li><li> i.e. best/average/worst case performance differs
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [6/12]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ ... The Sorting Problem</div></td><td align="right"></td></tr></tbody></table>
+<p>
+In analysing sorting algorithms:
+</p><ul>
+<li> <i>N</i> = number of items = <large><code>hi-lo+1</code></large>
+</li><li> <i>C</i> = number of comparisons between items
+</li><li> <i>S</i> = number of times items are swapped
+</li></ul>
+Aim to minimise <i>C</i> and <i>S</i>
+<p>
+Cases to consider for initial order of items:
+</p><ul>
+<li> random order:&nbsp; <large><code>Item</code></large>s in <large><code>a[lo..hi]</code></large> have no ordering
+</li><li> sorted order:&nbsp; <large><code>a[lo]</code></large> &nbsp;≤&nbsp; <large><code>a[lo+1]</code></large> &nbsp;≤&nbsp; ... &nbsp;≤&nbsp; <large><code>a[hi]</code></large>
+</li><li> revserse order:&nbsp; <large><code>a[lo]</code></large> &nbsp;≥&nbsp; <large><code>a[lo+1]</code></large> &nbsp;≥&nbsp; ... &nbsp;≥&nbsp; <large><code>a[hi]</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [7/12]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Comparison of Sorting Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A variety of sorting algorithms exist
+</p><ul>
+<li> most are in-memory algorithms, some also work with files
+</li><li> two major classes: &nbsp; <i>O(n<sup>2</sup>)</i>, <i>O(n log n)</i>
+</li><li> <i>O(n<sup>2</sup>)</i> are acceptable if <i>n</i> is small <small>(hundreds)</small>
+</li></ul>
+Ways to compare algorithms:
+<ul>
+<li> implement and monitor performance
+</li><li> <a target="_blank" href="http://www.sorting-algorithms.com/">graphic visualisations</a> 
+</li><li> or even <a target="_blank" href="https://www.youtube.com/watch?v=lyZQPjUT5B4">folk dancing</a>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [8/12]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Implementing Sorting</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Concrete framework:
+</p><p></p><pre><span class="comment">// we deal with generic Items</span>
+typedef <i>SomeType</i> Item;
+
+<span class="comment">// abstractions to hide details of Items</span>
+#define key(A) (A)
+#define less(A,B) (key(A) &lt; key(B))
+#define swap(A,B) {Item t; t = A; A = B; B = t;}
+
+<span class="comment">// Sorts a slice of an array of Items, a[lo..hi]</span>
+void sort(Item a[], int lo, int hi);
+
+<span class="comment">// Check for sortedness (to validate functions)</span>
+int isSorted(Item a[], int lo, int hi);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [9/12]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Implementing <large><code>isSorted()</code></large></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Implementation of the <large><code>isSorted()</code></large> check.
+</p><p></p><pre>bool <font color="navy">isSorted</font>(Item a[], int lo, int hi)
+{
+   for (int i = lo; i &lt; hi; i++) {
+      if (!less(a[i],a[i+1])) return false;
+   }
+   return true;
+}
+</pre><p>
+<br>
+Checks pairs &nbsp;(<large><code>a[lo]</code></large>,<large><code>a[lo+1]</code></large>), ... (<large><code>a[hi-1]</code></large>,<large><code>a[hi]</code></large>)
+</p><p>
+Check whole array &nbsp;<large><code>Item a[N]</code></large>&nbsp; via &nbsp;<large><code>isSorted(a, 0, N-1)</code></large>
+</p></div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [10/12]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Sorts on Linux</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <large><font color="#009900"><b><code>sort</code></b></font></large> command
+</p><ul>
+<li> sorts a file of text, understands fields in line
+</li><li> can sort alphabetically, numerically, reverse, random
+</li></ul>
+The <large><font color="#009900"><b><code>qsort()</code></b></font></large> function
+<ul>
+<li> <large><code>qsort(void *<font color="green">a</font>, int <font color="green">n</font>, int <font color="green">size</font>, int (*<font color="green">cmp</font>)())</code></large>
+</li><li> sorts any kind of array &nbsp; <small>(<large><code>n</code></large> objects, each of <large><code>size</code></large> bytes)</small>
+</li><li> requires the user to supply a comparison function &nbsp; <small>(e.g. <large><code>strcmp()</code></large>)</small>
+</li><li> sorts list of items using the order given by <large><code>cmp()</code></large>
+</li></ul>
+<small>
+Note: the comparison function is passed as a parameter; discussed elsewhere.
+</small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [11/12]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs2521/20T2/lecs/sorting/slides.html#s0"><span class="upArrowCl">∧</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">❖ Describing Sorting Algorithms</div></td><td align="right"></td></tr></tbody></table>
+<p>
+To describe sorting, we use diagrams like:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/showing-sorting.png]" src="./Sorting_files/showing-sorting.png">
+</div><p>
+In these algorithms ...
+</p><ul>
+<li> some part(s) of the array is already sorted
+</li><li> each iteration makes more of the array sorted
+</li></ul>
+<br>
+<small>See also
+<a target="_blank" href="http://www.sorting-algorithms.com/">animations</a>
+by David R. Martin, Boston College, <span class="smaller">based on Sedgewick's idea</span></small>
+</div>
+<div class="slideNumCl2">COMP2521 20T2 ♢ Sorting [12/12]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 18 Jul 2020</span>
+ <script src="./Sorting_files/prism.js.下载"></script>   
+ <script src="./Sorting_files/sg.js.下载"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 8911px; width: 1197px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 8911px; width: 1197px;"></div></html>

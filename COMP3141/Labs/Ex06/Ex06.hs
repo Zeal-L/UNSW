@@ -64,8 +64,11 @@ ex3 = Exists [False, True] $ \p ->
 -- Evaluating terms
 -- ----------------
 eval :: Term t -> t
-eval p = error "'eval' unimplemented"
-
+eval (Con t)       = t
+eval (And x y)     = eval x && eval y
+eval (Or x y)      = eval x || eval y
+eval (Smaller x y) = eval x <  eval y
+eval (Plus x y)    = eval x +  eval y
 
 -- the Name constructor is not relevant for evaluation
 -- just throw an error if it is encountered:
@@ -76,12 +79,15 @@ eval (Name _) = error "eval: Name"
 -- -----------------
 
 satisfiable :: Formula ts -> Bool
-satisfiable f = error "'satisfiable' unimplemented"
-
+satisfiable (Body t) = eval t
+satisfiable (Exists xs f) = or $ satisfiable . f . Con <$> xs
 
 -- Enumerating solutions of formulae
 -- ---------------------------------
 
 solutions :: Formula ts -> [ts]
-solutions f = error "'solutions' unimplemented"
-
+solutions (Body t) = [() | eval t]
+solutions (Exists xs f) = do
+                  l <- filter (satisfiable . f . Con) xs
+                  r <- (solutions . f . Con) l
+                  pure ((,) l r)

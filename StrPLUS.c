@@ -15,7 +15,7 @@ static char *StrPLUS (int num, ...);
 int main(int argc, char* argv[]) {
     char *string1 = "Hello, ";
     char *string2 = "World!";
-    char *s = StrPLUS(3, string1, string2, '1');
+    char *s = StrPLUS(3, NULL, string2, "'1'");
 
     printf("%s", s);
     free(s);
@@ -33,7 +33,7 @@ static char *StrPLUS (int num, ...) {
     // SIGSEGV 非法访问存储器，如访问不存在的内存单元。
     signal(SIGSEGV, sighandler);
     if (num <= 0) {
-        fprintf(stderr, "StrPLUS: <error: Invalid First Argument>");
+        fprintf(stderr, "StrPLUS: <error: Invalid First Argument>\n");
         exit(1);
     }
 

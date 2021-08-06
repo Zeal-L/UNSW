@@ -2,7 +2,7 @@
 // COMP1521 21t2 -- Assignment 2 -- shuck, A Simple Shell
 // <https://www.cse.unsw.edu.au/~cs1521/21T2/assignments/ass2/index.html>
 //
-// Written by YOUR-NAME-HERE (z5325156) on INSERT-DATE-HERE.
+// Written by Zeal Liang (z5325156) on 2021/8/4.
 //
 // 2021-07-12    v1.0    Team COMP1521 <cs1521@cse.unsw.edu.au>
 // 2021-07-21    v1.1    Team COMP1521 <cs1521@cse.unsw.edu.au>
@@ -405,6 +405,17 @@ static int inputOrOutput(char **argv, char **paths, char **environment, int todo
             argv[i] = argv[i + 2];
         }
         argv[i] = NULL;
+
+        if (strspn(inputfile, "*?[~")) {
+            glob_t matches;
+            glob(inputfile, GLOB_NOCHECK|GLOB_TILDE, NULL, &matches);
+            if (matches.gl_pathv[1] != NULL) {
+                fprintf(stderr, "invalid output redirection\n");
+                return 1;
+            } else {
+                strcpy(inputfile, matches.gl_pathv[0]);
+            }
+        }
     }
 
     //? ////////////////////////////////////////////////////////////////////////////
@@ -433,8 +444,20 @@ static int inputOrOutput(char **argv, char **paths, char **environment, int todo
             argv[num-2] = NULL;
         }
         argv[num-1] = NULL;
+
+        if (strspn(outputfile, "*?[~")) {
+            glob_t matches;
+            glob(outputfile, GLOB_NOCHECK|GLOB_TILDE, NULL, &matches);
+            if (matches.gl_pathv[1] != NULL) {
+                fprintf(stderr, "invalid output redirection\n");
+                return 1;
+            } else {
+                strcpy(outputfile, matches.gl_pathv[0]);
+            }
+        }
     }
     if (redirection_check(argv[0])) return 1;
+
 
     //? ////////////////////////////////////////////////////////////////////////////
     pid_t pid;
@@ -535,12 +558,17 @@ static int *write_and_read_pipe(char **argv, char **paths, char **environment, i
     if (pipeEnd == NULL && check) {
         char *temp = change_words(argv);
         strcpy(filename, temp);
-        if (strspn(filename, "*?[~")) {
-            glob_t matches;
-            glob(filename, GLOB_NOCHECK|GLOB_TILDE, NULL, &matches);
+        free(temp);
+    }
+    if (strspn(filename, "*?[~")) {
+        glob_t matches;
+        glob(filename, GLOB_NOCHECK|GLOB_TILDE, NULL, &matches);
+        if (matches.gl_pathv[1] != NULL) {
+            fprintf(stderr, "invalid output redirection\n");
+            return NULL;
+        } else {
             strcpy(filename, matches.gl_pathv[0]);
         }
-        free(temp);
     }
 
     //? ////////////////////////////////////////////////////////////////////////////
@@ -627,7 +655,6 @@ static int *write_and_read_pipe(char **argv, char **paths, char **environment, i
 
     close(temp_pipe[0]);
     close(curr_pipe[1]);
-
 
     //? ////////////////////////////////////////////////////////////////////////////
     // If the first one is read from the file

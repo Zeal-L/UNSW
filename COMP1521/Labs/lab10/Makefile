@@ -1,6 +1,6 @@
 # COMP1521 21T2 ... a general makefile for multiple exercises
 
-CC		 = gcc
+CC		 = dcc
 EXERCISES	?=
 CLEAN_FILES	?=
 

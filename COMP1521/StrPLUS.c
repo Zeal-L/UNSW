@@ -15,7 +15,7 @@ static char *StrPLUS (int num, ...);
 int main(int argc, char* argv[]) {
     char *string1 = "Hello, ";
     char *string2 = "World!";
-    char *s = StrPLUS(3, NULL, string2, "'1'");
+    char *s = StrPLUS(3, string1, string2, "'1'");
 
     printf("%s", s);
     free(s);

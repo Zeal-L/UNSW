@@ -5,6 +5,12 @@
 		}
 	],
 	"settings": {
-
+		"editor.fontFamily": "Hack, '微软雅黑', monospace",
+		"code-runner.executorMap": {
+			"python":"python -u $fullFileName"
+		},
+		"code-runner.runInTerminal": false,
+		"code-runner.fileDirectoryAsCwd": true,
+		"code-runner.clearPreviousOutput": true,
 	}
 }

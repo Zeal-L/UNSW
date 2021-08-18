@@ -25,6 +25,7 @@
 			"Submap",
 			"combinators",
 			"favourite",
+			"hlint",
 			"tokenise"
 		]
 	},

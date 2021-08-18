@@ -87,6 +87,12 @@ reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = reverse' xs ++ [x]
 
+-- accumulator style
+proReverse :: [a] -> [a]
+proReverse xs = go xs []
+  where go []      acc = acc
+        go (x:xs') acc = go xs' (x:acc)
+
 -- ! ---------------------------------------------------------------------------
 
 zip' :: [a] -> [b] -> [(a,b)]
@@ -115,6 +121,7 @@ quicksort (x:xs) =
 
 -- 归并排序 :: 数组 -> 排序后的数组
 mergeSort :: (Eq a, Ord a) => [a] -> [a]
+mergeSort [] = []
 mergeSort [x] = [x]      -- 如果是 只有一个元素的数组, 就返回这个数组
 mergeSort xs = merge (mergeSort $ fst subs) (mergeSort $ snd subs)      -- 把 (被归并排序过的 前半部分的数组) 和 (被归并排序过的 后半部分的数组) 进行排序合并
     where mid = length xs `div` 2     -- 中心的下标

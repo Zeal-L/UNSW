@@ -324,3 +324,19 @@ sorted _xs       = True
 
 -- ! ---------------------------------------------------------------------------
 
+data Balance = Balance Int Int deriving (Show, Eq)
+
+instance Semigroup Balance where
+  Balance c1 o1 <> Balance c2 o2
+    |   o1 > c2 = Balance c1 (o1 - c2 + o2)
+    | otherwise = Balance (c1 + c2 - o1) o2
+
+instance Monoid Balance where mempty = Balance 0 0
+
+parseBalance :: Char -> Balance
+parseBalance '(' = Balance 0 1
+parseBalance ')' = Balance 1 0
+parseBalance _   = Balance 0 0
+
+balance :: [Char] -> Bool
+balance str = mconcat (map parseBalance str) == Balance 0 0

@@ -22,10 +22,14 @@
 			"BLANKLINE",
 			"Inor",
 			"Invis",
+			"Monoid",
+			"Semigroup",
 			"Submap",
 			"combinators",
 			"favourite",
 			"hlint",
+			"mconcat",
+			"mempty",
 			"tokenise"
 		]
 	},

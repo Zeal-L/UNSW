@@ -8,6 +8,8 @@ import Test.QuickCheck ((==>), Positive(..))
 import Test.QuickCheck.Property (Property)
 import Debug.Trace ()
 import qualified Data.Maybe as Maybes
+import Data.Void ()
+
 -- ! ---------------------------------------------------------------------------
 
 hypotenuse :: Floating a => a -> a -> a
@@ -340,3 +342,33 @@ parseBalance _   = Balance 0 0
 
 balance :: [Char] -> Bool
 balance str = mconcat (map parseBalance str) == Balance 0 0
+
+-- ! ---------------------------------------------------------------------------
+
+f :: [Integer]
+f = [1,2] >>= \x -> [3,4] >>= \y -> [5,6] >>= \z -> pure (x*y*z)
+
+f' :: [Integer]
+f' = do x <- [1,2]
+        y <- [3,4]
+        z <- [5,6]
+        pure $ x*y*z
+
+-- ! ---------------------------------------------------------------------------
+
+newtype Parser a = Parser { runParser :: String -> (String, Maybe a) }
+digits :: Parser Int
+digits = Parser $ \input ->
+  let r = takeWhile isDigit input
+  in if null r
+      then ([], Nothing)
+      else (drop (length r) input, Just $
+  foldl' (\acc a -> acc*10 + (fromEnum a-48)) 0 r)
+
+--runParser digits "123e5" == ("e5", Just 123)
+
+-- ! ---------------------------------------------------------------------------
+
+f'' :: [Int] -> ([Int], Int)
+f'' xs = (ff xs, sum $ ff xs)
+  where ff xss = map (+1) xss

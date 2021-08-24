@@ -27,6 +27,7 @@
 			"Submap",
 			"combinators",
 			"favourite",
+			"foldl",
 			"hlint",
 			"mconcat",
 			"mempty",

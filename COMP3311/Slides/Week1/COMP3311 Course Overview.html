@@ -1,0 +1,623 @@
+
+<!-- saved from url=(0069)http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>COMP3311 Course Overview</title>
+<link href="./COMP3311 Course Overview_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./COMP3311 Course Overview_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./COMP3311 Course Overview_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./COMP3311 Course Overview_files/MathJax.js.&#19979;&#36733;"></script>
+<link href="./COMP3311 Course Overview_files/css" rel="stylesheet">
+<link href="./COMP3311 Course Overview_files/prism.css" rel="stylesheet">
+<script src="./COMP3311 Course Overview_files/sg.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./COMP3311 Course Overview_files/translateelement.css"></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">COMP3311 Course Overview</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s2">Why Study Databases?</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s3">Databases: Important Themes</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s4">What is Data? What is a Database?</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s5">Studying Databases in CSE</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s6">Syllabus Overview</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s8">Your Background</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s9">Teaching/Learning</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s11">Assignments</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s12">Quizzes</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s13">Exam</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s14">Supplementary Assessment Policy</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s15">Assessment Summary</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s16">Textbook (options)</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s17">Database Management Systems</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s18">Further Reading Material</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s19">Home Computing</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s21">Overview of the Databases Field</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s22">Database Application Development</a>
+</li><li class="i"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s23">Database System Architecture</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [0/24]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <p>
+</p><center style="font-size:32pt;color:#336699">COMP3311 Database Systems</center>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/intro/pgsql.jpg]" src="./COMP3311 Course Overview_files/pgsql.jpg">
+</div><p>
+</p><p>
+<table cellpadding="10px"><tbody><tr><td>Lecturer:</td>
+<td><i>John Shepherd</i> &nbsp; <small>(cs3311@cse.unsw.edu.au)</small>
+</td></tr>
+<tr valign="top">
+<td><nobr>Web Site:</nobr></td>
+<td><small>
+<font color="#000099"><a href="http://webcms3.cse.unsw.edu.au/COMP3311/21T3/">http://webcms3.cse.unsw.edu.au/COMP3311/21T3/</a></font> <br>
+or &nbsp; <font color="#000099"><a href="http://www.cse.unsw.edu.au/~cs3311/">http://www.cse.unsw.edu.au/~cs3311/</a></font>
+</small></td></tr>
+</tbody></table>
+</p><p>
+<small>(If Webcms3 is unavailable, try <font color="#000099">http://www.cse.unsw.edu.au/~cs3311/21T3/</font>)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [1/24]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Why Study Databases?</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Every significant computer application involves <big>Large Data</big>.
+</p><p>
+This needs to be:
+</p><ul>
+<li> <font color="#008800">stored</font> &nbsp; <small>(typically on a disk device)</small>
+</li><li> <font color="#008800">manipulated</font> &nbsp; <small>(efficiently, usefully)</small>
+</li><li> <font color="#008800">shared</font> &nbsp; <small>(by many users, concurrently)</small>
+</li><li> <font color="#0000EE">transmitted</font> &nbsp; <small>(all around the Internet)</small>
+</li></ul>
+<font color="#008800">Green</font> stuff handled by databases; &nbsp; <font color="#0000EE">blue</font> by networks.
+<p>
+<small>
+Challenges in building effective databases:
+efficiency, security, scalability, maintainability,
+availability, integration, new media types <small>(e.g., music)</small>, ...
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [2/24]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Databases: Important Themes</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The field of <font color="#0000BB">databases</font> deals with:
+</p><ul>
+<li> <font color="#0000BB">data</font> ... representing application scenarios
+</li><li> <font color="#0000BB">relationships</font> ... amongst data items
+</li><li> <font color="#0000BB">constraints</font> ... on data and relationships
+</li><li> <font color="#0000BB">redundancy</font> ... one source for each data item
+</li><li> <font color="#0000BB">data manipulation</font> ... declarative, procedural
+</li><li> <font color="#0000BB">transactions</font> ... multiple actions, atomic effect
+</li><li> <font color="#0000BB">concurrency</font> ... multiple users sharing data
+</li><li> <font color="#0000BB">scale</font> ... massive amounts of data
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [3/24]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; What is Data? What is a Database?</div></td><td align="right"></td></tr></tbody></table>
+<p>
+According to the Elmasri/Navathe textbook ...
+</p><p>
+</p><ul>
+<li><font color="#0000BB">Data</font> = known recorded facts, with implicit meaning
+<small>
+<ul>
+<li>e.g. a student's name, a product id, a person's address or birthday
+</li></ul>
+</small>
+<br>
+</li><li><font color="#0000BB">Database</font> = collection of related data, satisfying constraints
+<small>
+<ul>
+<li>e.g. a student <i>is enrolled in</i> a course, a product <i>is sold at</i> a store
+</li></ul>
+</small>
+<br>
+</li><li><font color="#0000BB">DBMS</font> = database management system
+<small>
+<ul>
+<li>software to manage data, control access, enforce constraints
+</li></ul>
+</small>
+<br>
+</li><li><font color="#0000BB">RDBMS</font> = <font color="#0000BB">relational</font> database management system
+<small>
+<ul>
+<li>e.g. PostgreSQL, SQLite, Oracle, SQL Server, MySQL, ...
+</li></ul>
+</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [4/24]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Studying Databases in CSE</div></td><td align="right"></td></tr></tbody></table>
+<p>
+COMP3311 introduces foundations &amp; technology of databases
+</p><ul>
+<li> skills: how to build database-backed applications
+</li><li> theory: how do you know that what you built was good
+</li></ul>
+<br>
+After COMP3311 you can go on to study ...
+<p>
+<small>
+</small></p><ul><small>
+<li>
+COMP9313: managing Big Data 
+ &nbsp; <span class="smaller">(Hadoop, Spark, NoSQL techniques)</span>
+</li><li>
+COMP9315: how to build relational DBMSs 
+ &nbsp; <span class="smaller">(write your own PostgreSQL)</span>
+</li><li>
+COMP9318: techniques for data mining 
+ &nbsp; <span class="smaller">(discovering patterns in DB)</span>
+</li><li>
+COMP9319: Web data compression and search 
+ &nbsp; <span class="smaller">(XML data)</span>
+</li><li>
+COMP6714: information retrieval, web search 
+ &nbsp; <span class="smaller">(dealing with text data)</span>
+</li><li>
+COMP9321: data services 
+ &nbsp; <span class="smaller">(making data available via a network)</span>
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [5/24]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Syllabus Overview</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Core syllabus ...
+</p><ul>
+<li> Data modelling and database design
+<small>
+<ul>
+<li> ER model, <font color="#996600">ODL</font>, ER-to-relational
+</li><li> Relational model &nbsp; <small>(design theory, algebra)</small>
+</li></ul>
+</small>
+</li><li> Database application development
+<small>
+<ul>
+<li> SQL, views, stored procedures, triggers, aggregates
+</li><li> SQLite:
+		&nbsp; <tt>sqlite3</tt> <small>(an SQL shell)</small>
+</li><li> PostgreSQL:
+        &nbsp; <tt>psql</tt> <small>(an SQL shell)</small>,
+        &nbsp; <tt>PLpgSQL</tt> <small>(procedural)</small>,
+</li><li> Programming language access to databases
+	&nbsp; <small>(Python, <font color="#996600">ORMs</font>)</small>
+</li></ul>
+</small>
+</li></ul>
+
+<br>
+The <font color="#996600">brown stuff</font> is not covered in tutes/pracs and is not examinable
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [6/24]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Syllabus Overview <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+More syllabus ...
+</p><ul>
+<li> Database management systems (DBMSs)
+<small>
+<ul>
+<li> <font color="#0000EE">DBMS architecture: query processing, index structures</font>
+</li><li> Transaction processing: transactions, <font color="#0000EE">concurrency control, recovery</font>
+</li></ul>
+</small>
+</li><li> Future of Databases
+<small>
+<ul>
+<li> <font color="#008800">Limitations of RDBMS's, potential future technologies</font>
+</li></ul>
+</small>
+</li></ul>
+<br>
+<font color="#0000EE">Blue</font> and <font color="#008800">green stuff</font> is covered only briefly, and is not examinable
+<p>
+To learn more about the <font color="#008800">green stuff</font>, take COMP9313, ...
+</p><p>
+To learn more about the <font color="#0000EE">blue stuff</font>, take COMP9315, ...
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [7/24]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Your Background</div></td><td align="right"></td></tr></tbody></table>
+<p>
+We assume that you ...
+</p><ul>
+<li> have experience with procedural programming
+</li><li> have some background in data structures
+</li><li> hopefully, have some knowledge of Python
+</li></ul>
+<br>
+You might have acquired this background in
+<ul>
+<li> COMP1511, COMP1531, <font color="#008800">COMP2521</font>
+</li></ul>
+<br>
+If you don't know Python, look at some online tutorials soon.
+<p>
+e.g. https://www.python.org/about/gettingstarted/
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [8/24]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Teaching/Learning</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Stuff that is available for you:
+</p><ul>
+<li> <font color="#0000BB">Textbooks</font>: describe <font color="#0000BB">most</font> syllabus topics in detail
+</li><li> <font color="#0000BB">Topic Videos</font>: summarize <font color="#0000BB">all</font> syllabus topics
+</li><li> <font color="#0000BB">Problem-solving sessions</font>: work through examples
+</li><li> <font color="#0000BB">Tutorial sessions</font>: theory/prac questions <small>(+ solutions)</small>
+</li><li> <font color="#0000BB">Prac exercises</font>: lab-like exercises
+</li><li> <font color="#0000BB">Assignments</font>: more detailed practical exercises
+</li><li> <font color="#0000BB">Quizzes</font>: periodic progress check
+</li></ul>
+<br>
+All online. &nbsp; If you want on-campus, wait for <s>COMP3311 21T1</s> ???
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [9/24]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Teaching/Learning <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+On the course website, you can:
+</p><ul>
+<li> find out the latest course news <br>
+	<span class="smaller">(important annoucements will also be emailed)</span>
+</li><li> view the topic-based slides/videos
+</li><li> get details of tute/prac exercises
+</li><li> get assignment specs/material
+</li><li> do the quizzes
+</li><li> get your questions answered (via the Forums)
+</li></ul>
+URL:
+<a target="demo" href="http://webcms3.cse.unsw.edu.au/COMP3311/21T3">https://webcms3.cse.unsw.edu.au/COMP3311/21T3/</a>
+<p>
+<small>(If Webcms3 is unavailable, try <font color="#000099">http://www.cse.unsw.edu.au/~cs3311/21T3/</font>)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [10/24]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Assignments</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Two assignments, which are <font color="#CC0000">critical</font> for <font color="#0000BB">learning</font>
+</p><ol>
+<li> SQL/PLpgSQL, 15%, due end week 5
+</li><li> Python/SQL/psycopg2, 20%, due end week 9 
+</li></ol>
+All assignments are done <font color="#0000BB">individually</font>, and ...
+<ul>
+<li> submitted via <large><code>give</code></large> or Webcms3
+</li><li> automarked &nbsp; <small>(so you must follow specifcation exactly)</small>
+</li><li> plagiarism-checked &nbsp; <small>(copying solutions &#8658; <font color="#996600"><b>0</b></font> mark for assignment)</small>
+</li><li> rent-a-coder monitored &nbsp; <small>(buying solutions &#8658; <font color="#996600"><b>exclusion</b></font>)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [11/24]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Quizzes</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Six quizzes, each worth 4 marks 
+</p><ul>
+<li> cover material in previous few weeks lectures
+</li><li> aim to check your understanding of recent material
+</li><li> done via Webcms3 in your own time
+</li><li> primarily multiple-choice
+</li><li> held in weeks 2, 3, 4, 7, 8, 10
+</li><li> released Monday, &nbsp; due Friday 9pm
+</li><li> can be submitted multiple times
+</li></ul>
+6×4 = 24, which is mapped into a mark out of 15
+<p>
+Heavy penalties for late submission 
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [12/24]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Exam</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The Final Exam includes questions on ...
+</p><ul>
+<li> SQL, PLpgSQL, (Python), design exercises, analyses
+</li><li> 60% prac questions, 40% "theory" questions
+</li></ul>
+<p>
+Online, open-web exam during exam period
+</p><ul>
+<li> exam is open for 4 hours
+</li><li> content is what I'd put in a 3-hour in-lab exam
+</li><li> can work on home machine, or via <large><code>ssh</code></large>, or via <large><code>vlab</code></large>
+</li><li> all questions typed in and submitted online (<large><code>give</code></large>)
+</li></ul>
+<p>
+Sample exam will be available on the course website in Week 10
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [13/24]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Supplementary Assessment Policy</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Everyone gets <b>exactly one chance</b> to pass the Exam
+</p><p>
+If you attempt the Exam 
+</p><ul>
+<li> I assume that you are fit/healthy enough to take it
+</li><li> no 2nd chance exams, even with a medical certificate
+</li></ul>
+All Special Consideration requests:
+<ul>
+<li> must <font color="#0000BB">document</font> how <font color="#0000BB">you</font> were affected
+</li><li> must be submitted to UNSW <small>(useful to email lecturer as well)</small>
+</li></ul>
+Supplementary Exams are held ... (maybe) in mid-January!
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [14/24]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Assessment Summary</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Your final mark/grade will be determined as follows:
+</p><p></p><pre>quizzes = mark for on-line quizzes   (out of 15)
+ass1    = mark for assignment 1      (out of 15)
+ass2    = mark for assignment 2      (out of 20)
+exam    = mark for final exam        (out of 50)
+okExam  = exam &gt;= 20                 (after scaling)
+
+mark    = ass1 + ass2 + quizzes + exam
+
+grade   = HD|DN|CR|PS  if mark &gt;= 50 &amp;&amp; okExam
+        = FL           if mark &lt;  50 &amp;&amp; okExam
+        = UF           if !okExam
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [15/24]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Textbook (options)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><ul>
+<li> Elmasri, Navathe <br>
+	<a href="https://www.pearson.com/us/higher-education/program/Elmasri-Fundamentals-of-Database-Systems-7th-Edition/PGM189052.html">Fundamentals of Database Systems</a> <small>(7th ed, 2016)</small>
+</li><li> Garcia-Molina, Ullman, Widom <br>
+	<a href="http://www-db.stanford.edu/~ullman/dscb.html">Database Systems: The Complete Book</a> <small>(2nd ed, 2008)</small>
+</li><li> Ramakrishan, Gehrke <br>
+	<a href="http://www.cs.wisc.edu/~dbbook/">Database Management Systems</a> <small>(3rd ed, 2003)</small>
+</li><li> Silberschatz, Korth, Sudarshan <br>
+	<a href="http://db-book.com/">Database System Concepts</a> <small>(7th ed, 2019)</small>
+</li><li> Kifer, Bernstein, Lewis <br>
+	<a href="https://www.pearson.com/us/higher-education/program/Kifer-Database-Systems-An-Application-Oriented-Approach-Compete-Version-2nd-Edition/PGM268925.html">Database Systems: Application-Oriented Approach</a> <small>(2nd ed, 2006)</small>
+</li></ul>
+Earlier editions of texts are ok
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [16/24]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database Management Systems</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Two example DBMSs for prac work:
+</p><ul>
+<li> SQLite <small>(open-source, free, no server needed)</small>
+</li><li> PostgreSQL <small>(open-source, free, full-featured)</small>
+</li></ul>
+Comments on using a specific DBMS:
+<ul>
+<li> the primary goal is to learn SQL (a standard)
+</li><li> the specific DBMS is not especially important **
+</li><li> but, each DBMS implements non-standard features
+</li><li> we will use standard SQL as much as possible
+</li><li> PG docs describe all deviations from standard
+</li></ul>
+<br>
+<small>
+** Unless it seriously violates SQL standards ... I mean you, MySQL
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [17/24]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Further Reading Material</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The on-line documentation and manuals provided with:
+</p><ul>
+<li> <a href="http://www.sqlite.org/docs.html">SQLite</a> are reasonably good
+</li><li> <a href="http://www.postgresql.org/docs/">PostgreSQL</a> are very good
+</li><li> <a href="http://www.python.org/">Python</a> are similarly comprehensive
+</li></ul>
+Some comments on technology books:
+<ul>
+<li> tend to be expensive and short-lived
+</li><li> many provide just the manual, plus some examples
+</li><li> generally, anything published by O'Reilly is useful
+</li></ul>
+<small>Aside: once you understand the concepts, the manual is sufficient</small>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [18/24]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Home Computing</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Software versions that we'll be running this semester (TBC):
+</p><ul>
+<li> PostgreSQL <small>12/13</small>, &nbsp; SQLite <small>3.x</small>, &nbsp; Python <small>3.7+</small>, &nbsp; psycopg2 <small>2.8+</small>
+</li></ul>
+If you install them at home:
+<ul>
+<li> get versions "close to" these
+</li><li> <font color="#CC0000">test all work at CSE before submitting</font>
+</li></ul>
+Alternative to installing at home:
+<ul>
+<li> run them on the new AWS CSE server in a terminal window
+</li><li> use <large><code>vlab</code></large> to log in to the AWS server with a window manager
+</li></ul>
+<span class="smaller">
+Details on setting up a PostgreSQL server are in the first Prac Exercise.
+</span>
+</div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [19/24]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Home Computing <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+To access new server via <code>ssh</code>:
+</p><p></p><pre>$ ssh d.cse.unsw.edu.au
+</pre><p>
+To access via VLab, use a VNC service with:
+</p><p></p><pre>d.cse.unsw.edu.au:5920
+</pre><p>
+Hostname is <code>nw-syd-vxdb</code>
+</p><p>
+Your CSE home directory is accessible on this server
+</p><p>
+You have a special directory under <large><code>/localstorage</code></large>
+</p><p>
+More details on how to set up PostgreSQL in first Prac Exercise
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [20/24]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Overview of the Databases Field</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/intro/overview.png]" src="./COMP3311 Course Overview_files/overview.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [21/24]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database Application Development</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A variation on standard software engineering process:
+</p><ol>
+<li> <font color="#777777">analyse application requirements</font>
+</li><li> develop a data model to meet these requirements
+</li><li> check data model for redundancy <span class="smaller">(using relational theory)</span>
+</li><li> implement the data model as relational schema
+</li><li> <font color="#777777">define operations (transactions) on this model</font>
+</li><li> implement operations via SQL and procedural PLs
+</li><li> construct a program interface to these operations
+</li><li> <font color="#777777">monitor performance and "tune" the schema/operations</font>
+</li></ol>
+At some point, populate the database <small>(may be via interface)</small>
+<p>
+During the course, we consider these in the order 2, 4, 6, 7, 3
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [22/24]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database System Architecture</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The typical environment for a modern DBMS is:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/intro/dbms-arch.png]" src="./COMP3311 Course Overview_files/dbms-arch.png">
+</div><p>
+</p><p>
+<small>SQL queries and results travel along the client<i>&#8596;</i>server links</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [23/24]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="http://www.cse.unsw.edu.au/~cs3311/21T3/lectures/overview/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database System Architecture <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+SQLite is not a client-server system:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/intro/dbms-arch2.png]" src="./COMP3311 Course Overview_files/dbms-arch2.png">
+</div><p>
+</p><p><br>
+<small>
+Although it does have an API for use from programming languages.
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 21T3 &#9826; Overview &#9826; [24/24]</div><p></p><hr><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./COMP3311 Course Overview_files/translate_24dp.png" width="20" height="20" alt="Google &#32763;&#35793;"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">&#21407;&#25991;</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">&#25552;&#20379;&#26356;&#22909;&#30340;&#32763;&#35793;&#24314;&#35758;</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><p>
+<span style="font-size:11px;color: grey;">Produced: 12 Sep 2021</span>
+ <script src="./COMP3311 Course Overview_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./COMP3311 Course Overview_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 17140px; width: 1013px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 17140px; width: 1013px;"></div></html>

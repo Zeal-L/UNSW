@@ -14,7 +14,7 @@
 		"files.autoSave": "afterDelay",
 		"code-runner.saveAllFilesBeforeRun": true,
 		"code-runner.runInTerminal": true,
-		"diffEditor.ignoreTrimWhitespace": false,
+		"diffEditor.ignoreTrimWhitespace": true,
 		"workbench.colorTheme": "Monokai",
 		"workbench.iconTheme": "vscode-icons",
 		"explorer.confirmDelete": false,

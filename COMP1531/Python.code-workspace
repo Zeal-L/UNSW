@@ -2,6 +2,42 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"name": "lab02_lightup",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_lightup"
+		},
+		{
+			"name": "lab02_cipher",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_cipher"
+		},
+		{
+			"name": "lab02_guess",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_guess"
+		},
+		{
+			"name": "lab02_tax",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_tax"
+		},
+		{
+			"name": "lab02_bmi",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_bmi"
+		},
+		{
+			"name": "lab02_count",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_count"
+		},
+		{
+			"name": "lab02_password",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_password"
+		},
+		{
+			"name": "lab02_reverse",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_reverse"
+		},
+		{
+			"name": "lab02_list",
+			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_list"
 		}
 	],
 	"settings": {

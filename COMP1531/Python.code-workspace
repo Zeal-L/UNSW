@@ -22,22 +22,6 @@
 		{
 			"name": "lab02_bmi",
 			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_bmi"
-		},
-		{
-			"name": "lab02_count",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_count"
-		},
-		{
-			"name": "lab02_password",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_password"
-		},
-		{
-			"name": "lab02_reverse",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_reverse"
-		},
-		{
-			"name": "lab02_list",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_list"
 		}
 	],
 	"settings": {

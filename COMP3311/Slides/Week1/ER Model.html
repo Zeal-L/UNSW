@@ -1,0 +1,412 @@
+
+<!-- saved from url=(0073)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s2 -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>ER Model</title>
+<link href="./ER Model_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./ER Model_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./ER Model_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./ER Model_files/css" rel="stylesheet">
+<link href="./ER Model_files/prism.css" rel="stylesheet">
+<script src="./ER Model_files/sg.js.&#19979;&#36733;"></script>
+<script type="text/javascript" async="" src="./ER Model_files/MathJax.js.&#19979;&#36733;"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./ER Model_files/translateelement.css"></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">ER Model</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s1"> Entity-Relationship Data Modelling</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s2"> Entity-Relationship (ER) Diagrams</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s5">Entity Sets</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s6">Keys</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s7">Example: Identifying Keys</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s8">Relationship Sets</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s11">Example: Relationship Semantics</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s13">Weak Entity Sets</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s14">Subclasses and Inheritance</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s16">Design Using the ER Model</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s17">Large ER Diagrams</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s19">Summary of ER</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [0/19]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070;  Entity-Relationship Data Modelling</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+The world is viewed as a collection of <font color="#009900">inter-related</font> <font color="#000099">entities</font>.
+</p><p>
+ER has three major modelling constructs:
+</p><ul>
+<li> <font color="#0000BB">attribute</font>:
+	<font color="#009900">data item</font> describing a property of interest
+</li><li> <font color="#0000BB">entity</font>:
+	collection of attributes describing <font color="#009900">object</font> of interest
+</li><li> <font color="#0000BB">relationship</font>:
+	<font color="#009900">association</font> between entities (objects)
+</li></ul>
+The ER model is not a standard, so notational variations exist
+<p>
+Lecture notes use notation from SKS and GUW books <small>(simple)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [1/19]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070;  Entity-Relationship (ER) Diagrams</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">ER diagrams</font> are a graphical tool for data modelling.
+</p><p>
+An ER diagram consists of:
+</p><ul>
+<li> a collection of <font color="#0000BB">entity set</font> definitions
+</li><li> a collection of <font color="#0000BB">relationship set</font> definitions
+</li><li> <font color="#0000BB">attributes</font> associated with entity and relationship sets
+</li><li> connections between entity and relationship sets 
+</li></ul>
+<br>
+<small>
+Terminology abuse:
+<ul>
+<li> we say "entity" when we mean "entity set"
+</li><li> we say "relationship" when we mean "relationship sets"
+</li><li> we say "entity instance" ro refer to a particular entity
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [2/19]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070;  Entity-Relationship (ER) Diagrams <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example</b> ER diagram:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/er1.png]" src="./ER Model_files/er1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [3/19]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070;  Entity-Relationship (ER) Diagrams <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example</b> of attribute notations:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/erattrs.png]" src="./ER Model_files/erattrs.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [4/19]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Entity Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+An <font color="#0000BB">entity set</font> can be viewed as either:
+</p><ul>
+<li> a set of entities with the same set of attributes
+	<small>(extensional)</small>
+</li><li> an abstract description of a class of entities
+	<small>(intensional)</small>
+</li></ul>
+<font color="#0000BB">Key</font> (<font color="#0000BB">superkey</font>): any set of attributes
+<ul>
+<li> whose set of values are distinct over entity set
+</li><li> natural <small>(e.g., name+address+birthday)</small>
+	 or artificial <small>(e.g., SSN)</small>
+</li></ul>
+<font color="#0000BB">Candidate key</font> = minimal superkey <small>(no subset is a key)</small>
+<p>
+<font color="#0000BB">Primary key</font> = candidate key chosen by DB designer
+</p><p>
+Keys are indicated in ER diagrams by underlining
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [5/19]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Keys</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Sometimes primary keys are obvious ...
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/keys.png]" src="./ER Model_files/keys.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [6/19]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Example: Identifying Keys</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Candidate keys in the following ER diagram ...
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/keys2.png]" src="./ER Model_files/keys2.png">
+</div><p>
+<br>
+Possibilities:
+&nbsp; {studentID},
+&nbsp; {phone},
+&nbsp; {email},
+&nbsp; {name,address,d-o-b}?
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [7/19]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relationship Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Relationship</font>: an association among several entities
+</p><ul>
+<li> e.g., Customer(9876) &nbsp; <font color="#009900">is the owner of</font> &nbsp; Account(12345)
+</li></ul>
+<font color="#0000BB">Relationship set</font>: collection of relationships of the same type
+<p>
+<font color="#0000BB">Degree</font> = # entities involved in reln <small>(in ER model, <i>&#8805; 2</i>)</small>
+</p><p>
+<font color="#0000BB">Cardinality</font> = # associated entities on each side of reln
+</p><p>
+<font color="#0000BB">Participation</font> = must every entity be in the relationship
+</p><p>
+<b>Example:</b> relationship participation
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/participation.png]" src="./ER Model_files/participation.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [8/19]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relationship Sets <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Examples:</b> relationship degree
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/reln-degree.png]" src="./ER Model_files/reln-degree.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [9/19]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relationship Sets <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Examples:</b> relationship cardinality
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/cardinal.png]" src="./ER Model_files/cardinal.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [10/19]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Example: Relationship Semantics</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Semantics of the following relationships ...
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/example-rel.png]" src="./ER Model_files/example-rel.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [11/19]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Example: Relationship Semantics <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+In some cases, a relationship needs associated attributes.
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/relattr.png]" src="./ER Model_files/relattr.png">
+</div><p>
+</p><p><br>
+<small>(Price and quantity are related to products in a particular shop)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [12/19]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Weak Entity Sets</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Weak entities
+</p><ul>
+<li> exist only because of association with strong entities.
+</li><li> have no key of their own; have a <font color="#0000BB">discriminator</font>
+</li></ul>
+Example:
+<p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/weakent.png]" src="./ER Model_files/weakent.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [13/19]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Subclasses and Inheritance</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <font color="#0000BB">subclass</font> of an entity set <i>A</i> is a set of entities:
+</p><ul>
+<li> with all attributes of <i>A</i>, plus (usually) it own attributes
+</li><li> that is involved in all of <i>A</i>'s relationships, plus its own
+</li></ul>
+Properties of subclasses:
+<ul>
+<li> <font color="#0000BB">overlapping</font> or <font color="#0000BB">disjoint</font> <small>(can an entity be in multiple subclasses?)</small>
+</li><li> <font color="#0000BB">total</font> or <font color="#0000BB">partial</font> <small>(does every entity have to also be in a subclass?)</small>
+</li></ul>
+Special case: entity has one subclass ("B <font color="#0000BB">is-a</font> A" specialisation)
+<p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/is-a.png]" src="./ER Model_files/is-a.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [14/19]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Subclasses and Inheritance <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/inherit.png]" src="./ER Model_files/inherit.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [15/19]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Design Using the ER Model</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+ER model: simple, powerful set of data modelling tools
+</p><p>
+Some considerations in designing ER models:
+</p><ul>
+<li> should an "object" be represented by an attribute or entity?
+</li><li> is a "concept" best expressed as an entity or relationship?
+</li><li> should we use <i>n</i>-way relationship or several 2-way relationships?
+</li><li> is an "object" a strong or weak entity? (usually strong)
+</li><li> are there subclasses/superclasses within the entities?
+</li></ul>
+<small>
+Answers to above are worked out by <i>thinking</i> about the application domain.
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [16/19]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Large ER Diagrams</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+ER diagrams are typically too large to fit on a single screen <br>
+<small>(or a single sheet of paper, if printing)</small>
+</p><p>
+One commonly used strategy:
+</p><ul>
+<li> define entity sets separately, showing attributes
+</li><li> combine entitities and relationships on a single diagram <br>
+	<small>(but without showing entity attributes)</small>
+</li><li> if very large design, may use several linked diagrams
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [17/19]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Large ER Diagrams <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of drawing large ER diagram:
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/large-ER.png]" src="./ER Model_files/large-ER.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [18/19]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-model/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Summary of ER</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+ER model is popular for doing conceptual design
+</p><ul>
+<li> high-level, models relatively easy to understand
+</li><li> good expressive power, can capture many details
+</li></ul>
+Basic constructs: &nbsp; <font color="#0000BB">entities, &nbsp; relationships, &nbsp; attributes</font>
+<p>
+Relationship constraints: &nbsp; <font color="#0000BB">total / partial, &nbsp; n:m / 1:n / 1:1</font>
+</p><p>
+Other constructs: &nbsp; <font color="#0000BB">inheritance hierarchies, &nbsp; weak entities</font>
+</p><p>
+Many notational variants of ER exist <br>
+<small>(especially in the expression of constraints on relationships)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER Model &#9826; [19/19]</div><p></p><hr><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./ER Model_files/translate_24dp.png" width="20" height="20" alt="Google &#32763;&#35793;"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">&#21407;&#25991;</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">&#25552;&#20379;&#26356;&#22909;&#30340;&#32763;&#35793;&#24314;&#35758;</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><p>
+<span style="font-size:11px;color: grey;">Produced: 13 Sep 2020</span>
+ <script src="./ER Model_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./ER Model_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 14632px; width: 892px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 14632px; width: 892px;"></div></html>

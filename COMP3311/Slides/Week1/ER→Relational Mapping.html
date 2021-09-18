@@ -1,0 +1,369 @@
+
+<!-- saved from url=(0076)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>ER&#8594;Relational Mapping</title>
+<link href="./ER&#8594;Relational Mapping_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./ER&#8594;Relational Mapping_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./ER&#8594;Relational Mapping_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./ER&#8594;Relational Mapping_files/css" rel="stylesheet">
+<link href="./ER&#8594;Relational Mapping_files/prism.css" rel="stylesheet">
+<script src="./ER&#8594;Relational Mapping_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./ER&#8594;Relational Mapping_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./ER&#8594;Relational Mapping_files/translateelement.css"></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">ER&#8594;Relational Mapping</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s1">ER to Relational Mapping</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s2">Relational Model vs ER Model</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s3">Mapping Strong Entities</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s4">Mapping Weak Entities</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s5">Mapping N:M Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s6">Mapping 1:N Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s7">Mapping 1:1 Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s9">Mapping n-way Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s10">Mapping Composite Attributes</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s11">Mapping Multi-valued Attributes (MVAs)</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s14">Mapping Subclasses</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [0/17]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; ER to Relational Mapping</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Reminder: a useful strategy for database design:
+</p><ul>
+<li> perform initial data modelling using ER <br>
+	<small>(conceptual-level modelling)</small>
+</li><li> transform conceptual design into relational model <br>
+	<small>(implementation-level modelling)</small>
+</li></ul>
+A formal mapping exists for ER model <i>&#8594;</i> Relational model.
+<p>
+This maps "structures"; but additional info is needed, e.g.
+</p><ul>
+<li> concrete domains for attributes and other constraints
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [1/17]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relational Model vs ER Model</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Correspondences between relational and ER data models:
+</p><ul>
+<li> attribute<small>(ER)</small> <i>&#8773;</i> attribute<small>(Rel)</small>,&nbsp;
+entity<small>(ER)</small> <i>&#8773;</i> tuple<small>(Rel)</small>
+</li><li> entity set<small>(ER)</small> <i>&#8773;</i> relation<small>(Rel)</small>,&nbsp;
+relationship<small>(ER)</small> <i>&#8773;</i> relation<small>(Rel)</small>
+</li></ul>
+Differences between relational and ER models:
+<ul>
+<li> Rel uses relations to model entities <i>and</i> relationships
+</li><li> Rel has no composite or multi-valued attributes <small>(only atomic)</small>
+</li><li> Rel has no object-oriented notions <small>(e.g. subclasses, inheritance)</small>
+</li></ul>
+<br>
+<small>
+Note that ...
+<ul>
+<li> not all aspects of ER cab be represented exactly in a relational schema
+</li><li> some aspects of relational schemas (e.g. domains) do not appear in ER
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [2/17]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Strong Entities</div></td><td align="right"></td></tr></tbody></table>
+<p>
+An entity set <i>E</i> with atomic attributes
+	<i>a<sub>1</sub>, a<sub>2</sub>, ... a<sub>n</sub></i>
+</p><p>
+maps to
+</p><p>
+A relation <i>R</i> with attributes (columns)
+	<i>a<sub>1</sub>, a<sub>2</sub>, ... a<sub>n</sub></i>
+</p><p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/strongent.png]" src="./ER&#8594;Relational Mapping_files/strongent.png">
+</div><p>
+<br>
+Note: the key is preserved in the mapping.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [3/17]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Weak Entities</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapwkent.png]" src="./ER&#8594;Relational Mapping_files/mapwkent.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [4/17]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping N:M Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapnnrel.png]" src="./ER&#8594;Relational Mapping_files/mapnnrel.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [5/17]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:N Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/map1nrel2.png]" src="./ER&#8594;Relational Mapping_files/map1nrel2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [6/17]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:1 Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/map11rel.png]" src="./ER&#8594;Relational Mapping_files/map11rel.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [7/17]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:1 Relationships <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+If there is no reason to favour one side of the relationship ...
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/map11rel3.png]" src="./ER&#8594;Relational Mapping_files/map11rel3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [8/17]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping n-way Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Relationship mappings above assume binary relationship.
+</p><p>
+If multiple entities are involved:
+</p><ul>
+<li> <i>n:m</i> generalises naturally to <i>n:m:p:q</i>
+<ul>
+<li> include foreign key for each participating entity
+</li><li> include any other attributes of the relationship
+</li></ul>
+</li><li> other multiplicities (e.g. <i>1:n:m</i>) ...
+<ul>
+<li> need to be mapped the same as <i>n:m:p:q</i>
+</li><li> so not quite an accurate mapping of the ER
+</li></ul>
+</li></ul>
+Some people advocate converting n-way relationships into:
+<ul>
+<li> a new entity, and a set of <i>n</i> binary relationships
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [9/17]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Composite Attributes</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Composite attributes are mapped by concatenation or flattening.
+</p><p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapstrent.png]" src="./ER&#8594;Relational Mapping_files/mapstrent.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [10/17]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Multi-valued Attributes (MVAs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+MVAs are mapped by a new table linking values to their entity.
+</p><p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapmva.png]" src="./ER&#8594;Relational Mapping_files/mapmva.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [11/17]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Multi-valued Attributes (MVAs) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Analogy:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapmva1.png]" src="./ER&#8594;Relational Mapping_files/mapmva1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [12/17]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Multi-valued Attributes (MVAs) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: the two entities
+</p><p></p><pre><small>
+Person(12345, John, 12-feb-1990, <font color="#996600">[red,green,blue]</font>)
+Person(54321, Jane, 25-dec-1990, <font color="#996600">[green,purple]</font>)
+</small></pre><p>
+would be represented as
+</p><p></p><pre>Person(12345, John, 12-feb-1990)
+Person(54321, Jane, 25-dec-1990)
+FavColour(12345, red)
+FavColour(12345, green)
+FavColour(12345, blue)
+FavColour(54321, green)
+FavColour(54321, purple)
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [13/17]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Three different approaches to mapping subclasses to tables:
+</p><ul>
+<li> ER style
+<small>
+<ul>
+<li> each entity becomes a separate table,
+</li><li> containing attributes of subclass + FK to superclass table
+</li></ul>
+</small>
+</li><li> object-oriented
+<small>
+<ul>
+<li> each entity becomes a separate table,
+</li><li> inheriting all attributes from all superclasses
+</li></ul>
+</small>
+</li><li> single table with nulls
+<small>
+<ul>
+<li> whole class hierarchy becomes one table,
+</li><li> containing all attributes of all subclasses (null, if unused)
+</li></ul>
+</small>
+</li></ul>
+Which mapping is best depends on how data is to be used.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [14/17]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of ER-style mapping:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapsubclass.png]" src="./ER&#8594;Relational Mapping_files/mapsubclass.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [15/17]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of object-oriented mapping:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapsubclass2.png]" src="./ER&#8594;Relational Mapping_files/mapsubclass2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [16/17]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/er-rel-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of single-table-with-nulls mapping:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapsubclass3.png]" src="./ER&#8594;Relational Mapping_files/mapsubclass3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER&#8594;Rel Mapping &#9826; [17/17]</div><p></p><hr><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./ER&#8594;Relational Mapping_files/translate_24dp.png" width="20" height="20" alt="Google &#32763;&#35793;"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">&#21407;&#25991;</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">&#25552;&#20379;&#26356;&#22909;&#30340;&#32763;&#35793;&#24314;&#35758;</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><p>
+<span style="font-size:11px;color: grey;">Produced: 15 Sep 2020</span>
+ <script src="./ER&#8594;Relational Mapping_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./ER&#8594;Relational Mapping_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 13391px; width: 905px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 13391px; width: 905px;"></div></html>

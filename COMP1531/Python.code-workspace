@@ -14,14 +14,6 @@
 		{
 			"name": "lab02_guess",
 			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_guess"
-		},
-		{
-			"name": "lab02_tax",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_tax"
-		},
-		{
-			"name": "lab02_bmi",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_bmi"
 		}
 	],
 	"settings": {

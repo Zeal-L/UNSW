@@ -1,0 +1,448 @@
+
+<!-- saved from url=(0069)https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL Data Definition Language</title>
+<link href="./SQL Data Definition Language_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./SQL Data Definition Language_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./SQL Data Definition Language_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./SQL Data Definition Language_files/css" rel="stylesheet">
+<link href="./SQL Data Definition Language_files/prism.css" rel="stylesheet">
+<script src="./SQL Data Definition Language_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./SQL Data Definition Language_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">SQL Data Definition Language</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s1">Relational Data Definition</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s2">Example Relational Schema</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s3">SQL Data Definition Language</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s4">Defining a Database Schema</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s9">Data Integrity</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s10">Another Example Schema</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s11">Default Values</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s12">Defining Keys</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s16">Attribute Value Constraints</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s17">Named Constraints</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [0/17]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relational Data Definition</div></td><td align="right"></td></tr></tbody></table>
+<p>
+In order to give a relational data model, we need to:
+</p><ul>
+<li> describe tables
+</li><li> describe attributes that comprise tables
+</li><li> describe any constraints on the data
+</li></ul>
+A <font color="#0000BB">relation schema</font> defines an individual table
+<ul>
+<li> table name, attribute names, attribute domains, keys, etc.
+</li></ul>
+A <font color="#0000BB">database schema</font> is a collection of relation schemas that
+<ul>
+<li> defines the structure the whole database
+</li><li> additional constraints on the whole database
+<ul>
+</ul></li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [1/17]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Example Relational Schema</div></td><td align="right"></td></tr></tbody></table>
+<p>
+So far, we have given relational schemas informally, e.g.
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/sql/uni-rschema.png]" src="./SQL Data Definition Language_files/uni-rschema.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [2/17]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Data Definition Language</div></td><td align="right"></td></tr></tbody></table>
+<p>
+In the example schema above, we provided only
+</p><ul>
+<li> relation names, attribute names, primary keys, foreign keys
+</li></ul>
+A usable database needs to provide much more detail
+<p>
+SQL has a rich data definition language (DDL) that can describe
+</p><ul>
+<li> names of tables
+</li><li> names and domains for attributes
+</li><li> various types of constraints <small>(e.g. primary/foreign keys)</small>
+</li></ul>
+It also provides mechanisms for performance tuning <small>(see later)</small>.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [3/17]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining a Database Schema</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Tables (relations) are described using:
+</p><p></p><pre>CREATE TABLE <i>TableName</i> (
+    <i>attribute<sub>1</sub> &nbsp; domain<sub>1</sub> &nbsp; constraints<sub>1</sub></i>,
+    <i>attribute<sub>2</sub> &nbsp; domain<sub>2</sub> &nbsp; constraints<sub>2</sub></i>,
+    ...
+    <i>table</i>-<i>level constraints</i>, ...
+)
+</pre><p>
+</p><p>
+This SQL statement ..
+</p><ul>
+<li> defines the table schema &nbsp; <small>(adds it to database meta-data)</small>
+</li><li> creates an empty instance of the table &nbsp; <small>(zero tuples)</small>
+</li></ul>
+Tables are removed via &nbsp;&nbsp; <large><code>DROP TABLE <i>TableName</i>;</code></large>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [4/17]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining a Database Schema <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: defining the <large><code>Students</code></large> table ...
+</p><p></p><pre>CREATE TABLE Students (
+    zid     serial,
+    family  varchar(40),
+    given   varchar(40) NOT NULL,
+    d_o_b   date NOT NULL,
+    gender  char(1) CHECK (gender in ('M','F')),
+    degree  integer,
+    PRIMARY KEY (zid),
+    FOREIGN KEY (degree) REFERENCES Degrees(did)
+);
+</pre><p>
+<small>
+Note that there is much more info here than in the relational schema diagram.
+</small></p><p><small>
+A primary key attribute is implicitly defined to be <large><code>UNIQUE</code></large> and <large><code>NOT NULL</code></large>
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [5/17]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining a Database Schema <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: alternative definition of the <large><code>Students</code></large> table ...
+</p><p></p><pre>CREATE DOMAIN GenderType AS
+       char(1) CHECK (value in ('M','F'));
+    
+CREATE TABLE Students (
+    zid     serial PRIMARY KEY,
+            <span class="comment">-- only works if primary key is one attr</span>
+    family  text,  <span class="comment">-- no need to worry about max length</span>
+    given   text NOT NULL,
+    d_o_b   date NOT NULL,
+    gender  GenderType,
+    degree  integer REFERENCES Degrees(did)
+);
+</pre><p>
+<small>
+At this stage, prefer to use the long-form declaration of primary and foreign keys
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [6/17]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining a Database Schema <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: defining the <large><code>Courses</code></large> table ...
+</p><p></p><pre>CREATE TABLE Courses (
+    cid    serial,
+    code   char(8) NOT NULL uhs
+                   CHECK (code ~ '[A-Z]{4}[0-9]{4}'),
+    term   char(4) NOT NULL
+                   CHECK (term ~ '[0-9]{2}T[0-3]'),
+    title  text UNIQUE NOT NULL,
+    PRIMARY KEY (cid)
+);
+</pre><p>
+<small>
+Uses non-standard regular expression checking on <large><code>code</code></large> and <large><code>term</code></large>
+</small></p><p><small>
+No two <large><code>Courses</code></large> can have the same title; but not used as primary key
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [7/17]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining a Database Schema <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: defining the <large><code>Enrolments</code></large> relationship ...
+</p><p></p><pre>CREATE TABLE Enrolments (
+    student integer,
+    course  integer,
+    mark    integer CHECK (mark BETWEEN 0 AND 100),
+    grade   GradeType,
+    PRIMARY KEY (student,course),
+    FOREIGN KEY (student)
+                  REFERENCES Students(zid)
+    FOREIGN KEY (course)
+                  REFERENCES Courses(cid)
+);
+</pre><p>
+<small>
+Could not enforce total partcipation constraint if e.g. all courses must have &gt; 0 students
+</small></p><p><small>
+Possible alternative names for foreign keys <large><code>student_id</code></large> and <large><code>course_id</code></large>
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [8/17]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Data Integrity</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Defining tables as above affects behaviour of DBMS when changing data
+</p><p>
+Constraints and types ensure that integrity of data is preserved
+</p><ul>
+<li> no duplicate keys
+</li><li> no "dangling references"
+</li><li> all attributes have valid values
+</li><li> etc. etc. etc.
+</li></ul>
+Preserving data integrity is a <i>critical</i>&nbsp; function of a DBMS.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [9/17]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Another Example Schema</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Variation on banking schema used elsewhere
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/sql/bank-rschema.png]" src="./SQL Data Definition Language_files/bank-rschema.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [10/17]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Default Values</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Can specify a <large><code>DEFAULT</code></large> value for an attribute
+</p><ul>
+<li> will be assigned to attribute if no value is supplied during insert
+</li></ul>
+<b>Example:</b>
+<p></p><pre style="font-size:90%">CREATE TABLE Accounts (
+    acctNo  char(5) PRIMARY KEY,
+    branch  varchar(30) REFERENCES Branches(name)
+                        DEFAULT 'Central',
+    owner   integer REFERENCES Customers(custID),
+    balance float DEFAULT 0.0
+);
+
+INSERT INTO Accounts(acctNo,owner) VALUES ('A-456',645342)
+<span class="comment">-- produces the tuple</span>
+Accounts('A-456', 'Central', 645342, 0.0)
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [11/17]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining Keys</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Primary keys:
+</p><ul>
+<li> if PK is one attribute, can define as attribute constraint
+</li><li> if PK is multiple attributes, must define in table constraints
+</li><li> PK implies <large><code>NOT NULL</code></large> <large><code>UNIQUE</code></large> for all attributes in key
+</li></ul>
+Foreign keys:
+<ul>
+<li> if FK is one attribute, can define as attribute constraint
+</li><li> can omit <large><code>FOREIGN KEY</code></large> keywords in attribute constraint
+</li><li> if FK has multiple attributes, must define as a single table constraint
+</li><li> should always specify corresponding PK attribute in FK constraint, e.g
+<p></p><pre style="font-size:90%"><font color="#009900">customer</font> integer
+         FOREIGN KEY REFERENCES Customers(<font color="#009900">customerNo</font>)
+</pre><p>
+</p></li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [12/17]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining Keys <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Defining primary keys assures <font color="#0000BB">entity integrity</font>
+</p><ul>
+<li> must give values for all attributes in the primary key
+</li></ul>
+For example this insertion would fail ...
+<p></p><pre style="font-size:90%">INSERT INTO Enrolments(student,course,mark,grade)
+       VALUES (5123456, NULL, NULL, NULL);
+</pre><p>
+because no <large><code>course</code></large> was specified; but <large><code>mark</code></large> and <large><code>grade</code></large> can be <large><code>NULL</code></large>
+</p><p>
+Defining primary keys assures <font color="#0000BB">uniqueness</font>
+</p><ul>
+<li> cannot insert a tuple which contains an existing PK value
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [13/17]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining Keys <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Defining foreign keys assures <font color="#0000BB">referential integrity</font>.
+</p><p>
+On insertion, cannot add a tuple where FK value does not exist as a PK
+</p><p>
+For example, this insert would fail ...
+</p><p></p><pre style="font-size:90%">INSERT INTO Accounts(acctNo, owner, branch, balance)
+            VALUES ('A-123', 765432, 'Nowhere', 5000);
+</pre><p>
+if there is no customer with id <large><code>765432</code></large> or no branch <large><code>Nowhere</code></large>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [14/17]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Defining Keys <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+On deletion, interesting issues arise, e.g.
+</p><p>
+<large><code>Accounts.branch</code></large> refers to primary key <large><code>Branches.name</code></large>
+</p><p>
+If we want to delete a tuple from <large><code>Branches</code></large>, and there are tuples
+in <large><code>Accounts</code></large> that refer to it, we could ...
+</p><ul>
+<li> <b>reject</b> the deletion <small>(PostgreSQL/Oracle default behaviour)</small>
+</li><li> <b>set-NULL</b> the foreign key attributes in <large><code>Account</code></large> records
+</li><li> <b>cascade</b> the deletion and remove <large><code>Account</code></large> records
+</li></ul>
+SQL allows us to choose a strategy appropriate for the application
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [15/17]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Attribute Value Constraints</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><code>NOT NULL</code></large> and <large><code>UNIQUE</code></large> are special constraints on attributes.
+</p><p>
+SQL has a general mechanism for specifying attribute constraints
+</p><p></p><pre><i>attrName</i>  <i>type</i>  CHECK ( <i>Condition</i> )
+</pre><p>
+<i>Condition</i> is a boolean expression and can
+involve other attributes, relations and <large><code>SELECT</code></large> queries.
+</p><p></p><pre style="font-size:90%">CREATE TABLE Example
+(
+   gender char(1)  CHECK (gender IN ('M','F')),
+   Xvalue integer  NOT NULL,
+   Yvalue integer  CHECK (Yvalue &gt; Xvalue),
+   Zvalue float    CHECK (Zvalue &gt;
+                          (SELECT MAX(price)
+                           FROM   Sells)
+                  )
+);
+</pre><p>
+<small>
+(but many RDBMSs (e.g. Oracle and PostgreSQL) don't allow <large><code>SELECT</code></large> in <large><code>CHECK</code></large>)
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [16/17]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-ddl/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Named Constraints</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A constraint in an SQL table definition can (optionally) be named via
+</p><p></p><pre>CONSTRAINT  <i>constraintName</i>  <i>constraint</i>
+</pre><p>
+Example:
+</p><p></p><pre>CREATE TABLE Example
+(
+   gender char(1) CONSTRAINT GenderCheck
+                  CHECK (gender IN ('M','F')),
+   Xvalue integer NOT NULL,
+   Yvalue integer CONSTRAINT XYOrder
+                  CHECK (Yvalue &gt; Xvalue),
+);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL-DDL &#9826; [17/17]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 21 Sep 2020</span>
+ <script src="./SQL Data Definition Language_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./SQL Data Definition Language_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 12567px; width: 1245px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 12567px; width: 1245px;"></div></html>

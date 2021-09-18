@@ -1,0 +1,369 @@
+
+<!-- saved from url=(0071)https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL Introduction</title>
+<link href="./SQL Introduction_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./SQL Introduction_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./SQL Introduction_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./SQL Introduction_files/css" rel="stylesheet">
+<link href="./SQL Introduction_files/prism.css" rel="stylesheet">
+<script src="./SQL Introduction_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./SQL Introduction_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./SQL Introduction_files/translateelement.css"></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">SQL Introduction</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s1">SQL vs Relational Model</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s2">SQL History</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s3">SQL Intro</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s5">SQL Syntax in a Nutshell</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s7">Names in SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s8">Types/Constants in SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s11">Examples of Defining Domains/Types</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s12">Tuple and Set Literals</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [0/12]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL vs Relational Model</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <font color="#0000BB">relational model</font> is a formal system for
+</p><ul>
+<li> describing data &nbsp; <small>(relations, tuples, attributes, domains, constraints)</small>
+</li><li> manipulating data &nbsp; <small>(relational algebra ... covered elsewhere)</small>
+</li></ul>
+<font color="#0000BB">SQL</font> is a "programming" language for
+<ul>
+<li> describing data &nbsp; <small>(tables, rows, fields, types, constraints)</small>
+</li><li> manipulating data &nbsp; <small>(query language)</small>
+</li></ul>
+SQL extends the relational model in some ways <small>(e.g bags vs sets of tuples)</small>
+<p>
+SQL omits some aspects of the relational model <small>(e.g. general constraints)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [1/12]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL History</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Developed at IBM in the mid-1970's (System-R)
+</p><p>
+Standardised in 1986, and then in 1989, 1992, 1999, 2003, ... 2019
+</p><p>
+Many database management systems (DBMSs) have been built around SQL
+</p><ul>
+<li> <small>System-R, Oracle, Ingres, DB2, PostgreSQL, MySQL, SQL-server, SQLite, ...</small>
+</li></ul>
+<p>
+DBMSs <small>vs</small> the standard
+</p><ul>
+<li> all DBMSs implement a subset of the 1999 standard <small>(aka SQL3)</small>
+</li><li> all DBMSs implement proprietary extensions to the standard
+</li></ul>
+Conforming to standard should ensure portability of database applications
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [2/12]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Intro</div></td><td align="right"></td></tr></tbody></table>
+<p>
+SQL has several sub-languages ...
+</p><ul>
+<li> meta-data definition language &nbsp; <small>(e.g. &nbsp;<large><code>create table</code></large>, etc.)</small>
+</li><li> meta-data update language &nbsp; <small>(e.g. &nbsp;<large><code>alter table, drop table</code></large>)</small>
+</li><li> data update language &nbsp; <small>(e.g. &nbsp;<large><code>insert, update, delete</code></large>)</small>
+</li><li> query language &nbsp; <small>(e.g. &nbsp;<large><code>select ... from ... where</code></large>, etc.)</small>
+</li></ul>
+Meta-data languages manage the database <font color="#0000BB">schema</font>
+<p>
+Data update language manages sets of <font color="#0000BB">tuples</font>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [3/12]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Intro <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Syntax-wise, SQL is similar to other programming languages
+</p><ul>
+<li> has keywords, identifiers, constants, operators
+</li><li> but strings are different to most PLs
+<small>
+<ul>
+<li> <large><code>'...'</code></large> are constant strings, e.g. <large><code>'a'</code></large>, <large><code>'abc123'</code></large>, <large><code>'John''s bag'</code></large>
+</li><li> <large><code>"..."</code></large> allow non-alpha chars in identifiers and make id's case-sensitive
+</li></ul>
+</small>
+</li></ul>
+In the standard, all non-quoted identifiers map to all upper-case
+<ul>
+<li> e.g. <large><code>BankBranches</code></large> = <large><code>bankbranches</code></large> are treated as <large><code>BANKBRANCHES</code></large>
+</li></ul>
+In PostgreSQL, all non-quoted identifiers map to all lower-case
+<ul>
+<li> e.g. <large><code>BankBranches</code></large> = <large><code>BANKBRANCHES</code></large> are treated as <large><code>bankbranches</code></large>
+</li></ul>
+In all standards-adhering DBMSs, different quoted identifiers are different
+<ul>
+<li> <large><code>"BankBranches"</code></large> &#8800; <large><code>"bankbranches"</code></large> &#8800; <large><code>"BANKBRANCHES"</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [4/12]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Syntax in a Nutshell</div></td><td align="right"></td></tr></tbody></table>
+<p>
+SQL definitions, queries and statements are composed of:
+</p><ul>
+<li> <font color="#0000BB">comments</font> ... <large><font color="#009900"><b><code>--</code></b></font></large> comments to end of line
+</li><li> <font color="#0000BB">identifiers</font> ... similar to regular programming languages
+</li><li> <font color="#0000BB">keywords</font> ... a large set (e.g. <large><code>CREATE</code></large>, <large><code>DROP</code></large>, <large><code>TABLE</code></large>)
+</li><li> <font color="#0000BB">data types</font> ... small set of basic types (e.g. <large><code>integer</code></large>, <large><code>date</code></large>)
+</li><li> <font color="#0000BB">operators</font> ... similar to regular programming languages
+</li><li> <font color="#0000BB">constants</font> ... similar to regular programming languages
+</li></ul>
+<i>Similar</i> means "often the same, but not always" ...
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [5/12]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Syntax in a Nutshell <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Comments: everything after <font color="#0000EE"><large><font color="#009900"><b><code>--</code></b></font></large> <i>is a comment</i></font>
+</p><p>
+Identifiers: alphanumeric (a la C), but also <large><code>"An Identifier"</code></large>
+</p><p>
+Reserved words: many e.g. <large><code>CREATE</code></large>, <large><code>SELECT</code></large>, <large><code>TABLE</code></large>, ...
+</p><p>
+Reserved words cannot be used identifiers unless quoted e.g <large><code>"table"</code></large>
+</p><p>
+Strings: e.g. <large><code>'a string'</code></large>, &nbsp;<large><code>'don''t ask'</code></large>, &nbsp;but no <large><code>'\n'</code></large>
+&nbsp; <small>(use <large><code>e'\n'</code></large>)</small>
+</p><p>
+Numbers: like C, e.g. <large><code>1</code></large>, &nbsp;<large><code>-5</code></large>, &nbsp;<large><code>3.14159</code></large>, &nbsp;...
+</p><p>
+Types: &nbsp;<large><code>integer</code></large>, &nbsp;<large><code>float</code></large>, &nbsp;<large><code>char(</code></large><i>n</i><large><code>)</code></large>, &nbsp;<large><code>varchar(</code></large><i>n</i><large><code>)</code></large>, &nbsp;<large><code>date</code></large>, ...
+</p><p>
+Operators: &nbsp;<large><code>=</code></large>, &nbsp;<large><code>&lt;&gt;</code></large>, &nbsp;<large><code>&lt;</code></large>, &nbsp;<large><code>&lt;=</code></large>, &nbsp;<large><code>&gt;</code></large>, &nbsp;<large><code>&gt;=</code></large>, &nbsp;<large><code>AND</code></large>, &nbsp;<large><code>OR</code></large>, &nbsp;<large><code>NOT</code></large>, ...
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [6/12]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Names in SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Identifiers denote:
+</p><ul>
+<li> database objects such as tables, attributes, views, ...
+</li><li> meta-objects such as types, functions, constraints, ...
+</li></ul>
+Naming conventions that I (try to) use in this course:
+<ul>
+<li> relation names: &nbsp; e.g. <large><code>Branches</code></large>, <large><code>Students</code></large>, ... <small>(use plurals)</small>
+</li><li> attribute names: &nbsp; e.g. <large><code>name</code></large>, <large><code>code</code></large>, <large><code>firstName</code></large>, ...
+</li><li> foreign keys: named after either or both of
+<ul>
+<li> table being referenced &nbsp; e.g. <large><code>staff</code></large> or <large><code>staff_id</code></large>, ...
+</li><li> relationship being modelled &nbsp; e.g. <large><code>teaches</code></large>, ...
+</li></ul>
+</li></ul>
+We initially write SQL keywords in all upper-case in slides.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [7/12]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Types/Constants in SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Numeric types: <large><code>INTEGER</code></large>, <large><code>REAL</code></large>,
+	<large><code>NUMERIC(</code></large><i>w</i><large><code>,</code></large><i>d</i><large><code>)</code></large>
+</p><p></p><pre>10    -1    3.14159    2e-5    6.022e23 
+</pre><p>
+</p><p>
+String types: <large><code>CHAR(</code></large><i>n</i><large><code>)</code></large>, <large><code>VARCHAR(</code></large><i>n</i><large><code>)</code></large>,
+	<font color="#000099"><large><code>TEXT</code></large></font>
+</p><p></p><pre>'John'   'some text'   '!%#%!$'   'O''Brien'
+'"'   '[A-Z]{4}\d{4}'   'a VeRy! LoNg String'
+</pre><p>
+<font color="#000099">PostgreSQL</font> provides extended strings containing <large><code>\</code></large> escapes, e.g.
+</p><p></p><pre>E'\n'   E'O\'Brien'   E'[A-Z]{4}\\d{4}'   E'John'
+</pre><p>
+</p><p>
+Type-casting via <i>Expr</i><large><font color="#009900"><b><code>::</code></b></font></large><i>Type</i>
+	&nbsp; (e.g. <large><code>'10'::integer</code></large>)
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [8/12]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Types/Constants in SQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Logical type: <large><code>BOOLEAN</code></large>, <large><code>TRUE</code></large> <small>and</small> <large><code>FALSE</code></large> &nbsp; (<small>or</small> <large><code>true</code></large> <small>and</small> <large><code>false</code></large>)
+</p><p>
+<small><font color="#000099">PostgreSQL</font> also allows <large><code>'t'</code></large>, <large><code>'true'</code></large>, <large><code>'yes'</code></large>,
+	<large><code>'f'</code></large>, <large><code>'false'</code></large>, <large><code>'no'</code></large></small>
+</p><p>
+Time-related types: <large><code>DATE</code></large>, <large><code>TIME</code></large>, <large><code>TIMESTAMP</code></large>, <large><code>INTERVAL</code></large>
+</p><p></p><pre>'2008-04-13'  '13:30:15'  '2004-10-19 10:23:54'
+<font color="#000099">'Wed Dec 17 07:37:16 1997 PST'</font>
+'10 minutes'  '5 days, 6 hours, 15 seconds'
+</pre><p>
+Subtraction of timestamps yields an interval, e.g.
+</p><p></p><pre>now()::TIMESTAMP - birthdate::TIMESTAMP
+</pre><p>
+<font color="#000099">PostgreSQL</font> also has a range of non-standard types, e.g. <br>
+<small>
+</small></p><ul><small>
+<li> geometric (point/line/...), currency, IP addresses, JSON, XML, objectIDs, ...
+</li><li> non-standard types typically use string literals (<large><code>'...'</code></large>) <tiny>which need to be interpreted</tiny>
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [9/12]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Types/Constants in SQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Users can define their own types in several ways:
+</p><p></p><pre><span class="comment">-- domains: constrained version of existing type</span>
+
+<font color="#000099">CREATE DOMAIN</font> <i>Name</i> AS <i>Type</i> CHECK ( <i>Constraint</i> )
+
+<span class="comment">-- tuple types: defined for each table</span>
+
+<font color="#000099">CREATE TYPE</font> <i>Name</i> AS ( <i>AttrName</i> <i>AttrType</i>, ... )
+
+<span class="comment">-- enumerated type: specify elements and ordering</span>
+
+<font color="#000099">CREATE TYPE</font> <i>Name</i> AS ENUM ( '<i>Label</i>', ... )
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [10/12]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples of Defining Domains/Types</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre><span class="comment">-- positive integers</span>
+CREATE DOMAIN PosInt AS integer CHECK (value &gt; 0);
+
+<span class="comment">-- a UNSW course code</span>
+CREATE DOMAIN CourseCode AS char(8)
+    CHECK (value ~ '[A-Z]{4}[0-9]{4}');
+
+<span class="comment">-- a UNSW student/staff ID</span>
+CREATE DOMAIN ZID AS integer
+    CHECK (value betweem 1000000 and 9999999);
+
+<span class="comment">-- standard UNSW grades (FL,PS,CR,DN,HD)</span>
+CREATE DOMAIN Grade AS char(2)
+    CHECK (value in ('FL','PS','CR','DN','HD'));
+<span class="comment">-- or</span>
+CREATE TYPE Grade AS ENUM ('FL','PS','CR','DN','HD');
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [11/12]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-intro/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Tuple and Set Literals</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Tuple and set constants are both written as:
+</p><p></p><pre>( <i>val<sub>1</sub>, val<sub>2</sub>, val<sub>3</sub>,</i> ... )
+</pre><p>
+The correct interpretation is worked out from the context.
+</p><p>
+Examples:
+</p><p></p><pre><small>
+INSERT INTO Student(studeID, name, degree)
+   VALUES (2177364, 'Jack Smith', 'BSc')
+          <span class="comment">-- tuple literal</span>
+
+CONSTRAINT CHECK gender IN ('male','female','unspecified')
+                           <span class="comment">-- set literal</span>
+</small></pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Intro &#9826; [12/12]</div><p></p><hr><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./SQL Introduction_files/translate_24dp.png" width="20" height="20" alt="Google &#32763;&#35793;"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">&#21407;&#25991;</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">&#25552;&#20379;&#26356;&#22909;&#30340;&#32763;&#35793;&#24314;&#35758;</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><p>
+<span style="font-size:11px;color: grey;">Produced: 19 Sep 2020</span>
+ <script src="./SQL Introduction_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./SQL Introduction_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 10044px; width: 816px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 10044px; width: 816px;"></div></html>

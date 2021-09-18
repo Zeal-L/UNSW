@@ -1,0 +1,590 @@
+
+<!-- saved from url=(0076)https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Mapping ER to SQL</title>
+<link href="./Mapping ER to SQL_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Mapping ER to SQL_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Mapping ER to SQL_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Mapping ER to SQL_files/css" rel="stylesheet">
+<link href="./Mapping ER to SQL_files/prism.css" rel="stylesheet">
+<script src="./Mapping ER to SQL_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./Mapping ER to SQL_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Mapping ER to SQL</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s1">Mapping ER to SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s2">Reminder: SQL/Relational Model vs ER Model</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s3">Mapping ER to SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s4">Mapping Strong Entities</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s5">Mapping Weak Entities</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s6">Mapping N:M Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s8">Mapping 1:N Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s10">Mapping 1:1 Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s12">Mapping n-way Relationships</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s14">Mapping Composite Attributes</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s16">Mapping Multi-valued Attributes (MVAs)</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s18">Mapping Subclasses</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [0/26]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping ER to SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+We have explored mapping ER designs to relational schemas
+</p><p>
+SQL schemas are essentially more detailed versions of relational schemas
+</p><p>
+The mapping is much the same, except that
+</p><ul>
+<li> you need to provide more details on allowed values
+</li><li> you can map some ideas from ER that are not in relational schemas
+</li></ul>
+There are also some ideas from ER than do not map to an SQL schema
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [1/26]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Reminder: SQL/Relational Model vs ER Model</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Correspondences between SQL/relational and ER data models:
+</p><ul>
+<li> attribute<small>(ER)</small> <i>&#8773;</i> attribute<small>(Rel)</small>,&nbsp;
+entity<small>(ER)</small> <i>&#8773;</i> row/tuple<small>(Rel)</small>
+</li><li> entity set<small>(ER)</small> <i>&#8773;</i> table/relation<small>(Rel)</small>,&nbsp;
+relationship<small>(ER)</small> <i>&#8773;</i> table/relation<small>(Rel)</small>
+</li></ul>
+Differences between SQL and ER models:
+<ul>
+<li> SQL uses tables to model entities <i>and</i> relationships
+</li><li> SQL has no composite or multi-valued attributes <small>(only atomic)</small>
+</li><li> SQL has no object-oriented notions <small>(e.g. subclasses, inheritance)</small>
+</li></ul>
+<small>
+Note that ...
+<ul>
+<li> not all aspects of ER can be represented exactly in an SQL schema
+</li><li> some aspects of SQL schemas (e.g. domains) do not appear in ER
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [2/26]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping ER to SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Some conventions that we use in mapping ER to SQL
+</p><ul>
+<li> stop using upper-case for SQL keywords <small>(use &nbsp;<large><code>table</code></large>&nbsp; vs &nbsp;<large><code>TABLE</code></large>&nbsp;)</small>
+</li><li> all tables based on entities are given plural names
+</li><li> attributes in entities are given the same name in ER and SQL
+</li><li> attributes in relationships are given the same name in ER and SQL
+</li><li> ER key attributes are defined using <large><code>primary key</code></large>
+</li><li> text-based attributes are defined with type <large><code>text</code></large>, <br>
+	unless there is a size which is obvious from the context
+</li><li> attribute domains can be PostgreSQL-specific types where useful
+</li><li> foreign keys within entity tables are named after the relationship
+</li><li> foreign keys in relationship tables are named <large><code><i>table</i>_id</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [3/26]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Strong Entities</div></td><td align="right"></td></tr></tbody></table>
+<p>
+An entity set <i>E</i> with atomic attributes
+	<i>a<sub>1</sub>, a<sub>2</sub>, ... a<sub>n</sub></i>
+</p><p>
+maps to
+</p><p>
+A table <i>R</i> with attributes (columns)
+	<i>a<sub>1</sub>, a<sub>2</sub>, ... a<sub>n</sub></i>
+</p><p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-sql/strongent.png]" src="./Mapping ER to SQL_files/strongent.png">
+</div><p>
+<br>
+Note: the key is preserved in the mapping.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [4/26]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Weak Entities</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-sql/mapwkent.png]" src="./Mapping ER to SQL_files/mapwkent.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [5/26]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping N:M Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapnnrel.png]" src="./Mapping ER to SQL_files/mapnnrel.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [6/26]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping N:M Relationships <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> Customers (
+    custNo  serial primary key,
+    name    text not null,
+    address text  <span class="comment">-- don't need to know customer's address</span>
+);
+<font color="#000099">create table</font> Accounts (
+    acctNo   char(5) check (acctNo ~ '[A-Z]-[0-9]{3}'),
+    title    text not null,    <span class="comment">-- acctNos are like 'A-123'</span>
+    balance  float default 0.0,
+    primary key (acctNo)
+);
+<font color="#000099">create table</font> Owns (
+    customer_id integer references Customers(custNo),
+    account_id  char(5) references Accounts(acctNo),
+    last_accessed timestamp,
+    primary key (customer_id, account_id)
+);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [7/26]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:N Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/map1nrel2.png]" src="./Mapping ER to SQL_files/map1nrel2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [8/26]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:N Relationships <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> Branches (
+    branchNo serial primary key,
+    address  text not null,
+    assets   currency
+);
+<font color="#000099">create table</font> Customers (
+    custNo  serial primary key,
+    name    text not null,
+    address text,
+    hasHome integer not null, <span class="comment">-- total participation</span>
+    joined  date not null,
+    foreign key (hasHome) references Branches(branchNo)
+);
+</pre><p>
+<small>
+<large><code>hasHome</code></large> implements the 1:n relationship; &nbsp;<large><code>not null</code></large>&nbsp; implements total participation
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [9/26]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:1 Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/map11rel.png]" src="./Mapping ER to SQL_files/map11rel.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [10/26]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping 1:1 Relationships <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> Branches (
+    branchNo serial primary key,
+    address  text not null,
+    assets   currency          <span class="comment">-- a new branch</span>
+);                             <span class="comment">--    may have no accounts</span>
+<font color="#000099">create table</font> Managers (
+    empNo    serial primary key,
+    name     text not null,
+    salary   currency not null, <span class="comment">-- when first employed, </span>
+                                <span class="comment">--    must have a salary</span>
+    manages  integer not null,  <span class="comment">-- total participation</span>
+    foreign key (manages) references Branches(branchNo)
+);
+</pre><p>
+<small>
+If both entities have total participation, cannot express this in SQL<br>
+except by putting a (redundant) &nbsp;<large><code>not null</code></large>&nbsp; foreign key in one table
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [11/26]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping n-way Relationships</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-sql/map-n-way.png]" src="./Mapping ER to SQL_files/map-n-way.png">
+</div><p>
+</p><p>
+A customer accesses one of their accounts at a specific ATM
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [12/26]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping n-way Relationships <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> Customers (
+    custNo   serial primary key, ...
+);
+<font color="#000099">create table</font> Accounts (
+    acctNo   char(5) ... primary key, ...
+);
+<font color="#000099">create table</font> ATMs (
+    atmID    serial primary key,
+    cash     currency check (cash &gt;= 0),
+    location text not null
+);
+<font color="#000099">create table</font> Withdrawal (
+    customer_id  integer references Customers(custNo),
+    account_id   char(5) references Accounts(acctNo),
+    atm_id       integer references ATMs(atmID),
+    amount       currency not null,
+    when         timestamp default now(),
+    primary key  (customer_id,account_id,atm_id)
+);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [13/26]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Composite Attributes</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Composite attributes are mapped by concatenation or flattening.
+</p><p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapstrent.png]" src="./Mapping ER to SQL_files/mapstrent.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [14/26]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Composite Attributes <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><span class="comment">-- Version 1: concatenated</span>
+<font color="#000099">create table</font> People (
+    ssn     integer primary key,
+    name    text not null,
+    address text not null
+);
+<span class="comment">-- Version 2: flattened</span>
+<font color="#000099">create table</font> People (
+    ssn     integer primary key,
+    given   text not null,
+    family  text,
+    number  integer not null,
+    street  text not null,
+    suburb  text not null,
+    pcode   char(4) not null check (pcode ~ '[0-9]{4}')
+);
+</pre><p>
+<small>
+<large><code>address</code></large> &nbsp;=&nbsp; <large><code>(number::text||' '||street||', '||suburb||' '||pcode)</code></large>
+</small></p><p><small>
+Searching: &nbsp;<large><code>suburb = 'Coogee'</code></large>&nbsp; vs &nbsp;<large><code>address like '%Coogee%'</code></large>&nbsp;
+</small></p><p><small>
+Sorting: &nbsp;<large><code> order by family</code></large>&nbsp; vs &nbsp;can't be done (easily)
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [15/26]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s17"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Multi-valued Attributes (MVAs)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+MVAs are mapped by a new table linking values to their entity.
+</p><p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapmva.png]" src="./Mapping ER to SQL_files/mapmva.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [16/26]</div> <div class="slideCl1    " id="s17">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s16"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s18"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Multi-valued Attributes (MVAs) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+</p><p></p><pre><font color="#000099">create table</font> People (
+    ssn      integer primary key,
+    name     text not null,
+    birthday date
+);
+<font color="#000099">create table</font> FavColour (
+    person_id integer references People(ssn),
+    colour    text,
+    primary key (person_id,colour)
+);
+</pre><p>
+<small>
+Note that &nbsp;<large><code>colour</code></large>&nbsp; is implicitly &nbsp;<large><code>not null</code></large>&nbsp; because it is part of the primary key
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [17/26]</div> <div class="slideCl1    " id="s18">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s17"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s19"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Three different approaches to mapping subclasses to tables:
+</p><ul>
+<li> ER style
+<small>
+<ul>
+<li> each entity becomes a separate table,
+</li><li> containing attributes of subclass + FK to superclass table
+</li></ul>
+</small>
+</li><li> object-oriented
+<small>
+<ul>
+<li> each entity becomes a separate table,
+</li><li> inheriting all attributes from all superclasses
+</li></ul>
+</small>
+</li><li> single table with nulls
+<small>
+<ul>
+<li> whole class hierarchy becomes one table,
+</li><li> containing all attributes of all subclasses (null, if unused)
+</li></ul>
+</small>
+</li></ul>
+Which mapping is best depends on how data is to be used.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [18/26]</div> <div class="slideCl1    " id="s19">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s18"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s20"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of ER-style mapping:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapsubclass.png]" src="./Mapping ER to SQL_files/mapsubclass.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [19/26]</div> <div class="slideCl1    " id="s20">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s19"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s21"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> People (
+    ssn     integer primary key,
+    name    text not null,
+    address text
+);
+<font color="#000099">create table</font> Employees (
+    person_id integer primary key,
+    salary    currency not null,
+    position  text not null,
+    foreign key (person_id) references People(ssn)
+);
+<font color="#000099">create table</font> Managers (
+    employee_id integer primary key,
+    bonus       currency,
+    foreign key (employee_id)
+                references Employees(person_id)
+);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [20/26]</div> <div class="slideCl1    " id="s21">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s20"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s22"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of object-oriented mapping:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapsubclass2.png]" src="./Mapping ER to SQL_files/mapsubclass2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [21/26]</div> <div class="slideCl1    " id="s22">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s21"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s23"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> People (
+    ssn     integer primary key,
+    name    text not null,
+    address text
+);
+<font color="#000099">create table</font> Employees (
+    ssn       integer primary key,
+    name      text not null,
+    address   text
+    salary    currency not null,
+    position  text not null,
+    foreign key (snn) references People(ssn)
+);
+<font color="#000099">create table</font> Managers (
+    ssn       integer primary key,
+    name      text not null,
+    address   text
+    salary    currency not null,
+    position  text not null,
+    bonus     currency,
+    foreign key (snn) references People(ssn)
+);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [22/26]</div> <div class="slideCl1    " id="s23">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s22"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s24"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of single-table-with-nulls mapping:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-rel/mapsubclass3.png]" src="./Mapping ER to SQL_files/mapsubclass3.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [23/26]</div> <div class="slideCl1    " id="s24">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s23"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s25"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> People (
+    ssn       integer primary key,
+    ptype     char(1)  not null 
+                       check (ptype in ('P','E','M')),
+    name      text not null,
+    address   text
+    salary    currency,
+    position  text,
+    bonus     currency,
+    constraint subclasses check
+               ((ptype = 'P' and salary is null
+                and position is null and bonus is null)
+               or
+                (ptype = 'E' and salary is not null
+                 and position is not null and bonus is null)
+               or
+                (ptype = 'M' and salary is not null
+                 and position is not null and bonus is not null))
+);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [24/26]</div> <div class="slideCl1    " id="s25">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s24"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s26"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/er-sql/map-disjoint.png]" src="./Mapping ER to SQL_files/map-disjoint.png">
+</div><p>
+<br>
+Every employee is either permanent or casual, but not both.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [25/26]</div> <div class="slideCl1    " id="s26">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s25"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/er-sql-mapping/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Mapping Subclasses <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+ER-style mapping to SQL schema:
+</p><p></p><pre style="font-size:90%"><font color="#000099">create table</font> Employees (
+    empID   serial primary key,
+    name    text not null,
+    address text not null
+);
+<font color="#000099">create table</font> Permanents (
+    employee_id integer primary key,
+    salary      currency not null,
+    foreign key (employee_id) references Employees(empID)
+);
+<font color="#000099">create table</font> Casuals (
+    employee_id integer primary key,
+    pay_rate    currency not null,
+    foreign key (employee_id) references Employees(empID)
+);
+</pre><p>
+Does <i>not</i> capture either participation or disjoint-ness constraints!
+</p><p>
+<small>
+Would need to program a solution to this e.g web-form that requires user to enter both Employee and subclass info
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; ER-&gt;SQL Mapping &#9826; [26/26]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 22 Sep 2020</span>
+ <script src="./Mapping ER to SQL_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Mapping ER to SQL_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 19440px; width: 1245px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 19440px; width: 1245px;"></div></html>

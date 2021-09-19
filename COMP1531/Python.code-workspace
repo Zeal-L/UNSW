@@ -4,10 +4,6 @@
 			"path": "."
 		},
 		{
-			"name": "lab02_lightup",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_lightup"
-		},
-		{
 			"name": "lab02_cipher",
 			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_cipher"
 		},

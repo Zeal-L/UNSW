@@ -8,8 +8,28 @@
 			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_cipher"
 		},
 		{
-			"name": "lab02_guess",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_guess"
+			"name": "lab03_unmasked",
+			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_unmasked"
+		},
+		{
+			"name": "lab03_magic",
+			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_magic"
+		},
+		{
+			"name": "lab03_tables",
+			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_tables"
+		},
+		{
+			"name": "lab03_roman",
+			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_roman"
+		},
+		{
+			"name": "lab03_wondrous",
+			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_wondrous"
+		},
+		{
+			"name": "lab03_prefix",
+			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_prefix"
 		}
 	],
 	"settings": {

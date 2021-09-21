@@ -4,32 +4,28 @@
 			"path": "."
 		},
 		{
-			"name": "lab02_cipher",
-			"path": "..\\..\\COMP1531 Labs\\lab02\\lab02_cipher"
+			"name": "lab04_tree",
+			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_tree"
 		},
 		{
-			"name": "lab03_unmasked",
-			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_unmasked"
+			"name": "lab04_interleavings",
+			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_interleavings"
 		},
 		{
-			"name": "lab03_magic",
-			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_magic"
+			"name": "lab04_weather",
+			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_weather"
 		},
 		{
-			"name": "lab03_tables",
-			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_tables"
+			"name": "lab04_tamagotchi",
+			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_tamagotchi"
 		},
 		{
-			"name": "lab03_roman",
-			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_roman"
+			"name": "lab04_primes",
+			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_primes"
 		},
 		{
-			"name": "lab03_wondrous",
-			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_wondrous"
-		},
-		{
-			"name": "lab03_prefix",
-			"path": "..\\..\\COMP1531 Labs\\lab03\\lab03_prefix"
+			"name": "lab04_timetable",
+			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_timetable"
 		}
 	],
 	"settings": {

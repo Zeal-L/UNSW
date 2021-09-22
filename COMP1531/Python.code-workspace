@@ -26,6 +26,12 @@
 		{
 			"name": "lab04_timetable",
 			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_timetable"
+		},
+		{
+			"path": "..\\COMP3311"
+		},
+		{
+			"path": "..\\COMP3121"
 		}
 	],
 	"settings": {
@@ -35,6 +41,28 @@
 		},
 		"code-runner.fileDirectoryAsCwd": true,
 		"code-runner.saveAllFilesBeforeRun": true,
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "DB",
+				"database": "postgres",
+				"username": "zeal",
+				"password": ""
+			},
+			{
+				"previewLimit": 10,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "company",
+				"username": "zeal",
+				"database": "company",
+				"password": ""
+			}
+		],
 	},
 	"launch": {
 		"version": "0.2.0",

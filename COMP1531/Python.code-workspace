@@ -4,34 +4,13 @@
 			"path": "."
 		},
 		{
-			"name": "lab04_tree",
-			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_tree"
-		},
-		{
-			"name": "lab04_interleavings",
-			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_interleavings"
-		},
-		{
-			"name": "lab04_weather",
-			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_weather"
-		},
-		{
-			"name": "lab04_tamagotchi",
-			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_tamagotchi"
-		},
-		{
-			"name": "lab04_primes",
-			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_primes"
-		},
-		{
-			"name": "lab04_timetable",
-			"path": "..\\..\\COMP1531 Labs\\lab04\\lab04_timetable"
-		},
-		{
 			"path": "..\\COMP3311"
 		},
 		{
 			"path": "..\\COMP3121"
+		},
+		{
+			"path": "..\\..\\COMP1531 Labs"
 		}
 	],
 	"settings": {

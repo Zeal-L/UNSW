@@ -15,17 +15,17 @@ def solution(a):
         if i > 1:
             result += factorial(i) // (2 * factorial(i-2))
 
-    print(a)
-    print("number_showed =>", number_showed)
-    print("showed_times  =>", showed_times)
-    print("Result =", result, "\n")
+    # print(a)
+    # print("number_showed =>", number_showed)
+    # print("showed_times  =>", showed_times)
+    # print("Result =", result, "\n")
 
-
-solution([0,1,2,10,6,4,13])
-solution([0,1,2,10,6,5,13])
-solution([0,1,2,3,4,5,6,7])
-solution([7,6,5,4,3,2,1,0])
-solution([0,1,2,10,11,5,13])
-solution([7,1,4,9,2,5,0,1,2])
-solution([99, 100, 120])
+def test():
+    solution([0,1,2,10,6,4,13])
+    solution([0,1,2,10,6,5,13])
+    solution([0,1,2,3,4,5,6,7])
+    solution([7,6,5,4,3,2,1,0])
+    solution([0,1,2,10,11,5,13])
+    solution([7,1,4,9,2,5,0,1,2])
+    solution([99, 100, 120])
 

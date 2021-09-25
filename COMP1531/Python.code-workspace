@@ -11,6 +11,10 @@
 		},
 		{
 			"path": "..\\..\\COMP1531 Labs"
+		},
+		{
+			"name": "project-backend",
+			"path": "..\\..\\COMP1531 Labs\\Project\\project-backend"
 		}
 	],
 	"settings": {
@@ -41,6 +45,9 @@
 				"database": "company",
 				"password": ""
 			}
+		],
+		"cSpell.words": [
+			"ndim"
 		],
 	},
 	"launch": {

@@ -1,0 +1,414 @@
+
+<!-- saved from url=(0074)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL: Updating the Data</title>
+<link href="./SQL_ Updating the Data_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./SQL_ Updating the Data_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./SQL_ Updating the Data_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./SQL_ Updating the Data_files/MathJax.js.&#19979;&#36733;"></script>
+<link href="./SQL_ Updating the Data_files/css" rel="stylesheet">
+<link href="./SQL_ Updating the Data_files/prism.css" rel="stylesheet">
+<script src="./SQL_ Updating the Data_files/sg.js.&#19979;&#36733;"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style>
+<style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./SQL_ Updating the Data_files/translateelement.css"></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body class="vsc-initialized" style=""><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">SQL: Updating the Data</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s1">Data Modification in SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s2">Insertion</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s7">Bulk Insertion of Data</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s9">Deletion</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s11">Semantics of Deletion</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s13">Updates</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [0/15]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Data Modification in SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+We have seen statements to modify table meta-data <small>(in DB catalog)</small>:
+</p><ul>
+<li> <large><code>CREATE TABLE</code></large> ... add new, initially empty, table to DB
+</li><li> <large><code>DROP TABLE</code></large> ... remove table data (all tuples) and meta-data
+</li><li> <large><code>ALTER TABLE</code></large> ... change meta-data of table
+	<small>(e.g add constraints)</small>
+</li></ul>
+SQL also provides statements for modifying data in tables:
+<ul>
+<li> <large><code>INSERT</code></large> ... add a new tuple(s) into a table
+</li><li> <large><code>DELETE</code></large> ... remove tuples from a table <small>(via condition)</small>
+</li><li> <large><code>UPDATE</code></large> ... modify values in existing tuples <small>(via condition)</small>
+</li></ul>
+Constraint checking is applied automatically on any change.
+<p>
+Operation fails (no change to DB) if any constraint check fails
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [1/15]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Insertion</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Add new tuples via the <large><font color="#009900"><b><code>INSERT</code></b></font></large> operation:
+</p><p></p><pre>INSERT INTO <i>RelationName</i>
+VALUES (<i>val<sub>1</sub></i>, <i>val<sub>2</sub></i>, <i>val<sub>3</sub></i>, ...)
+
+INSERT INTO <i>RelationName</i>(<i>Attr<sub>1</sub></i>, <i>Attr<sub>2</sub></i>, ...)
+VALUES (<i>valForAttr<sub>1</sub></i>, <i>valForAttr<sub>2</sub></i>, ...)
+
+INSERT INTO <i>RelationName</i>
+VALUES <i>Tuple<sub>1</sub></i>, <i>Tuple<sub>2</sub></i>, <i>Tuple<sub>3</sub></i>, ...
+</pre><p>
+The first two add a single new tuple into <i>RelationName</i>.
+</p><p>
+The last form adds multiple tuples into <i>RelationName</i>.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [2/15]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Insertion <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<large><code>INSERT INTO </code></large><i>R</i><large><code> VALUES (</code></large><i>v<sub>1</sub></i><large><code>,</code></large><i>v<sub>2</sub></i><large><code>,...)</code></large>
+</p><ul>
+<li> values must be supplied for all attributes of <i>R</i>
+</li><li> in same order as appear in <large><code>CREATE TABLE</code></large> statement
+</li><li> special value <large><code>DEFAULT</code></large> forces default value or <large><code>NULL</code></large>
+</li></ul>
+<large><code>INSERT INTO </code></large><i>R</i><large><code>(</code></large><i>A<sub>1</sub></i><large><code>,</code></large><i>A<sub>2</sub></i><large><code>,...) VALUES (</code></large><i>v<sub>1</sub></i><large><code>,</code></large><i>v<sub>2</sub></i><large><code>,...)</code></large>
+<ul>
+<li> can specify any subset of attributes of <i>R</i>
+</li><li> values must match attribute specification order
+</li><li> unspecified attributes are assigned default or null
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [3/15]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Insertion <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> Add the fact that Justin likes 'Old'.
+</p><p></p><pre style="font-size:90%">INSERT INTO Likes VALUES ('Justin','Old');
+<span class="comment">-- or --</span>
+INSERT INTO Likes(drinker,beer) VALUES('Justin','Old');
+<span class="comment">-- or --</span>
+INSERT INTO Likes(beer,drinker) VALUES('Old','Justin');
+</pre><p>
+<br>
+<b>Example:</b> Add a new beer with unknown style.
+</p><p></p><pre>INSERT INTO Beers(name,brewer)
+       VALUES('Mysterio','Hop Nation');
+<span class="comment">-- which inserts the tuple ...</span>
+('Mysterio', 'Hop Nation', null)
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [4/15]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Insertion <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> insertion with default values
+</p><p></p><pre>ALTER TABLE Likes
+   ALTER COLUMN beer SET DEFAULT 'New';
+ALTER TABLE Likes
+   ALTER COLUMN drinker SET DEFAULT 'Joe';
+
+INSERT INTO Likes(drinker) VALUES('Fred');
+INSERT INTO Likes(beer) VALUES('Sparkling Ale');
+
+<span class="comment">-- inserts the two new tuples ...</span>
+('Fred', 'New')
+('Joe', 'Sparkling Ale')
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [5/15]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Insertion <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> insertion with insufficient values.
+</p><p>
+E.g. specify that drinkers' phone numbers cannot be <large><code>NULL</code></large>.
+</p><p></p><pre>ALTER TABLE Drinkers
+   ALTER COLUMN phone SET NOT NULL;
+</pre><p>
+<br>
+Then try to insert a drinker whose phone number we don't know:
+</p><p></p><pre style="font-size:90%">INSERT INTO Drinkers(name,addr) VALUES ('Zoe','Manly');
+
+ERROR:  null value in column "phone" violates
+                              not-null constraint
+DETAIL:  Failing row contains (Zoe, Manly, null).
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [6/15]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Bulk Insertion of Data</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Tuples may be inserted individually:
+</p><p></p><pre>insert into Stuff(x,y,s) values (2,4,'green');
+insert into Stuff(x,y,s) values (4,8,null);
+insert into Stuff(x,y,s) values (8,null,'red');
+...
+</pre><p>
+but this is tedious if 1000's of tuples are involved.
+</p><p>
+It is also inefficient
+</p><ul>
+<li> all relevant constraints are checked on insertion of each tuple
+</li></ul>
+So, most DBMSs provide non-SQL methods for bulk insertion
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [7/15]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Bulk Insertion of Data <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Bulk insertion methods typically ...
+</p><ul>
+<li> use a compact representation for each tuple
+</li><li> "load" all tuples without constraint checking
+</li><li> do all constraint checks at the end
+</li><li> if any tuples fail checks, none are inserted
+</li></ul>
+<p>
+Example: PostgreSQL's <large><code>copy</code></large> statement:
+</p><p></p><pre><large><font color="#009900"><b><code>COPY</code></b></font></large> Stuff(x,y,s) <large><font color="#009900"><b><code>FROM</code></b></font></large> stdin;
+2       4       green
+4       8       <font color="#996600">\N</font>
+8       <font color="#996600">\N</font>      red
+<font color="#996600">\.</font>
+</pre><p>
+Can also copy from a named file &nbsp; <span class="smaller">(but must be readable by PostrgeSQL server)</span>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [8/15]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Deletion</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Removing tuples is accomplished via <large><font color="#009900"><b><code>DELETE</code></b></font></large> statement:
+</p><p></p><pre>DELETE FROM <i>Relation</i>
+WHERE  <i>Condition</i>
+</pre><p>
+Removes all tuples from <i>Relation</i>&nbsp; that satisfy <i>Condition</i>.
+</p><p>
+<b>Example:</b> Justin no longer likes Sparkling Ale.
+</p><p></p><pre>DELETE FROM Likes
+WHERE drinker = 'Justin'
+      AND beer = 'Sparkling Ale';
+</pre><p>
+<b>Special case:</b> Make relation <i>R</i>&nbsp; empty.
+</p><p></p><pre>DELETE FROM R; &nbsp;&nbsp; <span class="comment">or</span> &nbsp;&nbsp; DELETE FROM R WHERE true;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [9/15]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Deletion <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> remove all expensive beers from sale.
+</p><p></p><pre>DELETE FROM Sells WHERE price &gt;= 5.00;
+</pre><p>
+<br>
+<b>Example:</b> remove all beers with unknown style
+</p><p></p><pre>DELETE FROM Beers WHERE style IS NULL;
+</pre><p>
+This fails* if such Beers are referenced from other tables
+</p><p>
+E.g. such Beers are liked by someone or sold in some bar
+</p><p>
+* no beers are removed, even if some are not referenced
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [10/15]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Semantics of Deletion</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Method A for &nbsp; <large><code>DELETE FROM</code></large> <i>R</i>&nbsp; <large><code>WHERE</code></large> <i>Cond</i> :
+</p><p></p><pre style="font-size:90%">FOR EACH tuple T in R DO
+    IF T satisfies Cond THEN
+        remove T from relation R
+    END
+END
+</pre><p>
+Method B for &nbsp; <large><code>DELETE FROM</code></large> <i>R</i>&nbsp;  <large><code>WHERE</code></large> <i>Cond</i> :
+</p><p></p><pre style="font-size:90%">FOR EACH tuple T in R DO
+    IF T satisfies Cond THEN
+        make a note of this T
+    END
+END
+FOR EACH noted tuple T DO
+    remove T from relation R
+END
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [11/15]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Semantics of Deletion <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Does it matter which method the DBMS uses?
+</p><p>
+For most cases, the same tuples would be deleted
+</p><p>
+But if <i>Cond</i>&nbsp; involes a query on the table <i>R</i>
+</p><ul>
+<li> the result of <i>Cond</i> might change as the deletion progresses
+</li><li> so Method A might delete less tuples than Method B
+</li></ul>
+E.g.
+<p></p><pre>DELETE FROM Beers
+WHERE (SELECT count(*) FROM Beers) &gt; 10;
+</pre><p>
+</p><p>
+<small>
+Method A deletes beers until there are only 10 left <br>
+Method B deletes all beers if there were more than 10 to start with
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [12/15]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Updates</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <large><font color="#009900"><b><code>UPDATE</code></b></font></large> statement allows you to ...
+<itmeize>
+</itmeize></p><li> modify values of specified attributes in specified tuples of a relation
+
+<p></p><pre>UPDATE <i>R</i>
+SET    <i>List of assignments</i>
+WHERE  <i>Condition</i>
+</pre><p>
+Each tuple in relation <i>R</i>&nbsp; that satisfies <i>Condition</i>
+is affected
+</p><p>
+Assignments may:
+</p><ul>
+<li> assign constant values to attributes, <br>
+	e.g. <large><code>SET price = 2.00</code></large>
+</li><li> use existing values in the tuple to compute new values, <br>
+	e.g. <large><code>SET price = price * 0.5</code></large>
+</li></ul>
+</li></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [13/15]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Updates <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> Adam changes his phone number.
+</p><p></p><pre>UPDATE Drinkers
+SET    phone = '9385-2222'
+WHERE  name = 'Adam';
+</pre><p>
+<b>Example:</b> John moves to Coogee.
+</p><p></p><pre>UPDATE Drinkers
+SET    addr = 'Coogee',
+       phone = '9665-4321'
+WHERE  name = 'John';
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [14/15]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-updating/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Updates <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Examples that modify many tuples ...
+</p><p>
+<b>Example:</b> Make $6 the maximum price for beer.
+</p><p></p><pre>UPDATE Sells
+SET    price = 6.00
+WHERE  price &gt; 6.00;
+</pre><p>
+<br>
+<b>Example:</b> Increase beer prices by 10%.
+</p><p></p><pre>UPDATE Sells
+SET    price = price * 1.10;
+</pre><p>
+Updates all tuples (as if <large><code>WHERE true</code></large>)
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Updating the Data &#9826; [15/15]</div><p></p><hr><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./SQL_ Updating the Data_files/translate_24dp.png" width="20" height="20" alt="Google &#32763;&#35793;"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">&#21407;&#25991;</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">&#25552;&#20379;&#26356;&#22909;&#30340;&#32763;&#35793;&#24314;&#35758;</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><p>
+<span style="font-size:11px;color: grey;">Produced: 28 Sep 2020</span>
+ <script src="./SQL_ Updating the Data_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./SQL_ Updating the Data_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 11929px; width: 810px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 11929px; width: 810px;"></div></html>

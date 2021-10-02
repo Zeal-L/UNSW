@@ -1,0 +1,343 @@
+
+<!-- saved from url=(0074)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL: Queries on One Table</title>
+<link href="./SQL_ Queries on One Table_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./SQL_ Queries on One Table_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./SQL_ Queries on One Table_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./SQL_ Queries on One Table_files/MathJax.js.&#19979;&#36733;"></script>
+<link href="./SQL_ Queries on One Table_files/css" rel="stylesheet">
+<link href="./SQL_ Queries on One Table_files/prism.css" rel="stylesheet">
+<script src="./SQL_ Queries on One Table_files/sg.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">SQL: Queries on One Table</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s1">Queries</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s2">SQL Query Language</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s7">Problem-solving in SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s10">Views</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s11">Exercise: Queries on Beer Database</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [0/12]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Queries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <font color="#0000BB">query</font> is a <font color="#0000BB">declarative program</font> that retrieves
+data from a database.
+</p><p>
+declarative = say what we want, not method to get it
+</p><p>
+Queries are used in two ways in RDBMSs:
+</p><ul>
+<li> interactively &nbsp; <small>(e.g. in <large><code>psql</code></large>)</small>
+<small>
+<ul>
+<li> the entire result is displayed in tabular format on the output
+</li></ul>
+</small>
+</li><li> by a program &nbsp; <small>(e.g. in a PLpgSQL function)</small>
+<small>
+<ul>
+<li> the result tuples are consumed one-at-a-time by the program
+</li></ul>
+</small>
+</li></ul>
+<p><br>
+SQL is based on the <font color="#0000BB">relational algebra</font>, which we discuss elsewhere
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [1/12]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Query Language</div></td><td align="right"></td></tr></tbody></table>
+<p>
+An SQL <font color="#0000BB">query</font> consists of a sequence of clauses:
+</p><p></p><pre>SELECT   <i>projectionList</i>
+FROM     <i>relations/joins</i>
+WHERE    <i>condition</i>
+GROUP BY <i>groupingAttributes</i>
+HAVING   <i>groupCondition</i>
+</pre><p>
+<large><code>FROM</code></large>, &nbsp; <large><code>WHERE</code></large>, &nbsp; <large><code>GROUP BY</code></large>, &nbsp; <large><code>HAVING</code></large> &nbsp; clauses are optional.
+</p><p>
+Result of query: a relation, typically displayed as a table.
+</p><p>
+<small>
+Result could be just one tuple with one attribute (i.e. one value) or even empty
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [2/12]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Query Language <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Functionality provided by SQL ...
+</p><p>
+<font color="#0000BB">Filtering</font>: extract attributes from tuples, extract tuples frm tables
+</p><p></p><pre>SELECT b,c FROM R(a,b,c,d) WHERE a &gt; 5
+</pre><p>
+<font color="#0000BB">Combining</font>: merging related tuples from different tables
+</p><p></p><pre>... FROM R(x,y,z) JOIN S(a,b,c) ON R.y = S.a
+</pre><p>
+<font color="#0000BB">Summarising</font>: aggregating values in a single column
+</p><p></p><pre>SELECT avg(mark) FROM ...
+</pre><p>
+<font color="#0000BB">Set operations</font>: union, intersection, difference
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [3/12]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Query Language <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+More functionality provided by SQL ...
+</p><p>
+<font color="#0000BB">Grouping</font>: forming subsets of tuples sharing some property
+</p><p></p><pre>... GROUP BY R.a
+</pre><p>
+<small>
+(forms groups of tuples from <large><code>R</code></large> sharing the same value of <large><code>a</code></large>)
+</small>
+</p><p>
+<font color="#0000BB">Group Filtering</font>: selecting only groups satisfying a condition
+</p><p></p><pre>... GROUP BY R.a HAVING max(R.a) &lt; 75
+</pre><p>
+<font color="#0000BB">Renaming</font>: assign a name to a component of a query
+</p><p></p><pre>SELECT a as <font color="#0000EE">name</font>
+FROM Employee(a,b,c) <font color="#0000EE">e</font> WHERE e.b &gt; 50000
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [4/12]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Query Language <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Schema:
+</p><ul>
+<li> <i>Students(id, name, ...)</i>
+</li><li> <i>Enrolments(student, course, mark, grade)</i>
+</li></ul>
+<p>
+Example SQL query on this schema:
+</p><p></p><pre>SELECT   s.id, s.name, avg(e.mark) as avgMark
+FROM     Students s
+         JOIN Enrolments e on (s.id = e.student)
+GROUP BY s.id, s.name
+<span class="comment">-- or --</span>
+SELECT   s.id, s.name, avg(e.mark) as avgMark
+FROM     Students s, Enrolments e
+WHERE    s.id = e.student
+GROUP BY s.id, s.name
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [5/12]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Query Language <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+How the example query is computed:
+</p><ul>
+<li> produce all pairs of <i>Students</i>,<i>Enrolments</i> &nbsp;tuples <br>
+	which satisfy condition <i>(Students.id = Enrolments.student)</i>
+</li><li> each tuple has <i>(<font color="#CC0000">id</font>,name,...,<font color="#CC0000">student</font>,course,mark,grade)</i>
+</li><li> form groups of tuples with same <i>(id,name)</i> values
+</li><li> for each group, compute average mark
+</li><li> form result tuples <i>(id,name,avgMark)</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [6/12]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Problem-solving in SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Starts with an information request:
+</p><ul>
+<li> (informal) description of the information required from the database
+</li></ul>
+Ends with:
+<ul>
+<li> a list of tuples that meet the requirements in the request
+</li></ul>
+<p>
+Pre-req: &nbsp; <font color="#0000BB">know your schema</font>
+</p><p>
+Look for keywords in request to identify required data :
+</p><ul>
+<li> tell me the <font color="#0000EE">names</font> of all <font color="#009900">students</font>...
+</li><li> <font color="#0000EE">how many</font> <font color="#009900">students</font> failed ...
+</li><li> what is the <font color="#0000EE">highest mark</font> in ...
+</li><li> which <font color="#009900">courses</font> are ... &nbsp; <small>(course codes?)</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [7/12]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Problem-solving in SQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Developing SQL queries ...
+</p><ul>
+<li> relate required data to <font color="#0000BB">attributes</font> in schema
+</li><li> identify which <font color="#0000BB">tables</font> contain these attributes
+</li><li> combine data from relevant tables (<font color="#0000BB"><large><code>FROM</code></large></font>, <font color="#0000BB"><large><code>JOIN</code></large></font>)
+</li><li> specify conditions to select relevant data (<font color="#0000BB"><large><code>WHERE</code></large></font>)
+</li><li> [optional] define grouping attributes (<font color="#0000BB"><large><code>GROUP BY</code></large></font>)
+</li><li> develop expressions to compute output values (<font color="#0000BB"><large><code>SELECT</code></large></font>)
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [8/12]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Problem-solving in SQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<b>Example:</b> just the beers that John likes
+</p><ul>
+<li> which table contains info about beers that are liked?
+</li><li> <large><code>Likes(drinker,beers)</code></large>
+</li><li> only want tuples where drinker is John &nbsp;(<large><code>WHERE</code></large>)
+</li><li> only want beer names &nbsp;(<large><code>SELECT beer</code></large>)
+</li></ul>
+... giving ...
+<p></p><pre>select beer from Likes where drinker='John';
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [9/12]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Views</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A <font color="#0000BB">view</font> associates a name with a query:
+</p><ul>
+<li> <large><font color="#009900"><b><code>CREATE VIEW</code></b></font></large> &nbsp;<i>viewName</i>&nbsp; [ <large><font color="#009900"><b><code>(</code></b></font></large> <i>attributes</i> <large><font color="#009900"><b><code>)</code></b></font></large> ] &nbsp;<large><font color="#009900"><b><code>AS</code></b></font></large> &nbsp;<i>Query</i>
+</li></ul>
+Each time the view is invoked (in a <large><code>FROM</code></large> clause):
+<ul>
+<li> the <i>Query</i> is evaluated, yielding a set of tuples
+</li><li> the set of tuples is used as the value of the view
+</li></ul>
+A view can be treated as a "virtual table".
+<p>
+Views are useful for "packaging" a complex query to use in other queries.
+</p><p>
+cf. writing functions to package computations in programs
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [10/12]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Exercise: Queries on Beer Database</div></td><td align="right"></td></tr></tbody></table>
+<p>
+ER design for Beer database:
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/sql/beer-er.png]" src="./SQL_ Queries on One Table_files/beer-er.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [11/12]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries1/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Exercise: Queries on Beer Database <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Answer these queries on the Beer database:
+</p><p></p><ol start="1">
+<li> What beers are made by Toohey's?
+</li><li> Show beers with headings "Beer", "Brewer".
+</li><li> How many different beers are there?
+</li><li> How many different brewers are there?
+</li><li> Which beers does John like? <br>
+</li><li> Find pairs of beers by the same manufacturer.
+</li><li> How many beers does each brewer make? <br>
+</li><li> Which brewers make only one beer? <br>
+</li><li> Which brewer makes the most beers?
+</li></ol>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on One Table &#9826; [12/12]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 28 Sep 2020</span>
+ <script src="./SQL_ Queries on One Table_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./SQL_ Queries on One Table_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 9410px; width: 884px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 9410px; width: 884px;"></div></html>

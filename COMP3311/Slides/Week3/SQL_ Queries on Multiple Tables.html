@@ -1,0 +1,431 @@
+
+<!-- saved from url=(0074)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL: Queries on Multiple Tables</title>
+<link href="./SQL_ Queries on Multiple Tables_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./SQL_ Queries on Multiple Tables_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./SQL_ Queries on Multiple Tables_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./SQL_ Queries on Multiple Tables_files/css" rel="stylesheet">
+<link href="./SQL_ Queries on Multiple Tables_files/prism.css" rel="stylesheet">
+<script src="./SQL_ Queries on Multiple Tables_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./SQL_ Queries on Multiple Tables_files/MathJax.js.&#19979;&#36733;"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style>
+<style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body class="vsc-initialized" style=""><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">SQL: Queries on Multiple Tables</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s1">Queries on Multiple Tables</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s3">Join</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s7">Name Clashes in Conditions</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s8">Explicit Tuple Variables</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s9">Outer Join</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s15"> Subqueries</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [0/15]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Queries on Multiple Tables</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Queries involving a single table are useful.
+</p><p>
+Exploiting all data in the DB requires
+</p><ul>
+<li> combining data from multiple tables
+</li><li> typically involving primary/foreign key matching
+</li></ul>
+<b>Example:</b> Which brewers makes beers that John likes?
+<p></p><pre style="font-size:90%">select b.brewer
+from   Beers b <font color="#0000EE">join</font> Likes L on <font color="#0000EE">(b.name = L.beer)</font>
+where  L.drinker = 'John';
+</pre><p>
+Info on brewers is in <large><code>Beers</code></large>; info on who likes what in <large><code>Likes</code></large>.
+</p><p>
+Need to combine info from both tables using "common" attributes
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [1/15]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Queries on Multiple Tables <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example <large><code>Beers</code></large> and <large><code>Likes</code></large> tuples:
+</p><p></p><pre style="font-size:80%">Beers(80/-, Caledonian, Scotch Ale)     Likes(John, Sculpin)
+Beers(New, Toohey's, Lager)             Likes(John, Red Nut)
+Beers(Red Nut, Bentspoke, Red IPA)      Likes(Adam, New)
+Beers(Sculpin, Ballast Point, IPA)      Likes(John, 80/-)
+</pre><p>
+"Merged" tuples resulting from
+</p><ul>
+<li> <large><code>Beers b <font color="#0000EE">join</font> Likes L on <font color="#0000EE">(b.name = L.beer)</font></code></large>
+</li></ul>
+<p></p><pre style="font-size:80%">Joined(<font color="#009900">80/-</font>, Caledonian, Scotch Ale, John, <font color="#009900">80/-</font>)
+Joined(<font color="#009900">New</font>, Toohey's, Lager, Adam, <font color="#009900">New</font>)
+Joined(<font color="#009900">Red Nut</font>, Bentspoke, Red IPA, John, <font color="#009900">Red Nut</font>)
+Joined(<font color="#009900">Sculpin</font>, Ballast Point, IPA, John, <font color="#009900">Sculpin</font>)
+</pre><p>
+In the query, the <large><code>where</code></large> clause removes all tuples not related to John
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [2/15]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Join</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Join is the SQL operator that combines tuples from tables.
+</p><p>
+Such an important operation that several variations exist
+</p><ul>
+<li> <font color="#0000BB">natural join</font> matches tuples via equality on common attributes
+</li><li> <font color="#0000BB">equijoin</font> matches tuples via equality on specified attributes
+</li><li> <font color="#0000BB">theta-join</font> matches tuples via a boolean expression
+</li><li> <font color="#0000BB">outer join</font> like theta-join, but includes non-matching tuples
+</li></ul>
+<br>
+We focus on theta-join and outer join in this course
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [3/15]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Join fits into <large><code>SELECT</code></large> queries as follows:
+</p><p></p><pre>SELECT <i>Attributes</i>
+FROM   <i>R1</i>
+       JOIN R2 ON (<i>JoinCondition<sub>1</sub></i>)
+       JOIN R3 ON (<i>JoinCondition<sub>2</sub></i>)
+       ...
+WHERE  <i>Condition</i>
+</pre><p>
+Can include an arbitrary number of joins.
+</p><p>
+<large><code>WHERE</code></large> clause typically filters out some of the joined tuples.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [4/15]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Alternative syntax for joins:
+</p><p></p><pre>SELECT brewer
+FROM   Likes L, Beers b
+WHERE  L.beer = b.name
+       AND L.drinker = 'John';
+</pre><p>
+Join condition(s) are specified in the <large><code>WHERE</code></large> clause
+</p><p>
+We prefer the explicit <large><code>JOIN</code></large> syntax, but this is sometimes more compact
+</p><p>
+Note: duplicates could be eliminated by using <large><code>distinct</code></large>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [5/15]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Operational semantics of &nbsp; <large><code>R1 JOIN R2 ON (<i>Condition</i>)</code></large>:
+</p><p></p><pre>FOR EACH tuple t1 in R1 DO
+    FOR EACH tuple t2 in R2 DO
+        check <i>Condition</i> for current
+           t1, t2 attribute values
+        IF <i>Condition</i> holds THEN
+            add (t1,t2) to result
+        END
+    END
+END
+</pre><p>
+Easy to generalise: add more relations, include <large><code>WHERE</code></large> condition
+</p><p>
+<small>
+Requires one tuple variable for each relation, and nested loops over relations.<br>
+But this is <font color="#0000BB">not</font> how it's actually computed!
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [6/15]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Name Clashes in Conditions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+If a <large><code>SELECT</code></large> statement
+</p><ul>
+<li> refers to multiple tables
+</li><li> some tables have attributes with the same name
+</li></ul>
+use the table name to disambiguate.
+<p>
+<b>Example:</b> Which hotels have the same name as a beer?
+</p><p></p><pre style="font-size:90%">SELECT Bars.name
+FROM   Bars, Beers
+WHERE  Bars.name = Beers.name;
+<span class="comment">-- or, using table aliases ...</span>
+SELECT r.name
+FROM   Bars r, Beers b
+WHERE  r.name = b.name
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [7/15]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Explicit Tuple Variables</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Table-dot-attribute doesn't help if we use same table twice in <large><code>SELECT</code></large>.
+</p><p>
+To handle this, define new names for each "instance" of the table
+</p><p></p><pre style="font-size:90%">SELECT r1.a, r2.b  FROM  <font color="#009900">R</font> r1, <font color="#009900">R</font> r2  WHERE  r1.a = r2.a
+</pre><p>
+<b>Example:</b> Find pairs of beers by the same manufacturer.
+</p><p></p><pre style="font-size:90%">SELECT b1.name, b2.name
+FROM   Beers b1 JOIN Beers b2 ON (b1.brewer = b2.brewer)
+WHERE  b1.name &lt; b2.name;
+</pre><p>
+<small>
+The <large><code>WHERE</code></large> condition is used to avoid:
+</small></p><ul><small>
+<li> pairing a beer with itself &nbsp; e.g. <large><code>(New,New)</code></large>
+</li><li> same pairs with different order &nbsp; e.g. <large><code>(New,Old) (Old,New)</code></large>
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [8/15]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Join only produces a result tuple from <i>t<sub>R</sub></i> and
+<i>t<sub>S</sub></i> where ...
+</p><ul>
+<li> there are appropriate values in both tuples
+</li><li> so that the join condition is satisfied
+</li></ul>
+<p></p><pre>SELECT * FROM R JOIN S WHERE (<i>Condition</i>)
+</pre><p>
+Sometimes, we want a result for <i>every</i>&nbsp; <large><code>R</code></large> tuple
+</p><ul>
+<li> even if some <large><code>R</code></large> tuples have no matching <large><code>S</code></large> tuple
+</li></ul>
+These kinds of requests often include "for each" or "for every"
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [9/15]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example</b>: for each suburb with a bar, find out who drinks there.
+</p><p>
+Theta-join only gives results for suburbs where people drink.
+</p><p></p><pre style="font-size:90%">SELECT B.addr, F.drinker
+FROM   Bars B
+       JOIN Frequents F ON (F.bar = B.name)
+ORDER  BY addr;
+
+   addr    | drinker 
+-----------+---------
+ Coogee    | Adam
+ Coogee    | John
+ Kingsford | Justin
+ Sydney    | Justin
+ The Rocks | John
+</pre><p>
+But what if we want all suburbs, even if some have are no drinkers?
+</p><p>
+<small>This is from an older and simpler instance of the beers database.</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [10/15]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+An <font color="#0000BB">outer join</font> solves this problem.
+</p><p>
+For &nbsp; <i>R</i>&nbsp;&nbsp; <large><code>OUTER JOIN</code></large> <i>S</i>&nbsp;&nbsp; <large><code>ON (</code></large><i>Condition</i><large><code>)</code></large>
+</p><ul>
+<li> all "tuples" in <i>R</i> have an entry in the result
+</li><li> if a tuple from <i>R</i> matches tuples in <i>S</i>, <br>
+	we get the normal join result tuples
+</li><li> if a tuple from <i>R</i> has no matches in <i>S</i>, <br>
+	the attributes supplied by <i>S</i> are <large><code>NULL</code></large>
+</li></ul>
+This outer join variant is called <large><code>LEFT OUTER JOIN</code></large>.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [11/15]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Solving the example query with an outer join:
+</p><p></p><pre style="font-size:90%">SELECT B.addr, F.drinker
+FROM   Bars B
+       <large><font color="#009900"><b><code>LEFT OUTER JOIN</code></b></font></large> Frequents F on (F.bar = B.name)
+ORDER BY B.addr;
+
+    addr    | drinker 
+------------+---------
+ Coogee     | Adam
+ Coogee     | John
+ Kingsford  | Justin
+ Randwick   | 
+ Sydney     | Justin
+ The Rocks  | John
+</pre><p>
+Note that Randwick is now mentioned
+<small>(because of the Royal Hotel)</small>.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [12/15]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Operational semantics of &nbsp; <large><code>R1 LEFT OUTER JOIN R2 ON (<i>Cond</i>)</code></large>:
+</p><p></p><pre>FOR EACH tuple t1 in R1 DO
+    nmatches = 0
+    FOR EACH tuple t2 in R2 DO
+        check <i>Cond</i> for current
+           t1, t2 attribute values
+        IF <i>Cond</i> holds THEN
+            nmatches++
+            add (t1,t2) to result
+        END
+    END
+    IF nmatches == 0 THEN
+        t2 = (null,null,null,...)
+        add (t1,t2) to result
+    END
+END
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [13/15]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Many RDBMSs provide three variants of outer join:
+</p><ul>
+<li> <i>R</i>&nbsp; <large><code>LEFT OUTER JOIN</code></large> <i>S</i>
+<ul>
+<li> behaves as described above
+</li></ul>
+</li><li> <i>R</i>&nbsp; <large><code>RIGHT OUTER JOIN</code></large> <i>S</i>
+<ul>
+<li> includes all tuples from <i>S</i>&nbsp; in the result
+</li><li> <large><code>NULL</code></large>-fills any <i>S</i>&nbsp; tuples with no matches in <i>R</i>
+</li></ul>
+</li><li> <i>R</i>&nbsp; <large><code>FULL OUTER JOIN</code></large> <i>S</i>
+<ul>
+<li> includes all tuples from <i>R</i>&nbsp; and <i>S</i>&nbsp; in the result
+</li><li> those without matches in other relation are <large><code>NULL</code></large>-filled
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [14/15]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/sql-queries2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070;  Subqueries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The result of a query can be used in the
+<large><code>WHERE</code></large> clause of another query.
+</p><p>
+<b>Case 1:</b> Subquery returns a single, unary tuple
+</p><p>
+</p><p></p><pre style="font-size:80%">SELECT * FROM R WHERE R.a <font color="#009900">=</font> (SELECT S.x FROM S WHERE Cond<sub>1</sub>)
+</pre><p>
+<b>Case 2:</b> Subquery returns multiple values
+</p><p>
+</p><p></p><pre style="font-size:80%">SELECT * FROM R WHERE R.a <font color="#009900">IN</font> (SELECT S.x FROM S WHERE Cond<sub>2</sub>)
+</pre><p>
+<br>
+<small>
+This approach is often used in the initial discussion of SQL in some textbooks.
+</small></p><p><small>
+These kinds of queries can generally be solved <i>more efficiently</i> using a join
+</small>
+</p><p></p><pre style="font-size:80%">SELECT * FROM R JOIN S ON (R.a = S.x) WHERE Cond
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL: Queries on Multiple Tables &#9826; [15/15]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 3 Oct 2020</span>
+ <script src="./SQL_ Queries on Multiple Tables_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./SQL_ Queries on Multiple Tables_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 12123px; width: 781px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 12123px; width: 781px;"></div></html>

@@ -44,6 +44,16 @@
 				"username": "zeal",
 				"database": "company",
 				"password": ""
+			},
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "ass1",
+				"database": "ass1",
+				"username": "zeal",
+				"password": ""
 			}
 		],
 		"cSpell.words": [

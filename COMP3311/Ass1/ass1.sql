@@ -30,9 +30,8 @@ SELECT
 FROM
 	brewed_by b1
 	JOIN brewed_by b2 ON b1.beer = b2.beer
-	JOIN beers ON beers.id = b1.beer
-	JOIN breweries er1 ON er1.id = b1.brewery
-	JOIN breweries er2 ON er2.id = b2.brewery
+	JOIN beers ON beers.id = b1.beer -- JOIN breweries er1 ON er1.id = b1.brewery
+	-- JOIN breweries er2 ON er2.id = b2.brewery
 WHERE
 	b1.brewery != b2.brewery
 	AND b1.brewery < b2.brewery;
@@ -128,7 +127,7 @@ CREATE
 OR replace VIEW Q9(brewery, nstyles) AS
 SELECT
 	er.name AS brewery,
-	COUNT(DISTINCT(b.style)) AS nstyles
+	COUNT(DISTINCT b.style) AS nstyles
 FROM
 	breweries er
 	JOIN brewed_by r ON er.id = r.brewery
@@ -136,17 +135,44 @@ FROM
 GROUP BY
 	er.name
 HAVING
-	(COUNT(DISTINCT(b.style)) >= 6)
+	(COUNT(DISTINCT(b.style)) > 5)
 ORDER BY
 	er.name ASC;
 
 -- Q10: beers of a certain style
 CREATE
-OR replace FUNCTION q10(_style text) returns setof BeerInfo AS $$ ... $$ LANGUAGE plpgsql;
+OR replace VIEW BeerInfo(beer, brewery, STYLE, YEAR, abv) AS
+SELECT
+	b.name AS beer,
+	er.name AS brewery,
+	s.name AS STYLE,
+	b.brewed AS YEAR,
+	b.abv
+FROM
+	beers b
+	JOIN brewed_by bb ON b.id = bb.beer
+	JOIN breweries er ON er.id = bb.brewery
+	JOIN styles s ON s.id = b.style;
+
+CREATE
+OR replace FUNCTION q10(_style text) returns setof BeerInfo AS $$
+SELECT
+	*
+FROM
+	BeerInfo
+WHERE
+	_style = STYLE $$ LANGUAGE SQL;
 
 -- Q11: beers with names matching a pattern
 CREATE
-OR replace FUNCTION Q11(partial_name text) returns setof text AS $$ ... $$ LANGUAGE plpgsql;
+OR replace FUNCTION Q11(partial_name text) returns setof text AS $$
+DECLARE
+result text;
+begin
+
+
+
+$$ LANGUAGE plpgsql;
 
 -- Q12: breweries and the beers they make
 CREATE

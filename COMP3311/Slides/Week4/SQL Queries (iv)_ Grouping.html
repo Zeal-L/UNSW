@@ -1,0 +1,340 @@
+
+<!-- saved from url=(0074)https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL Queries (iv): Grouping</title>
+<link href="./SQL Queries (iv)_ Grouping_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./SQL Queries (iv)_ Grouping_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./SQL Queries (iv)_ Grouping_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./SQL Queries (iv)_ Grouping_files/MathJax.js.&#19979;&#36733;"></script>
+<link href="./SQL Queries (iv)_ Grouping_files/css" rel="stylesheet">
+<link href="./SQL Queries (iv)_ Grouping_files/prism.css" rel="stylesheet">
+<script src="./SQL Queries (iv)_ Grouping_files/sg.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">SQL Queries (iv): Grouping</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s1">Grouping</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s4"> Restrictions on <large><code>SELECT</code></large> Lists</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s5">Filtering Groups</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s9">Partitions</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [0/12]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Grouping</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><code>SELECT-FROM-WHERE</code></large> can be followed by <large><code>GROUP BY</code></large> to:
+</p><ul>
+<li> partition result relation into groups &nbsp; 
+	<span class="smaller">(according to values of specified attribute)</span>
+</li><li> summarise (aggregate) some aspects of each group
+</li><li> output one tuple per group, with grouping attribute and aggregates
+</li></ul>
+<p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/sql/group-by.png]" src="./SQL Queries (iv)_ Grouping_files/group-by.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [1/12]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Grouping <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> How many different beers does each brewer make?
+</p><p></p><pre style="font-size:90%">SELECT   brewer, COUNT(name) as nbeers
+FROM     Beers
+GROUP BY brewer;
+
+       brewer        | nbeers 
+---------------------+--------
+ West City           |      1
+ James Squire        |      5
+ Yullis              |      1
+ Hop Nation          |      4
+ Anderson Valley     |      1
+ Beatnik             |      1
+ Boatrocker          |      3
+ Kizakura            |      1
+ ...
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [2/12]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Grouping <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><code>GROUP BY</code></large>&nbsp; is used as follows:
+</p><p></p><pre>SELECT   <i><font color="#0000EE">attributes</font>/aggregations</i>
+FROM     <i>relations</i>
+WHERE    <i>condition</i>
+GROUP BY <i><font color="#0000EE">attributes</font></i>
+</pre><p>
+Semantics:
+</p><ol>
+<li> apply product and selection as for <large><code>SELECT-FROM-WHERE</code></large>
+</li><li> partition result into groups based on values of <i>attributes</i>
+</li><li> apply any aggregation separately to each group
+</li></ol>
+<br>
+Grouping is typically used in queries involving the phrase "for each".
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [3/12]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070;  Restrictions on <large><code>SELECT</code></large> Lists</div></td><td align="right"></td></tr></tbody></table>
+<p>
+When using grouping, every attribute in the <large><code>SELECT</code></large> list must:
+</p><ul>
+<li> have an aggregation operator applied to it &nbsp;&nbsp; OR
+</li><li> appear in the <large><code>GROUP-BY</code></large> clause
+</li></ul>
+<b>Incorrect Example:</b>
+Find the styles associated with each brewer
+<p></p><pre>SELECT   brewer, style
+FROM     Beers
+GROUP BY brewer;
+</pre><p>
+PostgreSQL's response to this query:
+</p><p></p><pre style="font-size:90%">ERROR: column beers.style must appear in the GROUP BY 
+         clause or be used in an aggregate function
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [4/12]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Filtering Groups</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+In some queries, you can use the <large><code>WHERE</code></large> condition to
+eliminate groups.
+</p><p>
+<b>Example:</b> Average beer price by suburb excluding hotels in The Rocks.
+</p><p></p><pre>SELECT   b.addr, AVG(s.price)
+FROM     Sells s join Bars b on (s.bar=b.name)
+WHERE    b.addr &lt;&gt; 'The Rocks'
+GROUP BY b.addr;
+</pre><p>
+For conditions on whole groups, use the <large><code>HAVING</code></large> clause.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [5/12]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Filtering Groups <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><code>HAVING</code></large> is used to qualify a <large><code>GROUP-BY</code></large> clause:
+</p><p></p><pre>SELECT   <i>attributes/aggregations</i>
+FROM     <i>relations</i>
+WHERE    <i>condition<sub>1</sub></i>   <span class="comment">(on tuples)</span>
+GROUP BY <i>attributes</i>
+HAVING   <i>condition<sub>2</sub></i>;  <span class="comment">(on group)</span>
+</pre><p>
+Semantics of <large><code>HAVING</code></large>:
+</p><ol>
+<li> generate the groups as for <large><code>GROUP-BY</code></large>
+</li><li> discard groups <font color="#0000BB">not</font> satisfying <large><code>HAVING</code></large> condition
+</li><li> apply aggregations to remaining groups
+</li></ol>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [6/12]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Filtering Groups <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> Number of styles from brewers who make at least 5 beers?
+</p><p></p><pre style="font-size:80%">SELECT   brewer, count(name) as nbeers,
+         count(distinct style) as nstyles
+FROM     Beers
+GROUP BY brewer
+HAVING   count(name) &gt; 4
+ORDER BY brewer;
+
+      brewer       | nbeers | nstyles 
+-------------------+--------+---------
+ Bentspoke         |      9 |       7
+ Carlton           |      5 |       2
+ Frenchies         |      5 |       5
+ Hawkers           |      5 |       5
+ James Squire      |      5 |       4
+ One Drop          |      9 |       7
+ Sierra Nevada     |      5 |       5
+ Tallboy and Moose |      5 |       5
+</pre><p>
+<large><code>distinct</code></large> required, otherwise &nbsp;<large><code>nbeers=nstyles</code></large>&nbsp; for all brewers
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [7/12]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Filtering Groups <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Alternative formulation of division using &nbsp;<large><code>GROUP-BY</code></large>&nbsp; and &nbsp;<large><code>HAVING</code></large>&nbsp;
+</p><p>
+<b>Example:</b> Find bars that each sell all of the beers Justin likes.
+</p><p></p><pre>SELECT DISTINCT S.bar
+FROM   Sells S, Likes L on (S.beer = L.beer)
+WHERE  L.drinker = 'Justin'
+GROUP  BY S.bar
+HAVING count(S.beer) =
+           (SELECT count(beer) FROM Likes
+            WHERE drinker = 'Justin');
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [8/12]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Partitions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Sometimes it is useful to
+</p><ul>
+<li> partition a table into groups
+</li><li> compute results that apply to each group
+</li><li> use these results with individual tuples in the group
+</li></ul>
+Comparison with <large><code>GROUP-BY</code></large>
+<ul>
+<li> <large><code>GROUP-BY</code></large> produces one tuple for each group
+</li><li> <large><code>PARTITION</code></large> augments each tuple with group-based value(s)
+</li><li> can use other functions than aggregates <small>(e.g. ranking)</small>
+</li><li> can use attributes other than the partitioning ones
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [9/12]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Partitions <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Syntax for <large><code>PARTITION</code></large>:
+</p><p></p><pre>SELECT <i>attr<sub>1</sub></i>, <i>attr<sub>2</sub></i>, ...,
+       <i>aggregate<sub>1</sub></i> OVER (PARTITION BY <i>attr<sub>i</sub></i>),
+       <i>aggregate<sub>2</sub></i> OVER (PARTITION BY <i>attr<sub>j</sub></i>), ...
+FROM   <i>Table</i>
+WHERE  <i>condition on attributes</i>
+</pre><p>
+Note: the <i>condition</i> cannot include the <i>aggregate</i> value(s)
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [10/12]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Partitions <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<b>Example:</b> show each city with daily temperature and temperature range
+</p><p>
+Schema: <i>Weather(city,date,temperature)</i>
+</p><p></p><pre style="font-size:90%">SELECT city, date, temperature
+       min(temperature) OVER (PARTITION BY city) as lowest,
+       max(temperature) OVER (PARTITION BY city) as highest
+FROM   Weather;
+</pre><p>
+Output: <i>Result(city, date, temperature, lowest, highest)</i>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [11/12]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/sql-queries4/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Partitions <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example showing &nbsp;<large><code>GROUP BY</code></large>&nbsp; and &nbsp;<large><code>PARTITION</code></large>&nbsp; difference:
+</p><p><br>
+</p><p></p><pre style="font-size:90%">SELECT city, min(temperature) max(temperature)
+FROM   Weather  GROUP BY city
+</pre><p>
+Result: one tuple for each city &nbsp; <i>Result(city,min,max)</i>
+</p><p><br></p><p>
+</p><p></p><pre style="font-size:90%">SELECT city,  date,  temperature as temp,
+       min(temperature) OVER (PARTITION BY city),
+       max(temperature) OVER (PARTITION BY city)
+FROM   Weather;
+</pre><p>
+Result: one tuple for each temperature measurement.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; SQL Grouping &#9826; [12/12]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 5 Oct 2020</span>
+ <script src="./SQL Queries (iv)_ Grouping_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./SQL Queries (iv)_ Grouping_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 9590px; width: 925px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 9590px; width: 925px;"></div></html>

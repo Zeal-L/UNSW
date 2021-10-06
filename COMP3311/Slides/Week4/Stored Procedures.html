@@ -1,0 +1,413 @@
+
+<!-- saved from url=(0073)https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Stored Procedures</title>
+<link href="./Stored Procedures_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Stored Procedures_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Stored Procedures_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Stored Procedures_files/css" rel="stylesheet">
+<link href="./Stored Procedures_files/prism.css" rel="stylesheet">
+<script src="./Stored Procedures_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./Stored Procedures_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Stored Procedures</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s1">Limitations of Basic SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s2">Extending SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s3">SQL as a Programming Language</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s6">Database Programming</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s8">Stored Procedures</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s10">SQL Functions</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s13">Functions vs Views</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [0/14]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Limitations of Basic SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+What we have seen of SQL so far:
+</p><ul>
+<li> data definition language
+	&nbsp; <small>(<large><code>create table(...)</code></large>)</small>
+</li><li> constraints
+	&nbsp; <small>(domain, key, referential integrity)</small>
+</li><li> query language
+	&nbsp; <small>(<large><code>select...from...where...</code></large>)</small>
+</li><li> views
+	&nbsp; <small>(give names to SQL queries)</small>
+</li></ul>
+This provides powerful declarative data extraction mechanisms.
+<p>
+This is not sufficient to write complete applications.
+</p><p>
+More <font color="#0000BB">extensibility</font> and <font color="#0000BB">programmability</font> are needed.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [1/14]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Extending SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Ways in which standard SQL might be extended:
+</p><ul>
+<li> new data types
+	<small>(incl. constraints, I/O, indexes, ...)</small>
+</li><li> object-orientation
+</li><li> more powerful constraint checking
+</li><li> packaging/parameterizing queries
+</li><li> more functions/aggregates for use in queries
+</li><li> event-based triggered actions 
+</li></ul>
+All are required to <i>assist</i>&nbsp; in application development.
+<p>
+But still do not provide a solution to developing applications.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [2/14]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL as a Programming Language</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+At some point in developing complete database applications
+</p><ul>
+<li> we need to implement user interactions
+</li><li> we need to control sequences of database operations
+</li><li> we need to process query results in complex ways
+</li><li> we need to build a web interface for users to access data
+</li></ul>
+and SQL cannot do any of these.
+<p>
+SQL cannot even do something as simple as factorial!
+</p><p>
+<small>
+Ok ... so PostgreSQL added a factorial operator ... but it's non-standard.
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [3/14]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL as a Programming Language <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider the problem of withdrawal from a bank account:
+</p><p>
+<i>If a bank customer attempts to withdraw more funds than
+they have in their account, then indicate "Insufficient Funds",
+otherwise update the account</i>
+</p><p>
+An attempt to implement this in SQL:
+</p><p></p><pre style="font-size:90%">select 'Insufficient Funds'
+from   Accounts
+where  acctNo = <i>AcctNum</i> and balance &lt; <i>Amount</i>;
+update Accounts
+set    balance = balance - <i>Amount</i>
+where  acctNo = <i>AcctNum</i> and balance &gt;= <i>Amount</i>;
+select 'New balance: '||balance
+from   Accounts
+where  acctNo = <i>AcctNum</i>;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [4/14]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL as a Programming Language <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Two possible evaluation scenarios:
+</p><ul>
+<li> displays "Insufficient Funds", <large><code>UPDATE</code></large> has no effect, displays unchanged balance
+</li><li> <large><code>UPDATE</code></large> occurs as required, displays changed balance
+</li></ul>
+Some problems:
+<ul>
+<li> SQL doesn't allow parameterisation (e.g. <i>AcctNum</i>)
+</li><li> always attempts <large><code>UPDATE</code></large>, even when it knows it's invalid
+</li><li> need to evaluate <large><code>(balance &lt; </code></large><i>Amount</i><large><code>)</code></large> test twice
+</li><li> always displays balance, even when not changed
+</li></ul>
+To accurately express the "business logic",
+we need facilities like conditional execution and parameter passing.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [5/14]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database Programming</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Database programming requires a combination of
+</p><ul>
+<li> manipulation of data in DB &nbsp; <small>(via SQL)</small>
+</li><li> conventional programming &nbsp; <small>(via procedural code)</small>
+</li></ul>
+This combination is realised in a number of ways:
+<ul>
+<li> passing SQL commands via a "call-level" interface <br>
+<small><font color="#777777">(prog lang is decoupled from DBMS; most flexible; e.g. Java/JDBC, PHP, Python)</font></small>
+</li><li> embedding SQL into augmented programming languages <br>
+<small><font color="#777777">(requires pre-processor for language; typically DBMS-specific; e.g. SQL/C)</font></small>
+</li><li> special-purpose programming languages in the DBMS <br>
+<small><font color="#777777">(closely integrated with DBMS; enable extensibility; e.g. PL/SQL, PLpgSQL)</font></small>
+</li></ul>
+<small>
+Here we focus on the last: extending DBMS capabilities via programs stored in the DB
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [6/14]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database Programming <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Combining <font color="#CC0000">SQL</font> and <font color="#009900">procedural</font> code solves the "withdrawal" problem:
+</p><p></p><pre><small>
+<font color="#009900">create function
+    withdraw(<font color="#0000EE">acctNum</font> text, <font color="#0000EE">amount</font> integer) returns text
+declare bal integer;
+begin
+    set bal = (<font color="#CC0000">select balance
+               from   Accounts
+               where  acctNo = <font color="#0000EE">acctNum</font></font>);
+    if (bal &lt; <font color="#0000EE">amount</font>) then
+        return 'Insufficient Funds';
+    else
+        <font color="#CC0000">update Accounts
+        set    balance = balance - <font color="#0000EE">amount</font>
+        where  acctNo = <font color="#0000EE">acctNum</font></font>;
+        set bal = (<font color="#CC0000">select balance
+                   from   Accounts
+                   where  acctNo = <font color="#0000EE">acctNum</font></font>);
+        return 'New Balance: ' || bal;
+    end if
+end;</font>
+</small></pre><p>
+<small>(This example is actually a stored procedure, using SQL/PSM syntax)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [7/14]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Stored Procedures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Stored procedures</font> are small programs ...
+</p><ul>
+<li> stored in the database, alongside the stored data
+</li><li> invoked in SQL queries, or automatically invoked in triggers
+</li></ul>
+SQL/PSM is a standard for stored procedures, developed in 1996. <br>
+By then, most DBMSs had their own stored procedure languages.
+<p>
+PostgreSQL supports stored procedures in a variety of languages
+</p><ul>
+<li> PLpgSQL ... PostgreSQL-specific procedural language &nbsp; <span class="smaller">(cf. Oracle's PL/SQL)</span>
+</li><li> SQL ... functions that resemble parameterised views
+</li><li> Python, Perl, Tcl, ... etc.
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [8/14]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Stored Procedures <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+The PLpgSQL interpreter
+</p><ul>
+<li> executes procedural code and manages variables
+</li><li> calls PostgreSQL engine to evaluate SQL statements
+</li></ul>
+<p></p><div align="center">
+<img alt="[Diagram:Pics/plpgsql/engine.png]" src="./Stored Procedures_files/engine.png">
+</div><p>
+Embedded in DBMS engine, so efficient to execute with queries
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [9/14]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+PostgreSQL allows functions to be defined in SQL
+</p><p></p><pre>CREATE OR REPLACE
+   <font color="#000099"><i>funcName</i>(<i>arg1type</i>, <i>arg2type</i>, ....)
+   RETURNS <i>rettype</i></font>
+AS <font color="#009900">$$
+   <i>SQL</i> <i>statements</i>
+$$</font> LANGUAGE sql;
+</pre><p>
+Within the function, arguments are accessed as <large><code>$1</code></large>, <large><code>$2</code></large>, ...
+</p><p>
+Return value: result of the last SQL statement.
+</p><p>
+<i>rettype</i> can be any PostgreSQL data type (incl tuples,tables).
+</p><p>
+Function returning a table: &nbsp; <large><code>returns setof</code></large> <i>TupleType</i>
+</p><p>
+Details: PostgreSQL Documentation, Section 37.5
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [10/14]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Functions <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> info about bars from a given suburb
+</p><p></p><pre style="font-size:90%">create or replace function
+    hotelsIn(text) returns setof Bars
+as $$
+select * from Bars where addr = $1;
+$$ language sql;
+
+<span class="comment">-- usage examples</span>
+select * from hotelsIn('The Rocks');
+      name       |   addr    | license 
+-----------------+-----------+---------
+ Australia Hotel | The Rocks |  123456
+ Lord Nelson     | The Rocks |  123888
+
+select * from hotelsIn('Randwick');
+    name     |   addr   | license 
+-------------+----------+---------
+ Royal Hotel | Randwick |  938500
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [11/14]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; SQL Functions <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> Name of cheapest beer at each bar
+</p><p></p><pre style="font-size:90%">create view Cheapest(bar, price) as
+select bar, min(price) from Sells group by bar;
+
+select s.*
+from   Sells s
+where  s.price =
+         (select price from Cheapest where bar = s.bar);
+</pre><p>
+Could be implemted by defining an SQL function <large><code>LowestPriceAt(bar)</code></large>
+</p><p></p><pre style="font-size:90%">create or replace
+    function LowestPriceAt(text) returns float
+as $$
+select min(price) from Sells where bar = $1;
+$$ language sql;
+
+select * from Sells where price = LowestPriceAt(bar);
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [12/14]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functions vs Views</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A parameterless function behaves similar to a view
+</p><p>
+E.g.
+</p><p></p><pre>create or replace view EmpList
+as
+select given||' '||family as name,
+       street||', '||town as addr
+from   Employees;
+</pre><p>
+which is used as
+</p><p></p><pre>mydb=# select * from EmpList;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [13/14]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/stored-proc/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functions vs Views <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Compared to its implementation as a function:
+</p><p></p><pre>create type EmpRecord as (name text, addr text);
+
+create or replace function
+   EmpList() returns setof EmpRecord
+as $$
+select family||' '||given as name,
+       street||', '||town as addr
+from   Employees
+$$ language sql;
+</pre><p>
+which is used as
+</p><p></p><pre>mydb=# select * from EmpList();
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Stored Procedures &#9826; [14/14]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 5 Oct 2020</span>
+ <script src="./Stored Procedures_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Stored Procedures_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 11890px; width: 781px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 11890px; width: 781px;"></div></html>

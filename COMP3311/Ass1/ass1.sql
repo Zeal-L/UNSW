@@ -54,7 +54,7 @@ WHERE
 -- Q4: too strong beer
 CREATE
 OR replace VIEW Q4(beer, abv, STYLE, max_abv)
-) AS
+AS
 SELECT
 	b.name AS beer,
 	b.abv,
@@ -68,6 +68,16 @@ WHERE
 
 -- Q5: most common style
 CREATE
+OR replace VIEW Q5_max(n) AS
+SELECT
+	COUNT(*)
+FROM
+	styles s
+	JOIN beers b ON b.style = s.id
+GROUP BY
+	s.name;
+
+CREATE
 OR replace VIEW Q5(STYLE) AS
 SELECT
 	s.name AS STYLE
@@ -76,10 +86,9 @@ FROM
 	JOIN beers b ON b.style = s.id
 GROUP BY
 	s.name
-ORDER BY
-	COUNT(*) DESC
-LIMIT
-	1;
+HAVING
+	COUNT(*) = (SELECT max(n) from Q5_max);
+
 
 -- Q6: duplicated style names
 CREATE
@@ -106,6 +115,18 @@ WHERE
 
 -- Q8: city with the most breweries
 CREATE
+OR replace VIEW Q8_max(n) AS
+SELECT
+	COUNT(*)
+FROM
+	locations l
+	JOIN breweries er ON l.id = er.located_in
+	AND l.metro IS NOT NULL
+GROUP BY
+	l.metro,
+	l.country;
+
+CREATE
 OR replace VIEW Q8(city, country) AS
 SELECT
 	l.metro AS city,
@@ -117,10 +138,9 @@ FROM
 GROUP BY
 	l.metro,
 	l.country
-ORDER BY
-	COUNT(*) DESC
-LIMIT
-	1;
+HAVING
+	COUNT(*) = (SELECT MAX(n) from Q8_max);
+
 
 -- Q9: breweries that make more than 5 styles
 CREATE
@@ -156,24 +176,87 @@ FROM
 
 CREATE
 OR replace FUNCTION q10(_style text) returns setof BeerInfo AS $$
-SELECT
-	*
-FROM
-	BeerInfo
-WHERE
-	_style = STYLE $$ LANGUAGE SQL;
+DECLARE
+	emp RECORD;
+BEGIN
+	FOR emp IN
+		SELECT
+			*
+		FROM
+			BeerInfo
+		WHERE
+			_style = STYLE
+	LOOP
+		RETURN next emp;
+	END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+
 
 -- Q11: beers with names matching a pattern
 CREATE
-OR replace FUNCTION Q11(partial_name text) returns setof text AS $$
+OR replace VIEW Q11_matching(beer, brewery, style, abv, id) AS
+SELECT
+	b.name AS beer,
+	er.name AS brewery,
+	s.name AS style,
+	b.abv,
+	b.id
+FROM
+	beers b
+	JOIN brewed_by bb ON b.id = bb.beer
+	JOIN breweries er ON er.id = bb.brewery
+	JOIN styles s ON s.id = b.style
+order by b.name;
+
+CREATE
+OR replace FUNCTION Q11(partial_name text) returns setof TEXT AS $$
 DECLARE
-result text;
-begin
-
-
-
+	v1 RECORD;
+	v2 RECORD;
+	reselt TEXT;
+	_skip INTEGER;
+BEGIN
+	FOR v1 IN
+		SELECT
+			*
+		FROM
+			Q11_matching
+		WHERE
+			beer ILIKE '%' || partial_name || '%'
+	LOOP
+		if _skip is NOT NULL then
+			if _skip = v1.id then
+				CONTINUE;
+			end if;
+		end if;
+		reselt := '"' || v1.beer || '", ' || v1.brewery;
+		For v2 IN
+			SELECT
+				brewery
+			FROM
+				Q11_matching
+			WHERE
+				id = v1.id AND brewery <> v1.brewery
+		LOOP
+			if v2 IS NOT NULL then
+				reselt := reselt || ' + ' || v2.brewery;
+				_skip := v1.id;
+			end if;
+		END LOOP;
+		reselt := reselt || ', ' || v1.style || ', ' || v1.abv || '% ABV';
+		RETURN NEXT reselt;
+	END LOOP;
+END;
 $$ LANGUAGE plpgsql;
+
 
 -- Q12: breweries and the beers they make
 CREATE
-OR replace FUNCTION Q12(partial_name text) returns setof text AS $$ ... $$ LANGUAGE plpgsql;
+OR replace FUNCTION Q12(partial_name text) returns setof text AS $$
+
+...
+
+
+$$ LANGUAGE plpgsql;

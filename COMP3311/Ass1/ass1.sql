@@ -6,6 +6,7 @@
 -- It will be tested as follows:
 -- createdb test; psql test -f ass1.dump; psql test -f ass1.sql
 -- Make sure it can load without errorunder these conditions
+
 -- Q1: oldest brewery
 CREATE
 OR replace VIEW Q1(brewery) AS

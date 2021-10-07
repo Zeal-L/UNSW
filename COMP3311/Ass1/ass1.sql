@@ -100,7 +100,7 @@ FROM
 	styles s1
 	JOIN styles s2 ON s1.name ilike s2.name
 WHERE
-	s1.name > s2.name;
+	s1.name < s2.name;
 
 -- Q7: breweries that make no beers
 CREATE
@@ -193,7 +193,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-
 -- Q11: beers with names matching a pattern
 CREATE
 OR replace VIEW Q11_matching(beer, brewery, style, abv, id) AS
@@ -208,7 +207,7 @@ FROM
 	JOIN brewed_by bb ON b.id = bb.beer
 	JOIN breweries er ON er.id = bb.brewery
 	JOIN styles s ON s.id = b.style
-order by b.name;
+order by b.name, er.name;
 
 CREATE
 OR replace FUNCTION Q11(partial_name text) returns setof TEXT AS $$
@@ -254,9 +253,85 @@ $$ LANGUAGE plpgsql;
 
 -- Q12: breweries and the beers they make
 CREATE
+OR replace VIEW Q12_brewery
+(brewery, founded, country, region, metro, town) AS
+SELECT
+	er.name AS brewery,
+	er.founded,
+	l.country,
+	l.region,
+	l.metro,
+	l.town
+FROM
+	breweries er
+	JOIN locations l  ON l.id = er.located_in
+ORDER BY er.name;
+
+CREATE
+OR replace VIEW Q12_beers
+(brewery, beer, style, year, abv) AS
+SELECT
+	er.name AS brewery,
+	b.name AS beer,
+	s.name AS style,
+	b.brewed AS year,
+	b.abv
+FROM
+	beers b
+	JOIN brewed_by bb ON b.id = bb.beer
+	JOIN breweries er ON er.id = bb.brewery
+	JOIN styles s     ON s.id = b.style
+ORDER BY b.brewed, b.name;
+
+
+CREATE
 OR replace FUNCTION Q12(partial_name text) returns setof text AS $$
+DECLARE
+	v1 RECORD;
+	v2 RECORD;
+	reselt TEXT;
+	_skip INTEGER;
+BEGIN
+	FOR v1 IN
+		SELECT
+			*
+		FROM
+			Q12_brewery
+		WHERE
+			brewery ILIKE '%' || partial_name || '%'
+	LOOP
+		reselt := v1.brewery || ', founded ' || v1.founded;
+		RETURN NEXT reselt;
+		reselt := 'located in ';
+		if v1.town is not null and v1.metro is not null then
+			reselt := reselt || v1.town || ', ';
+		else
+			if v1.town is not null then
+				reselt := reselt || v1.town || ', ';
+			end if;
+			if v1.metro is not null then
+				reselt := reselt || v1.metro || ', ';
+			end if;
+		end if;
+		if v1.region is not null then
+			reselt := reselt || v1.region || ', ';
+		end if;
+		reselt := reselt || v1.country;
+		RETURN NEXT reselt;
+		FOR v2 IN
+			SELECT
+				*
+			FROM
+				Q12_beers
+			WHERE
+				brewery = v1.brewery
+		LOOP
+			reselt := '  "' || v2.beer || '", ' || v2.style ||
+					', ' || v2.year || ', ' || v2.abv || '% ABV';
+			RETURN NEXT reselt;
+		END LOOP;
 
-...
+	END LOOP;
 
-
+END;
 $$ LANGUAGE plpgsql;

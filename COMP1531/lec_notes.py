@@ -144,40 +144,15 @@
 #     APP.run(port=1000)
 
 #?--------------------------------------------------
-from json import dumps
-from flask import Flask, request
 
-APP = Flask(__name__)
+# import json
+# import requests
 
-class Hero:
-    def __init__(self, id, name, power):
-        self.id = id
-        self.name = name
-        self.power = power
+# if __name__ == '__main__':
+#     # response = requests.get('http://localhost:2000/heroes')
+#     # response_data = response.json()
+#     # print(response_data)
 
-heroes = []
-
-@APP.route('/heroes', methods=['GET'])
-def get_all_heroes():
-    return dumps([hero.__dict__ for hero in heroes])
-
-@APP.route('/heroes/<id>', methods=['GET'])
-def get_hero_by_id(id):
-    requested_id = int(id)
-    for hero in heroes:
-        if hero.id == requested_id:
-            return dumps(hero.__dict__)
-    return dumps({})
-
-@APP.route('/heroes', methods=['POST'])
-def post_new_hero():
-    request_data = request.get_json()
-    new_hero = Hero(len(heroes), request_data['name'], request_data['power'])
-    heroes.append(new_hero)
-    return dumps(new_hero.__dict__)
-
-if __name__ == '__main__':
-    heroes.append(Hero(0, "Superman", "Super Strength"))
-    heroes.append(Hero(1, "Wonder Woman", "Super Strength"))
-    heroes.append(Hero(2, "Zeal", "Super Super Strength"))
-    APP.run(port=2000)
+#     response = requests.delete('http://localhost:2000/heroes/1')
+#     response_data = response.json()
+#     print(response_data)

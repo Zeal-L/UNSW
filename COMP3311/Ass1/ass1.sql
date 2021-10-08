@@ -331,8 +331,10 @@ BEGIN
 					', ' || v2.year || ', ' || v2.abv || '% ABV';
 			RETURN NEXT reselt;
 		END LOOP;
-
+		if v2 is null then
+			RETURN NEXT '  No known beers';
+			CONTINUE;
+		end if;
 	END LOOP;
-
 END;
 $$ LANGUAGE plpgsql;

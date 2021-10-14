@@ -1,0 +1,356 @@
+
+<!-- saved from url=(0070)https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>PLpgSQL (iii)</title>
+<link href="./PLpgSQL (iii)_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./PLpgSQL (iii)_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./PLpgSQL (iii)_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./PLpgSQL (iii)_files/css" rel="stylesheet">
+<link href="./PLpgSQL (iii)_files/prism.css" rel="stylesheet">
+<script src="./PLpgSQL (iii)_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./PLpgSQL (iii)_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">PLpgSQL (iii)</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s1">PLpgSQL Functions (recap)</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s2">Query results in PLpgSQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s6">Dynamically Generated Queries</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s9">Functions vs Views</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [0/11]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PLpgSQL Functions (recap)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Defining PLpgSQL functions:
+</p><p></p><pre><font color="#009900">CREATE OR REPLACE</font>
+   <i>funcName</i>(<i>param1</i>, <i>param2</i>, ....)
+   <font color="#009900">RETURNS</font> <i>rettype</i>
+<font color="#009900">AS $$</font>
+<font color="#0000EE">DECLARE</font>
+   <i>variable</i> <i>declarations</i>
+<font color="#0000EE">BEGIN</font>
+   <i>code</i> <i>for</i> <i>function</i>
+<font color="#0000EE">END;</font>
+<font color="#009900">$$ LANGUAGE</font> plpgsql;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [1/11]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Query results in PLpgSQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Can evaluate a query and iterate through its results
+</p><ul>
+<li> one tuple at a time, using a <large><code>for ... loop</code></large>
+</li></ul>
+<p></p><pre>declare
+   <font color="#996600">tup</font> <i>Type</i>;
+begin
+   <font color="#0000EE">for</font> <font color="#996600">tup</font> <font color="#0000EE">in</font> <i>Query</i>
+   loop
+      <i>Statements</i>;
+   end loop;
+end;
+</pre><p>
+Type of <tt><font color="#996600">tup</font></tt> variable must match type of <i>Query</i> results
+</p><p>
+If declared as <large><code>record</code></large>, will automatically match <i>Query</i> results type
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [2/11]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Query results in PLpgSQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<b>Example:</b> count the number of Employees earning more than min.salary
+</p><p></p><pre style="font-size:90%">create or replace function
+   well_paid(_minsal integer) returns integer
+as $$
+declare
+   nemps integer := 0;
+   <font color="#996600">tuple</font> <font color="#0000EE">record</font>;  <span class="comment">-- could also be <font color="#996600">tuple</font> <font color="#000099">Employees</font>;</span>
+begin
+   <font color="#0000EE">for</font> <font color="#996600">tuple</font> <font color="#0000EE">in</font>
+      select <font color="#996600">*</font> from Employees where salary &gt; _minsal
+   loop
+      nemps := nemps + 1;
+   end loop;
+   return nemps;
+end;
+$$ language plpgsql;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [3/11]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Query results in PLpgSQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Alternative to the above (but less efficient):
+</p><p></p><pre style="font-size:90%">create or replace function
+   well_paid(_minsal integer) returns integer
+as $$
+declare
+   nemps integer := 0;
+   <font color="#996600">tuple</font> <font color="#0000EE">record</font>;
+begin
+   <font color="#0000EE">for</font> <font color="#996600">tuple</font> <font color="#0000EE">in</font>
+      select <font color="#996600">name,salary</font> from Employees
+   loop
+      if (<font color="#996600">tuple.salary &gt; _minsal</font>) then
+         nemps := nemps + 1;
+      end if;
+   end loop;
+   return nemps;
+end;
+$$ language plpgsql;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [4/11]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Query results in PLpgSQL <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+And the example could be done more simply (and efficiently) as:
+</p><p></p><pre style="font-size:90%">create or replace function
+   well_paid(_minsal integer) returns integer
+as $$
+declare
+   nemps integer;
+begin
+   select <font color="#0000EE">count(*) into nemps</font>
+   from   Employees where salary &gt; _minsal
+   return nemps;
+end;
+$$ language plpgsql;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [5/11]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Dynamically Generated Queries</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><font color="#009900"><b><code>EXECUTE</code></b></font></large> takes a string and executes it as an SQL query.
+</p><p>
+Examples:
+</p><p></p><pre><span class="comment">-- constant string</span>
+execute 'select * from Employees';
+<span class="comment">-- concatenation of constant strings</span>
+execute 'select * from '||'Employees';
+<span class="comment">-- using a name of e.g. table or attribute</span>
+execute 'select * from '||quote_ident($1);
+<span class="comment">-- using a value generated in the program</span>
+execute 'delete from Accounts' ||
+        ' where holder='||quote_literal($1);
+</pre><p>
+Can be used in any context where an SQL query is expected
+</p><p>
+This mechanism allows us to <font color="#0000BB">construct</font> queries "on the fly".
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [6/11]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Dynamically Generated Queries <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: a wrapper for updating a single text field
+</p><p></p><pre style="font-size:90%">create or replace function
+   set(_table text, _attr text, _val text) returns void
+as $$
+declare
+   query text;
+begin
+   query := 'update ' || quote_ident(_table);
+   query := query || ' SET ' || quote_ident(_attr);
+   query := query || ' = ' || quote_literal(_val);
+   <font color="#0000EE">execute</font> query;
+end; $$ language plpgsql;
+</pre><p>
+which could be used as e.g.
+</p><p></p><pre>select set('branches','assets','0.00');
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [7/11]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Dynamically Generated Queries <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+One limitation of <large><code>EXECUTE</code></large>:
+</p><ul>
+<li> cannot use <large><code>select into</code></large> inside dynamic queries
+</li></ul>
+Needs to be expressed instead as:
+<p></p><pre>declare tuple R%rowtype; n int;
+execute 'select * from R where id='||n into tuple;
+<span class="comment">-- or</span>
+declare x int; y int; z text;
+execute 'select a,b,c from R where id='||n into x,y,z;
+</pre><p>
+<small>
+Notes:
+</small></p><ul><small>
+<li> if query returns multiple tuples, first one is stored
+</li><li> if query returns zero tuples, all nulls are stored
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [8/11]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functions vs Views</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A difference between views and functions returning a <large><code>SETOF</code></large>:
+</p><ul>
+<li> <large><code>CREATE VIEW</code></large> produces a "virtual" table definition <br>
+</li><li> <large><code>SETOF</code></large> functions require an existing tuple type
+</li></ul>
+In examples above, we used existing <large><code>Employees</code></large> tuple type.
+<p>
+In general, you need to define the tuple return type via
+</p><p></p><pre style="font-size:90%">create type <i>TupleType</i> as ( <i>attr<sub>1</sub></i>  <i>type<sub>1</sub></i>, ...  <i>attr<sub>n</sub></i>  <i>type<sub>n</sub></i> );
+</pre><p>
+</p><p>
+Other major differences between <large><code>setof</code></large> functions and views ...
+</p><ul>
+<li> functions have parameters; views don't &nbsp; <tiny>(although <large><code>where</code></large> might help)</tiny>
+</li><li> functions are "run-time" objects; views are interpolated into queries
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [9/11]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functions vs Views <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Another example of function returning <large><code>setof</code></large> tuples ...
+</p><p></p><pre style="font-size:90%">create type <font color="#996600">EmpInfo</font> as (name text, pay integer);
+
+create or replace function
+   richEmps(_minsal integer) returns <font color="#0000EE">setof</font> <font color="#996600">EmpInfo</font>
+as $$
+declare
+   emp record;   info <font color="#996600">EmpInfo</font>;
+begin
+   for emp in
+      select * from Employees where salary &gt; _minsal
+   loop
+      info.name := emp.name;
+      info.pay := emp.salary;
+      <font color="#0000EE">return next</font> info;
+   end loop;
+end; $$ language plpgsql;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [10/11]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/20T3/lectures/plpgsql3/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functions vs Views <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Using the function ...
+</p><p></p><pre>select * from richEmps(100000);
+</pre><p>
+versus a view
+</p><p></p><pre style="font-size:90%">create or repalce <font color="#009900">view</font> richEmps(name,pay) as
+select name, salary from Employees where salary &gt; 100000;
+
+select * from richEmps;  <span class="comment">-- but no scope for different salary</span>
+</pre><p>
+versus an SQL function
+</p><p></p><pre style="font-size:90%">create or replace <font color="#009900">function</font>
+   richEmps(_minsal integer) returns setof <font color="#996600">EmpInfo</font>
+as $$
+select name, salary from Employees where salary &gt; _minsal;
+$$ language sql;
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; PLpgSQL (iii) &#9826; [11/11]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 10 Oct 2020</span>
+ <script src="./PLpgSQL (iii)_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./PLpgSQL (iii)_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 8470px; width: 1009px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 8470px; width: 1009px;"></div></html>

@@ -161,14 +161,23 @@ ORDER BY
 	er.name ASC;
 
 -- Q10: beers of a certain style
+CREATE type q10_ans as (
+	beer text,
+	brewery text,
+	STYLE text,
+	YEAR YearValue,
+	abv ABVvalue
+);
+
 CREATE
-OR replace VIEW BeerInfo(beer, brewery, STYLE, YEAR, abv) AS
+OR replace VIEW BeerInfo(beer, brewery, STYLE, YEAR, abv, id) AS
 SELECT
 	b.name AS beer,
 	er.name AS brewery,
 	s.name AS STYLE,
 	b.brewed AS YEAR,
-	b.abv
+	b.abv,
+	b.id
 FROM
 	beers b
 	JOIN brewed_by bb ON b.id = bb.beer
@@ -176,19 +185,46 @@ FROM
 	JOIN styles s ON s.id = b.style;
 
 CREATE
-OR replace FUNCTION q10(_style text) returns setof BeerInfo AS $$
+OR replace FUNCTION q10(_style text) returns setof q10_ans AS $$
 DECLARE
-	emp RECORD;
+	v1 BeerInfo;
+	v2 BeerInfo;
+	ans q10_ans;
+	_skip INTEGER;
 BEGIN
-	FOR emp IN
+	FOR v1 IN
 		SELECT
 			*
 		FROM
 			BeerInfo
 		WHERE
 			_style = STYLE
+		order by beer, brewery
 	LOOP
-		RETURN next emp;
+		if _skip is NOT NULL then
+			if _skip = v1.id then
+				CONTINUE;
+			end if;
+		end if;
+		ans.beer := v1.beer;
+		ans.brewery := v1.brewery;
+		ans.STYLE := v1.STYLE;
+		ans.year := v1.year;
+		ans.abv := v1.abv;
+		FOR v2 IN
+			SELECT
+				*
+			FROM
+				BeerInfo
+			WHERE
+				id = v1.id and brewery <> v1.brewery
+			order by brewery
+		LOOP
+			ans.brewery := ans.brewery || ' + ' || v2.brewery;
+			_skip := v2.id;
+		END LOOP;
+
+		RETURN next ans;
 	END LOOP;
 END;
 $$ LANGUAGE plpgsql;
@@ -240,10 +276,8 @@ BEGIN
 			WHERE
 				id = v1.id AND brewery <> v1.brewery
 		LOOP
-			if v2 IS NOT NULL then
-				reselt := reselt || ' + ' || v2.brewery;
-				_skip := v1.id;
-			end if;
+			reselt := reselt || ' + ' || v2.brewery;
+			_skip := v1.id;
 		END LOOP;
 		reselt := reselt || ', ' || v1.style || ', ' || v1.abv || '% ABV';
 		RETURN NEXT reselt;

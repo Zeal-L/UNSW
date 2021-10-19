@@ -59,7 +59,8 @@
 		"cSpell.words": [
 			"ndim",
 			"networkx",
-			"pyplot"
+			"pyplot",
+			"senddm"
 		],
 	},
 	"launch": {

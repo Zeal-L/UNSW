@@ -1,0 +1,413 @@
+
+<!-- saved from url=(0069)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Python (ii)</title>
+<link href="./Python (ii)_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Python (ii)_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Python (ii)_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Python (ii)_files/css" rel="stylesheet">
+<link href="./Python (ii)_files/prism.css" rel="stylesheet">
+<script src="./Python (ii)_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./Python (ii)_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body class="vsc-initialized" style=""><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Python (ii)</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s1">Python + Psycopg2 (recap)</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s4">Examples</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s12">Poor Usage of Python+SQL</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s13">Calling PostgreSQL functions</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s14">Other Psycopg2 Tricks</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [0/14]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Python + Psycopg2 (recap)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><code>psycopg2</code></large> is a Python module providing access to PostgreSQL DBs
+</p><p>
+Standard usage:
+</p><p></p><pre style="font-size:90%"><font color="#008800">import</font> psycopg2   <span class="comment"># include the module definitions</span>
+<font color="#008800">try</font>:
+   <font color="#996600">connnection</font> = <font color="#000099">psycopg2.connect</font>("dbname=<i>Datatase</i>")
+   <font color="#996600">cursor</font> = <font color="#000099">connnection.cursor</font>()
+   <font color="#000099">cursor.excute</font>("<i>SQL Query</i>")
+   <font color="#008800">for</font> <font color="#996600">tuple</font> <font color="#008800">in</font> <font color="#000099">cursor.fetchall</font>():
+      <span class="comment"># do something with next tuple</span>
+   <font color="#000099">cursor.close</font>()
+   <font color="#000099">connection.close</font>()
+<font color="#008800">except</font>:
+   print("Database error")
+</pre><p>
+These slides aim to give more details on how Pyscopg2 used in practice
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [1/14]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Python + Psycopg2 (recap) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+<font color="#000099"><large><code>connection</code></large></font>
+</p><ul>
+<li> handle giving authenticated access for a given user on a given DB
+</li><li> provides creation of <large><code>cursor</code></large>s to interact with database
+</li></ul>
+<br>
+<font color="#000099"><large><code>cursor</code></large></font>
+<ul>
+<li> pipeline between a Python program and a PostgreSQL DB
+</li><li> send SQL statements down pipeline as strings
+</li><li> read results up pipeline as Python (list of) tuples
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [2/14]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Python + Psycopg2 (recap) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Python vs PostgreSQL data types ...
+</p><p>
+Strings:
+</p><ul>
+<li> in Python: written with <large><code>"..."</code></large> or <large><code>'...'</code></large>, including <large><code>\<i>x</i></code></large>
+</li><li> converted to SQL strings &nbsp;e.g. <large><code>"O'Reilly"</code></large> &#8594; <large><code>'O''Reilly'</code></large>
+</li><li> Python supports&nbsp; <large><code>"""</code></large> ...... <large><code>"""</code></large> &nbsp;multi-line strings &nbsp;<small>(useful for SQL queries)</small>
+</li></ul>
+Tuples:
+<ul>
+<li> n Python: contain multiple hetergenous values &nbsp; <small>(cf. C <large><code>struct</code></large>)</small>
+</li><li> similar to PostgreSQL composite (tuple) types
+</li><li> written as: <large><code>(</code></large> <i>val<sub>1</sub></i>, <i>val<sub>2</sub></i>, ..., <i>val<sub>n</sub></i> <large><code>)</code></large>  &nbsp;&nbsp;&nbsp; <span class="smaller">(note that <large><code>( <i>val<sub>1</sub></i> )</code></large> is not a tuple)</span>
+</li><li> examples: &nbsp;<large><code>(1,2,3)</code></large>, &nbsp;<large><code>(1,"John",3.14)</code></large>, &nbsp;<large><code>(1,)</code></large>,
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [3/14]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example database: <large><code>beers2</code></large>
+</p><p></p><pre>Beers( <b>id</b>:int, name:text, <i>brewer</i>:int )
+
+Brewers( <b>id</b>:int, name:text, country:text )
+
+Bars( <b>id</b>:int, name:text, addr:text, license:int )
+
+Drinkers( <b>id</b>:int, name:text, addr:text, phone:text )
+
+Likes( <i>drinker</i>:int, <i>beer</i>:int )
+
+Sells( <i>bar</i>:int, <i>beer</i>:int, price:float )
+
+Frequents( <i>drinker</i>:int, <i>bar</i>:int )
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [4/14]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Assume that the following code samples are wrapped in
+</p><p></p><pre>import sys
+import psycopg2
+conn = None
+try:
+   <font color="#996600">conn</font> = psycopg2.connect("dbname=beers2")
+   <font color="#0000EE"><i>... example code ...</i></font>
+except psycopg2.Error as err:
+   print("database error:",err)
+finally:
+   if (conn):
+      conn.close()
+   print("finished with database")
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [5/14]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: a list of brewers and their countries as <large><code>brewers.py</code></large>
+</p><p></p><pre>cur = conn.cursor()
+cur.execute("""
+select name, country from Brewers order by name
+""")
+for tuple in cur.fetchall():
+   name, country = tuple
+   print(name + ", " + country)
+</pre><p>
+</p><p></p><pre>$ <b>python3 brewers.py</b>
+Brew Dog, Scotland
+Bridge Road Brewers, Australia
+Caledonian, Scotland
+Carlton, Australia
+Cascade, Australia
+...
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [6/14]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: a list of brewers and their countries as <large><code>bfrom.py</code></large>
+</p><p></p><pre>cur = conn.cursor()
+qry = "select name from Brewers where country = %s"
+country = sys.argv[1]
+cur.execute(qry, [country])
+for tuple in cur.fetchall():
+   print(tuple[0])
+</pre><p>
+</p><p></p><pre>$ <b>python3 bfrom.py Scotland</b>
+Caledonian
+Brew Dog
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [7/14]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: print beers preceded by the brewer as <large><code>beers.py</code></large>
+</p><p></p><pre>cur = conn.cursor()
+qry = """
+select b.name, r.name
+from   Brewers r join Beers b on (b.brewer=r.id)
+"""
+cur.execute(qry)
+for tuple in cur.fetchall():
+   print(tuple[1] + " " + tuple[0])
+</pre><p>
+</p><p></p><pre>$ <b>python3 beers.py</b>
+Caledonian 80/-
+James Squire Amber Ale
+Sierra Nevada Bigfoot Barley Wine
+...
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [8/14]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: most expensive beer as <large><code>expensive.py</code></large>
+</p><p></p><pre>cur = conn.cursor()
+qry = """
+select b.name, s.price
+from   Beers b join Sells s on (b.id = s.beer)
+where  s.price = (select max(price) from Sells)
+"""
+cur.execute(qry)
+for tuple in cur.fetchall():
+   print(tuple[0] + " @ " + str(tuple[1]))
+</pre><p>
+</p><p></p><pre>$ <b>python3 beers.py</b>
+Sink the Bismarck @ 25.0
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [9/14]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: list beers, bar+price where sold, average price as <large><code>beers1.py</code></large>
+</p><p></p><pre style="font-size:90%">$ <b>python3 beers1.py</b>
+...
+New
+	Australia Hotel @ 3.0
+	Coogee Bay Hotel @ 2.25
+	Lord Nelson @ 3.0
+	Marble Bar @ 2.8
+	Regent Hotel @ 2.2
+	Royal Hotel @ 2.3
+	Average @ 2.591666666666667
+Nirvana Pale Ale
+	Not sold anywhere
+Old
+	Coogee Bay Hotel @ 2.5
+	Marble Bar @ 2.9
+	Royal Hotel @ 2.65
+	Average @ 2.6833333333333336
+Old Admiral
+	Lord Nelson @ 3.75
+	Average @ 3.75
+...
+
+</pre></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [10/14]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Examples <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p></p><pre>cur = conn.cursor()
+qry = "select id, name from Beers"
+cur.execute(qry)
+for tuple in cur.fetchall():
+   q2 = """select b.name, s.price
+        from Bars b join Sells s on (b.id=s.bar)
+        where s.beer = %s"""
+   print(tuple[1])
+   cur.execute(q2, [tuple[0]])
+   n, tot = 0, 0.0
+   for t in cur.fetchall():
+      print("\t"+t[0],"@",t[1])
+      n = n + 1
+      tot = tot + t[1]
+   if n &gt; 0:
+      print("\tAverage @", tot/n)
+   else:
+      print("\tNot sold anywhere")
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [11/14]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Poor Usage of Python+SQL</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Should generally avoid
+</p><p></p><pre>cur.execute("select x,y from R")
+for tup in cur.fetchall():
+   q = "select * from S where id=%s"
+   cur.execute(q, [tup[0]])
+   for t in cur.fetchall():
+      <i>... process t ...</i>
+</pre><p>
+More efficiently done as e.g.
+</p><p></p><pre>qry = """
+select *
+from   R join S on (R.x = S.id)
+"""
+for tup in cur.fetchall():
+   <i>... process tup ...</i>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [12/14]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Calling PostgreSQL functions</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Two ways to call PostgreSQL functions
+</p><p></p><pre><span class="comment"># using a standard function call from SQL</span>
+cur.<font color="#000099">execute</font>("select * from brewer(5)")
+t = cur.<font color="#000099">fetchone</font>()
+print(t[0])
+
+<span class="comment"># using special callproc() method</span>
+<span class="comment"># parameters supplied as a list of values/vars</span>
+cur.<font color="#000099">callproc</font>("brewer",[5])
+t = cur.<font color="#000099">fetchone</font>()
+print(t[0])
+</pre><p>
+<br>
+<large><code>brewer(int) returns text</code></large> &nbsp; returns a brewer's name, given their id
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [13/14]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/python2/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Other Psycopg2 Tricks</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<large><code>cur.execute(<i>SQL Statement</i>)</code></large>
+</p><ul>
+<li> clearly the SQL statement can be &nbsp;<large><code>SELECT</code></large>
+</li><li> can also be&nbsp; <large><code>UPDATE</code></large> &nbsp;or&nbsp; <large><code>DELETE</code></large>
+</li><li> can also be a meta-data statement, e.g.
+<ul>
+<li> <large><code>CREATE TABLE</code></large>, &nbsp;<large><code>DROP TABLE</code></large>, &nbsp; <large><code>CREATE VIEW</code></large>, ...
+</li></ul>
+</li></ul>
+<large><code>cur.fetchmany(<i>#tuples</i>)</code></large>
+<ul>
+<li> gets a list of the next <large><code><i>#tuples</i></code></large> &nbsp;tuples
+</li><li> could replace PLpgSQL <large><code>LIMIT</code></large> in some contexts
+</li></ul>
+For many more examples, see Psycopg2 documentation and tutorials
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Python (ii) &#9826; [14/14]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 3 Nov 2020</span>
+ <script src="./Python (ii)_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Python (ii)_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 11105px; width: 803px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 11105px; width: 803px;"></div></html>

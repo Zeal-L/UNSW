@@ -1,0 +1,276 @@
+
+<!-- saved from url=(0072)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Programming with Databases</title>
+<link href="./Programming with Databases_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Programming with Databases_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Programming with Databases_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Programming with Databases_files/css" rel="stylesheet">
+<link href="./Programming with Databases_files/prism.css" rel="stylesheet">
+<script src="./Programming with Databases_files/sg.js.&#19979;&#36733;"></script>
+<script type="text/javascript" async="" src="./Programming with Databases_files/MathJax.js.&#19979;&#36733;"></script><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body class="vsc-initialized" style=""><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Programming with Databases</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s1">Programming with Databases</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s5">PL/DB Interface</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s7">PL/DB Mismatch</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [0/12]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Programming with Databases</div></td><td align="right"></td></tr></tbody></table>
+<p>
+So far, we have seen ...
+</p><ul>
+<li> accessing data via SQL queries
+</li><li> packaging SQL queries as views/functions
+</li><li> building functions to return tables
+</li><li> implementing assertions via triggers
+</li></ul>
+All of the above programming
+<ul>
+<li> is very close to the data
+</li><li> takes place inside the DBMS
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [1/12]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Programming with Databases <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+While SQL (+ PLpgSQL) gives a powerful data access mechanism
+</p><ul>
+<li> it is <i>not</i> an application programming language
+</li></ul>
+Complete applications require code to
+<ul>
+<li> handle the user interface &nbsp; <small>(GUI or Web)</small>
+</li><li> interact with other systems &nbsp; <small>(e.g. other DBs)</small>
+</li><li> perform compute-intensive work &nbsp; <small>(vs. data-intensive)</small>
+</li></ul>
+"Conventional" programming languages (PLs) provide these.
+<p>
+We need PL + DBMS connectivity.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [2/12]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Programming with Databases <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Requirements of an interface between PL and RDBMS:
+</p><ul>
+<li> mechanism for connecting to the DBMS <small>(authentication)</small>
+</li><li> mechanism for mapping PL "requests" to DB queries
+</li><li> mechanism for iterating over query results
+</li><li> mapping betwen tuples and PL objects
+</li></ul>
+Distance between PL and DBMS is variable, e.g.
+<ul>
+<li> <large><code>libpq</code></large> allows C programs to use PG structs
+</li><li> JDBC transmits SQL strings, retrieves tuples-as-objects
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [3/12]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Programming with Databases <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Programming Language / DBMS archtecture:
+<br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/pldb/dbpl-arch.png]" src="./Programming with Databases_files/dbpl-arch.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [4/12]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Interface</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Common DB access API used in programming languages
+</p><p></p><pre><font color="#CC0000">db</font> = connect_to_dbms(<i>DBname</i>,<i>User/Password</i>);
+
+<font color="#CC0000">query</font> = build_SQL("<i>SqlStatementTemplate</i>",<i>values</i>);
+
+<font color="#CC0000">results</font> = execute_query(<font color="#CC0000">db</font>,<font color="#CC0000">query</font>);
+
+while (more_tuples_in(<font color="#CC0000">results</font>))
+{
+   <font color="#CC0000">tuple</font> = fetch_row_from(<font color="#CC0000">results</font>);
+   <span class="comment">// do something with values in tuple ...</span>
+}
+</pre><p>
+This pattern is used in many different libraries:
+</p><ul>
+<li> Java/JDBC, PHP/PDO, Perl/DBI, Python/Psycopg2, Tcl, ...
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [5/12]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Interface <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+DB access libraries have similar overall structure.
+</p><p>
+But differ in the details:
+</p><ul>
+<li> whether object-oriented or procedural flavour
+</li><li> function/method names and parameters
+</li><li> how to get data from program into SQL statements
+</li><li> how to get data from tuples into program variables
+</li></ul>
+Object-relational mappers (ORMs) ...
+<ul>
+<li> aim to hide the details of the database schema and queries
+</li><li> allow programmers to manipulate objects, not tuples
+</li><li> potentially use the PL<leftrigharrow>DB connection inefficiently
+</leftrigharrow></li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [6/12]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Mismatch</div></td><td align="right"></td></tr></tbody></table>
+<p>
+There is a tension between PLs and DBMSs
+</p><ul>
+<li> DBMSs deal very efficiently with large sets of tuples
+</li><li> PLs encourage dealing with single tuples/objects
+</li></ul>
+If not handled carefully, can lead to inefficient use of DB.
+<p>
+Note: relative costs of DB access operations from PL:
+</p><ul>
+<li> establishing a DBMS connection ... very high
+</li><li> initiating an SQL query ... high
+</li><li> accessing individual tuple ... small
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [7/12]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Mismatch <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider this (imaginary) PL/DBMS access method:
+</p><p></p><pre><span class="comment">--  establish connection to DBMS</span>
+db = dbAccess("DB");
+query = "select a,b from R,S where ... ";
+<span class="comment">--  invoke query and get handle to result set</span>
+results = dbQuery(db, query);
+<span class="comment">--  for each tuple in result set</span>
+while (tuple = dbNext(results)) {
+    <span class="comment">--  process next tuple</span>
+    process(tuple['a'], tuple['b']);
+}
+</pre><p>
+<br>
+<small>
+Estimated costs: &nbsp;<large><code>dbAccess</code></large> = 500ms, &nbsp;<large><code>dbQuery</code></large> = 200ms, &nbsp;<large><code>dbNext</code></large> = 10ms
+</small></p><p><small>
+In later cost estimates, ignore <large><code>dbAccess</code></large> ... same base cost for all examples
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [8/12]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Mismatch <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: find mature-age students &nbsp; <small>(e.g. 10000 students, 500 over 40)</small>
+</p><p></p><pre>query = "select * from Student";
+results = dbQuery(db, query);
+while (tuple = dbNext(results)) {
+    if (tuple['age'] &gt;= 40) {
+        <span class="comment">--  process mature-age student</span>
+    }
+}
+</pre><p>
+<br>
+We transfer 10000 tuples from DB, 9500 are irrelevant
+</p><p>
+Cost = 1*200 + 10000*10 = 100200ms = 100s
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [9/12]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Mismatch <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+E.g. should be implemented as:
+</p><p></p><pre>query = "select * from Student where age &gt;= 40";
+results = dbQuery(db, query);
+while (tuple = dbNext(results)) {
+    <span class="comment">--  process mature-age student</span>
+}
+</pre><p>
+<br>
+Transfers only the 500 tuples that are needed.
+</p><p>
+Cost = 1*200 + 500*10 = 5200ms = 5s
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [10/12]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Mismatch <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: find info about all marks for all students
+</p><p></p><pre>query1 = "select id,name from Student";
+res1 = dbQuery(db, query1);
+while (tuple1 = dbNext(res1)) {
+    query2 = "select course,mark from Marks"
+             + " where student = " + tuple1['id'];
+    res2 = dbQuery(db,query2);
+    while (tuple2 = dbNext(res2)) {
+        <span class="comment">--  process student/course/mark info</span>
+    }
+}
+</pre><p>
+E.g. 10000 students, each with 8 marks, &#8658; run 10001 queries
+</p><p>
+Cost = 10001*200 + 80000*10 = 2800s = 46min
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [11/12]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/pl-vs-dbms/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; PL/DB Mismatch <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+E.g. should be implemented as:
+</p><p></p><pre>query = "select id,name,course,mark"
+        + " from Student s join Marks m "
+        + " on (s.id=m.student)"
+results = dbQuery(db, query);
+while (tuple = dbNext(results)) {
+    <span class="comment">--  process student/course/mark info</span>
+}
+</pre><p>
+<br>
+We invoke 1 query, and transfer same number of tuples.
+</p><p>
+Cost = 1*200ms + 80000*10ms = 800s = 13min
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Programming with Databases &#9826; [12/12]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 25 Oct 2020</span>
+ <script src="./Programming with Databases_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Programming with Databases_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; height: 9055px; width: 1009px; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; height: 9055px; width: 1009px; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"></div></html>

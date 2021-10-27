@@ -23,3 +23,6 @@ while True:
 
 cur.close()
 db.close()
+
+
+

@@ -21,20 +21,8 @@
 			"path": "..\\..\\COMP1531 Labs\\project-frontend"
 		},
 		{
-			"name": "lab07_reduce",
-			"path": "..\\..\\COMP1531 Labs\\lab07\\lab07_reduce"
-		},
-		{
 			"name": "lab07_requirements",
 			"path": "..\\..\\COMP1531 Labs\\lab07\\lab07_requirements"
-		},
-		{
-			"name": "lab07_fibonacci",
-			"path": "..\\..\\COMP1531 Labs\\lab07\\lab07_fibonacci"
-		},
-		{
-			"name": "lab07_drykiss",
-			"path": "..\\..\\COMP1531 Labs\\lab07\\lab07_drykiss"
 		}
 	],
 	"settings": {

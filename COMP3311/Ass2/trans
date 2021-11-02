@@ -1,0 +1,61 @@
+#!C:\Users\Zeal\AppData\Local\Programs\Python\Python39\python
+
+#!/usr/bin/python3
+# COMP3311 21T3 Ass2 ... print a transcript for a given student
+
+import sys
+import psycopg2
+import re
+from helpers import getStudent
+
+# define any local helper functions here
+
+# set up some globals
+
+usage = f"Usage: {sys.argv[0]} zID"
+db = None
+
+# process command-line args
+
+argc = len(sys.argv)
+if argc < 2:
+    print(usage)
+    exit(1)
+zid = sys.argv[1]
+if zid[0] == 'z':
+    zid = zid[1:8]
+digits = re.compile("^\d{7}$")
+if not digits.match(zid):
+    print(f"Invalid student ID {zid}")
+    exit(1)
+
+# manipulate database
+
+try:
+    db = psycopg2.connect("dbname=mymyunsw")
+    stuInfo = getStudent(db, zid)
+    if not stuInfo:
+        print(f"Invalid student ID {zid}")
+        exit()
+
+    cur = db.cursor()
+    cur.execute("select * from Q1_trans(%s)", [zid])
+    sum = 0
+    TotalUOC = 0
+    for tup in cur.fetchall():
+        uoc = int(tup[5])
+        if tup[4] in ('HD', 'DN', 'CR', 'PS', 'AF', 'FL', 'UF'):
+            if tup[3] != None:
+                mark = int(tup[3])
+                sum = sum + (mark * uoc)
+            TotalUOC = TotalUOC + uoc
+        print(tup)
+    print('WAM =', sum / TotalUOC)
+
+except Exception as err:
+    print("DB error: ", err)
+finally:
+    if db:
+        db.close()
+    if cur:
+        cur.close()

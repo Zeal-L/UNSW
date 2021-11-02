@@ -19,10 +19,6 @@
 		{
 			"name": "project-frontend",
 			"path": "..\\..\\COMP1531 Labs\\project-frontend"
-		},
-		{
-			"name": "lab07_requirements",
-			"path": "..\\..\\COMP1531 Labs\\lab07\\lab07_requirements"
 		}
 	],
 	"settings": {
@@ -62,10 +58,21 @@
 				"database": "ass1",
 				"username": "zeal",
 				"password": ""
+			},
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "ass2",
+				"username": "zeal",
+				"database": "mymyunsw",
+				"password": ""
 			}
 		],
 		"cSpell.words": [
 			"dbname",
+			"mymyunsw",
 			"ndim",
 			"networkx",
 			"psycopg",

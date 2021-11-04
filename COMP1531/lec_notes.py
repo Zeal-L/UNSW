@@ -221,4 +221,60 @@
 #     print('Starting')
 
 #?--------------------------------------------------
+#! OOP
 
+# class Animal:
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+
+#     def cry(self):
+#         print(f"The animal named {self.name} is crying")
+
+# class Dog(Animal):
+#     def __init__(self, name, age, dog_breed):
+#         Animal.__init__(self, name, age)
+#         self.breed = dog_breed
+
+#     def cry(self):
+#         Animal.cry(self)
+#         print("Woof!")
+
+# animal = Animal("Cat", 2)
+# animal.cry()
+
+# dog = Dog("Dog", 3, "zzz")
+# dog.cry()
+
+#?--------------------------------------------------
+#!
+
+from hypothesis import given, strategies, Verbosity, settings
+
+def bubblesort(numbers):
+    numbers = numbers.copy()
+    for _ in range(len(numbers) - 1):
+        for i in range(len(numbers) - 1):
+            if numbers[i] > numbers[i+1]:
+                numbers[i], numbers[i+1] = numbers[i+1], numbers[i]
+    return numbers
+
+@given(strategies.lists(strategies.integers()))
+@settings(verbosity=Verbosity.verbose)
+def test_length(nums):
+    assert len(bubblesort(nums)) == len(nums)
+
+@given(strategies.lists(strategies.integers()))
+@settings(verbosity=Verbosity.verbose)
+def test_idempotence(nums):
+    assert bubblesort(nums) == bubblesort(bubblesort(nums))
+
+def is_sorted(nums):
+    for i in range(len(nums) - 1):
+        if nums[i] > nums[i+1]:
+            return False
+    return True
+
+@given(strategies.lists(strategies.integers()))
+def test_sorted(nums):
+    assert is_sorted(bubblesort(nums))

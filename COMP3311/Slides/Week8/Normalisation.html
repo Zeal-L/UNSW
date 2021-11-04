@@ -1,0 +1,637 @@
+
+<!-- saved from url=(0075)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Normalisation</title>
+<link href="./Normalisation_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Normalisation_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Normalisation_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Normalisation_files/css" rel="stylesheet">
+<link href="./Normalisation_files/prism.css" rel="stylesheet">
+<script src="./Normalisation_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./Normalisation_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Normalisation</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s1">Normalisation</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s3">Relation Decomposition</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s4">Schema (Re)Design</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s10">BCNF Normalisation Algorithm</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s11">BCNF Normalisation Example</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s13">3NF Normalisation Algorithm</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s14">3NF Normalisation Example</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s15">Database Design Methodology</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [0/15]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Normalisation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Normalisation</font> aims to put a schema into <i>xNF</i>
+</p><ul>
+<li> by ensuring that all relations in the schema are in <i>xNF</i>
+</li></ul>
+<br>
+How normalisation works ...
+<ul>
+<li> decide which normal form <i>xNF</i>&nbsp; is "acceptable"
+<ul>
+<li> i.e. how much redundancy are we willing to tolerate?
+</li></ul>
+</li><li> check whether each relation in schema is in <i>xNF</i>
+</li><li> if a relation is not in <i>xNF</i>
+<ul>
+<li> <font color="#0000BB">partition</font> into sub-relations where each is "closer to" <i>xNF</i>
+</li></ul>
+</li><li> repeat until all relations in schema are in <i>xNF</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [1/15]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Normalisation <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+In practice, BCNF and 3NF are the most important normal forms.
+</p><p>
+<br>
+Boyce-Codd Normal Form (BCNF):
+</p><ul>
+<li> eliminates all redundancy due to functional dependencies
+</li><li> but may not preserve original functional dependencies
+</li></ul>
+<br>
+Third Normal Form (3NF):
+<ul>
+<li> eliminates most (but not all) redundancy due to <i>fd</i>s
+</li><li> guaranteed to preserve all functional dependencies
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [2/15]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relation Decomposition</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The standard transformation technique to remove redundancy:
+</p><ul>
+<li> <font color="#0000BB">decompose</font> relation <i>R</i>&nbsp; into relations <i>S</i>&nbsp; and <i>T</i>
+</li></ul>
+<p>
+We accomplish decomposition by
+</p><ul>
+<li> selecting (overlapping) subsets of attributes 
+</li><li> forming new relations based on attribute subsets
+</li></ul>
+Properties: &nbsp; <i>R = S &#8746; T, &nbsp; S &#8745; T &#8800; &#8709;</i> &nbsp; and &nbsp; <i>r(R) = s(S) &#10781; t(T)</i>
+<p>
+May require several decompositions to achieve acceptable NF.
+</p><p>
+<font color="#0000BB">Normalisation algorithms</font> tell us how to choose <i>S</i> and <i>T</i>.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [3/15]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Schema (Re)Design</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider the following relation for <i>BankLoans</i>:
+</p><div class="center">
+<p><table border="1" cellpadding="2">
+<tbody><tr align="center">
+  <td><b>branchName</b></td>
+  <td><b>branchCity</b></td>
+  <td><b>assets</b></td>
+  <td><b>custName</b></td>
+  <td><b>loanNo</b></td>
+  <td><b>amount</b></td>
+</tr>
+<tr align="center">
+  <td>Downtown</td>
+  <td>Brooklyn</td>
+  <td>9000000</td>
+  <td>Jones</td>
+  <td>L-17</td>
+  <td>1000</td>
+</tr>
+<tr align="center">
+  <td>Redwood</td>
+  <td>Palo Alto</td>
+  <td>2100000</td>
+  <td>Smith</td>
+  <td>L-23</td>
+  <td>2000</td>
+</tr>
+<tr align="center">
+  <td>Perryridge</td>
+  <td>Horseneck</td>
+  <td>1700000</td>
+  <td>Hayes</td>
+  <td>L-15</td>
+  <td>1500</td>
+</tr>
+<tr align="center">
+  <td>Downtown</td>
+  <td>Brooklyn</td>
+  <td>9000000</td>
+  <td>Jackson</td>
+  <td>L-15</td>
+  <td>1500</td>
+</tr>
+<tr align="center">
+  <td>Mianus</td>
+  <td>Horseneck</td>
+  <td>400000</td>
+  <td>Jones</td>
+  <td>L-93</td>
+  <td>500</td>
+</tr>
+<tr align="center">
+  <td>Round Hill</td>
+  <td>Horseneck</td>
+  <td>8000000</td>
+  <td>Turner</td>
+  <td>L-11</td>
+  <td>900</td>
+</tr>
+<tr align="center">
+  <td>North Town</td>
+  <td>Rye</td>
+  <td>3700000</td>
+  <td>Hayes</td>
+  <td>L-16</td>
+  <td>1300</td>
+</tr>
+</tbody></table></p><p>
+</p></div>
+<p>
+This schema has all of the update anomalies mentioned earlier.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [4/15]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Schema (Re)Design <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+To improve the design, decompose the <i>BankLoans</i> relation.
+</p><p>
+The following decomposition is not helpful:
+</p><p>
+&nbsp;&nbsp;&nbsp; <i>Branch(branchName, branchCity, assets)</i> <br>
+&nbsp;&nbsp;&nbsp; <i>CustLoan(custName, loanNo, amount)</i>
+</p><p>
+because we lose information <small>(which branch is a loan held at?)</small>
+</p><p>
+Another possible decomposition:
+</p><p>
+&nbsp;&nbsp;&nbsp; <i>BranchCust(branchName, branchCity, assets, custName)</i> <br>
+&nbsp;&nbsp;&nbsp; <i>CustLoan(custName, loanNo, amount)</i>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [5/15]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Schema (Re)Design <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <i>BranchCust</i> relation instance:
+</p><div class="center">
+<p><table border="1" cellpadding="2">
+<tbody><tr align="center">
+  <td><b>branchName</b></td>
+  <td><b>branchCity</b></td>
+  <td><b>assets</b></td>
+  <td><b>custName</b></td>
+</tr>
+<tr align="center">
+  <td>Downtown</td>
+  <td>Brooklyn</td>
+  <td>9000000</td>
+  <td>Jones</td>
+</tr>
+<tr align="center">
+  <td>Redwood</td>
+  <td>Palo Alto</td>
+  <td>2100000</td>
+  <td>Smith</td>
+</tr>
+<tr align="center">
+  <td>Perryridge</td>
+  <td>Horseneck</td>
+  <td>1700000</td>
+  <td>Hayes</td>
+</tr>
+<tr align="center">
+  <td>Downtown</td>
+  <td>Brooklyn</td>
+  <td>9000000</td>
+  <td>Jackson</td>
+</tr>
+<tr align="center">
+  <td>Mianus</td>
+  <td>Horseneck</td>
+  <td>400000</td>
+  <td>Jones</td>
+</tr>
+<tr align="center">
+  <td>Round Hill</td>
+  <td>Horseneck</td>
+  <td>8000000</td>
+  <td>Turner</td>
+</tr>
+<tr align="center">
+  <td>North Town</td>
+  <td>Rye</td>
+  <td>3700000</td>
+  <td>Hayes</td>
+</tr>
+</tbody></table></p><p>
+</p></div>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [6/15]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Schema (Re)Design <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <i>CustLoan</i> relation instance:
+</p><p>
+</p><div class="center">
+<p><table border="1" cellpadding="2">
+<tbody><tr align="center">
+  <td><b>custName</b></td>
+  <td><b>loanNo</b></td>
+  <td><b>amount</b></td>
+</tr>
+<tr align="center">
+  <td>Jones</td>
+  <td>L-17</td>
+  <td>1000</td>
+</tr>
+<tr align="center">
+  <td>Smith</td>
+  <td>L-23</td>
+  <td>2000</td>
+</tr>
+<tr align="center">
+  <td>Hayes</td>
+  <td>L-15</td>
+  <td>1500</td>
+</tr>
+<tr align="center">
+  <td>Jackson</td>
+  <td>L-15</td>
+  <td>1500</td>
+</tr>
+<tr align="center">
+  <td>Jones</td>
+  <td>L-93</td>
+  <td>500</td>
+</tr>
+<tr align="center">
+  <td>Turner</td>
+  <td>L-11</td>
+  <td>900</td>
+</tr>
+<tr align="center">
+  <td>Hayes</td>
+  <td>L-16</td>
+  <td>1300</td>
+</tr>
+</tbody></table></p><p>
+</p></div>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [7/15]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Schema (Re)Design <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Now consider the result of <i>(BranchCust&nbsp;&#10781;&nbsp;CustLoan)</i>
+</p><p>
+</p><p><table border="1" cellpadding="2">
+<tbody><tr align="center">
+  <td><b>branchName</b></td>
+  <td><b>branchCity</b></td>
+  <td><b>assets</b></td>
+  <td><b>custName</b></td>
+  <td><b>loanNo</b></td>
+  <td><b>amount</b></td>
+</tr>
+<tr align="center">
+  <td>Downtown</td>
+  <td>Brooklyn</td>
+  <td>9000000</td>
+  <td>Jones</td>
+  <td>L-17</td>
+  <td>1000</td>
+</tr>
+<tr align="center">
+  <td><font color="#0000BB">Downtown</font></td>
+  <td><font color="#0000BB">Brooklyn</font></td>
+  <td><font color="#0000BB">9000000</font></td>
+  <td><font color="#0000BB">Jones</font></td>
+  <td><font color="#0000BB">L-93</font></td>
+  <td><font color="#0000BB">500</font></td>
+</tr>
+<tr align="center">
+  <td>Redwood</td>
+  <td>Palo Alto</td>
+  <td>2100000</td>
+  <td>Smith</td>
+  <td>L-23</td>
+  <td>2000</td>
+</tr>
+<tr align="center">
+  <td>Perryridge</td>
+  <td>Horseneck</td>
+  <td>1700000</td>
+  <td>Hayes</td>
+  <td>L-15</td>
+  <td>1500</td>
+</tr>
+<tr align="center">
+  <td><font color="#0000BB">Perryridge</font></td>
+  <td><font color="#0000BB">Horseneck</font></td>
+  <td><font color="#0000BB">1700000</font></td>
+  <td><font color="#0000BB">Hayes</font></td>
+  <td><font color="#0000BB">L-16</font></td>
+  <td><font color="#0000BB">1300</font></td>
+</tr>
+<tr align="center">
+  <td>Downtown</td>
+  <td>Brooklyn</td>
+  <td>9000000</td>
+  <td>Jackson</td>
+  <td>L-15</td>
+  <td>1500</td>
+</tr>
+<tr align="center">
+  <td>Mianus</td>
+  <td>Horseneck</td>
+  <td>400000</td>
+  <td>Jones</td>
+  <td>L-93</td>
+  <td>500</td>
+</tr>
+<tr align="center">
+  <td><font color="#0000BB">Mianus</font></td>
+  <td><font color="#0000BB">Horseneck</font></td>
+  <td><font color="#0000BB">400000</font></td>
+  <td><font color="#0000BB">Jones</font></td>
+  <td><font color="#0000BB">L-17</font></td>
+  <td><font color="#0000BB">1000</font></td>
+</tr>
+<tr align="center">
+  <td>Round Hill</td>
+  <td>Horseneck</td>
+  <td>8000000</td>
+  <td>Turner</td>
+  <td>L-11</td>
+  <td>900</td>
+</tr>
+<tr align="center">
+  <td>North Town</td>
+  <td>Rye</td>
+  <td>3700000</td>
+  <td>Hayes</td>
+  <td>L-16</td>
+  <td>1300</td>
+</tr>
+<tr align="center">
+  <td><font color="#0000BB">North Town</font></td>
+  <td><font color="#0000BB">Rye</font></td>
+  <td><font color="#0000BB">3700000</font></td>
+  <td><font color="#0000BB">Hayes</font></td>
+  <td><font color="#0000BB">L-15</font></td>
+  <td><font color="#0000BB">1500</font></td>
+</tr>
+</tbody></table></p><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [8/15]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Schema (Re)Design <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+This is clearly not a successful decomposition.
+</p><p>
+The fact that we ended up with extra tuples was symptomatic of losing
+some critical "connection" information during the decomposition.
+</p><p>
+Such a decomposition is called a <font color="#0000BB">lossy decomposition</font>.
+</p><p>
+In a good decomposition, we should be able to reconstruct the
+original relation exactly:
+</p><p>
+</p><div class="center">
+if <i>R</i> is decomposed into <i>S</i> and <i>T</i>, then <i>S &#10781; T = R</i>
+</div>
+<p>
+Such a decomposition is called <font color="#0000BB">lossless join decomposition</font>.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [9/15]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; BCNF Normalisation Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The following algorithm converts an arbitrary schema to BCNF:
+</p><p></p><pre><font color="#000099">Inputs:</font> schema <i>R</i>, set <i>F</i> of <i>fd</i>s
+<font color="#000099">Output:</font> set <i>Res</i> of BCNF schemas
+
+<i>Res</i> = {R};
+while (any schema <i>S &#8712; Res</i> is not in BCNF) {
+    choose any <i>fd</i> <i>X &#8594; Y</i> on <i>S</i> that violates BCNF
+    <i>Res</i> = <i>(Res-S) &#8746; (S-Y) &#8746; XY</i>
+}
+</pre><p>
+The last step means: make a table from <i>XY</i>; drop <i>Y</i> from table <i>S</i>
+</p><p>
+The "choose any" step means that the algorithm is non-deterministic
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [10/15]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; BCNF Normalisation Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Recall the <i>BankLoans</i> schema:
+</p><p>
+<i>BankLoans(branchName,  branchCity, assets, custName, loanNo, amount)</i>
+</p><p>
+Rename to simplify ...
+</p><p>
+<small><i>B = branchName, C = branchCity, A = assets, N = CustName, L = loanNo, M = amount</i></small>
+</p><p>
+So ... <i>R = BCANLM</i>, &nbsp;&nbsp;<i>F = { B &#8594; CA, L &#8594; MN }</i>,
+&nbsp;&nbsp;<i>key(R) = BL</i>
+</p><p>
+<i>R</i> is not in BCNF, because <i><font color="#CC0000">B</font> &#8594; CA</i> is not a whole key
+</p><p>
+Decompose into
+</p><ul>
+<li> <i>S = BCA</i>, &nbsp;&nbsp;<i>F<sub>S</sub> = { B &#8594; CA }</i> &nbsp;&nbsp;<i>key(S) = B</i>
+</li><li> <i>T = BNLM</i>, &nbsp;&nbsp;<i>F<sub>T</sub> = { L &#8594; NM }</i>, &nbsp;&nbsp;<i>key(T) = BL</i>
+</li></ul>
+<small>(continued)</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [11/15]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; BCNF Normalisation Example <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<i>S = BCA</i>&nbsp; is in BCNF, &nbsp; only one <i>fd</i>&nbsp; and it has key on LHS
+</p><p>
+<i>T = BLNM</i>&nbsp; is not in BCNF, because <i><font color="#CC0000">L</font> &#8594; NM</i> is not a whole key
+</p><p>
+Decompose into ...
+</p><ul>
+<li> <i>U = LNM</i>, &nbsp;&nbsp;<i>F<sub>U</sub> = { L &#8594; NM }</i>, &nbsp;&nbsp;<i>key(U) = L</i>, &nbsp;which is BCNF
+</li><li> <i>V = BL</i>, &nbsp;&nbsp;<i>F<sub>V</sub> = {}</i>, &nbsp;&nbsp;<i>key(V) = BL</i>, &nbsp;which is BCNF
+</li></ul>
+Result:
+<ul>
+<li> <i>S = (branchName, branchCity, assets) = Branches</i>
+</li><li> <i>U = (loanNo, custName, amount) = Loans</i>
+</li><li> <i>V = (branchName, loanNo) = BranchOfLoan</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [12/15]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; 3NF Normalisation Algorithm</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The following algorithm converts an arbitrary schema to 3NF:
+</p><p></p><pre><font color="#000099">Inputs:</font> schema <i>R</i>, set <i>F</i> of <i>fd</i>s
+<font color="#000099">Output:</font> set <i>R<sub>i</sub></i> of 3NF schemas
+
+let <i>F<sub>c</sub></i> be a reduced <font color="#0000BB">minimal cover</font> for <i>F</i>
+<i>Res</i> = {}
+for each <i>fd</i> <i>X &#8594; Y</i> in <i>F<sub>c</sub></i> {
+    if (no schema <i>S &#8712; Res</i> contains <i>XY</i>) {
+        <i>Res</i> = <i>Res &#8746; XY</i>
+    }
+}
+if (no schema <i>S &#8712; Res</i> contains a key for <i>R</i>) {
+    <i>K</i> = any candidate key for <i>R</i>
+    <i>Res</i> = <i>Res &#8746; K</i>
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [13/15]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; 3NF Normalisation Example</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Recall the <i>BankLoans</i> schema:
+</p><p>
+<i>BankLoans(branchName,  branchCity, assets, custName, loanNo, amount)</i>
+</p><p>
+Rename to simplify ...
+</p><p>
+<i>R = BCANLM</i>, &nbsp;&nbsp;<i>F = { B &#8594; CA, L &#8594; MN }</i>,
+&nbsp;&nbsp;<i>key(R) = BL</i>
+</p><p>
+Compute minimal cover = &nbsp;<i>{ B &#8594; C, B &#8594; A, L &#8594; M, L &#8594; N }</i>
+</p><p>
+Reduce minimal cover = &nbsp;<i>{ B &#8594; CA, L &#8594; MN }</i>
+</p><p>
+Convert  into relations: &nbsp;<i>S = BCA, T = LNM</i>
+</p><p>
+No relation has key &nbsp;<i>BL</i>, so add new table containing key &nbsp;<i>U = BL</i>
+</p><p>
+Result is <i>S = BCA, T = LNM, U = BL</i> ... same as BCNF
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [14/15]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/normalisation/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Database Design Methodology</div></td><td align="right"></td></tr></tbody></table>
+<p>
+To achieve a "good" database design:
+</p><ul>
+<li> identify attributes, entities, relationships &nbsp; <i>&#8594;</i> &nbsp; ER design
+</li><li> map ER design to relational schema
+</li><li> identify constraints <small>(including keys and functional dependencies)</small>
+</li><li> apply BCNF/3NF algorithms to produce normalised schema
+</li></ul>
+<small>
+Note: may subsequently need to "denormalise" if the design yields inadequate performance.
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Normalisation &#9826; [15/15]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 5 Nov 2020</span>
+ <script src="./Normalisation_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Normalisation_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 12461px; width: 819px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 12461px; width: 819px;"></div></html>

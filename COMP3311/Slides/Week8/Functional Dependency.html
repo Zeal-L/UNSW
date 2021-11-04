@@ -1,0 +1,432 @@
+
+<!-- saved from url=(0073)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Functional Dependency</title>
+<link href="./Functional Dependency_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Functional Dependency_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Functional Dependency_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Functional Dependency_files/css" rel="stylesheet">
+<link href="./Functional Dependency_files/prism.css" rel="stylesheet">
+<script src="./Functional Dependency_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./Functional Dependency_files/MathJax.js.&#19979;&#36733;"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style>
+<style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body class="vsc-initialized" style=""><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Functional Dependency</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s1">Notation/Terminology</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s2">Functional Dependency</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s6">Exercise: Functional Dependencies (i)</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s8">Functional Dependency (again)</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s10">Inference Rules</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [0/12]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Notation/Terminology</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Most texts adopt the following terminology:
+</p><p>
+</p><p><table border="0" cellpadding="6">
+<tbody><tr valign="top">
+  <td><nobr>Attributes</nobr></td>
+  <td></td><td>
+  <small>
+  upper-case letters from start of alphabet
+  (e.g. <i>A</i>, <i>B</i>, <i>C</i>, ...)</small>
+  </td>
+</tr>
+<tr valign="top">
+  <td><nobr>Sets of attributes</nobr></td>
+  <td></td><td>
+  <small>
+  concatenation of attribute names
+  (e.g. <i>X=ABCD</i>, <i>Y=EFG</i> )</small>
+  </td>
+</tr>
+<tr valign="top">
+  <td><nobr>Relation schemas</nobr></td>
+  <td></td><td>
+  <small>
+  upper-case letters, denoting set of all attributes
+  (e.g. <i>R</i>)</small>
+  </td>
+</tr>
+<tr valign="top">
+  <td><nobr>Relation instances</nobr></td>
+  <td></td><td>
+  <small>
+  lower-case letter corresponding to schema
+  (e.g. <i>r(R)</i>)</small>
+  </td>
+</tr>
+<tr valign="top">
+  <td><nobr>Tuples</nobr></td>
+  <td></td><td>
+  <small>
+  lower-case letters &nbsp;
+  (e.g. <i>t</i>, <i>t'</i>, <i>t<sub>1</sub></i>, <i>u</i>, <i>v</i> )</small>
+  </td>
+</tr>
+<tr valign="top">
+  <td><nobr>Attributes in tuples</nobr></td>
+  <td></td><td>
+  <small>
+  tuple[attrSet] (e.g. <i>t[ABCD]</i>, <i>t[X]</i>)</small>
+  </td>
+</tr>
+</tbody></table></p><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [1/12]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functional Dependency</div></td><td align="right"></td></tr></tbody></table>
+<p>
+A relation instance <i>r(R)</i> satisfies a dependency <i>X &#8594; Y</i> &nbsp;if
+</p><ul>
+<li> for any <i>t, u &#8712; r</i>, &nbsp; <i>t[X] = u[X] &nbsp; &#8658; &nbsp; t[Y] = u[Y]</i>
+</li></ul>
+In other words, if two tuples in <i>R</i> agree in their values for the
+set of attributes <i>X</i>, then they must also agree in their values for
+the set of attributes <i>Y</i>.
+<p>
+We say that "<i>Y</i> &nbsp;is <font color="#0000BB">functionally dependent</font> on <i>X</i> ".
+</p><p>
+Attribute sets <i>X</i> and <i>Y</i> may overlap; &nbsp;
+it is trivially true that <i>X &#8594; X</i>.
+</p><p>
+<small>
+Notes:
+</small></p><ul><small>
+<li> <i>X &#8594; Y</i> can also be read as "<i>X</i> determines <i>Y</i>"
+</li><li> the single arrow <i>&#8594;</i> denotes <font color="#0000BB">functional dependency</font>
+</li><li> the double arrow <i>&#8658;</i> denotes logical implication
+</li></small></ul><small>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [2/12]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functional Dependency <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider the following (redundancy-laden) relation:
+</p><p></p><pre style="font-size:90%">Title         | Year | Len | Studio    | Star
+--------------+------+-----+-----------+---------------
+King Kong     | 1933 | 100 | RKO       | Fay Wray
+King Kong     | 1976 | 134 | Paramount | Jessica Lange
+King Kong     | 1976 | 134 | Paramount | Jeff Bridges
+Mighty Ducks  | 1991 | 104 | Disney    | Emilio Estevez
+Wayne's World | 1995 |  95 | Paramount | Dana Carvey
+Wayne's World | 1995 |  95 | Paramount | Mike Meyers
+</pre><p>
+Some functional dependencies in this relation
+</p><ul>
+<li> <large><code>Title Year</code></large> &#8594; <large><code>Len</code></large>,
+	&nbsp;&nbsp;&nbsp; <large><code>Title Year</code></large> &#8594; <large><code>Studio</code></large>
+</li></ul>
+<b>Not</b> a functional dependency
+<ul>
+<li> <large><code>Title Year</code></large> &#8594; <large><code>Star</code></large>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [3/12]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functional Dependency <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider an instance <i>r(R)</i> of the relation schema <i>R(ABCDE)</i>:
+</p><p>
+</p><pre> <b><i>A</i></b>  | <b><i>B</i></b>  | <b><i>C</i></b>  | <b><i>D</i></b>  | <b><i>E</i></b>
+----+----+----+----+----
+ <i>a1</i> | <i>b1</i> | <i>c1</i> | <i>d1</i> | <i>e1</i>
+ <i>a2</i> | <i>b1</i> | <i>c2</i> | <i>d2</i> | <i>e1</i>
+ <i>a3</i> | <i>b2</i> | <i>c1</i> | <i>d1</i> | <i>e1</i>
+ <i>a4</i> | <i>b2</i> | <i>c2</i> | <i>d2</i> | <i>e1</i>
+ <i>a5</i> | <i>b3</i> | <i>c3</i> | <i>d1</i> | <i>e1</i>
+</pre>
+<p>
+Since <i>A</i> &nbsp;values are unique, the definition of <i>fd</i> &nbsp;gives:
+</p><ul>
+<li> <i>A &#8594; B, &nbsp;&nbsp; A &#8594; C, &nbsp;&nbsp; A &#8594; D, &nbsp;&nbsp; A &#8594; E, &nbsp;&nbsp;&nbsp; or &nbsp;&nbsp; A &#8594; BCDE</i>
+</li></ul>
+Since all <i>E</i> &nbsp;values are the same, it follows that:
+<ul>
+<li> <i>A &#8594; E, &nbsp;&nbsp; B &#8594; E, &nbsp;&nbsp; C &#8594; E, &nbsp;&nbsp; D &#8594; E</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [4/12]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functional Dependency <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Other observations:
+</p><ul>
+<li> combinations of <i>BC</i> are unique, therefore &nbsp; <i>BC &#8594; ADE</i>
+</li><li> combinations of <i>BD</i> are unique, therefore &nbsp; <i>BD &#8594; ACE</i>
+</li><li> if <i>C</i> values match, so do <i>D</i> values, therefore &nbsp; <i>C &#8594; D</i>
+</li><li> however, <i>D</i> values don't determine <i>C</i> values, so &nbsp; <i>!(D &#8594; C)</i>
+</li></ul>
+We could derive many other dependencies, e.g. &nbsp; <i>AE &#8594; BC</i>, ...
+<p>
+In practice, choose a minimal set of <i>fd</i>s (<font color="#0000BB">basis</font>)
+</p><ul>
+<li> from which all other <i>fd</i>s can be derived
+</li><li> which captures useful problem-domain information
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [5/12]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Exercise: Functional Dependencies (i)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Real estate agents conduct visits to rental properties
+</p><ul>
+<li> need to record which property, who went, when, results
+</li><li> each property is assigned a unique code (P#, e.g. P4)
+</li><li> each staff member has a staff number (S#, e.g. S43)
+</li><li> staff members use company cars to conduct visits
+</li><li> a visit occurs at a specific time on a given day
+</li><li> notes are made on the state of the property after each visit
+</li></ul>
+The company stores all of the associated data in a spreadsheet.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [6/12]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Exercise: Functional Dependencies (i) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+The spreadsheet ...
+</p><p></p><pre style="font-size:80%"><b>P</b># | <b>W</b>hen        | <b>A</b>ddress    | <b>N</b>otes         | <b>S</b>#  | Na<b>m</b>e  | <b>C</b>arReg
+---+-------------+------------+---------------+-----+-------+-------
+P4 | 03/06 15:15 | 55 High St | Bathroom leak | S44 | Rob   | ABK754
+P1 | 04/06 11:10 | 47 High St | All ok        | S44 | Rob   | ABK754
+P4 | 03/07 12:30 | 55 High St | All ok        | S43 | Dave  | ATS123
+P1 | 05/07 15:00 | 47 High St | Broken window | S44 | Rob   | ABK754
+P1 | 05/07 15:00 | 47 High St | Leaking tap   | S44 | Rob   | ABK754
+P2 | 13/07 12:00 | 12 High St | All ok        | S42 | Peter | ATS123
+P1 | 10/08 09:00 | 47 High St | Window fixed  | S42 | Peter | ATS123
+P3 | 11/08 14:00 | 99 High St | All ok        | S41 | John  | AAA001
+P4 | 13/08 10:00 | 55 High St | All ok        | S44 | Rob   | ABK754
+P3 | 05/09 11:15 | 99 High St | Bathroom leak | S42 | Peter | ATS123
+</pre><p>
+<br>
+Functional dependencies: &nbsp; <i>P &#8594; A, &nbsp;&nbsp; A &#8594; P, &nbsp;&nbsp;&nbsp; S &#8594; m, &nbsp;&nbsp; S &#8594; C</i>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [7/12]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functional Dependency (again)</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Above examples consider dependency within a relation instance <i>r(R)</i>.
+</p><p>
+More important for <i>design</i>&nbsp; is dependency across all possible
+instances of the relation (i.e. a schema-based dependency).
+</p><p>
+This is a simple generalisation of the previous definition:
+</p><ul>
+<li> for any <i>t, u &#8712; </i><font color="#CC0000">any</font><i> r(R)</i>, &nbsp; <i>t[X] = u[X] &nbsp; &#8658; &nbsp; t[Y] = u[Y]</i>
+</li></ul>
+Such dependencies tend to capture semantics of problem domain.
+<p>
+E.g. real estate example
+</p><ul>
+<li> <i>P &#8594; A</i> suggests a property entity, &nbsp; <i>S &#8594; N, &nbsp;&nbsp;  S &#8594; C</i> suggest a staff entity
+</li><li> Property(P#,addr), &nbsp; Staff(S#,name,car), &nbsp; Inspection(P#,S#,when,notes)
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [8/12]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Functional Dependency (again) <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Can we generalise some ideas about functional dependency? <br>
+</p><p>
+<br>
+E.g. are there dependencies that hold for <i>any</i> relation?
+</p><ul>
+<li> yes, but they're generally trivial, e.g. <i>Y &#8834; X &nbsp; &#8658; &nbsp; X &#8594; Y</i>
+</li></ul>
+<br>
+E.g. do some dependencies suggest the existence of others?
+<ul>
+<li> yes, <font color="#0000BB">rules of inference</font> allow us to <font color="#0000BB">derive</font> dependencies
+</li><li> allow us to reason about sets of functional dependencies
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [9/12]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Inference Rules</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Armstrong's rules</font> are general rules of inference on <i>fd</i>s.
+</p><p> <br>
+F1. <font color="#0000BB">Reflexivity</font> &nbsp; e.g. &nbsp; <i>X &#8594; X</i>
+<small>
+</small></p><ul><small>
+<li> a formal statement of <i>trivial dependencies</i>; useful for derivations
+</li></small></ul><small>
+</small>
+<br>
+F2. <font color="#0000BB">Augmentation</font> &nbsp; e.g. &nbsp; <i>X &#8594; Y &nbsp;&#8658;&nbsp; XZ &#8594; YZ</i>
+<small>
+<ul>
+<li> if a dependency holds, then we can expand its left hand side (along with RHS)
+</li></ul>
+</small>
+<br>
+F3. <font color="#0000BB">Transitivity</font> &nbsp; e.g. &nbsp; <i>X &#8594; Y, Y &#8594; Z &nbsp;&#8658;&nbsp; X &#8594; Z</i>
+<small>
+<ul>
+<li> the "most powerful" inference rule; useful in multi-step derivations
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [10/12]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Inference Rules <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Armstrong's rules are complete, but other useful rules exist:
+</p><p>
+<br>
+F4. <font color="#0000BB">Additivity</font> &nbsp; e.g. &nbsp; <i>X &#8594; Y, X &#8594; Z &nbsp; &#8658; &nbsp; X &#8594; YZ</i>
+<small>
+</small></p><ul><small>
+<li> useful for constructing new right hand sides of <i>fd</i>s (also called <font color="#0000BB">union</font>)
+</li></small></ul><small>
+</small>
+<br>
+F5. <font color="#0000BB">Projectivity</font> &nbsp; e.g. &nbsp; <i>X &#8594; YZ &nbsp; &#8658; &nbsp; X &#8594; Y, X &#8594; Z</i>
+<small>
+<ul>
+<li> useful for reducing right hand sides of <i>fd</i>s (also called <font color="#0000BB">decomposition</font>)
+</li></ul>
+</small>
+<br>
+F6. <font color="#0000BB">Pseudotransitivity</font> &nbsp; e.g. &nbsp; <i>X &#8594; Y, YZ &#8594; W &nbsp; &#8658; &nbsp; XZ &#8594; W</i>
+<small>
+<ul>
+<li> shorthand for a common transitivity derivation
+</li></ul>
+</small>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [11/12]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/func-depend/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Inference Rules <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: determining validity of <i>AB &#8594; GH</i>, given:
+</p><p>
+</p><div class="center">
+<i>R = ABCDEFGHIJ</i> <p>
+<i>F = { AB &#8594; E, &nbsp; AG &#8594; J, &nbsp; BE &#8594; I, &nbsp; E &#8594; G, &nbsp; GI &#8594; H }</i>
+</p></div>
+Derivation:
+<div class="center">
+<table border="0" cellpadding="4">
+<tbody><tr valign="top"><td><nobr> 1. &nbsp; </nobr></td><td></td><td> <i>AB &#8594; E</i> </td><td></td><td> (given) </td></tr>
+<tr valign="top"><td><nobr> 2. &nbsp; </nobr></td><td></td><td> <i>E &#8594; G</i> </td><td></td><td> (given) </td></tr>
+<tr valign="top"><td><nobr> 3. &nbsp; </nobr></td><td></td><td> <font color="#0000EE"><i>AB &#8594; G</i></font> </td><td></td><td> (using F3 on 1,2) </td></tr>
+<tr valign="top"><td><nobr> 4. &nbsp; </nobr></td><td></td><td> <i>AB &#8594; AB</i> </td><td></td><td> (using F1) </td></tr>
+<tr valign="top"><td><nobr> 5. &nbsp; </nobr></td><td></td><td> <i>AB &#8594; B</i> </td><td></td><td> (using F5 on 4) </td></tr>
+<tr valign="top"><td><nobr> 6. &nbsp; </nobr></td><td></td><td> <i>AB &#8594; BE</i> </td><td></td><td> (using F4 on 1,5) </td></tr>
+<tr valign="top"><td><nobr> 7. &nbsp; </nobr></td><td></td><td> <i>BE &#8594; I</i> </td><td></td><td> (given) </td></tr>
+<tr valign="top"><td><nobr> 8. &nbsp; </nobr></td><td></td><td> <i>AB &#8594; I</i> </td><td></td><td> (using F3 on 6,7) </td></tr>
+<tr valign="top"><td><nobr> 9. &nbsp; </nobr></td><td></td><td> <i>AB &#8594; GI</i> </td><td></td><td> (using F4 on 3,8) </td></tr>
+<tr valign="top"><td><nobr> 10. </nobr></td><td></td><td> <i>GI &#8594; H</i> </td><td></td><td> (given) </td></tr>
+<tr valign="top"><td><nobr> 11. </nobr></td><td></td><td> <font color="#0000EE"><i>AB &#8594; H</i></font> </td><td></td><td> (using F3 on 9,10) </td></tr>
+<tr valign="top"><td><nobr> 12. </nobr></td><td></td><td> <i>AB &#8594; GH</i> </td><td></td><td> (using F4 on 3,11) </td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Functional Dependency &#9826; [12/12]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 5 Nov 2020</span>
+ <script src="./Functional Dependency_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Functional Dependency_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 10938px; width: 837px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 10938px; width: 837px;"></div></html>

@@ -1,0 +1,359 @@
+
+<!-- saved from url=(0074)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Inference on FDs</title>
+<link href="./Inference on FDs_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Inference on FDs_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Inference on FDs_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./Inference on FDs_files/css" rel="stylesheet">
+<link href="./Inference on FDs_files/prism.css" rel="stylesheet">
+<script src="./Inference on FDs_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./Inference on FDs_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./Inference on FDs_files/translateelement.css"></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Inference on FDs</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s1">Closures</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s6">Determining Keys</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s7">Minimal Covers</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [0/11]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Closures</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Given a set <i>F</i> of <i>fd</i>s, how many new <i>fd</i>s can we derive?
+</p><p>
+For a finite set of attributes, there must be a finite set of derivable <i>fd</i>s.
+</p><p>
+The largest collection of dependencies that can be derived from <i>F</i>
+is called the <font color="#0000BB">closure</font> of <i>F</i> and is denoted <i>F<sup>+</sup></i>.
+</p><p>
+Closures allow us to answer two interesting questions:
+</p><ul>
+<li> is a particular dependency <i>X &#8594; Y</i> derivable from <i>F</i>?
+</li><li> are two sets of dependencies <i>F</i> and <i>G</i> equivalent?
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [1/11]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Closures <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+For the question "is <i>X &#8594; Y</i> derivable from <i>F</i>?" ...
+</p><ul>
+<li> compute the closure <i>F<sup>+</sup></i>;
+	check whether <i>X &#8594; Y &nbsp; &#8712; &nbsp; F<sup>+</sup></i>
+</li></ul>
+<br>
+For the question "are <i>F</i> and <i>G</i> equivalent?" ...
+<ul>
+<li> compute closures <i>F<sup>+</sup></i> and <i>G<sup>+</sup></i>;
+	check whether they're equal
+</li></ul>
+<br>
+Unfortunately, closures can be very large, e.g.
+<p>
+<small>
+<i>R = ABC, &nbsp;&nbsp;&nbsp; F = { AB &#8594; C, &nbsp; C &#8594; B }</i> <br>
+<i>F<sup>+</sup> = { A &#8594; A, &nbsp; AB &#8594; A, &nbsp;
+	AC &#8594; A, &nbsp; AB &#8594; B, &nbsp;
+	BC &#8594; B, &nbsp; ABC &#8594; B, &nbsp;
+<br> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+	C &#8594; C, &nbsp; AC &#8594; C, &nbsp;
+	BC &#8594; C, &nbsp; ABC &#8594; C, &nbsp;
+	AB &#8594; AB, &nbsp; . . . . . . ,
+<br> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        AB &#8594; ABC, &nbsp; AB &#8594; ABC, &nbsp;
+	C &#8594; B, &nbsp; C &#8594; BC, &nbsp;
+	AC &#8594; B, &nbsp; AC &#8594; AB }</i>
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [2/11]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Closures <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithms based on <i>F<sup>+</sup></i> rapidly become infeasible.
+</p><p>
+To solve this problem ...
+</p><ul>
+<li>  use closures based on sets of attributes rather than sets of <i>fd</i>s.
+</li></ul>
+<p>
+Given a set <i>X</i> of attributes and a set <i>F</i> of <i>fd</i>s,
+the <font color="#0000BB">closure</font> of <i>X</i> (denoted <i>X<sup>+</sup></i>) is
+</p><ul>
+<li> the largest set of attributes that can be derived from <i>X</i> using
+<i>F</i>
+</li></ul>
+<p>
+Determining X+ from {X&#8594;Y, Y&#8594;Z} &nbsp;...&nbsp; X &#8594; XY &#8594; XYZ = X+
+</p><p>
+For computation, |<i>X<sup>+</sup></i>| is bounded by the number of attributes.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [3/11]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Closures <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Algorithm for computing attribute closure:
+</p><p></p><pre><font color="#000099">Input:</font> F <small>(set of FDs)</small>, X <small>(starting attributes)</small>
+<font color="#000099">Output:</font> X+ <small>(attribute closure)</small>
+
+Closure = X
+while (not done) {
+   OldClosure = Closure
+   for each A &#8594; B such that A &#8834; Closure
+      add B to Closure
+   if (Closure == OldClosure) done = true
+}
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [4/11]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Closures <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+For the question "is <i>X &#8594; Y</i> derivable from <i>F</i>?" ...
+</p><ul>
+<li> compute the closure <i>X<sup>+</sup></i>,
+	check whether <i>Y &nbsp; &#8834; &nbsp; X<sup>+</sup></i>
+</li></ul>
+<br>
+For the question "are <i>F</i> and <i>G</i> equivalent?" ...
+<ul>
+<li> for each dependency in <i>G</i>, check whether derivable from <i>F</i>
+</li><li> for each dependency in <i>F</i>, check whether derivable from <i>G</i>
+</li><li> if true for all, then 
+	<i>F &#8658; G</i> and <i>G &#8658; F</i>
+	which implies <i>F<sup>+</sup> = G<sup>+</sup></i>
+</li></ul>
+<br>
+For the question "what are the keys of <i>R</i> implied by <i>F</i>?" ...
+<ul>
+<li> find subsets <i>K &#8834; R</i> such that <i>K<sup>+</sup> = R</i>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [5/11]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Determining Keys</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example: determine  primary keys for each of the following:
+</p><ol>
+<li> <i> FD &nbsp;=&nbsp; { A &#8594; B, C &#8594; D, E &#8594; FG }</i>
+<ul>
+<li> A? &nbsp;A+ = AB, so no ... &nbsp;AB? &nbsp;AB+ = ABCD, so no 
+</li><li> ACE? &nbsp;ACE+ = ABCDEFG, so yes!
+</li></ul>
+<br>
+</li><li> <i> FD &nbsp;=&nbsp; { A &#8594; B, B &#8594; C, C &#8594; D }</i>
+<ul>
+<li> B? &nbsp;B+ = BCD, so no ... &nbsp;A? &nbsp;A+ = ABCD, so yes!
+</li></ul>
+<br>
+</li><li> <i> FD &nbsp;=&nbsp; { A &#8594; B, B &#8594; C, C &#8594; A }</i>
+<ul>
+<li> A? &nbsp;A+ = ABC, so yes! ... &nbsp;B? &nbsp;B+ = ABC, so yes!
+</li></ul>
+</li></ol>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [6/11]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Minimal Covers</div></td><td align="right"></td></tr></tbody></table>
+<p>
+For a given application, we can define many different sets of
+<i>fd</i>s with the same closure
+(e.g. <i>F</i> and <i>G</i> where <i>F<sup>+</sup> = G<sup>+</sup></i>)
+</p><p>
+Which one is best to "model" the application?
+</p><ul>
+<li> any model has to be complete <small>(i.e. capture entire semantics)</small>
+</li><li> models should be as small as possible <br>
+	<small>(we use them to check DB validity after update; less checking is better)</small>
+</li></ul>
+If we can ...
+<ul>
+<li> determine a number of candidate <i>fd</i> sets, <i>F</i>, <i>G</i> and <i>H</i>
+</li><li> establish that <i>F<sup>+</sup> = G<sup>+</sup> = H<sup>+</sup></i>
+</li><li> we would then choose the smallest one for our "model"
+</li></ul>
+Better still, can we <i>derive</i> the smallest complete set of <i>fd</i>s?
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [7/11]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Minimal Covers <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Minimal cover</font> <i>F<sub>c</sub></i> &nbsp;for a set <i>F</i> of <i>fd</i> s:
+</p><ul>
+<li> <i>F<sub>c</sub></i> is equivalent to <i>F</i>
+</li><li> all <i>fd</i>s have the form <i>X &#8594; A</i>
+	<small>(where <i>A</i> is a single attribute)</small>
+</li><li> it is not possible to make <i>F<sub>c</sub></i> smaller
+<ul>
+<li> either by deleting an <i>fd</i>
+</li><li> or by deleting an attribute from an <i>fd</i>
+</li></ul>
+</li></ul>
+An <i>fd</i> <i>d</i> is redundant if <i>(F-{d})<sup>+</sup> = F<sup>+</sup></i>
+<p>
+An attribute <i>a</i> is redundant if <i>(F-{d}&#8746;{d'})<sup>+</sup> = F<sup>+</sup></i> <br>
+<small>(where <i>d'</i> is the same as <i>d</i> but with attribute <i>A</i> removed)</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [8/11]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Minimal Covers <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Algorithm for computing minimal cover:
+</p><p></p><pre><font color="#000099">Inputs</font>: set <i>F</i> of <i>fd</i>s
+<font color="#000099">Output</font>: minimal cover <i>F<sub>c</sub></i> of <i>F</i>
+<i>F<sub>c</sub></i> = <i>F</i>
+Step 1: put <i>f &#8712; F<sub>c</sub></i> into canonical form
+Step 2: eliminate redundant attributes from <i>f &#8712; F<sub>c</sub></i>
+Step 3: eliminate redundant <i>fd</i>s from <i>F<sub>c</sub></i>
+</pre><p>
+Step 1: put <i>fd</i> s into canonical form
+</p><p></p><pre>for each <i>f &#8712; F<sub>c</sub></i> like <i>X &#8594; {A<sub>1</sub>,...,A<sub>n</sub>}</i>
+    remove <i>X &#8594; {A<sub>1</sub>,...,A<sub>n</sub>}</i> from <i>F<sub>c</sub></i>
+    add <i>X &#8594; A<sub>1</sub></i>, ... <i>X &#8594; A<sub>n</sub></i> to <i>F<sub>c</sub></i>
+end
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [9/11]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Minimal Covers <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Step 2: eliminate redundant attributes
+</p><p></p><pre>for each <i>f &#8712; F<sub>c</sub></i> like <i>X &#8594; A</i>
+    for each <i>b</i> in <i>X</i>
+        <i>f'</i> = <i>(X-{b}) &#8594; A</i>; &nbsp; <i>G</i> = <i>F<sub>c</sub>&nbsp;-&nbsp;{f}&nbsp;&#8746;&nbsp;{f'}</i>
+        if (<i>G<sup>+</sup></i> == <i>F<sub>c</sub><sup>+</sup></i>) <i>F<sub>c</sub></i> = <i>G</i>
+    end
+end
+</pre><p>
+Step 3: eliminate redundant functional dependencies
+</p><p></p><pre>for each <i>f &#8712; F<sub>c</sub></i>
+    <i>G</i> = <i>F<sub>c</sub>&nbsp;-&nbsp;{f}</i>
+    if (<i>G<sup>+</sup></i> == <i>F<sub>c</sub><sup>+</sup></i>) <i>F<sub>c</sub></i> = <i>G</i>
+end
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [10/11]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/fd-inference/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Minimal Covers <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Example: compute minimal cover
+</p><p>
+E.g. <i>R = ABC</i>, <i>F = { A &#8594; BC, &nbsp;
+	B &#8594; C, &nbsp; A &#8594; B, &nbsp; AB &#8594; C }</i>
+</p><p>
+Working ...
+</p><ul>
+<li> canonical <i>fd</i>s:
+	<i>A &#8594; B, &nbsp; A &#8594; C, &nbsp; B &#8594; C, &nbsp; AB &#8594; C</i>
+</li><li> redundant attrs: 
+	<i>A &#8594; B, &nbsp; A &#8594; C, &nbsp; B &#8594; C, &nbsp; A<font color="#008800">B</font> &#8594; C</i>
+</li><li> redundant <i>fd</i>s:
+	<i>A &#8594; B, &nbsp; <font color="#008800">A &#8594; C</font>, &nbsp; B &#8594; C</i>
+</li></ul>
+This gives the minimal cover &nbsp; <i>F<sub>c</sub> = { A &#8594; B, &nbsp; B &#8594; C }</i>.
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Inference on FDs &#9826; [11/11]</div><p></p><hr><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./Inference on FDs_files/translate_24dp.png" width="20" height="20" alt="Google &#32763;&#35793;"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">&#21407;&#25991;</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">&#25552;&#20379;&#26356;&#22909;&#30340;&#32763;&#35793;&#24314;&#35758;</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><p>
+<span style="font-size:11px;color: grey;">Produced: 4 Nov 2020</span>
+ <script src="./Inference on FDs_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Inference on FDs_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 9406px; width: 826px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 9406px; width: 826px;"></div></html>

@@ -19,26 +19,6 @@
 		{
 			"name": "project-frontend",
 			"path": "..\\..\\COMP1531 Labs\\project-frontend"
-		},
-		{
-			"name": "lab08_inverse",
-			"path": "..\\..\\COMP1531 Labs\\lab08\\lab08_inverse"
-		},
-		{
-			"name": "lab08_factors",
-			"path": "..\\..\\COMP1531 Labs\\lab08\\lab08_factors"
-		},
-		{
-			"name": "lab08_decorator",
-			"path": "..\\..\\COMP1531 Labs\\lab08\\lab08_decorator"
-		},
-		{
-			"name": "lab08_transpose",
-			"path": "..\\..\\COMP1531 Labs\\lab08\\lab08_transpose"
-		},
-		{
-			"name": "lab08_cod",
-			"path": "..\\..\\COMP1531 Labs\\lab08\\lab08_cod"
 		}
 	],
 	"settings": {
@@ -91,6 +71,7 @@
 			}
 		],
 		"cSpell.words": [
+			"authorise",
 			"dbname",
 			"mymyunsw",
 			"ndim",
@@ -98,6 +79,7 @@
 			"psycopg",
 			"pyplot",
 			"senddm",
+			"sympy",
 			"unpickle"
 		],
 	},
@@ -109,7 +91,8 @@
 				"type": "python",
 				"request": "launch",
 				"program": "${file}",
-				"console": "integratedTerminal"
+				"console": "integratedTerminal",
+				"args": ["COMPAS"]
 			}
 		]
 	}

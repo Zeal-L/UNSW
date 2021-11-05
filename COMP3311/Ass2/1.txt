@@ -23,8 +23,8 @@ all courses from Comp Sci Maths
 - MATH1231 Mathematics 1B
   or MATH1241 Higher Mathematics 1B
 all courses from Comp Sci Advanced Core
-- COMP3121 Algorithms and Programming Techniques
-  or COMP3821 Extended Algorithms and Programming Techniques
+- COMP3121 Algorithms & Programming Tech
+  or COMP3821 Extended Algorithms&Prog Techniques
 - COMP3900 Computer Science Project
 - COMP4920 Management and Ethics
 12 UOC of General Education

@@ -9,25 +9,34 @@ import re
 from helpers import getProgram, getStream
 
 # define any local helper functions here
-def courses_detail(tup):
-    courses = tup[5].split(',')
+def courses_detail(type, description):
+    courses = description.split(',')
     for course in courses:
         print('- ', end='')
-        if tup[2] == 'stream':
+        if type == 'stream':
             cur.execute("select name from streams where code = %s", [course])
             result = cur.fetchone()
-            print(course, result[0])
-        elif tup[2] == 'subject':
+            if result == None:
+                print(course, "???")
+            else:
+                print(course, result[0])
+        elif type == 'subject':
             if ';' not in course:
                 cur.execute("select name from subjects where code = %s", [course])
                 result = cur.fetchone()
-                print(course, result[0])
+                if result == None:
+                    print(course, "???")
+                else:
+                    print(course, result[0])
             else:
                 course = course.strip('{}').split(';')
                 for i in range(len(course)):
-                    cur.execute("select longname from subjects where code = %s", [course[i]])
+                    cur.execute("select name from subjects where code = %s", [course[i]])
                     result = cur.fetchone()
-                    print(course[i], result[0])
+                    if result == None:
+                        print(course, "???")
+                    else:
+                        print(course[i], result[0])
                     if i != len(course)-1:
                         print('  or ', end='')
 
@@ -60,11 +69,15 @@ try:
         tup = cur.fetchone()
         programInfo = str(tup[0]) + ' ' + tup[1] + ', ' + \
                 str(tup[2]) + ' UOC, ' + str(tup[3] / 12) + ' years\n' + \
-                '- offered by ' + str(tup[4])
+                '- offered by ' + tup[4]
         print(programInfo)
         print("Academic Requirements:")
         cur.execute("select * from Q2_streams_courses where programCode = %s", [code])
         for tup in cur.fetchall():
+            if tup[1] == None and tup[2] == 'subject' and ',' not in tup[5]:
+                print(tup[3])
+                courses_detail(tup[2], tup[5])
+                continue
             if tup[1] != None:
                 output = str(tup[1]) + ' '
             else:
@@ -78,20 +91,54 @@ try:
             output += tup[3]
             print(output)
 
-            if tup[4] != 'pattern':
-                courses_detail(tup)
-            else: # Nothing need to print with gdefby pattern
-                pass
-
+            if tup[4] == 'pattern':
+                if tup[3] == 'General Education':
+                    continue
+                print('- courses matching ', end='')
+                for i in tup[5]:
+                    print(i, end='')
+                print()
+            else:
+                courses_detail(tup[2], tup[5])
 
     elif codeOf == "stream":
         strmInfo = getStream(db, code)
         if not strmInfo:
             print(f"Invalid stream code {code}")
             exit()
-        # print(strmInfo)  #debug
-        # List the rules for Stream
-        # ... add your code here ...
+        print(strmInfo[1], strmInfo[2])
+        cur = db.cursor()
+        cur.execute("select longname from orgunits where id = %s", [strmInfo[3]])
+        tup = cur.fetchone()
+        print('- offered by ' + tup[0])
+        print("Academic Requirements:")
+        cur.execute("select * from Q2_streams_rule where streamCode = %s", [code])
+        for tup in cur.fetchall():
+            min_req = tup[2]
+            max_req = tup[3]
+            if min_req == None and max_req == None:
+                print(tup[1])
+            elif min_req == max_req:
+                print(f'{max_req} UOC courses from {tup[1]}')
+            elif min_req == None and max_req != None:
+                print(f'up to {max_req} UOC courses from {tup[1]}')
+            elif min_req != None and max_req == None:
+                if 'Free Electives' in tup[1]:
+                    print(f'at least {min_req} UOC of Free Electives')
+                    continue
+                else:
+                    print(f'at least {min_req} UOC courses from {tup[1]}')
+            elif min_req != max_req:
+                print(f'between {min_req} and {max_req} UOC courses from {tup[1]}')
+
+            if tup[4] == 'pattern':
+                print('- courses matching ', end='')
+                for i in tup[5]:
+                    print(i, end='')
+                print()
+            else:
+                courses_detail('subject', tup[5])
+
 
 except Exception as err:
     print(err)

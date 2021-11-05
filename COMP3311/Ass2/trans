@@ -37,20 +37,36 @@ try:
     if not stuInfo:
         print(f"Invalid student ID {zid}")
         exit()
-
+    print(f'{stuInfo[0]} {stuInfo[1]}, {stuInfo[2]}')
     cur = db.cursor()
     cur.execute("select * from Q1_trans(%s)", [zid])
     sum = 0
     TotalUOC = 0
+    actualUOC = 0
     for tup in cur.fetchall():
         uoc = int(tup[5])
         if tup[4] in ('HD', 'DN', 'CR', 'PS', 'AF', 'FL', 'UF'):
             if tup[3] != None:
                 mark = int(tup[3])
-                sum = sum + (mark * uoc)
+                if mark < 50 or tup[4] in ('AF', 'FL', 'UF'):
+                    printUOC = 'fail'
+                else:
+                    sum = sum + (mark * uoc)
+                    printUOC = f'{tup[5]}uoc'
+            else:
+                mark = '-'
             TotalUOC = TotalUOC + uoc
-        print(tup)
-    print('WAM =', sum / TotalUOC)
+        elif tup[4] in ('XE', 'T', 'SY', 'EC', 'NC', 'A', 'A+', 'A-', 'B', 'B+', 'B-', 'C', 'C+', 'C-',):
+            mark = '-'
+            printUOC = f'{tup[5]}uoc'
+            actualUOC = actualUOC + uoc
+        else:
+            mark = '-'
+            printUOC = ''
+        print("{:<9}{:<5}{:<32}{:>3}{:>3}{:>7}".format(tup[0], tup[1], tup[2], mark, tup[4], printUOC))
+        if tup[3] != None and int(tup[3]) >= 50:
+            actualUOC = actualUOC + uoc
+    print(f'UOC = {actualUOC}, WAM = {sum}/{TotalUOC} = {round(sum/TotalUOC, 1)}')
 
 except Exception as err:
     print("DB error: ", err)

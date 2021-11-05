@@ -80,3 +80,24 @@ FROM
     JOIN rules r ON r.id = p_r.rule
     JOIN academic_object_groups aog ON aog.id = r.ao_group
 ;
+
+CREATE
+OR replace VIEW Q2_streams_rule
+(streamCode, rname, min_req, max_req, gdefby, definition) AS
+SELECT
+    s.code AS streamCode,
+    r.name AS rname,
+    r.min_req AS min_req,
+    r.max_req AS max_req,
+    aog.defby AS gdefby,
+    aog.definition AS definition
+FROM
+    streams s
+    JOIN stream_rules s_r ON s_r.stream = s.id
+    JOIN rules r ON r.id = s_r.rule
+    JOIN academic_object_groups aog ON aog.id = r.ao_group
+;
+
+
+-- Q3
+

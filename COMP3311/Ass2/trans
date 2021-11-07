@@ -51,8 +51,8 @@ try:
                 if mark < 50 or tup[4] in ('AF', 'FL', 'UF'):
                     printUOC = 'fail'
                 else:
-                    sum = sum + (mark * uoc)
                     printUOC = f'{tup[5]}uoc'
+                sum = sum + (mark * uoc)
             else:
                 mark = '-'
             TotalUOC = TotalUOC + uoc

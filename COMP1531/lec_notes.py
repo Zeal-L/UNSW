@@ -249,32 +249,62 @@
 #?--------------------------------------------------
 #!
 
-from hypothesis import given, strategies, Verbosity, settings
+# from hypothesis import given, strategies, Verbosity, settings
 
-def bubblesort(numbers):
-    numbers = numbers.copy()
-    for _ in range(len(numbers) - 1):
-        for i in range(len(numbers) - 1):
-            if numbers[i] > numbers[i+1]:
-                numbers[i], numbers[i+1] = numbers[i+1], numbers[i]
-    return numbers
+# def bubblesort(numbers):
+#     numbers = numbers.copy()
+#     for _ in range(len(numbers) - 1):
+#         for i in range(len(numbers) - 1):
+#             if numbers[i] > numbers[i+1]:
+#                 numbers[i], numbers[i+1] = numbers[i+1], numbers[i]
+#     return numbers
 
-@given(strategies.lists(strategies.integers()))
-@settings(verbosity=Verbosity.verbose)
-def test_length(nums):
-    assert len(bubblesort(nums)) == len(nums)
+# @given(strategies.lists(strategies.integers()))
+# @settings(verbosity=Verbosity.verbose)
+# def test_length(nums):
+#     assert len(bubblesort(nums)) == len(nums)
 
-@given(strategies.lists(strategies.integers()))
-@settings(verbosity=Verbosity.verbose)
-def test_idempotence(nums):
-    assert bubblesort(nums) == bubblesort(bubblesort(nums))
+# @given(strategies.lists(strategies.integers()))
+# @settings(verbosity=Verbosity.verbose)
+# def test_idempotence(nums):
+#     assert bubblesort(nums) == bubblesort(bubblesort(nums))
 
-def is_sorted(nums):
-    for i in range(len(nums) - 1):
-        if nums[i] > nums[i+1]:
-            return False
-    return True
+# def is_sorted(nums):
+#     for i in range(len(nums) - 1):
+#         if nums[i] > nums[i+1]:
+#             return False
+#     return True
 
-@given(strategies.lists(strategies.integers()))
-def test_sorted(nums):
-    assert is_sorted(bubblesort(nums))
+# @given(strategies.lists(strategies.integers()))
+# def test_sorted(nums):
+#     assert is_sorted(bubblesort(nums))
+
+
+#?--------------------------------------------------
+#! progress bar
+
+from tqdm import tqdm
+from time import sleep
+
+# for _ in tqdm(range(1000)):
+#     sleep(0.01)
+
+
+# def factorial(n, bar):
+#     bar.update(1)
+#     sleep(0.01)  # slow-down things a little bit
+#     if n == 1:
+#         return 1
+#     else:
+#         return n * factorial(n-1, bar)
+
+# n = 500
+# bar = tqdm(total=n)
+# print(factorial(n, bar=bar))
+
+
+a = list('letters')
+bar = tqdm(a)
+for letter in bar:
+    sleep(1)
+    bar.set_description(f"Now get {letter}")

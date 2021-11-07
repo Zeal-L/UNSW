@@ -1,30 +1,21 @@
-3778 Bachelor of Science (Comp Sci), 144 UOC, 3.0 years
-- offered by School of Computer Science and Engineering
-Academic Requirements:
-1 stream(s) from Comp Sci Majors
-- COMPA1 Computer Science
-- COMPD1 Database Systems
-- COMPE1 eCommerce Systems
-- COMPI1 Artificial Intelligence
-- COMPJ1 Programming Languages
-- COMPN1 Computer Networks
-- COMPS1 Embedded Systems
-- COMPY1 Security Engineering
-all courses from Foundational Computing
-- COMP1511 Programming Fundamentals
-- COMP1521 Computer Systems Fundamentals
-- COMP1531 Software Eng Fundamentals
-- COMP2511 O-O Design & Programming
-- COMP2521 Data Structures and Algorithms
-all courses from Comp Sci Maths
-- MATH1081 Discrete Mathematics
-- MATH1131 Mathematics 1A
-  or MATH1141 Higher Mathematics 1A
-- MATH1231 Mathematics 1B
-  or MATH1241 Higher Mathematics 1B
-all courses from Comp Sci Advanced Core
-- COMP3121 Algorithms & Programming Tech
-  or COMP3821 Ext Algorithms&Prog Techniques
-- COMP3900 Computer Science Project
-- COMP4920 Management and Ethics
-12 UOC of General Education
+5123788 Greenfield, Drew
+  8543 Master of Information Technology
+  COMPSS Data Science and Engineering
+
+Completed:
+COMP9021 17s1 Principles of Programming       100 HD   6uoc towards PG Core Courses
+COMP9311 17s1 Database Systems                 63 PS   6uoc towards PG Core Courses
+COMP9024 17s2 Data Structures & Algorithms     86 HD   6uoc towards PG Core Courses
+COMP9331 17s2 Computer Networks&Applications   79 DN   6uoc towards PG Core Courses
+GSOE9820 17s2 Project Management               94 HD   6uoc towards Project Management
+COMP9020 18s1 Foundations of Comp. Science     85 HD   6uoc towards COMPSS Disciplinary Electives
+COMP9414 18s1 Artificial Intelligence          91 HD   0uoc does not satisfy any rule
+COMP9315 18s2 Database Systems Implementat'n   76 DN   6uoc towards COMPSS Databases Electives + ADK Courses
+COMP9444 18s2 Neural Networks, Deep Learning   63 PS   6uoc towards COMPSS Machine Learning Electives + ADK Courses
+COMP9417 19T2 Machine Learning & Data Mining   96 HD   6uoc towards COMPSS Machine Learning Electives + ADK Courses
+COMP9313 19T3 Big Data Management              76 DN   6uoc towards COMPSS Databases Electives
+MATH5846 20T1 Intro to Prob and Stoch Proc      - SY   0uoc does not satisfy any rule
+MATH5856 20T1 Intro to Stats and Stat Comput    - SY   0uoc does not satisfy any rule
+COMP9900 20T2 Info Tech Project               100 HD   6uoc towards MIT Project Courses
+MATH5855 20T3 Multivariate Analysis           100 HD   6uoc towards COMPSS Algos/Stats Electives
+UOC = 72 so far

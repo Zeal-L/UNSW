@@ -73,6 +73,8 @@
 		"cSpell.words": [
 			"authorise",
 			"dbname",
+			"defby",
+			"enrolments",
 			"mymyunsw",
 			"ndim",
 			"networkx",
@@ -80,6 +82,7 @@
 			"pyplot",
 			"senddm",
 			"sympy",
+			"tqdm",
 			"unpickle"
 		],
 	},
@@ -92,7 +95,7 @@
 				"request": "launch",
 				"program": "${file}",
 				"console": "integratedTerminal",
-				"args": ["COMPAS"]
+				"args": ["5123788"]
 			}
 		]
 	}

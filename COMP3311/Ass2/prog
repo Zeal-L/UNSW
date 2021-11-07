@@ -1,3 +1,5 @@
+#!C:\Users\Zeal\AppData\Local\Programs\Python\Python39\python
+
 #!/usr/bin/python3
 # COMP3311 21T3 Ass2 ... progression check for a given student
 
@@ -7,6 +9,49 @@ import re
 from helpers import getStudent, getProgram, getStream
 
 # define any local helper functions here
+def courses_detail(course_did, branchName, courses, min_req, max_req, branchType):
+    remaining = []
+    curr_uoc = 0
+    for course in courses.split(','):
+        if ';' not in course:
+            if '#' in course and branchType == 'pattern':
+                course = course.replace('#', '')
+            check = True
+            for did in course_did:
+                if course in did[0] and len(did) == 8:
+                    did.append(branchName)
+                    curr_uoc += did[6]
+                    check = False
+                    break
+                elif course in did[0] and len(did) == 9 and 'ADK' in branchName:
+                    did[8] = did[8] + ' + ' + branchName
+                    curr_uoc += did[6]
+                    check = False
+                    break
+
+            if check:
+                remaining.append(course)
+        else:
+            courses = course.strip('{}').split(';')
+            check = False
+            for course_temp in courses:
+                for did in course_did:
+                    if course_temp in did[0] and len(did) == 8:
+                        did.append(branchName)
+                        curr_uoc += did[6]
+                        check = True
+                if check:
+                    break
+
+    if min_req and curr_uoc >= min_req:
+        remaining = []
+    if max_req and curr_uoc >= max_req:
+        remaining = []
+
+    return {"remaining" : remaining,
+            "curr_uoc" : curr_uoc,
+            "min_req" : min_req,
+            "max_req" : max_req}
 
 # set up some globals
 
@@ -49,20 +94,143 @@ try:
         if not progInfo:
             print(f"Invalid program code {progCode}")
             exit()
-        # print(progInfo)  #debug
 
     if strmCode:
         strmInfo = getStream(db, strmCode)
         if not strmInfo:
             print(f"Invalid program code {strmCode}")
             exit()
-        # print(strmInfo)  #debug
 
-    # if have a program/stream
-    #   show progression check on supplied program/stream
-    # else
-    #   show progression check on most recent program/stream enrolment
-    # ... add your code here ...
+
+    # if have a program/stream show progression check on supplied program/stream
+    # else show progression check on most recent program/stream enrolment
+    cur = db.cursor()
+    cur.execute("select s.code, s.name, c_e.student, t.code, c_e.mark, c_e.grade, s.uoc, c.id \
+                            from subjects s                                             \
+                            JOIN courses c ON c.subject = s.id                          \
+                            JOIN course_enrolments c_e ON c_e.course = c.id             \
+                            JOIN terms t ON t.id = c.term                               \
+                            where c_e.student = %s                                      \
+                            ORDER BY t.code, s.code", [zid])
+    result = cur.fetchall()
+    completed = []
+    for each in result:
+        completed.append(list(each))
+    # print(completed)
+
+    remained = []
+
+    if progCode == None and strmCode == None:
+        cur.execute("select p_e.program, s.code from program_enrolments p_e \
+                JOIN stream_enrolments s_e ON s_e.partof = p_e.id           \
+                JOIN streams s ON s.id = s_e.stream                         \
+                where p_e.student = %s", [zid])
+        result = cur.fetchone()
+        progInfo = getProgram(db, str(result[0]))
+        strmInfo = getStream(db, result[1])
+        progCode = result[0]
+        strmCode = result[1]
+        print(f'{zid} {stuInfo[1]}, {stuInfo[2]}')
+        print(' ', progInfo[1], progInfo[2], '\n ', strmInfo[1], strmInfo[2], '\n')
+
+        cur.execute("select r.name, r.min_req, r.max_req, aog.defby, aog.definition \
+                    from program_rules p_r                                          \
+                    JOIN rules r ON r.id = p_r.rule                                 \
+                    JOIN academic_object_groups aog ON aog.id = r.ao_group          \
+                    where p_r.program = %s", [progCode])
+        result = cur.fetchall()
+        # print(result)
+        adk = None
+        # check in order (.., Stream, ADK)
+        for tup in result:
+            if strmCode in tup[4]:
+                pass
+            elif 'ADK' in tup[0]:
+                adk = tup
+            else:
+                info = courses_detail(completed, tup[0], tup[4], tup[1], tup[2], tup[3])
+                temp = [tup[0], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
+                remained.append(temp)
+        # Stream
+        stream_list = []
+        cur.execute("select * from Q3_all_courses where streamCode =  %s", [strmCode])
+        stream_result = cur.fetchall()
+        for stream in stream_result:
+            # print(stream)
+            stream_list.append(stream[1])
+            info = courses_detail(completed, stream[1], stream[2], stream[3], stream[4], stream[5])
+            temp = [stream[1], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
+            remained.append(temp)
+
+        # ADK
+        if adk:
+            info = courses_detail(completed, adk[0], adk[4], adk[1], adk[2], adk[3])
+            temp = [tup[0], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
+            remained.append(temp)
+    else:
+        print(f'{zid} {stuInfo[1]}, {stuInfo[2]}')
+        print(' ', progInfo[1], progInfo[2], '\n ', strmInfo[1], strmInfo[2], '\n')
+
+        stream_list = []
+        cur.execute("select * from Q3_all_courses where streamCode =  %s", [strmCode])
+        stream_result = cur.fetchall()
+        for stream in stream_result:
+            # print(stream)
+            stream_list.append(stream[1])
+            info = courses_detail(completed, stream[1], stream[2], stream[3], stream[4], stream[5])
+            temp = [stream[1], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
+            remained.append(temp)
+
+    print('Completed:')
+    uoc = 0
+    for course in completed:
+        if course[4] == None:
+            course[4] = '-'
+        if len(course) == 9:
+            uoc += course[6]
+        print("{:<9}{:<5}{:<31}{:>4} {:<5}{}{:<15}".format(course[0], course[3], course[1], course[4], course[5], course[6] if len(course) == 9 else 0, 'uoc towards ' + course[8] if len(course) == 9 else 'uoc does not satisfy any rule'))
+    print(f'UOC = {uoc} so far')
+    print("\nRemaining to complete degree:")
+
+
+    # print(remained)
+    remained.sort(key=lambda x: x[0])
+    for tup in remained:
+        min_req = tup[3]
+        max_req = tup[4]
+        curr_uoc = tup[2]
+        if tup[0] in stream_list:
+            for course in tup[1]:
+                print('- ', end='')
+                if ';' not in course:
+                    cur.execute("select name from subjects where code = %s", [course])
+                    result = cur.fetchone()
+                    if result == None:
+                        print(course, "???")
+                    else:
+                        print(course, result[0])
+                else:
+                    course = course.strip('{}').split(';')
+                    for i in range(len(course)):
+                        cur.execute("select name from subjects where code = %s", [course[i]])
+                        result = cur.fetchone()
+                        if result == None:
+                            print(course, "???")
+                        else:
+                            print(course[i], result[0])
+                        if i != len(course)-1:
+                            print('  or ', end='')
+        if min_req and curr_uoc < min_req:
+            print(f'{max_req - curr_uoc} UOC from {tup[0]}')
+        elif max_req and curr_uoc < max_req:
+            print(f'between {curr_uoc} and {max_req} UOC courses from {tup[0]}')
+
+
+    # if result[0]:
+    #     print(f"at least {result[0]-electives_did_uoc} UOC courses from {electives_name}")
+
+
+
 
 except Exception as err:
     print("DB error: ", err)

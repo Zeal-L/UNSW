@@ -283,8 +283,8 @@
 #?--------------------------------------------------
 #! progress bar
 
-from tqdm import tqdm
-from time import sleep
+# from tqdm import tqdm
+# from time import sleep
 
 # for _ in tqdm(range(1000)):
 #     sleep(0.01)
@@ -303,8 +303,18 @@ from time import sleep
 # print(factorial(n, bar=bar))
 
 
-a = list('letters')
-bar = tqdm(a)
-for letter in bar:
-    sleep(1)
-    bar.set_description(f"Now get {letter}")
+# a = list('letters')
+# bar = tqdm(a)
+# for letter in bar:
+#     sleep(1)
+#     bar.set_description(f"Now get {letter}")
+
+# pylint a.py --load-plugins=pylint.extensions.mccabe
+
+#?--------------------------------------------------
+
+# def acro(input):
+#     return "It's acronym is " + ''.join([x[0] for x in input.split(' ')]) + '.'
+
+# if __name__ == '__main__':
+#     print(acro(input("What is the name? ")))

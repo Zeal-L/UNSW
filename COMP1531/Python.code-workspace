@@ -95,7 +95,7 @@
 				"request": "launch",
 				"program": "${file}",
 				"console": "integratedTerminal",
-				"args": ["5123788"]
+				"args": ["5198386", "3778", "COMPA1"]
 			}
 		]
 	}

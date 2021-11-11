@@ -98,28 +98,9 @@ FROM
     JOIN academic_object_groups aog ON aog.id = r.ao_group
 ;
 
-
--- Q3
-CREATE
-OR replace VIEW Q3_all_courses
-(streamCode, towords, definition, min_req, max_req, defby) AS
-SELECT
-    streams.code AS streamCode,
-    r.name AS towords,
-    aog.definition AS definition,
-    r.min_req,
-    r.max_req,
-    aog.defby
-FROM
-    streams
-    JOIN stream_rules ON stream_rules.stream = streams.id
-    JOIN rules r ON r.id = stream_rules.rule
-    JOIN academic_object_groups aog ON aog.id = r.ao_group
-;
-
 select s.code, s.name, c_e.student, t.code, c_e.mark, c_e.grade, s.uoc, c.id
                             from subjects s
                             JOIN courses c ON c.subject = s.id
                             JOIN course_enrolments c_e ON c_e.course = c.id
                             JOIN terms t ON t.id = c.term
-                            where c_e.student = 5123788;
+                            where c_e.student = 5198386;

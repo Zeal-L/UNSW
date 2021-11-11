@@ -18,3 +18,13 @@ where  course in (select id  from courses where subject=12392)
        and mark is not null
 ;
 
+-- fix pattern bugs in some ao_group definitions
+update academic_object_groups
+set definition = replace(definition, 'GSOE92###', 'GSOE92##')
+where definition like '%GSOE92###';
+
+-- patch4
+update course_enrolments
+set mark=50, grade='PS'
+where student=5144531 and course=56676;
+

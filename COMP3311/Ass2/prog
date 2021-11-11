@@ -9,44 +9,74 @@ import re
 from helpers import getStudent, getProgram, getStream
 
 # define any local helper functions here
+def read_rule(course_did, remained, rule):
+        info = courses_detail(course_did, rule[0], rule[4], rule[1], rule[2], rule[3])
+        temp = [rule[0], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"], rule[5], rule[3]]
+        remained.append(temp)
+
 def courses_detail(course_did, branchName, courses, min_req, max_req, branchType):
     remaining = []
     curr_uoc = 0
     for course in courses.split(','):
         if ';' not in course:
-            if '#' in course and branchType == 'pattern':
-                course = course.replace('#', '')
+            original_course = course
             check = True
-            for did in course_did:
-                if course in did[0] and len(did) == 8:
-                    did.append(branchName)
-                    curr_uoc += did[6]
-                    check = False
-                    break
-                elif course in did[0] and len(did) == 9 and 'ADK' in branchName:
-                    did[8] = did[8] + ' + ' + branchName
-                    curr_uoc += did[6]
-                    check = False
-                    break
+            # Free Electives case
+            if 'FREE' in course:
+                for did in course_did:
+                    if len(did) == 8:
+                        if did[4] == None or did[4] >= 50:
+                            did.append('Free Electives')
+                            curr_uoc += did[6]
+                            check = False
+                        if max_req and curr_uoc >= max_req:
+                            break
 
+            elif '#' in course and branchType == 'pattern':
+                course = course.replace('#', '')
+                for did in course_did:
+                    if course in did[0] and len(did) == 8:
+                        if did[4] == None or did[4] >= 50:
+                            did.append(branchName)
+                            curr_uoc += did[6]
+                            check = False
+                        if max_req and curr_uoc >= max_req:
+                            break
+            else:
+                for did in course_did:
+                    if course in did[0] and len(did) == 8:
+                        if did[4] == None or did[4] >= 50:
+                            did.append(branchName)
+                            curr_uoc += did[6]
+                            check = False
+                    elif course in did[0] and len(did) == 9 and 'ADK' in branchName:
+                        did[8] = did[8] + ' + ' + branchName
+                        if did[4] == None or did[4] >= 50:
+                            curr_uoc += did[6]
+                            check = False
+                        break
             if check:
-                remaining.append(course)
+                remaining.append(original_course)
         else:
             courses = course.strip('{}').split(';')
             check = False
             for course_temp in courses:
                 for did in course_did:
                     if course_temp in did[0] and len(did) == 8:
-                        did.append(branchName)
-                        curr_uoc += did[6]
+                        if did[4] == None or did[4] >= 50:
+                            did.append(branchName)
+                            curr_uoc += did[6]
                         check = True
                 if check:
                     break
+            if not check:
+                remaining.append(course)
 
-    if min_req and curr_uoc >= min_req:
+
+    if rule[5] not in ("CC", "PE"):
         remaining = []
-    if max_req and curr_uoc >= max_req:
-        remaining = []
+    if rule[5] == 'PE' and branchType == 'pattern':
+        remaining = courses
 
     return {"remaining" : remaining,
             "curr_uoc" : curr_uoc,
@@ -111,8 +141,9 @@ try:
                             JOIN course_enrolments c_e ON c_e.course = c.id             \
                             JOIN terms t ON t.id = c.term                               \
                             where c_e.student = %s                                      \
-                            ORDER BY t.code, s.code", [zid])
+                            order by t.code, s.code, c.id", [zid])
     result = cur.fetchall()
+
     completed = []
     for each in result:
         completed.append(list(each))
@@ -130,76 +161,74 @@ try:
         strmInfo = getStream(db, result[1])
         progCode = result[0]
         strmCode = result[1]
-        print(f'{zid} {stuInfo[1]}, {stuInfo[2]}')
-        print(' ', progInfo[1], progInfo[2], '\n ', strmInfo[1], strmInfo[2], '\n')
 
-        cur.execute("select r.name, r.min_req, r.max_req, aog.defby, aog.definition \
-                    from program_rules p_r                                          \
-                    JOIN rules r ON r.id = p_r.rule                                 \
-                    JOIN academic_object_groups aog ON aog.id = r.ao_group          \
-                    where p_r.program = %s", [progCode])
-        result = cur.fetchall()
-        # print(result)
-        adk = None
-        # check in order (.., Stream, ADK)
-        for tup in result:
-            if strmCode in tup[4]:
-                pass
-            elif 'ADK' in tup[0]:
-                adk = tup
-            else:
-                info = courses_detail(completed, tup[0], tup[4], tup[1], tup[2], tup[3])
-                temp = [tup[0], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
-                remained.append(temp)
-        # Stream
-        stream_list = []
-        cur.execute("select * from Q3_all_courses where streamCode =  %s", [strmCode])
-        stream_result = cur.fetchall()
-        for stream in stream_result:
-            # print(stream)
-            stream_list.append(stream[1])
-            info = courses_detail(completed, stream[1], stream[2], stream[3], stream[4], stream[5])
-            temp = [stream[1], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
-            remained.append(temp)
+    print(f'{zid} {stuInfo[1]}, {stuInfo[2]}')
+    print('  ' + progInfo[1] + ' ' + progInfo[2] + '\n  ' + strmInfo[1] + ' ' + strmInfo[2] + '\n')
 
-        # ADK
-        if adk:
-            info = courses_detail(completed, adk[0], adk[4], adk[1], adk[2], adk[3])
-            temp = [tup[0], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
-            remained.append(temp)
-    else:
-        print(f'{zid} {stuInfo[1]}, {stuInfo[2]}')
-        print(' ', progInfo[1], progInfo[2], '\n ', strmInfo[1], strmInfo[2], '\n')
+    # Stream rules
+    rule_list = []
+    cur.execute("select r.name, r.min_req, r.max_req, aog.defby, aog.definition, r.type, r.id \
+                from streams s                                                          \
+                JOIN stream_rules ON stream_rules.stream = s.id                         \
+                JOIN rules r ON r.id = stream_rules.rule                                \
+                JOIN academic_object_groups aog ON aog.id = r.ao_group                  \
+                where s.code = %s", [strmCode])
+    stream_result = cur.fetchall()
+    for tup in stream_result:
+        rule_list.append(tup)
 
-        stream_list = []
-        cur.execute("select * from Q3_all_courses where streamCode =  %s", [strmCode])
-        stream_result = cur.fetchall()
-        for stream in stream_result:
-            # print(stream)
-            stream_list.append(stream[1])
-            info = courses_detail(completed, stream[1], stream[2], stream[3], stream[4], stream[5])
-            temp = [stream[1], info["remaining"], info["curr_uoc"], info["min_req"], info["max_req"]]
-            remained.append(temp)
+    # Other rules
+    cur.execute("select r.name, r.min_req, r.max_req, aog.defby, aog.definition, r.type, r.id \
+                from program_rules p_r                                                  \
+                JOIN rules r ON r.id = p_r.rule                                         \
+                JOIN academic_object_groups aog ON aog.id = r.ao_group                  \
+                where p_r.program = %s", [progCode])
+    result = cur.fetchall()
+    for rule in result:
+        if rule[5] == 'DS' and strmCode in rule[4]:
+            continue
+        rule_list.append(rule)
+
+    # Order by Rules.id
+    # rule_list.sort(key=lambda x: x[6])
+    # Check in order (CC, PE, FE, GE)
+    for rule in rule_list:
+        if rule[5] == 'CC':
+            read_rule(completed, remained, rule)
+    for rule in rule_list:
+        if rule[5] == 'PE':
+            read_rule(completed, remained, rule)
+    for rule in rule_list:
+        if rule[5] == 'GE':
+            read_rule(completed, remained, rule)
+    for rule in rule_list:
+        if rule[5] == 'FE':
+            read_rule(completed, remained, rule)
+
 
     print('Completed:')
+
     uoc = 0
     for course in completed:
-        if course[4] == None:
-            course[4] = '-'
         if len(course) == 9:
             uoc += course[6]
+        if course[4] == None:
+            course[4] = '-'
+        elif course[4] < 50: # fail case
+            print("{:<9}{:<5}{:<31}{:>4} {:<5}fail does not count".format(course[0], course[3], course[1], course[4], course[5]))
+            continue
         print("{:<9}{:<5}{:<31}{:>4} {:<5}{}{:<15}".format(course[0], course[3], course[1], course[4], course[5], course[6] if len(course) == 9 else 0, 'uoc towards ' + course[8] if len(course) == 9 else 'uoc does not satisfy any rule'))
     print(f'UOC = {uoc} so far')
     print("\nRemaining to complete degree:")
 
+    # for i in remained:
+    #     print(i)
 
-    # print(remained)
-    remained.sort(key=lambda x: x[0])
     for tup in remained:
         min_req = tup[3]
         max_req = tup[4]
         curr_uoc = tup[2]
-        if tup[0] in stream_list:
+        if tup[5] == 'CC':
             for course in tup[1]:
                 print('- ', end='')
                 if ';' not in course:
@@ -220,15 +249,18 @@ try:
                             print(course[i], result[0])
                         if i != len(course)-1:
                             print('  or ', end='')
-        if min_req and curr_uoc < min_req:
-            print(f'{max_req - curr_uoc} UOC from {tup[0]}')
-        elif max_req and curr_uoc < max_req:
-            print(f'between {curr_uoc} and {max_req} UOC courses from {tup[0]}')
-
-
-    # if result[0]:
-    #     print(f"at least {result[0]-electives_did_uoc} UOC courses from {electives_name}")
-
+        else:
+            if tup[5] == 'GE' and min_req-curr_uoc > 0:
+                print(f'{min_req-curr_uoc} UOC of General Education')
+            elif min_req and max_req == None and curr_uoc < min_req:
+                if 'Free Electives' in tup[0]:
+                    print(f'at least {min_req-curr_uoc} UOC of Free Electives')
+                else:
+                    print(f'at least {min_req-curr_uoc} UOC courses from {tup[0]}')
+            elif min_req and max_req and curr_uoc < min_req:
+                print(f'{max_req - curr_uoc} UOC from {tup[0]}')
+            elif min_req and max_req and curr_uoc < max_req:
+                print(f'between {curr_uoc-min_req} and {max_req-curr_uoc} UOC courses from {tup[0]}')
 
 
 

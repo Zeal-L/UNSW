@@ -45,7 +45,7 @@ try:
     actualUOC = 0
     for tup in cur.fetchall():
         uoc = int(tup[5])
-        if tup[4] in ('HD', 'DN', 'CR', 'PS', 'AF', 'FL', 'UF'):
+        if tup[4] in ('HD', 'DN', 'CR', 'PS', 'AF', 'FL', 'UF', 'E', 'F'):
             if tup[3] != None:
                 mark = int(tup[3])
                 if mark < 50 or tup[4] in ('AF', 'FL', 'UF'):
@@ -63,10 +63,13 @@ try:
         else:
             mark = '-'
             printUOC = ''
-        print("{:<9}{:<5}{:<32}{:>3}{:>3}{:>7}".format(tup[0], tup[1], tup[2], mark, tup[4], printUOC))
+        if printUOC == '':
+            print("{:<9}{:<5}{:<32}{:>3}{:>3}".format(tup[0], tup[1], tup[2], mark, tup[4]))
+        else:
+            print("{:<9}{:<5}{:<32}{:>3}{:>3}{:>7}".format(tup[0], tup[1], tup[2], mark, tup[4], printUOC))
         if tup[3] != None and int(tup[3]) >= 50:
             actualUOC = actualUOC + uoc
-    print(f'UOC = {actualUOC}, WAM = {sum}/{TotalUOC} = {round(sum/TotalUOC, 1)}')
+    print(f'UOC = {actualUOC}, WAM = {round(sum/TotalUOC, 1)}')
 
 except Exception as err:
     print("DB error: ", err)

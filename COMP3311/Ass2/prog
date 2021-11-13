@@ -215,52 +215,65 @@ try:
         if course[4] == None:
             course[4] = '-'
         elif course[4] < 50: # fail case
-            print("{:<9}{:<5}{:<31}{:>4} {:<5}fail does not count".format(course[0], course[3], course[1], course[4], course[5]))
+            print("{:<9}{:<5}{:<31}{:>4}{:>3}   fail does not count".format(course[0], course[3], course[1], course[4], course[5]))
             continue
-        print("{:<9}{:<5}{:<31}{:>4} {:<5}{}{:<15}".format(course[0], course[3], course[1], course[4], course[5], course[6] if len(course) == 9 else 0, 'uoc towards ' + course[8] if len(course) == 9 else 'uoc does not satisfy any rule'))
+        print("{:<9}{:<5}{:<31}{:>4}{:>3}   {}{:<15}".format(course[0], course[3], course[1], course[4], course[5] if course[5] else '-', course[6] if len(course) == 9 else 0, 'uoc towards ' + course[8] if len(course) == 9 else 'uoc does not satisfy any rule'))
     print(f'UOC = {uoc} so far')
-    print("\nRemaining to complete degree:")
+
 
     # for i in remained:
     #     print(i)
-
+    check_satisfied = 0
     for tup in remained:
         min_req = tup[3]
         max_req = tup[4]
         curr_uoc = tup[2]
-        if tup[5] == 'CC':
-            for course in tup[1]:
-                print('- ', end='')
-                if ';' not in course:
-                    cur.execute("select name from subjects where code = %s", [course])
-                    result = cur.fetchone()
-                    if result == None:
-                        print(course, "???")
-                    else:
-                        print(course, result[0])
-                else:
-                    course = course.strip('{}').split(';')
-                    for i in range(len(course)):
-                        cur.execute("select name from subjects where code = %s", [course[i]])
+        if min_req == None and max_req == None and tup[1] == []:
+            check_satisfied += 1
+        elif min_req and curr_uoc >= min_req:
+            check_satisfied += 1
+
+    if check_satisfied == len(remained):
+        print('\nEligible to graduate')
+    else:
+        print("\nRemaining to complete degree:")
+        for tup in remained:
+            min_req = tup[3]
+            max_req = tup[4]
+            curr_uoc = tup[2]
+            if tup[5] == 'CC':
+                for course in tup[1]:
+                    print('- ', end='')
+                    if ';' not in course:
+                        cur.execute("select name from subjects where code = %s", [course])
                         result = cur.fetchone()
                         if result == None:
                             print(course, "???")
                         else:
-                            print(course[i], result[0])
-                        if i != len(course)-1:
-                            print('  or ', end='')
-        else:
-            if tup[5] == 'GE' and min_req-curr_uoc > 0:
-                print(f'{min_req-curr_uoc} UOC of General Education')
-            elif min_req and max_req == None and curr_uoc < min_req:
-                if 'Free Electives' in tup[0]:
-                    print(f'at least {min_req-curr_uoc} UOC of Free Electives')
-                else:
-                    print(f'at least {min_req-curr_uoc} UOC courses from {tup[0]}')
-            elif min_req and max_req and curr_uoc < min_req:
-                print(f'{max_req - curr_uoc} UOC from {tup[0]}')
-            elif min_req and max_req and curr_uoc < max_req:
-                print(f'between {curr_uoc-min_req} and {max_req-curr_uoc} UOC courses from {tup[0]}')
+                            print(course, result[0])
+                    else:
+                        course = course.strip('{}').split(';')
+                        for i in range(len(course)):
+                            cur.execute("select name from subjects where code = %s", [course[i]])
+                            result = cur.fetchone()
+                            if result == None:
+                                print(course, "???")
+                            else:
+                                print(course[i], result[0])
+                            if i != len(course)-1:
+                                print('  or ', end='')
+            else:
+                if tup[5] == 'GE' and min_req-curr_uoc > 0:
+                    print(f'{min_req-curr_uoc} UOC of General Education')
+                elif min_req and max_req == None and curr_uoc < min_req:
+                    if 'Free Electives' in tup[0]:
+                        print(f'at least {min_req-curr_uoc} UOC of Free Electives')
+                    else:
+                        print(f'at least {min_req-curr_uoc} UOC courses from {tup[0]}')
+                elif min_req and max_req and curr_uoc < min_req:
+                    print(f'{max_req - curr_uoc} UOC from {tup[0]}')
+                elif min_req and max_req and curr_uoc < max_req:
+                    print(f'between {curr_uoc-min_req} and {max_req-curr_uoc} UOC courses from {tup[0]}')
 
 
 

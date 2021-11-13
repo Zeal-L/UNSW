@@ -28,3 +28,8 @@ update course_enrolments
 set mark=50, grade='PS'
 where student=5144531 and course=56676;
 
+update academic_object_groups
+set definition = replace(definition,'ENG3600','ENGG3600')
+where definition like '%ENG3600%';
+
+

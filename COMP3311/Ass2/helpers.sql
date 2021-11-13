@@ -21,7 +21,7 @@ FROM
 	JOIN courses c ON c.id = c_en.course
     JOIN subjects sub ON sub.id = c.subject
     JOIN terms t ON t.id = c.term
-ORDER BY t.code, sub.code;
+ORDER BY t.id, sub.code;
 
 
 CREATE

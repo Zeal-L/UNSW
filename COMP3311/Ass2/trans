@@ -46,9 +46,11 @@ try:
     for tup in cur.fetchall():
         uoc = int(tup[5])
         if tup[4] in ('HD', 'DN', 'CR', 'PS', 'AF', 'FL', 'UF', 'E', 'F'):
+            if tup[4] in ('AF', 'FL', 'UF'):
+                printUOC = 'fail'
             if tup[3] != None:
                 mark = int(tup[3])
-                if mark < 50 or tup[4] in ('AF', 'FL', 'UF'):
+                if mark < 50:
                     printUOC = 'fail'
                 else:
                     printUOC = f'{tup[5]}uoc'

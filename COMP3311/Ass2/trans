@@ -65,7 +65,9 @@ try:
         else:
             mark = '-'
             printUOC = ''
-        if printUOC == '':
+        if tup[4] == None:
+            print("{:<9}{:<5}{:<32}{:>3}  -".format(tup[0], tup[1], tup[2], mark))
+        elif printUOC == '':
             print("{:<9}{:<5}{:<32}{:>3}{:>3}".format(tup[0], tup[1], tup[2], mark, tup[4]))
         else:
             print("{:<9}{:<5}{:<32}{:>3}{:>3}{:>7}".format(tup[0], tup[1], tup[2], mark, tup[4], printUOC))

@@ -24,26 +24,33 @@ def courses_detail(course_did, branchName, courses, min_req, max_req, branchType
             # Free Electives case
             if 'FREE' in course:
                 for did in course_did:
+                    if did[4] == None and did[5] == None:
+                        continue
+                    if (max_req and curr_uoc >= max_req)  \
+                            or (max_req == None and min_req and curr_uoc >= min_req):
+                            break
                     if len(did) == 8:
                         if did[4] == None or did[4] >= 50:
                             did.append('Free Electives')
                             curr_uoc += did[6]
                             check = False
-                        if max_req and curr_uoc >= max_req:
-                            break
-
             elif '#' in course and branchType == 'pattern':
                 course = course.replace('#', '')
                 for did in course_did:
+                    if did[4] == None and did[5] == None:
+                        continue
+                    if (max_req and curr_uoc >= max_req)  \
+                            or (max_req == None and min_req and curr_uoc >= min_req):
+                            break
                     if course in did[0] and len(did) == 8:
                         if did[4] == None or did[4] >= 50:
                             did.append(branchName)
                             curr_uoc += did[6]
                             check = False
-                        if max_req and curr_uoc >= max_req:
-                            break
             else:
                 for did in course_did:
+                    if did[4] == None and did[5] == None:
+                        continue
                     if course in did[0] and len(did) == 8:
                         if did[4] == None or did[4] >= 50:
                             did.append(branchName)
@@ -62,6 +69,8 @@ def courses_detail(course_did, branchName, courses, min_req, max_req, branchType
             check = False
             for course_temp in courses:
                 for did in course_did:
+                    if did[4] == None and did[5] == None:
+                        continue
                     if course_temp in did[0] and len(did) == 8:
                         if did[4] == None or did[4] >= 50:
                             did.append(branchName)
@@ -71,7 +80,6 @@ def courses_detail(course_did, branchName, courses, min_req, max_req, branchType
                     break
             if not check:
                 remaining.append(course)
-
 
     if rule[5] not in ("CC", "PE"):
         remaining = []
@@ -147,7 +155,7 @@ try:
     completed = []
     for each in result:
         completed.append(list(each))
-    # print(completed)
+
 
     remained = []
 
@@ -176,6 +184,7 @@ try:
     stream_result = cur.fetchall()
     for tup in stream_result:
         rule_list.append(tup)
+
 
     # Other rules
     cur.execute("select r.name, r.min_req, r.max_req, aog.defby, aog.definition, r.type, r.id \
@@ -210,6 +219,9 @@ try:
 
     uoc = 0
     for course in completed:
+        if course[4] == None and course[5] == None:
+            print("{:<9}{:<5}{:<31}   -  -        does not count".format(course[0], course[3], course[1]))
+            continue
         if len(course) == 9:
             uoc += course[6]
         if course[4] == None:
@@ -223,6 +235,7 @@ try:
 
     # for i in remained:
     #     print(i)
+
     check_satisfied = 0
     for tup in remained:
         min_req = tup[3]

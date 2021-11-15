@@ -1,0 +1,426 @@
+
+<!-- saved from url=(0073)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Relational Algebra</title>
+<link href="./Relational Algebra_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./Relational Algebra_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./Relational Algebra_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><script type="text/javascript" async="" src="./Relational Algebra_files/MathJax.js.&#19979;&#36733;"></script>
+<link href="./Relational Algebra_files/css" rel="stylesheet">
+<link href="./Relational Algebra_files/prism.css" rel="stylesheet">
+<script src="./Relational Algebra_files/sg.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">Relational Algebra</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s1">Relational Algebra</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s4">Notation</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s5">Describing RA Operations</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s7">Example Database #1</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s8">Example Database #2</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s9">Rename</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s11">Selection</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s14">Projection</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [0/16]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relational Algebra</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Relational algebra</font> (RA) can be viewed as ...
+</p><ul>
+<li> mathematical system for manipulating relations, or
+</li><li> data manipulation language (DML) for the relational model
+</li></ul>
+Relational algebra consists of:
+<ul>
+<li> <font color="#0000BB">operands</font>: relations, or variables representing relations
+</li><li> <font color="#0000BB">operators</font> that map relations to relations
+</li><li> rules for combining operands/operators into expressions
+</li><li> rules for evaluating such expressions
+</li></ul>
+Why is it important?
+<ul>
+<li> because it forms the basis for DBMS implementation
+</li><li> relational algebra ops are like the machine code for DBMSs
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [1/16]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relational Algebra <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Core relational algebra operations:
+</p><ul>
+<li> <font color="#0000BB">rename</font>: change names of relations/attributes
+</li><li> <font color="#0000BB">selection</font>: choosing a subset of tuples/rows
+</li><li> <font color="#0000BB">projection</font>: choosing a subset of attributes/columns
+</li><li> <font color="#0000BB">union</font>, <font color="#0000BB">intersection</font>, <font color="#0000BB">difference</font>: combining relations
+</li><li> <font color="#0000BB">product</font>, <font color="#0000BB">join</font>: combining relations
+</li></ul>
+Common extensions include:
+<ul>
+<li> <font color="#0000BB">aggregation</font>, &nbsp;<font color="#0000BB">projection++</font>, &nbsp;<font color="#0000BB">division</font>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [2/16]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Relational Algebra <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Select, project, join provide a powerful set of operations for
+building relations and extracting interesting data from them.
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/spj.png]" src="./Relational Algebra_files/spj.png">
+</div><p>
+</p><p>
+Adding set operations and renaming makes RA <font color="#0000BB">complete</font>.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [3/16]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Notation</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Standard treatments of relational algebra use Greek symbols.
+</p><p>
+We use the following notation <small>(because it is easier to reproduce)</small>:
+</p><p><table border="0" cellpadding="6">
+<tbody><tr valign="top">
+  <td><nobr><b>Operation</b></nobr></td>
+  <td></td><td><b>Standard<br>Notation</b></td>
+  <td></td><td><b>Our<br>Notation</b></td>
+</tr>
+<tr valign="top">
+  <td><nobr>Selection</nobr></td>
+  <td></td><td><i><span style="font-size:150%">&#963;</span><sub>expr</sub>(Rel)</i></td>
+  <td></td><td><i>Sel[expr](Rel)</i></td>
+</tr>
+<tr valign="top">
+  <td><nobr>Projection</nobr></td>
+  <td></td><td><i><span style="font-size:150%">&#960;</span><sub>A,B,C</sub>(Rel)</i></td>
+  <td></td><td><i>Proj[A,B,C](Rel)</i></td>
+</tr>
+<tr valign="top">
+  <td><nobr>Join</nobr></td>
+  <td></td><td><i>Rel<sub>1</sub> <span style="font-size:150%">&#10781;</span><sub>expr</sub> Rel<sub>2</sub></i></td>
+  <td></td><td><i>Rel<sub>1</sub> &nbsp;Join[expr]&nbsp; Rel<sub>2</sub></i></td> 
+</tr>
+<tr valign="top">
+  <td><nobr>Rename</nobr></td>
+  <td></td><td><i>&#961;<sub>schema</sub>Rel</i></td>
+  <td></td><td><i>Rename[schema](Rel)</i></td> 
+</tr>
+</tbody></table></p><p>
+<small>
+For other operations (e.g. set operations) we adopt the standard notation. <br>
+Except when typing in a text file, where <large><code>*</code></large> = intersection, <large><code>+</code></large> = union
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [4/16]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Describing RA Operations</div></td><td align="right"></td></tr></tbody></table>
+<p>
+We define the semantics of RA operations using
+</p><ul>
+<li> "conditional set" expressions &nbsp; e.g. <i>{ X | condition on X }</i>
+</li><li> tuple notations:
+<ul>
+<li> <i>t[AB]</i> &nbsp; <small>(extracts attributes <i>A</i> and <i>B</i> from tuple <i>t</i>)</small>
+</li><li> <i>(x,y,z)</i> &nbsp; <small>(enumerated tuples; specify attribute values)</small>
+</li></ul>
+</li><li> quantifiers, set operations, boolean operators
+</li></ul>
+For each operation, we also describe it operationally:
+<ul>
+<li> give an algorithm to compute the result, tuple-by-tuple
+</li><li> <small>the algorithm is not generally how it will be computed in practice</small>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [5/16]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Describing RA Operations <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+All RA operators return a result of type <font color="#0000BB">relation</font>.
+</p><p>
+For convenience, we can name a result and use it later.
+</p><p>
+E.g.
+</p><p></p><pre>Temp = R <i>op<sub>1</sub></i> S <i>op<sub>2</sub></i> T
+Res  = Temp <i>op<sub>3</sub></i> Z
+<span class="comment">-- which is equivalent to</span>
+Res  = (R <i>op<sub>1</sub></i> S <i>op<sub>2</sub></i> T) <i>op<sub>3</sub></i> Z
+</pre><p>
+<small>
+Each "intermediate result" has a well-defined schema.
+</small>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [6/16]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Example Database #1</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/db1.png]" src="./Relational Algebra_files/db1.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [7/16]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Example Database #2</div></td><td align="right"></td></tr></tbody></table>
+<p>
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/db2.png]" src="./Relational Algebra_files/db2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [8/16]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Rename</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Rename</font> provides "schema mapping".
+</p><p>
+If expression <i>E</i> returns a relation
+<i>R(A<sub>1</sub>, A<sub>2</sub>, ... A<sub>n</sub>)</i>, then
+</p><p>
+</p><div class="center">
+<i>Rename[S(B<sub>1</sub>, B<sub>2</sub>, ... B<sub>n</sub>)](E)</i>
+</div>
+<p>
+gives a relation called <i>S</i>
+</p><ul>
+<li> containing the same set of tuples as <i>E</i>
+</li><li> but with the name of each attribute changed from <i>A<sub>i</sub></i>
+to <i>B<sub>i</sub></i>
+</li></ul>
+Rename is like the identity function on the <i>contents</i> of a relation
+<p>
+The only thing that Rename changes is the schema.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [9/16]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Rename <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Rename</font> can be viewed as a "technical" apparatus of RA.
+</p><p>
+We can also use implicit rename/project in sequences of RA operations, e.g.
+</p><p></p><pre style="font-size:90%"><span class="comment">--  R(a,b,c),  S(c,d)</span>
+Res = Rename[Res(b,c,d)](Project[b,c](Sel[a&gt;5](R)) Join S)
+<span class="comment">-- vs</span>
+Tmp1 = Select[a&gt;5](R)
+Tmp2 = Project[b,c](Tmp1)
+Tmp3 = Rename[Tmp3(cc,d)](S)
+Tmp4 = Tmp2 Join[c=cc] Tmp3
+Res  = Rename[Res(b,c,d)](Tmp4)
+<span class="comment">-- vs</span>
+Tmp1(b,c)  = Select[a&gt;5](R)
+Tmp2(cc,d) = S
+Res(b,c,d) = Tmp1 Join[c=cc] Tmp2
+</pre><p>
+In SQL, we achieve a similar effect by defining a set of views
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [10/16]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Selection</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Selection</font> returns a subset of the tuples
+in a relation <i>r(R)</i> that satisfy a specified condition <i>C</i>.
+</p><p>
+</p><div class="center">
+<i><span style="font-size:150%">&#963;</span><sub>C</sub>(r)</i> &nbsp; = &nbsp; <i>Sel[C](r)</i> &nbsp; = &nbsp; { <i>t</i> &nbsp;|&nbsp; <i>t &#8712; r &#8743; C(t)</i> }
+</div>
+<p>
+<i>C</i> is a boolean expression on attributes in <i>R</i>.
+</p><p>
+Result size: &nbsp; |<i><span style="font-size:150%">&#963;</span><sub>C</sub>(r)</i>| <i>&#8804;</i> |<i>r</i>|
+</p><p>
+Result schema: &nbsp; same as the schema of <i>r</i> &nbsp; (i.e. <i>R</i>)
+</p><p>
+Algorithmic view:
+</p><p></p><pre><i>result</i> = {}
+for each tuple <i>t</i> in relation <i>r</i>
+    if (<i>C(t)</i>) { <i>result</i> = <i>result &#8746; {t}</i> }
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [11/16]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Selection <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Examples of selection:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/selection2.png]" src="./Relational Algebra_files/selection2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [12/16]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s14"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Selection <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Querying with relational algebra (selection) ...
+</p><ul>
+<br>
+<li> Details of all bars in The Rocks
+<p></p><pre>Result = Sel[addr=The Rocks](Bars)
+</pre><p>
+<br>
+</p></li><li> Beers made by Sierra Nevada
+<p></p><pre>SNBeers = Sel[manf=Sierra Nevada](Beers)
+Result  = Rename[beer](Proj[name](SNBeers))
+</pre><p>
+</p></li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [13/16]</div> <div class="slideCl1    " id="s14">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s13"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s15"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Projection</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Projection</font> returns a set of tuples containing
+a subset of the attributes in the original relation.
+</p><p>
+</p><div class="center">
+<i><span style="font-size:150%">&#960;</span><sub>X</sub>(r)</i> &nbsp; = &nbsp; <i>Proj[X](r)</i> &nbsp; = &nbsp; { <i>t[X]</i> &nbsp;|&nbsp; <i>t &#8712; r</i> }, &nbsp;&nbsp;&nbsp; where <i>r(R)</i>
+</div>
+<p>
+<i>X</i> specifies a subset of the attributes of <i>R</i>.
+</p><p>
+Note that removing key attributes can produce duplicates.
+</p><p>
+In RA, duplicates are removed from the result <font color="#0000BB">set</font>.
+<br>
+<small><font color="#777777">(In RDBMS's, duplicates are retained &nbsp; (i.e. they use bags, not sets)</font></small><font color="#777777">)</font>
+</p><p>
+Result size: &nbsp; |<i><span style="font-size:150%">&#960;</span><sub>X</sub>(r)</i>| <i>&#8804;</i> |<i>r</i>|
+&nbsp;&nbsp;&nbsp;
+Result schema: &nbsp; <i>R'(X)</i>
+</p><p>
+Algorithmic view:
+</p><p></p><pre><i>result</i> = {}
+for each tuple <i>t</i> in relation <i>r</i>
+    <i>result</i> = <i>result &#8746; {t[X]}</i>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [14/16]</div> <div class="slideCl1    " id="s15">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s14"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s16"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Projection <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Examples of projection:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/projection2.png]" src="./Relational Algebra_files/projection2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [15/16]</div> <div class="slideCl1    " id="s16">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s15"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/rel-algebra/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Projection <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Querying with relational algebra (projection)...
+</p><ul>
+<br>
+<li> Names of all beers
+<p></p><pre>Result = Proj[name](Beers)
+</pre><p>
+</p></li><li> Names of drinkers who live in Newtown
+<p></p><pre>Result = Proj[name](Sel[addr=Newtown](Drinkers))
+</pre><p>
+</p></li><li> What are all of the breweries?
+<p></p><pre>Result(brewer) = Proj[manf](Beers)
+</pre><p>
+</p></li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; Relational Algebra &#9826; [16/16]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 6 Nov 2020</span>
+ <script src="./Relational Algebra_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./Relational Algebra_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 12414px; width: 907px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 12414px; width: 907px;"></div></html>

@@ -1,0 +1,364 @@
+
+<!-- saved from url=(0073)https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>RA Join Operations</title>
+<link href="./RA Join Operations_files/slides.css" rel="stylesheet" type="text/css">
+<script src="./RA Join Operations_files/latest.js.&#19979;&#36733;" async=""></script>
+<script src="./RA Join Operations_files/jquery.min.js.&#19979;&#36733;"></script><style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cce8cf !important;border-color:rgb(51, 58, 51) !important;background-image:none !important;color:#000000  !important}</style>
+<link href="./RA Join Operations_files/css" rel="stylesheet">
+<link href="./RA Join Operations_files/prism.css" rel="stylesheet">
+<script src="./RA Join Operations_files/sg.js.&#19979;&#36733;"></script><script type="text/javascript" async="" src="./RA Join Operations_files/MathJax.js.&#19979;&#36733;"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div>
+<body style="" class="vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+ <div class="slideCl1" id="s0">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s1"><span class="nextArrowCl">&gt;&gt;</span></a> </div> <div class="heading">RA Join Operations</div><p></p><ul class="indexUl" style="font-size: 0.7em;"><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s1">RA Operations to Combine Relations</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s2">Product</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s4">Natural Join</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s6">Theta Join</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s9">Outer Join</a>
+</li><li class="i"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s11">Division</a>
+</li></ul></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [0/13]</div> <div class="slideCl1    " id="s1">
+<div class="navCl1"> <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s2"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; RA Operations to Combine Relations</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<br>
+Relational algebra has several ways to combine info from relations
+</p><ul>
+<li> product &nbsp; ... &nbsp; R × S &nbsp; ... &nbsp; <small>select * from R join S on (true)</small>
+</li><li> natural join &nbsp; ... &nbsp; R &#10781; S &nbsp; ... &nbsp; <small>select * from R natural join S</small>
+</li><li> (inner) join &nbsp; ... &nbsp; R &#10781;<sub>C</sub> S &nbsp; ... &nbsp; <small>select * from R join S on (C)</small>
+</li><li> outer join &nbsp; ... &nbsp; R &#10197;<sub>C</sub> S &nbsp; ... &nbsp; <small>select * from R left outer join S on (C)</small>
+</li><li> division &nbsp; ... &nbsp; R / S &nbsp; ... &nbsp; <small>see SQL slides for examples</small>
+</li></ul>
+Join conditions involve related attributes from the two relations
+<p>
+Frequently, primary-key joined with foreign-key
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [1/13]</div> <div class="slideCl1    " id="s2">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s1"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s3"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Product</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Product</font> (Cartesian product) combines information from
+two relations pairwise on tuples.
+</p><p>
+</p><div class="center">
+<i>r × s</i> &nbsp; = &nbsp; { <i>(t<sub>1</sub> : t<sub>2</sub>)</i> &nbsp;|&nbsp; <i>t<sub>1</sub> &#8712; r &#8743; t<sub>2</sub> &#8712; s</i> }, &nbsp;&nbsp;&nbsp; where <i>r(R), s(S)</i>
+</div>
+<p>
+Each tuple in the result contains all attributes from <i>r</i> and <i>s</i>,
+possibly with some fields renamed to avoid ambiguity.
+</p><p>
+If <i>t<sub>1</sub> = (A<sub>1</sub>...A<sub>n</sub>)</i> and
+   <i>t<sub>2</sub> = (B<sub>1</sub>...B<sub>n</sub>)</i> then
+   <i>(t<sub>1</sub>:t<sub>2</sub>) = (A<sub>1</sub>...A<sub>n</sub>,B<sub>1</sub>...B<sub>n</sub>)</i>
+</p><p>
+Result size is <big><font color="#0000BB">large</font></big>: &nbsp; |<i>r × s</i>| = |<i>r</i>|.|<i>s</i>|
+&nbsp;&nbsp;&nbsp;
+Schema: <i>R&#8746;S</i>
+</p><p>
+Algorithmic view:
+</p><p></p><pre><i>result</i> = {}
+for each tuple <i>t<sub>1</sub></i> in relation <i>r</i>
+    for each tuple <i>t<sub>2</sub></i> in relation <i>s</i>
+        <i>result</i> = <i>result &#8746; {(<i>t<sub>1</sub>:t<sub>2</sub></i>)}</i> }
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [2/13]</div> <div class="slideCl1    " id="s3">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s2"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s4"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Product <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of product:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/product.png]" src="./RA Join Operations_files/product.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [3/13]</div> <div class="slideCl1    " id="s4">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s3"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s5"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Natural Join</div></td><td align="right"></td></tr></tbody></table>
+<p>
+<font color="#0000BB">Natural join</font> is a specialised product:
+</p><ul>
+<li> containing only pairs that match on <font color="#0000BB">common</font> attributes
+</li><li> with one of each pair of common attributes eliminated
+</li></ul>
+Consider relation schemas <i>R(ABC..J<font color="#008800">KLM</font>)</i>,  <i>S(<font color="#008800">KLM</font>N..XYZ)</i>.
+<p>
+The natural join of relations <i>r(R)</i> and <i>s(S)</i> is defined as:
+</p><p>
+</p><div class="center">
+<i>r &#10781; s</i> &nbsp; = &nbsp; <i>r Join s</i> &nbsp; = &nbsp; 
+	{ <i>(t<sub>1</sub>[ABC..J] : t<sub>2</sub>[K..XYZ])</i> &nbsp;|&nbsp;
+	  <i>t<sub>1</sub> &#8712; r &#8743; t<sub>2</sub> &#8712; s &#8743; match</i>
+	}
+<p>
+where &nbsp;&nbsp; <i>match</i> &nbsp; = &nbsp;
+		<i>t<sub>1</sub>[K] = t<sub>2</sub>[K] &#8743;
+		t<sub>1</sub>[L] = t<sub>2</sub>[L] &#8743;
+		t<sub>1</sub>[M] = t<sub>2</sub>[M]</i>
+</p></div>
+<p>
+Algorithmic view:
+</p><p></p><pre><i>result</i> = {}
+for each tuple <i>t<sub>1</sub></i> in relation <i>r</i>
+   for each tuple <i>t<sub>2</sub></i> in relation <i>s</i>
+      if (<i>matches(t<sub>1</sub>,t<sub>2</sub>)</i>)
+         <i>result</i> = <i>result &#8746; {combine(<i>t<sub>1</sub>,t<sub>2</sub></i>)}</i>
+</pre><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [4/13]</div> <div class="slideCl1    " id="s5">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s4"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s6"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Natural Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of natural join:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/nat-join.png]" src="./RA Join Operations_files/nat-join.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [5/13]</div> <div class="slideCl1    " id="s6">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s5"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s7"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Theta Join</div></td><td align="right"></td></tr></tbody></table>
+<p>
+The <font color="#0000BB">theta join</font> is a specialised product
+containing only pairs that match on a supplied condition <i>C</i>.
+</p><p>
+</p><div class="center">
+<i>r &#10781;<sub>C</sub> s</i> &nbsp; = &nbsp; { <i>(t<sub>1</sub> : t<sub>2</sub>)</i> &nbsp;|&nbsp; <i>t<sub>1</sub> &#8712; r &#8743; t<sub>2</sub> &#8712; s &#8743; C(t<sub>1</sub> : t<sub>2</sub>)</i> }, <br>
+where <i>r(R),s(S)</i>
+</div>
+<p>
+Examples: &nbsp; <i>(r1 Join[B&gt;E] r2)</i> ... <i>(r1 Join[E&lt;D&#8743;C=G] r2)</i>
+</p><p>
+All attribute names are required to be distinct <small>(cf natural join)</small>
+</p><p>
+Can be defined in terms of other RA operations:
+</p><p>
+</p><div class="center">
+<i>r &#10781;<sub>C</sub> s</i> &nbsp; = &nbsp; <i>r Join[C] s</i> &nbsp; = &nbsp; <i> Sel[C] ( r × s )</i>
+</div>
+<p>
+Note that &nbsp; <i>r &#10781;<sub>true</sub> s &nbsp; = &nbsp; r × s</i>.
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [6/13]</div> <div class="slideCl1    " id="s7">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s6"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s8"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Theta Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example theta join:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/join2.png]" src="./RA Join Operations_files/join2.png">
+</div><p>
+</p><p align="right">(Theta join is the most frequently-used join in SQL queries)</p>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [7/13]</div> <div class="slideCl1    " id="s8">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s7"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s9"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Theta Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Querying with relational algebra (join) ...
+</p><ul>
+<li> Who drinks in Newtown bars?
+<p></p><pre style="font-size:90%">NewtownBars(nbar) = Sel[addr=Newtown](Bars)
+Tmp = Frequents Join[bar=nbar] NewtownBars
+Result(drinker) = Proj[drinker](Tmp)
+</pre><p>
+</p></li><li> Who drinks beers made by Carlton?
+<p></p><pre style="font-size:90%">CarltonBeers = Sel[manf=Carlton](Beers)
+Tmp = Likes Join[beer=name] CarltonBeers
+Result(drinker) = Proj[drinker)Tmp
+</pre><p>
+</p></li></ul>
+<p><br>
+Reminder: projection removes duplicates
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [8/13]</div> <div class="slideCl1    " id="s9">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s8"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s10"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join</div></td><td align="right"></td></tr></tbody></table>
+<p>
+R &#10781;<sub>C</sub> S does not include in its result
+</p><ul>
+<li> values from any R tuples that do not match some S tuple under C
+</li><li> values from any S tuples that do not match some R tuple under C
+</li></ul>
+R &#10197;<sub>C</sub> S (left outer join) includes
+<ul>
+<li> all tuples that would result from a theta join
+</li><li> values from all R tuples, even with no matching S tuple
+</li></ul>
+For tuples with no match, assign NULL to "unmatched" attributes
+<p><br>
+Variants are <font color="#0000BB">right outer join</font> and <font color="#0000BB">full outer join</font>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [9/13]</div> <div class="slideCl1    " id="s10">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s9"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s11"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Outer Join <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example left outer join:
+</p><p>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/outer.png]" src="./RA Join Operations_files/outer.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [10/13]</div> <div class="slideCl1    " id="s11">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s10"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s12"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Division</div></td><td align="right"></td></tr></tbody></table>
+<p>
+Consider two relation schemas <i>R</i> and <i>S</i> where <i>S &#8834; R</i>.
+</p><p>
+The <font color="#0000BB">division</font> operation is defined on instances <i>r(R)</i>, <i>s(S)</i> as:
+</p><p>
+</p><div class="center">
+<i>r / s</i> &nbsp; = &nbsp; <i>r Div s</i> &nbsp; = &nbsp;
+	{ <i>t</i> | <i>t &#8712; r[R-S] &#8743; satisfy</i> }
+<p>
+where &nbsp; <i>satisfy</i> &nbsp; = &nbsp; <i>&#8704; t<sub>s</sub> &#8712; S ( &#8707; t<sub>r</sub> &#8712; R ( t<sub>r</sub>[S] = t<sub>s</sub> &#8743; t<sub>r</sub>[R-S] = t ) )</i>
+</p></div>
+<p>
+Operationally:
+</p><ul>
+<li> consider each subset of tuples in <i>R</i> that match on <i>t[R-S]</i>
+</li><li> for this subset of tuples, take the <i>t[S]</i> values from each
+</li><li> if this covers all tuples in <i>S</i>, then include <i>t[R-S]</i> in the result
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [11/13]</div> <div class="slideCl1    " id="s12">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s11"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s13"><span class="nextArrowCl"> &gt;&gt; </span></a> </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Division <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Example of division:
+</p><p><br>
+</p><p></p><div align="center">
+<img alt="[Diagram:Pics/relalg/division2.png]" src="./RA Join Operations_files/division2.png">
+</div><p>
+</p></div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [12/13]</div> <div class="slideCl1    " id="s13">
+<div class="navCl1"><a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s12"><span class="prevArrowCl"> &lt;&lt; </span></a>  <a href="https://cgi.cse.unsw.edu.au/~cs3311/21T3/lectures/ra-join-ops/slides.html#s0"><span class="upArrowCl">&#8743;</span></a>   </div> <table width="100%" cellpadding="0">
+<tbody><tr valign="top"><td align="left"><div class="heading">&#10070; Division <span style="font-size:67%">(cont)</span></div></td><td align="right"></td></tr></tbody></table>
+<p>
+Querying with relational algebra (division) ...
+</p><p>
+Division handles queries that include the notion "for all".
+</p><p>
+E.g. Which beers are sold in all bars?
+</p><p>
+We can answer this as follows:
+</p><ul>
+<li> generate a relation of beers and bars where they are sold
+<ul>
+<li>	<i>r1 = Proj[beer,bar](Sold)</i>
+</li></ul>
+</li><li> generate a relation of all bars
+<ul>
+<li> <i>r2 = Rename[r2(bar)](Proj[name](Bars))</i>
+</li></ul>
+</li><li> find which beers appear in tuples with <font color="#0000BB">every</font> bar
+<ul>
+<li> <i>res &nbsp; = r1 &nbsp;Div&nbsp; r2</i>
+</li></ul>
+</li></ul>
+</div>
+<div class="slideNumCl2">COMP3311 20T3 &#9826; RA Join Operations &#9826; [13/13]</div><p></p><hr><p>
+<span style="font-size:11px;color: grey;">Produced: 11 Nov 2020</span>
+ <script src="./RA Join Operations_files/prism.js.&#19979;&#36733;"></script>   
+ <script src="./RA Join Operations_files/sg.js.&#19979;&#36733;"></script>   
+
+
+</p></body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); height: 10991px; width: 840px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 10991px; width: 840px;"></div></html>

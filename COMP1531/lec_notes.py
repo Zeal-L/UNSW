@@ -319,17 +319,36 @@
 # if __name__ == '__main__':
 #     print(acro(input("What is the name? ")))
 
+#?--------------------------------------------------
 
-from urllib import request
-from PIL import Image
-import io
+# from urllib import request
+# from PIL import Image
+# import io
 
-img_url = 'http://pic3.zhimg.com/50/v2-d17cdaea9ef029429bcf29929b42d8a0_hd.jpg'
+# img_url = 'http://pic3.zhimg.com/50/v2-d17cdaea9ef029429bcf29929b42d8a0_hd.jpg'
 
 
-descriptor = request.urlopen(img_url)
-file = io.BytesIO(descriptor.read())
-image = Image.open(file)
-print(image.size)
-image.show()
+# descriptor = request.urlopen(img_url)
+# file = io.BytesIO(descriptor.read())
+# image = Image.open(file)
+# print(image.size)
+# image.show()
+
+#?--------------------------------------------------
+
+def shopping_list():
+    yield 'apple'
+    yield 'orange'
+    yield 'banana'
+    yield 'pineapple'
+
+g = shopping_list()
+print(next(g))
+print(next(g))
+
+for item in g:
+    print(item)
+
+#?--------------------------------------------------
+
 

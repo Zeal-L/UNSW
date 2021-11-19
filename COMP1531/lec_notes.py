@@ -1,3 +1,6 @@
+"""
+i
+"""
 # items = ['a', 'b', 'c', 'd']
 
 # for idx, item in enumerate(items):
@@ -309,7 +312,7 @@
 #     sleep(1)
 #     bar.set_description(f"Now get {letter}")
 
-# pylint a.py --load-plugins=pylint.extensions.mccabe
+# pylint a.py --load-plugins=pylint.extensions.mccabe --max-complexity=0
 
 #?--------------------------------------------------
 
@@ -336,18 +339,28 @@
 
 #?--------------------------------------------------
 
-def shopping_list():
-    yield 'apple'
-    yield 'orange'
-    yield 'banana'
-    yield 'pineapple'
+# def shopping_list():
+#     yield 'apple'
+#     yield 'orange'
+#     yield 'banana'
+#     yield 'pineapple'
+# g = shopping_list()
+# print(next(g))
+# print(next(g))
+# for item in g:
+#     print(item)
 
-g = shopping_list()
-print(next(g))
-print(next(g))
 
-for item in g:
-    print(item)
+# def squares():
+#     i = 0
+#     while True:
+#         i += 1
+#         yield i * i
+# s = squares()
+# for i in s:
+#     if i > 100:
+#         break
+#     print(i)
 
 #?--------------------------------------------------
 

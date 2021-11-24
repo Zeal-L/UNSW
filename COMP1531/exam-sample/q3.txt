@@ -1,0 +1,9 @@
+Continuous delivery is where an automated deployment is triggered via manual
+human action. An example would be clicking "Deploy" on a gitlab pipeline.
+
+Continuous deployment is where an automated deployment is triggered in
+automated way, e.g. after a repo passes all necessary pipelines.
+
+持续交付是指通过人类的手动操作来触发自动部署。一个例子是在gitlab管道上点击 "部署"。
+
+持续部署是指以自动化的方式触发自动部署，例如，在 repo 通过所有必要的管道之后。

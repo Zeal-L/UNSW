@@ -1,0 +1,9 @@
+> A burger with plenty of pickles and a mayonnaise that doesn't make the burger soggy
+> Make it five minutes before and not too hot.
+> Place in a brown paper bag
+
+* The burger shall have lots of pickles
+* The burger shall have lots of mayo
+* The burger bun shall remain not wet
+* The burger shall be warm enough to not burn anyone
+* The burger shall be packaged in a brown paper bag

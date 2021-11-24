@@ -1,0 +1,5 @@
+As an opal customer, I want my opal card tap to respond quicker, so that I can get through the gate without worrying of someone hitting me from behind
+
+作为一名蛋白石客户，我希望我的蛋白石卡龙头能更快地做出反应，这样我就能通过大门，而不用担心有人从后面打我。
+
+As a < type of user >, I want < some goal > so that < some reason >

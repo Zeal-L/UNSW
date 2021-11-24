@@ -1,0 +1,3 @@
+JSON is a non-whitespace sensitive, verbose, markup language. YAML is a more concise, though white-space sensitive, language. JSON has the advantage of being able to be serialized/packaged and sent as a string or stored as as tring. YAML has the advantage of being more readable, e.g. for configuration files
+
+JSON是一种非空格敏感的、冗长的标记语言。YAML 是一种更简洁的语言，虽然对白空间敏感。JSON的优点是能够被序列化/打包并作为字符串发送或作为tring存储。YAML的优点是更易读，例如，对于配置文件来说。

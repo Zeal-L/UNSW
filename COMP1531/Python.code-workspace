@@ -8,17 +8,6 @@
 		},
 		{
 			"path": "..\\COMP3121"
-		},
-		{
-			"path": "..\\..\\COMP1531 Labs"
-		},
-		{
-			"name": "project-backend",
-			"path": "..\\..\\COMP1531 Labs\\project-backend"
-		},
-		{
-			"name": "project-frontend",
-			"path": "..\\..\\COMP1531 Labs\\project-frontend"
 		}
 	],
 	"settings": {
@@ -74,6 +63,7 @@
 			"authorise",
 			"dbname",
 			"defby",
+			"elems",
 			"enrolments",
 			"mymyunsw",
 			"ndim",

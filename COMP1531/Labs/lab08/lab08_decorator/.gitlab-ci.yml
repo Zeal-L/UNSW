@@ -1,0 +1,20 @@
+# DO NOT CHANGE THIS FILE!
+#
+# This is run on a non-standard gitlab runner so any changes you make may break in unexpected ways.
+# If you feel for some reason this file MUST be changed, please post on the course forum so it can
+# be discussed between you and course staff.
+#
+image: comp1531/basic:20T3
+
+stages:
+  - checks
+
+sanity:
+  stage: checks
+  script:
+    - bash tests.sh
+
+pylint:
+  stage: checks
+  script:
+    - pylint *.py

@@ -1,0 +1,1 @@
+{"users": [{"u_id": 1, "email": "testuser1@gmail.com", "name_first": "Test User", "name_last": "1", "password": "05f560c3e5787bfafff5413399a11e353e0567673810a24420e14c30b103a5be", "handle_str": "testuser1", "session_ids": [1], "permission_id": 1}], "channels": [], "dms": [], "messages": []}

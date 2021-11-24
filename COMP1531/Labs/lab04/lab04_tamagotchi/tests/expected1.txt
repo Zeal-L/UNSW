@@ -1,0 +1,80 @@
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffball
+Hunger:  ooooo
+Boredom: 
+Age:     0
+        
+Command: You already have a Tamagotchi called that.
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffball
+Hunger:  oooooo
+Boredom: o
+Age:     1
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffball
+Hunger:  ooooooo
+Boredom: oo
+Age:     2
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    fluffball
+Hunger:  oooooooo
+Boredom: ooo
+Age:     3
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    fluffball
+Hunger:  ooooooooo
+Boredom: oooo
+Age:     4
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    fluffball
+Hunger:  oooooooooo
+Boredom: ooooo
+Age:     5
+        
+Command: 
+
+Name:    fluffball
+DEAD
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffball
+Hunger:  ooooo
+Boredom: 
+Age:     0
+        
+Command: 

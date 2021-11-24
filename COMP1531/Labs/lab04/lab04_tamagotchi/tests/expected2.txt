@@ -1,0 +1,477 @@
+Command: No Tamagotchi with that name.
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    buckbeak
+Hunger:  ooooo
+Boredom: 
+Age:     0
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    buckbeak
+Hunger:  oooooo
+Boredom: o
+Age:     1
+        
+
+ _____
+/ ^_^ \
+\_____/
+Name:    norbert
+Hunger:  ooooo
+Boredom: 
+Age:     0
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    aragog
+Hunger:  ooooo
+Boredom: 
+Age:     0
+        
+
+ _____
+/ ^_^ \
+\_____/
+Name:    buckbeak
+Hunger:  ooooooo
+Boredom: oo
+Age:     2
+        
+
+ _____
+/ ^_^ \
+\_____/
+Name:    norbert
+Hunger:  oooooo
+Boredom: o
+Age:     1
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    aragog
+Hunger:  oooooo
+Boredom: o
+Age:     1
+        
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    buckbeak
+Hunger:  ooooo
+Boredom: ooo
+Age:     3
+        
+
+ _____
+/ ^_^ \
+\_____/
+Name:    norbert
+Hunger:  ooooooo
+Boredom: oo
+Age:     2
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    aragog
+Hunger:  ooooooo
+Boredom: oo
+Age:     2
+        
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    buckbeak
+Hunger:  oooooo
+Boredom: oooo
+Age:     4
+        
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    norbert
+Hunger:  ooooo
+Boredom: ooo
+Age:     3
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    aragog
+Hunger:  ooooo
+Boredom: ooo
+Age:     3
+        
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    buckbeak
+Hunger:  ooooooo
+Boredom: ooooo
+Age:     5
+        
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    norbert
+Hunger:  oooooo
+Boredom: oooo
+Age:     4
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    aragog
+Hunger:  oooooo
+Boredom: oooo
+Age:     4
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oooooooo
+Boredom: o
+Age:     6
+        
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    norbert
+Hunger:  ooooooo
+Boredom: ooooo
+Age:     5
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    aragog
+Hunger:  ooooooo
+Boredom: ooooo
+Age:     5
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oooooo
+Boredom: oo
+Age:     7
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    norbert
+Hunger:  oooooooo
+Boredom: oooooo
+Age:     6
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  oooooooo
+Boredom: oooooo
+Age:     6
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oooo
+Boredom: ooo
+Age:     8
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    norbert
+Hunger:  ooooooooo
+Boredom: ooooooo
+Age:     7
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  oooooo
+Boredom: ooooooo
+Age:     7
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  ooooo
+Boredom: oooo
+Age:     9
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    norbert
+Hunger:  oooooooooo
+Boredom: oooooooo
+Age:     8
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  ooooooo
+Boredom: ooo
+Age:     8
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oooooo
+Boredom: ooooo
+Age:     10
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  oooooooo
+Boredom: oooo
+Age:     9
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oooo
+Boredom: oooooo
+Age:     11
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  oooooo
+Boredom: ooooo
+Age:     10
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  ooooo
+Boredom: ooooooo
+Age:     12
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  ooooooo
+Boredom: oooooo
+Age:     11
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  ooo
+Boredom: oooooooo
+Age:     13
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  oooooooo
+Boredom: oo
+Age:     12
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oooo
+Boredom: ooooooooo
+Age:     14
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  ooooooooo
+Boredom: ooo
+Age:     13
+        
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    buckbeak
+Hunger:  oo
+Boredom: oooooooooo
+Age:     15
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+   ___________
+  /           \
+ /  /\     /\  \
+ \      _      /
+  \___________/
+    \_/   \_/
+Name:    aragog
+Hunger:  oooooooooo
+Boredom: 
+Age:     14
+        
+
+Name:    buckbeak
+DEAD
+        
+
+Name:    norbert
+DEAD
+        
+Command: 
+
+Name:    aragog
+DEAD
+        
+
+Name:    buckbeak
+DEAD
+        
+
+Name:    norbert
+DEAD
+        
+Command: 

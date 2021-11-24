@@ -1,0 +1,42 @@
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffy
+Hunger:  ooooo
+Boredom: 
+Age:     0
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffy
+Hunger:  oooooo
+Boredom: o
+Age:     1
+        
+Command: 
+
+ _____
+/ ^_^ \
+\_____/
+Name:    fluffy
+Hunger:  oooo
+Boredom: oo
+Age:     2
+        
+Command: 
+   _______
+  /       \
+ /  ^ _ ^  \
+ \_________/
+    U   U
+Name:    fluffy
+Hunger:  ooooo
+Boredom: 
+Age:     3
+        
+Command: 

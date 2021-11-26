@@ -1,0 +1,4 @@
+Continuous Delivery: Continuous delivery means that automatic deployments are triggered by human manual actions. For example by clicking "deploy" on your gitlab pipeline.
+
+Continuous Integration: Practice of automating the integration of code changes from multiple contributors into a single software project.
+For example, multiple contributors want to push and work on the same repo. One person is responsible for writing the tests and another may be responsible for doing the coverage check. And also make sure the pipeline is green and merge as much as possible.

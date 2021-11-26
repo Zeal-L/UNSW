@@ -1,0 +1,3 @@
+Look before you leap (LBYL) is an error avoidance convention that is popular in C.
+
+For example by specifying the type for each variable so that exceptions are not needed.

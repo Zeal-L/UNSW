@@ -57,6 +57,16 @@
 				"username": "zeal",
 				"database": "mymyunsw",
 				"password": ""
+			},
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "footy",
+				"database": "footy",
+				"username": "zeal",
+				"password": ""
 			}
 		],
 		"cSpell.words": [
@@ -93,5 +103,5 @@
 				"args": ["5135070"]
 			}
 		]
-	}
+	},
 }

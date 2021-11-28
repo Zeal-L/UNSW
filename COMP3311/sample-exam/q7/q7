@@ -1,0 +1,55 @@
+#!C:\Users\Zeal\AppData\Local\Programs\Python\Python39\python
+
+
+# COMP3311 20T2 Final Exam
+# Q7: print a specified player's career performance
+
+import sys
+import psycopg2
+
+# ... put any helper functions here ...
+
+db = None
+cur = None
+
+if len(sys.argv) < 2:
+    print(f"Usage: {sys.argv[0]} PlayerName")
+    exit(1)
+player = sys.argv[1]
+
+try:
+    db = psycopg2.connect("dbname=footy")
+    check = db.cursor()
+    check.execute("select * from players where name = %s", [player])
+    if check.fetchone() is None:
+        print("No such player")
+        exit(1)
+
+    cur = db.cursor()
+    cur.execute("select m.city, m.playedon, count(*) from players p\
+        join goals g on g.scoredby = p.id\
+        join matches m on m.id = g.scoredin\
+        join teams t on p.memberof = t.id \
+        where p.name = %s\
+        group by m.city, m.playedon    \
+        order by m.playedon", [player])
+    Total = 0
+    for tup in cur.fetchall():
+        print(f"played in {tup[0]} on {tup[1]} and scored {tup[2]} goal")
+        Total += tup[2]
+    cur.execute("select t.country, count(*) from involves inv\
+        join teams t on t.id = inv.team\
+        join players p on p.memberof = t.id\
+        where p.name = %s\
+        group by t.country;", [player])
+    temp = cur.fetchone()
+    print(f"Summary: played for {temp[0]}, {temp[1]} matches, {Total} goals")
+
+
+except psycopg2.Error as err:
+    print("DB error: ", err)
+finally:
+    if cur:
+        cur.close()
+    if db:
+        db.close()

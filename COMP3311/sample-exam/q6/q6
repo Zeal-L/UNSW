@@ -1,0 +1,96 @@
+#!C:\Users\Zeal\AppData\Local\Programs\Python\Python39\python
+
+#!/usr/bin/python3
+# COMP3311 20T2 Final Exam
+# Q6: print match reports for a specified team in a given year
+
+import sys
+import psycopg2
+
+# ... put helper functions here ...
+
+db = None
+cur = None
+
+if len(sys.argv) < 3:
+    print(f"Usage: {sys.argv[0]} TeamName Year")
+    exit(1)
+team = sys.argv[1]
+year = sys.argv[2]
+if not year.isnumeric():
+    print(f"Invalid year {year}")
+    exit(1)
+
+match_report = "select inv.match, m.city, m.playedon from teams t \
+                join involves inv on t.id = inv.team \
+                join matches m on inv.match = m.id \
+                where t.country = %s and TO_CHAR(m.playedon, 'YYYY-MM-DD') ~ '^%s'\
+                order by m.playedon\
+                "
+
+goalsinfo = "select count(*) from teams t \
+                join involves inv on t.id = inv.team \
+                join matches m on inv.match = m.id \
+                join goals g on g.scoredin = m.id    \
+                join players p on g.scoredby = p.id   \
+                where p.memberof = t.id and t.country = %s and inv.match = %s"
+
+try:
+    db = psycopg2.connect("dbname=footy")
+    # ... your code goes here ...
+    check = db.cursor()
+    check.execute("select * from teams where country = %s", [team])
+    if check.fetchone() is None:
+        print(f"No team '{team}'")
+        exit(1)
+
+    check.execute(match_report, [team, int(year)])
+    if check.fetchone() is None:
+        print("No matches")
+        exit(1)
+
+    cur = db.cursor()
+    cur.execute(match_report, [team, int(year)])
+    info = []
+    for tup in cur.fetchall():
+        temp = db.cursor()
+        temp.execute("select t.country from teams t \
+                    join involves inv on t.id = inv.team \
+                    where inv.match = %s and t.country != %s",[tup[0], team])
+        against = temp.fetchone()[0]
+        goals = db.cursor()
+        goals.execute(goalsinfo, [team, tup[0]])
+        team1 = goals.fetchone()[0]
+        goals.execute(goalsinfo, [against, tup[0]])
+        team2 = goals.fetchone()[0]
+
+        info.append({
+            "against" : against,
+            "city" : tup[1],
+            "playedon" : tup[2],
+            "team1" : team1,
+            "team2" : team2
+        })
+
+    for match in info:
+        W_L = ''
+        if match["team1"] > match["team2"]:
+            W_L = 'won'
+        elif match["team1"] < match["team2"]:
+            W_L = 'lost'
+        else:
+            W_L = 'drew'
+
+        print(f"played {match['against']} in {match['city']} on {match['playedon']} and {W_L} {match['team1']}-{match['team2']}")
+
+
+
+
+
+except psycopg2.Error as err:
+    print("DB error: ", err)
+finally:
+    if db:
+        db.close()
+    if cur:
+        cur.close()

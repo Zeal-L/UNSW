@@ -1,0 +1,19 @@
+# COMP3311 20T3 Final Exam Q9
+
+(a)
+
+create or replace function fixCoursesOnAddCourseEnrolment()
+... add rest of function definition here ...
+
+
+(b)
+
+create or replace function fixCoursesOnDropCourseEnrolment()
+... add rest of function definition here ...
+
+
+(c)
+
+create or replace function fixCoursesOnModCourseEnrolment()
+... add rest of function definition here ...
+

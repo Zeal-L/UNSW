@@ -1,0 +1,18 @@
+    team     | nmatches 
+-------------+----------
+ Argentina   |       54
+ Australia   |       50
+ Brazil      |       60
+ China       |       53
+ England     |       48
+ France      |       52
+ Germany     |       56
+ Iran        |       49
+ Italy       |       38
+ Japan       |       61
+ Korea       |       46
+ Netherlands |       53
+ Spain       |       64
+ Sweden      |       67
+ Uruguay     |       49
+(15 rows)

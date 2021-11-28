@@ -1,0 +1,61 @@
+#!/bin/sh
+
+case $# in
+1) Q="$1" ;;
+2) echo "Usage: ./check qX, where X in 1..7" ; exit 1 ;;
+esac
+
+if [ ! -d tests ]
+then
+	echo "No tests directory? Are you in the right place?"
+	exit 1
+fi
+
+SQL="$Q.sql"
+if [ ! -r "$SQL" ]
+then
+	echo "No $SQL file? Are you in the right place?"
+	exit 1
+fi
+
+psql footy -f "$SQL" 2>&1 | grep ERR > tests/00.observed
+diffs=`diff tests/00.expected tests/00.observed`
+if [ ! -z "$diffs" ]
+then
+	echo "Load of $SQL failed. Fix the errors and try again"
+	cat tests/00.observed
+	exit 1
+fi
+
+ulimit -t 2
+for t in 01 02 03 04 05
+do
+	if [ ! -r "tests/$t.sh" ]
+	then
+		break
+	fi
+	sh tests/$t.sh | head -200 | grep -v '^SET' | grep -v '^$' > tests/$t.observed
+	diffs=`diff tests/$t.expected tests/$t.observed`
+	if [ -z "$diffs" ]
+	then
+		echo "Test $t PASSED"
+	else
+		diffs=`diff -w tests/$t.observed tests/$t.expected`
+		if [ -z "$diffs" ]
+		then
+			echo Test $t Difference in spaces
+		else
+			sort tests/$t.observed > tests/$t.sorted1
+			sort tests/$t.expected > tests/$t.sorted2
+			diffs=`diff -w tests/$t.sorted1 tests/$t.sorted2`
+			rm -f tests/$t.sorted1 tests/$t.sorted2
+			if [ -z "$diffs" ]
+			then
+				echo Test $t Different order
+			else
+				echo Test $t FAILED
+			fi
+		fi
+		echo "Check differences using 'diff tests/$t.observed tests/$t.expected'"
+	fi
+done

@@ -1,0 +1,17 @@
+# COMP3311 21T3 Final Exam Q8
+# Query execution times
+
+(A)
+
+Because the database will cache the information in
+the tuples after the first query,the second identical
+query will naturally be much faster
+
+
+(B)
+
+Because id and birthday are not the same type,
+integer types are naturally faster to handle than date types
+
+
+

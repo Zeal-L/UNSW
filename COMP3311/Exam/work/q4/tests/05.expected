@@ -1,0 +1,13 @@
+  id   |   ptype   |                address                 
+-------+-----------+----------------------------------------
+ 45678 | House     | 10 Moira Crescent, Coogee 2034
+ 45679 | Apartment | 16/97 Paul Street, Bondi Junction 2022
+ 45680 | House     | 66 Jellicoe Avenue, Kingsford 2032
+ 45681 | Apartment | 11/41 Raleigh Street, Coogee 2034
+ 45682 | House     | 94 Burrows Road, Alexandria 2015
+ 45683 | Apartment | 9/7 Forsyth Street, Kingsford 2032
+ 45684 | Townhouse | 50 Court Avenue, Kingsford 2032
+ 45685 | House     | 191 Botany Road, Alexandria 2015
+ 45686 | Apartment | 20/28 Quail Street, Coogee 2034
+ 45687 | House     | 19 Holland Street, Alexandria 2015
+(10 rows)

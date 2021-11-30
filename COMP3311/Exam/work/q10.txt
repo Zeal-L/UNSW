@@ -1,0 +1,20 @@
+# COMP3311 21T3 Final Exam Q10
+# BCNF normalization
+
+(A)
+FDs:  A→BCD, D→EF
+
+
+
+(B)
+(Attrs)ABCDEF   (fDS) A→BCD, D→EF   (KEY)A
+(Attrs)ABCD     (fDS) A→BCD         (KEY)A
+(Attrs)DEF      (fDS) D→EF          (KEY)D
+Solution: Two tables: ABCD, DEF
+
+(C)
+ABCD table represents the student's information, the topic chosen and the corresponding Supervisor.
+DEF table represents the Supervisor's information and his/her speciality.
+
+
+

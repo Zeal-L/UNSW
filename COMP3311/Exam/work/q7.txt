@@ -1,0 +1,17 @@
+# COMP3311 21T3 Final Exam Q7
+# Python/Psycopg2 scripts
+
+(A)
+Yes it is the same
+
+
+(B)
+
+A called execute() 11 times
+B called execute() 1 times
+
+(C)
+
+Of course B is faster
+
+

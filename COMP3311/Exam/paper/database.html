@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <b>[Database]</b> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<p>
+We have designed and built a database of (fake) information about
+properties in several Sydney suburbs.
+This database contains information about properties, streets,
+suburbs, and features of properties (e.g. number of bedrooms).
+The following ER design describes this database:
+<center>
+<img src="Pics/property-db.png">
+</center>
+<p>
+Note that we have omitted some attributes in the above diagram.
+Also, we have not copied the relationship names into the SQL schema.
+Details are available in the SQL schema below:
+</p>
+<pre>
+create type StreetType as enum
+	( 'Avenue', 'Close', 'Crescent', 'Drive', 'Highway',
+	  'Parade', 'Place', 'Road', 'Street'
+	);
+create type PropertyType as enum
+	( 'Apartment', 'House', 'Townhouse' );
+create type FeatureType as enum
+	( 'bedrooms', 'bathrooms', 'carspaces', 'pool', 'elevator' );
+create domain PriceType integer check (value > 100000);
+
+create table Suburbs (
+	id          integer,
+	name        text not null,
+	postcode    integer not null,
+	primary key (id)
+);
+
+create table Streets (
+	id          integer,
+	name        text not null,
+	stype       StreetType not null,
+	suburb      integer not null references Suburbs(id),
+	primary key (id)
+);
+
+create table Properties (
+	id          integer,
+	unit_no     integer,    -- null if not an Apartment
+	street_no   integer not null,
+	street      integer not null references Streets(id),
+	ptype       PropertyType not null,
+	list_price  PriceType not null,
+	sold_price  PriceType,  -- null if not yet sold
+	sold_date   date,       -- null if not yet sold
+	primary key (id)
+);
+
+create table Features (
+	property	integer references Properties(id),
+	feature     FeatureType,  -- e.g. # bedrooms
+	number      integer check (number between 1 and 10),
+	primary key (property,feature)
+);
+
+</pre>
+<p>
+Notes on the above schema:
+</p>
+<ul>
+<li> the schema is heavily normalised
+<li> there are only four suburbs with properties; not all streets have a listed property
+<li> properties have two price attributes:
+<ul>
+<li> <tt>list_price</tt> is set when the property is added to the database
+and is a price guide for potential buyers
+<li> <tt>sold_price</tt> is set when the property is sold; it may be different to the list price (could be higher or lower)
+</ul>
+<li> all properties have at least one bedroom and at least one bathroom
+(with details in the <tt>Features</tt> table)
+<li> for each property, there is at most one entry for each feature type (the <tt>number</tt> attribute tells how many instances)
+<li> properties with a null <tt>sold_price</tt> are still on the market (unsold)
+</ul>
+<p>
+You should familiarise yourself with this schema
+before proceeding to solve the queries.
+It would also be useful to examine the database contents to ensure
+that you understand what all of the data represents.
+</p>
+
+</div>
+<center><i>End of Notes</i></center>
+</body>
+</html>

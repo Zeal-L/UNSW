@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <b>[Q5]</b> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 5 <span class='tiny'>(9 marks)</span></h3>
+<p>
+Write a Python/Psycopg2 script that finds <em>unsold</em> properties matching
+criteria specified on the command line.
+</p>
+<p>
+The commnand-line arguments:
+</p>
+<ul>
+<li> <tt>sys.argv[1]</tt> = property type = Apartment or House or Townhouse
+<li> <tt>sys.argv[2]</tt> = maximum acceptable price
+<li> <tt>sys.argv[3]</tt> = exact number of bedrooms, or 0 = don't care
+<li> <tt>sys.argv[4]</tt> = exact number of bathrooms, or 0 = don't care
+<li> <tt>sys.argv[5]</tt> = exact number of carspaces, or 0 = don't care
+</ul>
+<p>
+Each line of output consists of:
+</p>
+<ul>
+<li> the property ID
+<li> the full adress
+<li> # bedrooms, # bathrooms, # carspaces
+<li> the list price
+</ul>
+<p>
+The properties should be listed from cheapest to most expensive.
+If several properties have same price, order them by property ID.
+<p>
+The examples below show examples the use of the script, and the precise
+format of the output:
+</p>
+<pre>
+$ <b>python3 ./q5 999</b>
+No such property
+
+<span class="comment"># any apartment costing up to $700,000 </span>
+$ <b>python3 ./q5 Apartment 700000 0 0 0</b>
+#46428: 5/74 Leonard Avenue, Kingsford 2032, 1br, 1ba, 0car, $620000
+#45874: 13/94 Jellicoe Avenue, Kingsford 2032, 1br, 1ba, 1car, $647000
+#46784: 7/38 Borrodale Road, Kingsford 2032, 1br, 1ba, 0car, $695000
+
+<span class="comment"># two bedroom apartments up to $800,000 </span>
+$ <b>python3 ./q5 Apartment 800000 2 0 0</b>
+#46423: 18/9 Smith Street, Kingsford 2032, 2br, 1ba, 1car, $786000
+
+<span class="comment"># 3 bedroom, 2 bathroom, apartment up to $1million </span>
+$ <b>python3 ./q5 Apartment 1000000 3 2 0</b>
+#46106: 5/87 Fischer Street, Kingsford 2032, 3br, 2ba, 0car, $847000
+#45760: 7/95 Jacques Street, Kingsford 2032, 3br, 2ba, 1car, $888000
+
+<span class="comment"># 3 bedroom, 2 bathroom, 1 carspace apartment up to $1million </span>
+$ <b>python3 ./q5 Apartment 1000000 3 2 1</b>
+#45760: 7/95 Jacques Street, Kingsford 2032, 3br, 2ba, 1car, $888000
+
+<span class="comment"># 5 bedroom, 3 bathroom house up to $2,500,000 </span>
+$ <b>python3 ./q5 House 2500000 5 3 0</b>
+#46053: 480 Bunnerong Road, Kingsford 2032, 5br, 3ba, 2car, $2114000
+#46387: 7 Willis Street, Kingsford 2032, 5br, 3ba, 1car, $2192000
+#46577: 9 See Street, Kingsford 2032, 5br, 3ba, 1car, $2356000
+</pre>
+<p>There are more examples in the <tt>tests/*.sh</tt>
+and <tt>tests/*.expected</tt> files.
+</p>
+<p> <b>Instructions:</b> </p>
+<ul>
+<li> Put the Python code in the file <tt>q5</tt>
+<li> Put any Python helper functions in this file as well
+<li> Any helper views or PLpgSQL functions must be defined in <tt>q1</tt> to <tt>q4</tt>
+<li> Check it using: &nbsp; <tt>sh check q5</tt>
+<li> Submit it using: &nbsp; <tt>give cs3311 exam_q5 q5</tt> &nbsp;or&nbsp; Webcms3
+</ul>
+<p>
+Note: if the script won't execute properly as <tt>./q5</tt>,
+try <tt>python3 ./q5</tt> or whatever name the appropriate
+Python interpreter has in your environment.
+</p>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

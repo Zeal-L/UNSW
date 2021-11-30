@@ -1,0 +1,41 @@
+# COMP3311 21T3 Final Exam Q6
+# SQL schema from ER design
+
+create table User (
+	id          serial,
+	name        text not null,
+	email    	text not null,
+	primary key (id)
+);
+
+create table Recipe (
+	id          serial,
+	title    	text not null,
+	primary key (id)
+);
+
+create table Owns (
+	_user 	serial references User(id),
+	_recipe serial references Recipe(id),
+	primary key (_user, _recipe)
+);
+
+create table Tags (
+	id		serial references Recipe(id),
+	tag    	text not null,
+	primary key (id, tag)
+);
+
+create table Uses (
+	amount  integer CHECK (amount > 0),
+	unit	text not null,
+	ingre   serial references Ingredient(id),
+	primary key (id, ingre)
+);
+
+create table Ingredient (
+	id  	serial,
+	name	text not null,
+	primary key (id)
+);
+

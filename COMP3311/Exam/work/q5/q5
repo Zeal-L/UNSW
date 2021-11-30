@@ -1,0 +1,101 @@
+#!C:\Users\Zeal\AppData\Local\Programs\Python\Python39\python
+
+
+#!/usr/bin/python3
+# COMP3311 21T3 exam ... property finder
+
+import sys
+import psycopg2
+import re
+
+# define any local helper functions here
+
+# set up some globals
+info = []
+
+usage = f"Usage: {sys.argv[0]} type maxPrice #beds #baths #cars\n"\
+    f"type is one of Apartment, House, Townhouse\n"\
+    "maxPrice is upper bound; #x = exact match; 0 means don't care"
+
+types = ["Apartment", "House", "Townhouse"]
+db = None
+
+# process command-line args
+
+argc = len(sys.argv)
+if argc < 6:
+    print(usage)
+    exit(1)
+ptype = sys.argv[1]
+if not ptype in types:
+    print(usage)
+    exit(1)
+digits = re.compile("^\d+$")
+for arg in sys.argv[2:5]:
+    if not digits.match(arg):
+        print(usage)
+        exit(1)
+
+maxPrice = int(sys.argv[2])
+nbeds = int(sys.argv[3])
+nbaths = int(sys.argv[4])
+ncars = int(sys.argv[5])
+
+# manipulate database
+
+try:
+    db = psycopg2.connect("dbname = property")
+    cur = db.cursor()
+
+    cur.execute("select p.id, f.feature, f.number, p.list_price from properties p join features f on f.property = p.id\
+                where p.sold_price is NULL and p.list_price <= %s and p.ptype = %s order by p.list_price", [maxPrice, ptype])
+
+
+    qualify = []
+
+    for tup in cur.fetchall():
+        info.append(tup)
+    last = 0
+    for i in info:
+        if i[0] == last:
+            continue
+        checkbed = False
+        checkbath = False
+        checkcar = False
+        p = i[0]
+        num_bed = 0
+        num_bath = 0
+        num_car = 0
+        for j in info:
+            if j[0] == p:
+                if j[1] == 'bedrooms':
+                    num_bed = j[2]
+                if j[1] == 'bedrooms' and j[2] == nbeds or nbeds == 0:
+                    checkbed = True
+                if j[1] == 'bathrooms':
+                    num_bath = j[2]
+                if j[1] == 'bathrooms' and j[2] == nbaths or nbaths == 0:
+                    checkbath = True
+                if j[1] == 'carspaces':
+                    num_car = j[2]
+                if j[1] == 'carspaces' and j[2] == ncars or ncars == 0:
+                    checkcar = True
+        if (checkbed and checkbath and checkcar) and p not in [i[0] for i in qualify]:
+            qualify.append([p, num_bed, num_bath, num_car, i[3]])
+        last = p
+
+    for i in qualify:
+        cur.execute("select address(%s)", [i[0]])
+        address = cur.fetchone()[0]
+        print(f'#{i[0]}: {address}, {i[1]}br, {i[2]}ba, {i[3]}car, ${i[4]}')
+
+    # print(qualify)
+
+
+
+
+except Exception as err:
+    print("DB error: ", err)
+finally:
+    if db:
+        db.close()

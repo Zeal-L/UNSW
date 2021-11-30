@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <b>[Notes]</b> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<p>
+These notes describe the environment available to you in this exam.
+Reading them carefully could potentially save you much time in completing
+the questions.
+</p>
+<p>
+We will be testing your prac questions as follows:
+</p>
+<ul>
+<li> create a new database from <tt>property.dump</tt>
+<li> load your <tt>q1.sql</tt> into the database and test it
+<li> load your <tt>q2.sql</tt> into the database and test it
+<li> load your <tt>q3.sql</tt> into the database and test it
+<li> load your <tt>q4.sql</tt> into the database and test it
+<li> run tests on your <tt>q5</tt> Python script
+</ul>
+<p>
+An important implication of this testing strategy is
+that any helper views/functions that you define in one
+question wiil be available in all subsequent questions.
+You do not need to redefine them in each file.
+Ensure that you put definitions into your files so
+that the above testing strategy works correctly.
+If you want to use SQL views and functions in your
+<tt>q5</tt> script, they will need to be defined in
+the previous questions.
+</p>
+<p>
+When you unzip the <tt>exam-work.zip</tt> file,
+the following files will be copied to your working directory:
+</p>
+<center>
+<table cellspacing="0" cellpadding="5" border="1">
+<tr>
+<td><b>File</b></td>
+<td><b>Contents</b></td>
+</tr>
+<tr>
+<td><tt>check</tt></td>
+<td>A shell script to do the testing for the prac questions</td>
+</tr>
+<tr>
+<td><tt>property.dump</tt></td>
+<td>An PostgreSQL dump of database about property for use in the prac questions</td>
+</tr>
+<tr>
+<td><tt>q1/q1.sql</tt></td>
+<td>SQL view template for Question 1 (prac)</td>
+</tr>
+<tr>
+<td><tt>q2/q2.sql</tt></td>
+<td>SQL view template for Question 2 (prac)</td>
+</tr>
+<tr>
+<td><tt>q3/q3.sql</tt></td>
+<td>SQL view template for Question 3 (prac)</td>
+</tr>
+<tr>
+<td><tt>q4/q4.sql</tt></td>
+<td>Template for PlpgSQL function for Question 4 (prac)</td>
+</tr>
+<tr>
+<td><tt>q5/q5</tt></td>
+<td>Template Python script for Question 5 (prac)</td>
+</tr>
+<tr>
+<td><tt>q6.txt</tt></td>
+<td>Template for ??? in Question 6 (written)</td>
+</tr>
+<tr>
+<td><tt>q7.txt</tt></td>
+<td>Template for ??? in Question 7 (written)</td>
+</tr>
+<tr>
+<td><tt>q8.txt</tt></td>
+<td>Template for ??? in Question 8 (written)</td>
+</tr>
+<tr>
+<td><tt>q9.txt</tt></td>
+<td>Template for ??? in Question 9 (written)</td>
+</tr>
+<tr>
+<td><tt>q10.txt</tt></td>
+<td>Template for ??? in Question 10 (written)</td>
+</tr>
+</table>
+</center>
+<p>
+The <tt>q<i>X</i>.sql</tt>, <tt>q<i>X</I></tt> (Python scripts)
+ and <tt>q<i>X</i>.txt</tt> are provided to
+save you some typing. Files with a <tt>sql</tt> suffix are part of
+the practical component of this exam and you should test that the code
+in them works before submitting.
+Similary for the Python scripts in Q6 and Q7.
+Files with a <tt>.txt</tt> suffix are part of the written component of
+the exam, and, even if they contain code, do not require testing before
+submission. Of course, you should read them carefully before submitting.
+</p>
+<p>
+Each prac question has its own directory, and each of these contains,
+along with the template file:
+</p>
+<center>
+<table cellspacing="0" cellpadding="5" border="1">
+<tr>
+<td><b>File</b></td>
+<td><b>Contents</b></td>
+</tr>
+<tr>
+<td><tt>tests/</tt></td>
+<td>A directory containing test cases for your view/function/script
+</tr>
+<tr>
+<td><tt>check</tt></td>
+<td>A shell script to run the tests</td>
+</tr>
+<tr>
+<td><tt>tests/*.sh</tt></td>
+<td>Small scripts to run each test</td>
+</tr>
+<tr>
+<td><tt>tests/*.expected</tt></td>
+<td>Expected outputs for each of the tests</td>
+</tr>
+</table>
+</center>
+<p>
+Note that each of the tests directories contains an
+empty file
+called <tt>00.expected</tt>. Do not remove this file.
+</p>
+<p>
+If you accidentally remove any of the above files,
+you can get a fresh copy via the command:
+</p>
+<pre>
+unzip exam-work.zip <i>fileName</i>
+</pre>
+<p>
+This command will ask before overwriting any existing copy
+of a file called <tt><i>fileName</i></tt>.
+</p>
+<!--
+<p>
+Be careful not to remove other files. You cannot restore them.
+It is a useful strategy to submit your work every so often.
+You are allowed to make multiple submissions; only the latest
+one will be marked.
+</p>
+-->
+<p>
+The <tt>check</tt> script will create other files in the
+<tt>tests</tt> directory when it runs its tests.
+You can examine these to help with debugging.
+</p>
+
+</div>
+<center><i>End of Notes</i></center>
+</body>
+</html>

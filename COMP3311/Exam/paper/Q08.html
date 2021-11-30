@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <b>[Q8]</b> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 8 <span class='tiny'>(4 marks)</span></h3>
+<p>
+Explain each of the following observations in 2-4 sentences.
+</p>
+<ol type="A">
+<li>
+<p>
+Consider the execution times of the following queries:
+</p>
+<pre>
+mymyunsw=# select fullname from people where id=9300035;
+   fullname    
+---------------
+ John Shepherd
+(1 row)
+
+Time: 1.242 ms
+mymyunsw=# select fullname from people where id=9300035;
+   fullname    
+---------------
+ John Shepherd
+(1 row)
+
+Time: 0.284 ms
+</pre>
+<p>
+Subsequent execution times for the same query are
+all around 0.28 ms.
+Why is the first execution so much slower?
+Assume that the database server started just before
+the first query.
+</p>
+</li>
+<li>
+<p>
+Consider the execution times of the following two queries:
+</p>
+<table>
+<tr valign="top">
+<td>
+<pre>
+mymyunsw=# <b>select max(id) from people;</b>
+   max   
+---------
+ 5235067
+(1 row)
+
+Time: 0.291 ms
+</pre>
+</td>
+<td> &nbsp; &nbsp; </td>
+<td>
+<pre>
+mymyunsw=# <b>select max(birthday) from people;</b>
+    max     
+------------
+ 2000-12-30
+(1 row)
+
+Time: 0.891 ms
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Subsequent executions of the queries have similar timing.
+Why is the first query faster than the second?
+</p>
+</li>
+</ol>
+<p><b>Instructions:</b></p>
+<ul>
+<li> Type your answers to this question into a file called <tt>q8.txt</tt>
+<li> Submit via: &nbsp; <b><tt>give cs3311 exam_q8 q8.txt</tt></b> &nbsp;or&nbsp; Webcms3
+</ul>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

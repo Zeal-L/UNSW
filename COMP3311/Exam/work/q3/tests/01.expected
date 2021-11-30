@@ -1,0 +1,5 @@
+  id   |  price  |       street        |  suburb   
+-------+---------+---------------------+-----------
+ 46083 | 1742000 | 86 Leonard Avenue   | Kingsford
+ 46634 | 1742000 | 88 Broadbent Street | Kingsford
+(2 rows)

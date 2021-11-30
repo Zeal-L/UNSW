@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <b>[Q2]</b> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 2 <span class='tiny'>(5 marks)</span></h3>
+<p>
+Write an <b>SQL view</b> that gives a list of how many
+<em>unsold</em> properties of each type are in each suburb.
+</p>
+<p>
+Define the view as <tt>q2(suburb,ptype,nprops)</tt>, where the attributes are:
+</p>
+<ul>
+<li> <tt>suburb</tt> = the name of a suburb
+<li> <tt>ptype</tt> = the type of property (e.g. <tt>House</tt>)
+<li> <tt>nprops</tt> = the number of properties of this type in this suburb
+</ul>
+<p>
+The output should be ordered by property type, and then by suburb.
+What the output should look like:
+</p>
+<pre>
+property=# <b>select * from q2;</b>
+     suburb     |   ptype   | nprops 
+----------------+-----------+--------
+ Alexandria     | Apartment |     42
+ Bondi Junction | Apartment |     41
+ Coogee         | Apartment |     47
+ Kingsford      | Apartment |     43
+ Alexandria     | House     |     34
+ Bondi Junction | House     |     38
+ Coogee         | House     |     38
+ Kingsford      | House     |     36
+ Alexandria     | Townhouse |      9
+ Bondi Junction | Townhouse |      9
+ Coogee         | Townhouse |      6
+ Kingsford      | Townhouse |      9
+(12 rows)
+
+</pre>
+<p> <b>Instructions:</b> </p>
+<ul>
+<li> Work on this question in the <tt>work/q2/</tt> directory
+<li> Define the view <tt>q2</tt> in the file <tt>q2.sql</tt>
+<li> You can make use any views/functions from the previous questions.
+<li> Also, place any additional views used by <tt>q2</tt> in this file
+<li> You may not use functions in answering this question
+<li> Additional views must be placed <i>before</i> the <tt>q2</tt> definition
+<li> Load it into your database using: &nbsp; <tt>psql property -f q2.sql</tt>
+<li> Sample output is in the file: &nbsp; <tt>tests/01.expected</tt>
+<li> Check it using: &nbsp; <tt>sh check q2</tt> &nbsp; in the <tt>q2</tt> directory
+<li> Submit it using: &nbsp; <tt>give cs3311 exam_q2 q2.sql</tt> &nbsp;or&nbsp; Webcms3
+</ul>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

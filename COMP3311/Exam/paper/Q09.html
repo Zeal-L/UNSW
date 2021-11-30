@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <b>[Q9]</b> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 9 <span class='tiny'>(7 marks)</span></h3>
+<p>
+Consider the following (partial) flight booking schema:
+</p>
+<pre>
+Flights(flight_no, aircraft, nseats, nbooked, departure, ...)
+Bookings(flight_no, passenger, seat_no)
+</pre>
+<p>
+The <tt>nbooked</tt> attribute is maintained by the
+triggers below and aims to record the total number
+of seats booked on the flight.
+Each booking is for one passenger in a particular seat.
+Bookings cannot be <tt>update</tt>d, only <tt>insert</tted
+or
+<tt>delete</tt>d.
+</p>
+<p>
+Now consider the triggers that maintain <tt>nbooked</tt>
+and do other checks.
+</p>
+<pre>
+create trigger pre_booking before insert or delete on Bookings
+for each row execute procedure pre_booking_check();
+
+create function pre_booking_check() returns trigger
+as $$
+declare
+   fno text;
+   flight record;
+begin
+   if TG_OP = 'INSERT' then
+      fno := new.flight_no
+   else
+      fno := old.flight_no
+   end if;
+   select * into flight from Flights where flight_no = fno;
+   if not found then
+      raise exception 'Booking error';
+   end if;
+   if TG_OP = 'DELETE' then
+      return old;
+   else
+      if flight.nbooked = flight.nseats then
+         raise exception 'Booking error';
+      end if;
+      return new;
+   end if;
+end;
+$$ language plpgsql;
+
+create trigger pre_booking after insert or delete on Bookings
+for each row execute procedure post_booking_update();
+
+create function post_booking_update() returns trigger
+as $$
+declare
+   fno text;
+   flight record;
+begin
+   if TG_OP = 'INSERT' then
+      update Flights set nbooked = nbooked+1 where flight_no = new.flight_no;
+   else
+      update Flights set nbooked = nbooked-1 where flight_no = old.flight_no;
+   end if;
+end;
+$$ language plpgsql;
+</pre>
+<p>
+You should assume that the above code is syntactically correct.
+</p>
+<br/>
+<ol type='A'>
+<li><p>
+Describe what conditions are being checked in <tt>pre_booking_check()</tt>?
+</p></li>
+<li><p>
+Suggest what other conditions could be checked in <tt>pre_booking_check()</tt>?
+</p></li>
+<li><p>
+Describe what happens when the following SQL statement is executed
+on flight <tt>QF01</tt>, where seat <tt>25-D</tt> is currently empty
+</p>
+<pre>
+insert into Bookings values ('QF01','John Smith','25-D');
+</pre>
+</p></li>
+<li><p>
+Describe what happens when the following SQL statement is executed
+on a full flight <tt>QF02</tt>
+</p>
+<pre>
+insert into Bookings values ('QF02','John Smith','25-D');
+</pre>
+</p></li>
+<li><p>
+Describe what happens when the following SQL statement is executed
+on flight <tt>QF03</tt>, which already has a booking in seat <tt>15-D</tt>
+</p>
+<pre>
+delete from Bookings where flight_no = 'QF03' and seat_no = '15-F';
+</pre>
+</p></li>
+</ol>
+<p><b>Instructions:</b></p>
+<ul>
+<li> Type your answers to this question into a file called <tt>q9.txt</tt>
+<li> Submit via: &nbsp; <b><tt>give cs3311 exam_q9 q9.txt</tt></b> &nbsp;or&nbsp; Webcms3
+</ul>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 12s1 Final Exam</title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 12s1</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br> Final Exam 12s1</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Instructions]</a> <b>[Setup]</b> <a href='database.html'>[Database]</a> <a target='SQLite' href='sqlite/index.html'>[SQLite]</a> <a target='PostgreSQL' href='postgresql/index.html'>[PostgreSQL]</a> <a target='PHP' href='php/index.html'>[PHP]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> <a href='Q11.html'>[Q11]</a> <a href='Q12.html'>[Q12]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<p>
+These notes describe the environment available to you in this exam.
+Reading them carefully could potentially save you much time in completing
+the questions.
+</p>
+<p>
+The following scripts are available for you (simply type their name):
+</p>
+<center>
+<table cellspacing="0" cellpadding="5" border="1">
+<tr>
+<td><b>Script</b></td>
+<td><b>What it does</b></td>
+</tr>
+<tr valign="top">
+<td><tt>sql</tt></td>
+<td>Runs SQLite on the <tt>footy.db</tt> file with columns and headings.<br>
+Could be handy for interactive SQLite sessions.</td>
+</tr>
+<tr valign="top">
+<td><tt>check q<i>X</i></tt></td>
+<td>Checks whether your <tt>q<i>X</i></tt> view produces the expected result.<br>
+Assumes that the view is already loaded into your database</td>
+</tr>
+<tr valign="top">
+<td><tt>submit q<i>X.suffix</i></tt></td>
+<td>Submits the file cointaining your answer to question <tt>q<i>X</i></tt><br>
+Examples of usage: &nbsp; <tt>submit q2.sql</tt>, &nbsp; <tt>submit q10.txt</tt></td>
+</tr>
+</table>
+</center>
+<p>
+Hints on how to use your environment with minimal typing
+</p>
+<pre>
+<span style="color:#999999"># load a view into your database</span>
+$ <b>sql < q2.sql</b>
+<span style="color:#999999"># any load errors will be displayed here</span>
+
+<span style="color:#999999"># test the view you just loaded</span>
+$ <b>check q2</b>
+<span style="color:#999999"># an indication of whether your view works is shown here</span>
+
+<span style="color:#999999"># if it's correct, then submit it</span>
+$ <b>submit q2.sql</b>
+</pre>
+<p>
+The above scenario applies if you're an SQL master, but if you have errors
+then you'll need to run an interactive session with the database and
+see which parts of your SQL aren't working. And you'll probably run such
+a session while you're developing your view anyway.
+</p>
+<p>
+When you first log in to your exam environment, the following files
+will be copied to your working directory:
+</p>
+<center>
+<table cellspacing="0" cellpadding="5" border="1">
+<tr>
+<td><b>File</b></td>
+<td><b>Contents</b></td>
+</tr>
+<tr>
+<td><tt>footy.db</tt></td>
+<td>An SQLite database about football for use in the prac questions</td>
+</tr>
+<tr>
+<td><tt>q1.sql</tt></td>
+<td>SQL view template for Question 1 (prac)</td>
+</tr>
+<tr>
+<td><tt>q2.sql</tt></td>
+<td>SQL view template for Question 2 (prac)</td>
+</tr>
+<tr>
+<td><tt>q3.sql</tt></td>
+<td>SQL view template for Question 3 (prac)</td>
+</tr>
+<tr>
+<td><tt>q4.sql</tt></td>
+<td>SQL view template for Question 4 (prac)</td>
+</tr>
+<tr>
+<td><tt>q5.sql</tt></td>
+<td>SQL view template for Question 5 (prac)</td>
+</tr>
+<tr>
+<td><tt>q6.txt</tt></td>
+<td>Template for PLpgSQL function in Question 6 (written)</td>
+</tr>
+<tr>
+<td><span style='color:grey'><tt>q7.*</tt></td>
+<td>No template is supplied for this question</td>
+</tr>
+<tr>
+<td><tt>q8.txt</tt></td>
+<td>Template for schema in Question 8 (written)</td>
+</tr>
+<tr>
+<td><tt>q9.txt</tt></td>
+<td>Template for triggers in Question 9 (written)</td>
+</tr>
+<tr>
+<td><tt>q10.txt</tt></td>
+<td>Template for PHP analysis in Question 10 (written)</td>
+</tr>
+<tr>
+<td><tt>q11.txt</tt></td>
+<td>Template for relational analysis in Question 11 (written)</td>
+</tr>
+<tr>
+<td><tt>q12.txt</tt></td>
+<td>Template for relational algebra in Question 12 (written)</td>
+</tr>
+</table>
+</center>
+<p>
+The <tt>q<i>X</i>.sql</tt> and <tt>q<i>X</i>.txt</tt> are provided to
+save you some typing. Files with a <tt>sql</tt> suffix are part of
+the practical component of this exam and you should testthat the code
+in them works before submitting.
+Files with a <tt>.txt</tt> suffix are part of the written component of
+the exam, and, even if they contain code, do not require testing before
+submission. Of course, you should read them carefully before submitting.
+</p>
+<p>
+Also copied to your directory will be a collection of files for testing:
+</p>
+<center>
+<table cellspacing="0" cellpadding="5" border="1">
+<tr>
+<td><b>File</b></td>
+<td><b>Contents</b></td>
+</tr>
+<tr>
+<td><tt>tests</tt></td>
+<td>The test queries used by the <tt>check</tt> script</td>
+</tr>
+<tr valign="top">
+<td><tt>q*.expected</tt></td>
+<td>Expected outputs for each of the Prac questions<br>
+To facilitate testing, these files are in default SQLite format<br>
+and thus have no headers or column-isation</td>
+</tr>
+</table>
+</center>
+<p>
+If you accidentally remove any of the above files,
+you can get a fresh copy via the command:
+</p>
+<pre>
+reload <i>fileName</i>
+</pre>
+<p>
+This command will not overwrite any existing copy of a file called
+<tt><i>fileName</i></tt>.
+</p>
+<p>
+Be careful not to remove other files. You cannot restore them.
+It is a useful strategy to submit your work every so often.
+You are allowed to make multiple submissions; only the latest
+one will be marked.
+</p>
+<p>
+The <tt>check</tt> script will create other files in the directory
+when it runs its tests. You can examine these to help with testing.
+
+</div>
+<center><i>End of Notes</i></center>
+</body>
+</html>

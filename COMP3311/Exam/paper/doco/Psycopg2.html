@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Psycopg2</title>
+<link rel='stylesheet' type='text/css' href='../exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 20T3</span>
+</td>
+<td align='center' width='60%'>
+  <span class='heading'>Psycopg2</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+
+<div style='margin-left:40px;margin-right:40px'>
+<p>
+Summary information about the Python/PostgreSQL interface.
+</p>
+<pre>
+<span class="comment"># a brief example, assuming table R(a,b,c)</span>
+import psycopg2
+
+try:
+   conn = psycopg2.connect("dbname=MyDB")
+except:
+   print("Can't open database")
+   exit()
+
+cur = conn.cursor()
+query = "select * from R where a &lt; %s";
+cur.execute(query, [5])
+   <span class="comment"># runs: select * from R where &lt; 5</span>
+for tup in cur.fetchall():
+   x,y,z = tup
+   print(str(x),str(y),z)
+cur.close()
+conn.close()
+</pre>
+<h3>
+Connections
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Connecting to the database</td>
+<td><tt>conn = psycopg2.connect("dbname=<i>DatabaseName</i>")</tt> <br>
+<small>may require additional information for authentication, e.g. password</small>
+</td>
+</tr>
+<tr>
+<td>Making cursors</td>
+<td><tt>cur = conn.cursor()</tt> <br>
+<small>create a cursor to open and answer queries</small>
+</td>
+</tr>
+<tr valign="top">
+<td>Committing changes</td>
+<td><tt>conn.commit()</tt><br>
+<small>commit the effects of the current transaction</small><br>
+<tt>conn.rollback()</tt><br>
+<small>unwind the effects of the current transaction</small>
+</td>
+</tr>
+</table>
+<h3>
+Cursors
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr valign="top">
+<td>Setting up queries</td>
+<td><tt>cur.exuecute(<i>Query</i>) <br>
+cur.execute(<i>QueryTemplate</i>, [<i>Values</i>])</tt><br>
+E.g.
+<pre>
+cur.execute("select * from R");
+<span class="comment">... runs the query: select * from R</span>
+
+cur.execute("select * from R where a between %s and %s",[5,10])
+<span class="comment">... runs the query: select * from R where a between 5 and 10</span>
+
+qry = """
+select a, count(b)
+from   R
+where  b between 0 and 100
+group  by a
+order  by a
+"""
+cur.execute(qry)
+<span class="comment">... runs the query as written above</span>
+</pre>
+</tr>
+<tr valign="top">
+<td>Fetching results</td>
+<td><tt>cur.fetchall()</tt><br>
+<small>collect all results from current query as array of tuples</small>
+<p>
+<tt>cur.fetchmany(<i>Size</i>)</tt><br>
+<small>get the next <tt><i>Size</i></tt> results as array of tuples</small>
+<p>
+<tt>cur.fetchone()</tt><br>
+<small>get the next result from the current query as a tuple</small>
+</td>
+</tr>
+</table>
+
+<h3>
+Idioms
+</h3>
+Typical usages of the <tt>cursor</tt> operations
+</p>
+<pre>
+<span class="comment"># show results as list of tuples</span>
+cur.execute("select a,b from R")
+print(cur.fetchall())
+<span class="comment">output: [ (1,10), (2,25), (3,100) ...]</span>
+
+<span class="comment"># one tuple per line</span>
+cur.execute("select * from R")
+for tuple in cur.fetchall():
+   print(tuple)
+
+<span class="comment"># grab individual attribute values</span>
+cur.execute("select * from R")
+for tuple in cur.fetchall():
+   x, y = tuple
+   print(x,y)
+
+<span class="comment"># fetch tuples one at a time</span>
+cur.execute("select * from R")
+while True:
+   tuple = cur.fetchone()
+   if tuple = None:
+      break
+   print(tuple)
+</div>
+</body>
+</html>

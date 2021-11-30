@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <b>[Q6]</b> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 6 <span class='tiny'>(8 marks)</span></h3>
+<p>
+The following ER diagram describes an online recipe database
+scenario.
+</p>
+<div align="center"><img src="Pics/recipe-db.png"></div>
+<p>
+Convert the ER diagram into a relational schema
+expressed as a collection of PostgreSQL <tt>CREATE TABLE</tt> statements.
+Your schema must show all primary key constraints and foreign key constraints.
+You may add any new attributes that you need to represent all aspects of
+the ER diagram; assign them types and constraints as appropriate.
+The precise name of a new attribute is not important, as long as it
+is different from existing attributes.
+If there are any semantic aspects suggested by the diagram and comments below
+which <i>cannot</i>
+be represented in the relational schema using standard SQL constraints,
+document these.
+</p>
+<p>
+The following gives more details on the precise semantics of
+the scenario:
+</p>
+<ul>
+<li> every recipe is owned by a user; every recipe has at least one ingredient
+<li> any attribute called <tt>id</tt> is a <tt>serial</tt> attribute
+<li> attributes <tt>name</tt>, <tt>email</tt>, <tt>title</tt>, are <tt>unit</tt> are text strings, and must have a value
+<li> the <tt>amount</tt> attribute is a positive integer quantity
+<li> a recipe can be associated with zero or more tags, which give additional features of the recipe
+<li> each tag is a text string such as <tt>'vegetarian'</tt>, <tt>'spicy'</tt>, <tt>'korean'</tt>, <tt>'easy-to-make'</tt>, etc.
+</ul>
+<p><b>Exercise:</b>
+Write an SQL schema that accurately represents the above ER design.
+</p>
+<p><b>Instructions:</b></p>
+<ul>
+<li> Type your answer to this question into a file called <tt>q6.txt</tt>
+<li> Submit via: &nbsp; <b><tt>give cs3311 exam_q6 q6.txt</tt></b> &nbsp;or&nbsp; Webcms3
+</ul>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

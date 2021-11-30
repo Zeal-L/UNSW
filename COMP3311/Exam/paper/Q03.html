@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <b>[Q3]</b> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <a href='Q07.html'>[Q7]</a> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 3 <span class='tiny'>(5 marks)</span></h3>
+<p>
+Write an <b>SQL view</b> that gives the cheapest <em>unsold</em> <em>house</em>(s).
+</p>
+<p>
+Define the view as <tt>q3(id,price,street,suburb)</tt>,
+where the attributes are:
+</p>
+<ul>
+<li> <tt>id</tt> = the property ID
+<li> <tt>price</tt> = list price of the property
+<li> <tt>street</tt> = street address where property located <br/>
+"streetNum streetName streetType" (e.g "25 Smith Street")
+<li> <tt>suburb</tt> = suburb where property located
+</ul>
+The output should be ordered by property ID.
+What the output should look like:
+</p>
+<pre>
+property=# <b>select * from q3;</b>
+  id   |  price  |       street        |  suburb   
+-------+---------+---------------------+-----------
+ 46083 | 1742000 | 86 Leonard Avenue   | Kingsford
+ 46634 | 1742000 | 88 Broadbent Street | Kingsford
+(2 rows)
+
+</pre>
+<p> <b>Instructions:</b> </p>
+<ul>
+<li> Work on this question in the <tt>work/q3/</tt> directory
+<li> Define the view <tt>q3</tt> in the file <tt>q3.sql</tt>
+<li> You can make use of any views/functions from the previous questions.
+<li> Also, place any additional views used by <tt>q3</tt> in this file
+<li> Additional views must be placed <i>before</i> the <tt>q3</tt> definition
+<li> Load it into your database using: &nbsp; <tt>psql property -f q3.sql</tt>
+<li> Sample output is in the file: &nbsp; <tt>tests/01.expected</tt>
+<li> Check it using: &nbsp; <tt>sh check q3</tt> &nbsp; in the <tt>q3</tt> directory
+<li> Submit it using: &nbsp; <tt>give cs3311 exam_q3 q3.sql</tt> &nbsp;or&nbsp; Webcms3
+</ul>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

@@ -1,0 +1,15 @@
+     suburb     |   ptype   | nprops 
+----------------+-----------+--------
+ Alexandria     | Apartment |     42
+ Bondi Junction | Apartment |     41
+ Coogee         | Apartment |     47
+ Kingsford      | Apartment |     43
+ Alexandria     | House     |     34
+ Bondi Junction | House     |     38
+ Coogee         | House     |     38
+ Kingsford      | House     |     36
+ Alexandria     | Townhouse |      9
+ Bondi Junction | Townhouse |      9
+ Coogee         | Townhouse |      6
+ Kingsford      | Townhouse |      9
+(12 rows)

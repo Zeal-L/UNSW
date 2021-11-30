@@ -1,0 +1,5650 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.5 (Debian 13.5-0+deb11u1)
+-- Dumped by pg_dump version 13.5 (Debian 13.5-0+deb11u1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: featuretype; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.featuretype AS ENUM (
+    'bedrooms',
+    'bathrooms',
+    'carspaces',
+    'pool',
+    'elevator'
+);
+
+
+--
+-- Name: pricetype; Type: DOMAIN; Schema: public; Owner: -
+--
+
+CREATE DOMAIN public.pricetype AS integer
+	CONSTRAINT pricetype_check CHECK ((VALUE > 100000));
+
+
+--
+-- Name: propertytype; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.propertytype AS ENUM (
+    'Apartment',
+    'House',
+    'Townhouse'
+);
+
+
+--
+-- Name: streettype; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.streettype AS ENUM (
+    'Avenue',
+    'Close',
+    'Crescent',
+    'Drive',
+    'Highway',
+    'Parade',
+    'Place',
+    'Road',
+    'Street'
+);
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: features; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.features (
+    property integer NOT NULL,
+    feature public.featuretype NOT NULL,
+    number integer,
+    CONSTRAINT features_number_check CHECK (((number >= 1) AND (number <= 10)))
+);
+
+
+--
+-- Name: properties; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.properties (
+    id integer NOT NULL,
+    unit_no integer,
+    street_no integer NOT NULL,
+    street integer NOT NULL,
+    ptype public.propertytype NOT NULL,
+    list_price public.pricetype NOT NULL,
+    sold_price public.pricetype,
+    sold_date date
+);
+
+
+--
+-- Name: streets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.streets (
+    id integer NOT NULL,
+    name text NOT NULL,
+    stype public.streettype NOT NULL,
+    suburb integer NOT NULL
+);
+
+
+--
+-- Name: suburbs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.suburbs (
+    id integer NOT NULL,
+    name text NOT NULL,
+    postcode integer NOT NULL
+);
+
+
+--
+-- Data for Name: features; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.features (property, feature, number) FROM stdin;
+45678	bedrooms	5
+45678	bathrooms	2
+45678	carspaces	2
+45679	bedrooms	3
+45679	bathrooms	2
+45679	elevator	1
+45680	bedrooms	5
+45680	bathrooms	2
+45680	carspaces	2
+45681	bedrooms	3
+45681	bathrooms	1
+45681	carspaces	1
+45682	bedrooms	5
+45682	bathrooms	1
+45682	carspaces	1
+45683	bedrooms	2
+45683	bathrooms	2
+45684	bedrooms	1
+45684	bathrooms	2
+45685	bedrooms	2
+45685	bathrooms	1
+45685	carspaces	3
+45686	bedrooms	2
+45686	bathrooms	1
+45686	carspaces	1
+45687	bedrooms	4
+45687	bathrooms	3
+45687	carspaces	1
+45688	bedrooms	1
+45688	bathrooms	2
+45688	carspaces	2
+45689	bedrooms	3
+45689	bathrooms	5
+45689	carspaces	2
+45690	bedrooms	2
+45690	bathrooms	1
+45690	carspaces	1
+45691	bedrooms	2
+45691	bathrooms	2
+45692	bedrooms	2
+45692	bathrooms	4
+45692	carspaces	2
+45692	pool	1
+45693	bedrooms	3
+45693	bathrooms	2
+45694	bedrooms	5
+45694	bathrooms	3
+45694	carspaces	3
+45695	bedrooms	2
+45695	bathrooms	5
+45695	carspaces	3
+45696	bedrooms	2
+45696	bathrooms	2
+45696	carspaces	2
+45697	bedrooms	3
+45697	bathrooms	5
+45697	carspaces	1
+45698	bedrooms	3
+45698	bathrooms	4
+45698	carspaces	1
+45699	bedrooms	3
+45699	bathrooms	2
+45699	carspaces	1
+45700	bedrooms	2
+45700	bathrooms	2
+45700	carspaces	1
+45701	bedrooms	5
+45701	bathrooms	3
+45701	carspaces	1
+45702	bedrooms	3
+45702	bathrooms	2
+45702	carspaces	1
+45702	elevator	1
+45703	bedrooms	4
+45703	bathrooms	1
+45703	carspaces	3
+45703	pool	1
+45704	bedrooms	5
+45704	bathrooms	2
+45704	carspaces	3
+45705	bedrooms	3
+45705	bathrooms	1
+45706	bedrooms	4
+45706	bathrooms	2
+45706	carspaces	2
+45707	bedrooms	2
+45707	bathrooms	3
+45707	carspaces	2
+45708	bedrooms	3
+45708	bathrooms	1
+45709	bedrooms	1
+45709	bathrooms	2
+45709	carspaces	1
+45710	bedrooms	1
+45710	bathrooms	1
+45710	carspaces	1
+45711	bedrooms	2
+45711	bathrooms	2
+45711	carspaces	1
+45711	elevator	1
+45712	bedrooms	2
+45712	bathrooms	3
+45712	carspaces	1
+45713	bedrooms	3
+45713	bathrooms	1
+45713	carspaces	1
+45713	elevator	1
+45714	bedrooms	4
+45714	bathrooms	5
+45714	carspaces	2
+45715	bedrooms	5
+45715	bathrooms	1
+45715	carspaces	3
+45716	bedrooms	2
+45716	bathrooms	5
+45716	carspaces	3
+45717	bedrooms	2
+45717	bathrooms	2
+45717	carspaces	1
+45718	bedrooms	2
+45718	bathrooms	2
+45719	bedrooms	2
+45719	bathrooms	1
+45720	bedrooms	2
+45720	bathrooms	2
+45720	carspaces	1
+45720	elevator	1
+45721	bedrooms	2
+45721	bathrooms	1
+45721	carspaces	1
+45722	bedrooms	5
+45722	bathrooms	1
+45722	carspaces	2
+45723	bedrooms	5
+45723	bathrooms	3
+45723	carspaces	3
+45724	bedrooms	5
+45724	bathrooms	5
+45724	carspaces	1
+45725	bedrooms	2
+45725	bathrooms	4
+45725	carspaces	1
+45726	bedrooms	3
+45726	bathrooms	2
+45726	carspaces	2
+45727	bedrooms	1
+45727	bathrooms	1
+45727	elevator	1
+45728	bedrooms	1
+45728	bathrooms	2
+45728	carspaces	1
+45729	bedrooms	3
+45729	bathrooms	2
+45730	bedrooms	2
+45730	bathrooms	2
+45730	carspaces	1
+45731	bedrooms	4
+45731	bathrooms	1
+45731	carspaces	2
+45732	bedrooms	2
+45732	bathrooms	1
+45733	bedrooms	1
+45733	bathrooms	2
+45733	elevator	1
+45734	bedrooms	2
+45734	bathrooms	2
+45734	carspaces	1
+45735	bedrooms	1
+45735	bathrooms	1
+45736	bedrooms	2
+45736	bathrooms	4
+45736	carspaces	3
+45737	bedrooms	2
+45737	bathrooms	1
+45738	bedrooms	2
+45738	bathrooms	2
+45739	bedrooms	3
+45739	bathrooms	4
+45739	carspaces	1
+45740	bedrooms	3
+45740	bathrooms	1
+45740	carspaces	1
+45741	bedrooms	2
+45741	bathrooms	1
+45742	bedrooms	2
+45742	bathrooms	1
+45743	bedrooms	2
+45743	bathrooms	1
+45743	carspaces	1
+45743	elevator	1
+45744	bedrooms	3
+45744	bathrooms	3
+45744	carspaces	2
+45745	bedrooms	4
+45745	bathrooms	3
+45745	carspaces	1
+45746	bedrooms	2
+45746	bathrooms	1
+45746	elevator	1
+45747	bedrooms	5
+45747	bathrooms	1
+45747	carspaces	1
+45748	bedrooms	1
+45748	bathrooms	1
+45749	bedrooms	1
+45749	bathrooms	1
+45749	carspaces	1
+45750	bedrooms	2
+45750	bathrooms	4
+45750	carspaces	2
+45751	bedrooms	3
+45751	bathrooms	1
+45751	carspaces	1
+45752	bedrooms	3
+45752	bathrooms	2
+45752	carspaces	1
+45753	bedrooms	3
+45753	bathrooms	1
+45754	bedrooms	3
+45754	bathrooms	2
+45755	bedrooms	4
+45755	bathrooms	4
+45755	carspaces	1
+45756	bedrooms	1
+45756	bathrooms	1
+45756	carspaces	1
+45757	bedrooms	4
+45757	bathrooms	4
+45757	carspaces	1
+45758	bedrooms	2
+45758	bathrooms	2
+45759	bedrooms	3
+45759	bathrooms	2
+45760	bedrooms	3
+45760	bathrooms	2
+45760	carspaces	1
+45760	elevator	1
+45761	bedrooms	5
+45761	bathrooms	2
+45761	carspaces	1
+45762	bedrooms	2
+45762	bathrooms	1
+45762	carspaces	1
+45762	elevator	1
+45763	bedrooms	4
+45763	bathrooms	5
+45763	carspaces	3
+45764	bedrooms	5
+45764	bathrooms	4
+45764	carspaces	2
+45765	bedrooms	2
+45765	bathrooms	2
+45765	carspaces	1
+45766	bedrooms	2
+45766	bathrooms	2
+45767	bedrooms	1
+45767	bathrooms	2
+45768	bedrooms	1
+45768	bathrooms	3
+45768	carspaces	2
+45769	bedrooms	3
+45769	bathrooms	2
+45770	bedrooms	2
+45770	bathrooms	2
+45771	bedrooms	5
+45771	bathrooms	1
+45771	carspaces	1
+45772	bedrooms	1
+45772	bathrooms	1
+45773	bedrooms	2
+45773	bathrooms	4
+45773	carspaces	2
+45774	bedrooms	4
+45774	bathrooms	3
+45774	carspaces	1
+45775	bedrooms	3
+45775	bathrooms	1
+45775	carspaces	1
+45775	elevator	1
+45776	bedrooms	3
+45776	bathrooms	2
+45777	bedrooms	4
+45777	bathrooms	5
+45777	carspaces	3
+45778	bedrooms	3
+45778	bathrooms	2
+45779	bedrooms	3
+45779	bathrooms	5
+45779	carspaces	2
+45780	bedrooms	2
+45780	bathrooms	2
+45780	carspaces	3
+45781	bedrooms	3
+45781	bathrooms	1
+45781	carspaces	2
+45782	bedrooms	1
+45782	bathrooms	1
+45783	bedrooms	4
+45783	bathrooms	5
+45783	carspaces	1
+45784	bedrooms	3
+45784	bathrooms	3
+45784	carspaces	3
+45785	bedrooms	2
+45785	bathrooms	2
+45785	carspaces	1
+45785	elevator	1
+45786	bedrooms	3
+45786	bathrooms	1
+45786	carspaces	2
+45787	bedrooms	5
+45787	bathrooms	3
+45787	carspaces	3
+45788	bedrooms	4
+45788	bathrooms	3
+45788	carspaces	1
+45789	bedrooms	2
+45789	bathrooms	1
+45789	carspaces	1
+45789	elevator	1
+45790	bedrooms	4
+45790	bathrooms	4
+45790	carspaces	2
+45791	bedrooms	2
+45791	bathrooms	2
+45792	bedrooms	3
+45792	bathrooms	5
+45792	carspaces	2
+45792	pool	1
+45793	bedrooms	1
+45793	bathrooms	1
+45794	bedrooms	1
+45794	bathrooms	1
+45794	carspaces	1
+45795	bedrooms	3
+45795	bathrooms	2
+45795	carspaces	2
+45795	pool	1
+45796	bedrooms	1
+45796	bathrooms	1
+45797	bedrooms	3
+45797	bathrooms	1
+45797	carspaces	2
+45798	bedrooms	1
+45798	bathrooms	1
+45798	elevator	1
+45799	bedrooms	3
+45799	bathrooms	2
+45799	carspaces	1
+45800	bedrooms	3
+45800	bathrooms	5
+45800	carspaces	1
+45801	bedrooms	3
+45801	bathrooms	1
+45802	bedrooms	3
+45802	bathrooms	2
+45802	carspaces	1
+45803	bedrooms	1
+45803	bathrooms	2
+45803	elevator	1
+45804	bedrooms	3
+45804	bathrooms	4
+45804	carspaces	2
+45805	bedrooms	4
+45805	bathrooms	2
+45805	carspaces	3
+45806	bedrooms	2
+45806	bathrooms	3
+45807	bedrooms	5
+45807	bathrooms	1
+45807	carspaces	1
+45807	pool	1
+45808	bedrooms	3
+45808	bathrooms	2
+45809	bedrooms	1
+45809	bathrooms	1
+45809	carspaces	2
+45810	bedrooms	4
+45810	bathrooms	5
+45810	carspaces	3
+45811	bedrooms	5
+45811	bathrooms	4
+45811	carspaces	1
+45812	bedrooms	3
+45812	bathrooms	1
+45813	bedrooms	3
+45813	bathrooms	3
+45814	bedrooms	2
+45814	bathrooms	2
+45815	bedrooms	3
+45815	bathrooms	3
+45815	carspaces	1
+45816	bedrooms	3
+45816	bathrooms	2
+45816	carspaces	1
+45816	elevator	1
+45817	bedrooms	2
+45817	bathrooms	2
+45817	carspaces	1
+45818	bedrooms	3
+45818	bathrooms	5
+45818	carspaces	2
+45819	bedrooms	5
+45819	bathrooms	2
+45819	carspaces	3
+45820	bedrooms	3
+45820	bathrooms	1
+45820	carspaces	1
+45821	bedrooms	3
+45821	bathrooms	2
+45821	elevator	1
+45822	bedrooms	3
+45822	bathrooms	3
+45822	carspaces	1
+45823	bedrooms	3
+45823	bathrooms	4
+45823	carspaces	1
+45824	bedrooms	2
+45824	bathrooms	1
+45824	carspaces	3
+45825	bedrooms	2
+45825	bathrooms	1
+45825	carspaces	1
+45825	elevator	1
+45826	bedrooms	2
+45826	bathrooms	2
+45827	bedrooms	5
+45827	bathrooms	3
+45827	carspaces	2
+45828	bedrooms	3
+45828	bathrooms	3
+45828	carspaces	1
+45829	bedrooms	2
+45829	bathrooms	1
+45829	carspaces	1
+45830	bedrooms	3
+45830	bathrooms	1
+45830	carspaces	1
+45831	bedrooms	3
+45831	bathrooms	2
+45831	carspaces	1
+45831	elevator	1
+45832	bedrooms	3
+45832	bathrooms	2
+45832	carspaces	1
+45833	bedrooms	4
+45833	bathrooms	1
+45833	carspaces	2
+45834	bedrooms	3
+45834	bathrooms	1
+45834	carspaces	2
+45835	bedrooms	2
+45835	bathrooms	2
+45836	bedrooms	4
+45836	bathrooms	3
+45836	carspaces	2
+45836	pool	1
+45837	bedrooms	3
+45837	bathrooms	2
+45837	carspaces	3
+45838	bedrooms	3
+45838	bathrooms	1
+45839	bedrooms	2
+45839	bathrooms	4
+45839	carspaces	2
+45840	bedrooms	3
+45840	bathrooms	1
+45841	bedrooms	2
+45841	bathrooms	4
+45841	carspaces	3
+45842	bedrooms	1
+45842	bathrooms	1
+45842	elevator	1
+45843	bedrooms	3
+45843	bathrooms	1
+45843	carspaces	1
+45844	bedrooms	4
+45844	bathrooms	3
+45844	carspaces	3
+45845	bedrooms	3
+45845	bathrooms	1
+45845	elevator	1
+45846	bedrooms	2
+45846	bathrooms	2
+45847	bedrooms	3
+45847	bathrooms	5
+45847	carspaces	2
+45848	bedrooms	3
+45848	bathrooms	3
+45848	carspaces	2
+45849	bedrooms	3
+45849	bathrooms	1
+45849	carspaces	2
+45849	pool	1
+45850	bedrooms	3
+45850	bathrooms	1
+45850	carspaces	1
+45850	elevator	1
+45851	bedrooms	2
+45851	bathrooms	2
+45851	carspaces	1
+45852	bedrooms	2
+45852	bathrooms	3
+45853	bedrooms	4
+45853	bathrooms	4
+45853	carspaces	1
+45854	bedrooms	3
+45854	bathrooms	2
+45854	carspaces	2
+45855	bedrooms	5
+45855	bathrooms	5
+45855	carspaces	3
+45856	bedrooms	1
+45856	bathrooms	1
+45857	bedrooms	4
+45857	bathrooms	3
+45857	carspaces	1
+45858	bedrooms	2
+45858	bathrooms	1
+45858	carspaces	1
+45858	elevator	1
+45859	bedrooms	2
+45859	bathrooms	1
+45860	bedrooms	2
+45860	bathrooms	3
+45860	carspaces	1
+45861	bedrooms	3
+45861	bathrooms	1
+45861	carspaces	1
+45862	bedrooms	4
+45862	bathrooms	2
+45862	carspaces	3
+45863	bedrooms	5
+45863	bathrooms	1
+45863	carspaces	3
+45864	bedrooms	1
+45864	bathrooms	1
+45864	carspaces	1
+45865	bedrooms	2
+45865	bathrooms	3
+45866	bedrooms	1
+45866	bathrooms	2
+45867	bedrooms	3
+45867	bathrooms	2
+45867	elevator	1
+45868	bedrooms	3
+45868	bathrooms	4
+45868	carspaces	2
+45869	bedrooms	5
+45869	bathrooms	4
+45869	carspaces	3
+45870	bedrooms	1
+45870	bathrooms	2
+45870	carspaces	1
+45870	elevator	1
+45871	bedrooms	4
+45871	bathrooms	1
+45871	carspaces	2
+45872	bedrooms	5
+45872	bathrooms	3
+45872	carspaces	1
+45872	pool	1
+45873	bedrooms	1
+45873	bathrooms	2
+45874	bedrooms	1
+45874	bathrooms	1
+45874	carspaces	1
+45875	bedrooms	5
+45875	bathrooms	2
+45875	carspaces	3
+45875	pool	1
+45876	bedrooms	3
+45876	bathrooms	4
+45876	carspaces	1
+45877	bedrooms	3
+45877	bathrooms	1
+45877	carspaces	1
+45878	bedrooms	2
+45878	bathrooms	1
+45879	bedrooms	4
+45879	bathrooms	1
+45879	carspaces	2
+45880	bedrooms	2
+45880	bathrooms	1
+45880	carspaces	1
+45880	elevator	1
+45881	bedrooms	3
+45881	bathrooms	1
+45881	carspaces	1
+45882	bedrooms	4
+45882	bathrooms	2
+45882	carspaces	1
+45883	bedrooms	2
+45883	bathrooms	1
+45883	carspaces	2
+45884	bedrooms	2
+45884	bathrooms	1
+45884	carspaces	1
+45885	bedrooms	2
+45885	bathrooms	2
+45885	elevator	1
+45886	bedrooms	3
+45886	bathrooms	2
+45887	bedrooms	3
+45887	bathrooms	3
+45887	carspaces	3
+45888	bedrooms	1
+45888	bathrooms	1
+45889	bedrooms	5
+45889	bathrooms	3
+45889	carspaces	1
+45890	bedrooms	1
+45890	bathrooms	2
+45890	carspaces	1
+45891	bedrooms	2
+45891	bathrooms	3
+45891	carspaces	1
+45892	bedrooms	2
+45892	bathrooms	1
+45893	bedrooms	4
+45893	bathrooms	5
+45893	carspaces	1
+45894	bedrooms	3
+45894	bathrooms	2
+45894	carspaces	1
+45895	bedrooms	1
+45895	bathrooms	1
+45895	carspaces	1
+45896	bedrooms	2
+45896	bathrooms	1
+45897	bedrooms	3
+45897	bathrooms	1
+45897	carspaces	3
+45898	bedrooms	4
+45898	bathrooms	2
+45898	carspaces	2
+45899	bedrooms	1
+45899	bathrooms	1
+45899	elevator	1
+45900	bedrooms	2
+45900	bathrooms	2
+45900	carspaces	1
+45901	bedrooms	5
+45901	bathrooms	4
+45901	carspaces	3
+45902	bedrooms	5
+45902	bathrooms	4
+45902	carspaces	2
+45903	bedrooms	2
+45903	bathrooms	1
+45903	carspaces	1
+45904	bedrooms	3
+45904	bathrooms	2
+45904	elevator	1
+45905	bedrooms	1
+45905	bathrooms	2
+45906	bedrooms	3
+45906	bathrooms	3
+45906	carspaces	2
+45907	bedrooms	2
+45907	bathrooms	4
+45907	carspaces	3
+45908	bedrooms	5
+45908	bathrooms	2
+45908	carspaces	1
+45909	bedrooms	2
+45909	bathrooms	3
+45909	carspaces	3
+45910	bedrooms	3
+45910	bathrooms	4
+45910	carspaces	2
+45910	pool	1
+45911	bedrooms	2
+45911	bathrooms	1
+45912	bedrooms	1
+45912	bathrooms	1
+45912	carspaces	1
+45913	bedrooms	1
+45913	bathrooms	1
+45913	carspaces	1
+45913	elevator	1
+45914	bedrooms	2
+45914	bathrooms	2
+45914	carspaces	1
+45914	elevator	1
+45915	bedrooms	1
+45915	bathrooms	2
+45915	elevator	1
+45916	bedrooms	1
+45916	bathrooms	1
+45916	carspaces	1
+45917	bedrooms	1
+45917	bathrooms	3
+45917	carspaces	1
+45918	bedrooms	1
+45918	bathrooms	3
+45918	carspaces	2
+45919	bedrooms	1
+45919	bathrooms	1
+45919	carspaces	1
+45920	bedrooms	2
+45920	bathrooms	5
+45920	carspaces	2
+45921	bedrooms	2
+45921	bathrooms	1
+45922	bedrooms	2
+45922	bathrooms	4
+45922	carspaces	1
+45923	bedrooms	2
+45923	bathrooms	2
+45923	carspaces	2
+45924	bedrooms	3
+45924	bathrooms	4
+45924	carspaces	1
+45925	bedrooms	3
+45925	bathrooms	1
+45925	carspaces	1
+45926	bedrooms	1
+45926	bathrooms	2
+45926	carspaces	1
+45927	bedrooms	3
+45927	bathrooms	1
+45927	carspaces	1
+45927	elevator	1
+45928	bedrooms	2
+45928	bathrooms	2
+45928	carspaces	1
+45929	bedrooms	4
+45929	bathrooms	3
+45929	carspaces	1
+45930	bedrooms	1
+45930	bathrooms	1
+45931	bedrooms	2
+45931	bathrooms	2
+45932	bedrooms	1
+45932	bathrooms	2
+45932	carspaces	1
+45932	elevator	1
+45933	bedrooms	4
+45933	bathrooms	2
+45933	carspaces	1
+45934	bedrooms	1
+45934	bathrooms	3
+45934	carspaces	1
+45935	bedrooms	1
+45935	bathrooms	2
+45935	elevator	1
+45936	bedrooms	1
+45936	bathrooms	1
+45936	carspaces	1
+45936	elevator	1
+45937	bedrooms	4
+45937	bathrooms	2
+45937	carspaces	2
+45938	bedrooms	4
+45938	bathrooms	3
+45938	carspaces	1
+45939	bedrooms	1
+45939	bathrooms	2
+45939	elevator	1
+45940	bedrooms	2
+45940	bathrooms	1
+45940	elevator	1
+45941	bedrooms	3
+45941	bathrooms	5
+45941	carspaces	1
+45942	bedrooms	1
+45942	bathrooms	1
+45943	bedrooms	3
+45943	bathrooms	1
+45944	bedrooms	4
+45944	bathrooms	3
+45944	carspaces	2
+45944	pool	1
+45945	bedrooms	2
+45945	bathrooms	2
+45945	carspaces	2
+45946	bedrooms	3
+45946	bathrooms	1
+45946	carspaces	1
+45947	bedrooms	5
+45947	bathrooms	1
+45947	carspaces	1
+45948	bedrooms	4
+45948	bathrooms	1
+45948	carspaces	2
+45949	bedrooms	3
+45949	bathrooms	5
+45949	carspaces	2
+45950	bedrooms	1
+45950	bathrooms	1
+45950	carspaces	1
+45951	bedrooms	2
+45951	bathrooms	1
+45951	carspaces	1
+45951	elevator	1
+45952	bedrooms	1
+45952	bathrooms	2
+45953	bedrooms	3
+45953	bathrooms	2
+45953	carspaces	1
+45953	elevator	1
+45954	bedrooms	2
+45954	bathrooms	2
+45955	bedrooms	2
+45955	bathrooms	5
+45955	carspaces	1
+45956	bedrooms	2
+45956	bathrooms	2
+45957	bedrooms	1
+45957	bathrooms	2
+45957	carspaces	1
+45958	bedrooms	2
+45958	bathrooms	1
+45958	carspaces	1
+45958	elevator	1
+45959	bedrooms	5
+45959	bathrooms	3
+45959	carspaces	3
+45960	bedrooms	1
+45960	bathrooms	1
+45961	bedrooms	5
+45961	bathrooms	1
+45961	carspaces	3
+45962	bedrooms	1
+45962	bathrooms	1
+45962	carspaces	1
+45963	bedrooms	3
+45963	bathrooms	5
+45963	carspaces	1
+45963	pool	1
+45964	bedrooms	1
+45964	bathrooms	1
+45965	bedrooms	3
+45965	bathrooms	2
+45965	carspaces	1
+45966	bedrooms	1
+45966	bathrooms	2
+45966	carspaces	1
+45967	bedrooms	1
+45967	bathrooms	2
+45968	bedrooms	3
+45968	bathrooms	2
+45968	carspaces	1
+45969	bedrooms	2
+45969	bathrooms	1
+45969	carspaces	1
+45970	bedrooms	1
+45970	bathrooms	2
+45970	carspaces	1
+45971	bedrooms	2
+45971	bathrooms	2
+45971	elevator	1
+45972	bedrooms	2
+45972	bathrooms	2
+45972	carspaces	1
+45973	bedrooms	3
+45973	bathrooms	1
+45974	bedrooms	1
+45974	bathrooms	2
+45974	carspaces	2
+45975	bedrooms	2
+45975	bathrooms	2
+45975	carspaces	1
+45975	elevator	1
+45976	bedrooms	3
+45976	bathrooms	1
+45976	elevator	1
+45977	bedrooms	3
+45977	bathrooms	1
+45977	carspaces	1
+45978	bedrooms	3
+45978	bathrooms	1
+45978	carspaces	1
+45978	elevator	1
+45979	bedrooms	1
+45979	bathrooms	2
+45979	carspaces	1
+45980	bedrooms	3
+45980	bathrooms	1
+45980	carspaces	1
+45981	bedrooms	1
+45981	bathrooms	2
+45981	elevator	1
+45982	bedrooms	2
+45982	bathrooms	2
+45982	carspaces	1
+45982	elevator	1
+45983	bedrooms	1
+45983	bathrooms	2
+45983	carspaces	1
+45984	bedrooms	3
+45984	bathrooms	1
+45984	elevator	1
+45985	bedrooms	3
+45985	bathrooms	3
+45985	carspaces	1
+45986	bedrooms	2
+45986	bathrooms	4
+45986	carspaces	1
+45987	bedrooms	2
+45987	bathrooms	1
+45987	elevator	1
+45988	bedrooms	2
+45988	bathrooms	2
+45989	bedrooms	2
+45989	bathrooms	3
+45989	carspaces	2
+45990	bedrooms	2
+45990	bathrooms	2
+45990	elevator	1
+45991	bedrooms	5
+45991	bathrooms	3
+45991	carspaces	3
+45992	bedrooms	3
+45992	bathrooms	1
+45993	bedrooms	2
+45993	bathrooms	1
+45993	carspaces	1
+45994	bedrooms	1
+45994	bathrooms	1
+45995	bedrooms	3
+45995	bathrooms	5
+45995	carspaces	1
+45995	pool	1
+45996	bedrooms	1
+45996	bathrooms	1
+45996	carspaces	1
+45997	bedrooms	2
+45997	bathrooms	1
+45998	bedrooms	3
+45998	bathrooms	1
+45999	bedrooms	3
+45999	bathrooms	2
+46000	bedrooms	1
+46000	bathrooms	2
+46000	carspaces	1
+46000	elevator	1
+46001	bedrooms	3
+46001	bathrooms	1
+46001	carspaces	2
+46002	bedrooms	2
+46002	bathrooms	5
+46002	carspaces	3
+46003	bedrooms	2
+46003	bathrooms	1
+46003	carspaces	1
+46004	bedrooms	3
+46004	bathrooms	2
+46005	bedrooms	3
+46005	bathrooms	2
+46005	carspaces	1
+46006	bedrooms	3
+46006	bathrooms	2
+46006	carspaces	1
+46007	bedrooms	3
+46007	bathrooms	1
+46008	bedrooms	1
+46008	bathrooms	2
+46009	bedrooms	2
+46009	bathrooms	1
+46009	carspaces	1
+46010	bedrooms	4
+46010	bathrooms	1
+46010	carspaces	1
+46011	bedrooms	3
+46011	bathrooms	4
+46011	carspaces	3
+46012	bedrooms	3
+46012	bathrooms	1
+46013	bedrooms	1
+46013	bathrooms	3
+46013	carspaces	2
+46014	bedrooms	2
+46014	bathrooms	2
+46015	bedrooms	1
+46015	bathrooms	2
+46015	carspaces	1
+46016	bedrooms	4
+46016	bathrooms	2
+46016	carspaces	1
+46017	bedrooms	4
+46017	bathrooms	2
+46017	carspaces	3
+46018	bedrooms	3
+46018	bathrooms	3
+46018	carspaces	1
+46019	bedrooms	3
+46019	bathrooms	2
+46019	carspaces	1
+46020	bedrooms	3
+46020	bathrooms	3
+46020	carspaces	3
+46021	bedrooms	3
+46021	bathrooms	2
+46021	carspaces	1
+46022	bedrooms	2
+46022	bathrooms	3
+46022	carspaces	2
+46023	bedrooms	1
+46023	bathrooms	1
+46023	carspaces	1
+46024	bedrooms	2
+46024	bathrooms	1
+46025	bedrooms	3
+46025	bathrooms	2
+46025	carspaces	1
+46026	bedrooms	2
+46026	bathrooms	3
+46026	carspaces	2
+46027	bedrooms	4
+46027	bathrooms	4
+46027	carspaces	1
+46028	bedrooms	3
+46028	bathrooms	3
+46028	carspaces	2
+46029	bedrooms	3
+46029	bathrooms	1
+46029	elevator	1
+46030	bedrooms	4
+46030	bathrooms	4
+46030	carspaces	3
+46031	bedrooms	1
+46031	bathrooms	2
+46032	bedrooms	3
+46032	bathrooms	2
+46033	bedrooms	3
+46033	bathrooms	2
+46033	carspaces	2
+46034	bedrooms	3
+46034	bathrooms	3
+46034	carspaces	1
+46035	bedrooms	3
+46035	bathrooms	1
+46035	carspaces	1
+46036	bedrooms	3
+46036	bathrooms	2
+46036	carspaces	1
+46037	bedrooms	2
+46037	bathrooms	1
+46037	carspaces	2
+46038	bedrooms	2
+46038	bathrooms	2
+46039	bedrooms	3
+46039	bathrooms	4
+46039	carspaces	2
+46040	bedrooms	1
+46040	bathrooms	2
+46040	carspaces	1
+46041	bedrooms	2
+46041	bathrooms	1
+46041	carspaces	1
+46042	bedrooms	2
+46042	bathrooms	2
+46042	carspaces	1
+46043	bedrooms	2
+46043	bathrooms	1
+46044	bedrooms	3
+46044	bathrooms	2
+46044	carspaces	2
+46045	bedrooms	5
+46045	bathrooms	5
+46045	carspaces	2
+46046	bedrooms	2
+46046	bathrooms	1
+46047	bedrooms	3
+46047	bathrooms	2
+46047	carspaces	1
+46048	bedrooms	3
+46048	bathrooms	2
+46048	carspaces	1
+46049	bedrooms	3
+46049	bathrooms	3
+46049	carspaces	2
+46050	bedrooms	2
+46050	bathrooms	1
+46050	carspaces	2
+46051	bedrooms	2
+46051	bathrooms	2
+46051	carspaces	1
+46052	bedrooms	2
+46052	bathrooms	1
+46052	carspaces	1
+46053	bedrooms	5
+46053	bathrooms	3
+46053	carspaces	2
+46054	bedrooms	5
+46054	bathrooms	1
+46054	carspaces	1
+46055	bedrooms	5
+46055	bathrooms	5
+46055	carspaces	1
+46056	bedrooms	3
+46056	bathrooms	1
+46056	carspaces	1
+46057	bedrooms	3
+46057	bathrooms	1
+46057	carspaces	2
+46058	bedrooms	3
+46058	bathrooms	3
+46058	carspaces	1
+46059	bedrooms	2
+46059	bathrooms	2
+46059	carspaces	1
+46059	elevator	1
+46060	bedrooms	2
+46060	bathrooms	2
+46060	carspaces	1
+46061	bedrooms	3
+46061	bathrooms	2
+46061	carspaces	1
+46061	elevator	1
+46062	bedrooms	3
+46062	bathrooms	2
+46063	bedrooms	1
+46063	bathrooms	2
+46063	elevator	1
+46064	bedrooms	5
+46064	bathrooms	1
+46064	carspaces	3
+46065	bedrooms	3
+46065	bathrooms	2
+46065	carspaces	1
+46066	bedrooms	2
+46066	bathrooms	2
+46066	carspaces	1
+46067	bedrooms	1
+46067	bathrooms	1
+46067	carspaces	1
+46067	elevator	1
+46068	bedrooms	3
+46068	bathrooms	4
+46068	carspaces	3
+46069	bedrooms	5
+46069	bathrooms	1
+46069	carspaces	3
+46070	bedrooms	4
+46070	bathrooms	3
+46070	carspaces	3
+46071	bedrooms	4
+46071	bathrooms	2
+46071	carspaces	3
+46072	bedrooms	4
+46072	bathrooms	4
+46072	carspaces	3
+46073	bedrooms	3
+46073	bathrooms	1
+46074	bedrooms	2
+46074	bathrooms	2
+46075	bedrooms	3
+46075	bathrooms	3
+46075	carspaces	3
+46076	bedrooms	1
+46076	bathrooms	1
+46077	bedrooms	2
+46077	bathrooms	2
+46077	carspaces	3
+46077	pool	1
+46078	bedrooms	3
+46078	bathrooms	1
+46078	carspaces	1
+46079	bedrooms	3
+46079	bathrooms	1
+46080	bedrooms	2
+46080	bathrooms	1
+46080	carspaces	1
+46080	elevator	1
+46081	bedrooms	3
+46081	bathrooms	2
+46081	carspaces	1
+46081	elevator	1
+46082	bedrooms	1
+46082	bathrooms	2
+46082	carspaces	1
+46082	elevator	1
+46083	bedrooms	2
+46083	bathrooms	4
+46083	carspaces	1
+46084	bedrooms	2
+46084	bathrooms	2
+46084	carspaces	1
+46085	bedrooms	3
+46085	bathrooms	1
+46085	carspaces	1
+46086	bedrooms	3
+46086	bathrooms	1
+46087	bedrooms	2
+46087	bathrooms	4
+46087	carspaces	3
+46088	bedrooms	2
+46088	bathrooms	1
+46088	elevator	1
+46089	bedrooms	2
+46089	bathrooms	1
+46090	bedrooms	2
+46090	bathrooms	1
+46090	carspaces	1
+46091	bedrooms	3
+46091	bathrooms	3
+46092	bedrooms	1
+46092	bathrooms	2
+46092	carspaces	1
+46093	bedrooms	3
+46093	bathrooms	1
+46093	carspaces	1
+46093	elevator	1
+46094	bedrooms	5
+46094	bathrooms	5
+46094	carspaces	1
+46095	bedrooms	2
+46095	bathrooms	1
+46095	carspaces	1
+46095	elevator	1
+46096	bedrooms	1
+46096	bathrooms	1
+46097	bedrooms	2
+46097	bathrooms	2
+46098	bedrooms	5
+46098	bathrooms	2
+46098	carspaces	1
+46099	bedrooms	2
+46099	bathrooms	2
+46099	carspaces	1
+46100	bedrooms	2
+46100	bathrooms	4
+46100	carspaces	1
+46100	pool	1
+46101	bedrooms	3
+46101	bathrooms	1
+46101	carspaces	3
+46102	bedrooms	2
+46102	bathrooms	2
+46102	elevator	1
+46103	bedrooms	1
+46103	bathrooms	2
+46103	carspaces	1
+46104	bedrooms	2
+46104	bathrooms	2
+46104	carspaces	1
+46105	bedrooms	4
+46105	bathrooms	3
+46105	carspaces	1
+46106	bedrooms	3
+46106	bathrooms	2
+46107	bedrooms	2
+46107	bathrooms	1
+46107	carspaces	1
+46108	bedrooms	3
+46108	bathrooms	4
+46108	carspaces	1
+46108	pool	1
+46109	bedrooms	4
+46109	bathrooms	3
+46109	carspaces	2
+46110	bedrooms	2
+46110	bathrooms	2
+46110	carspaces	2
+46111	bedrooms	3
+46111	bathrooms	1
+46111	carspaces	2
+46112	bedrooms	3
+46112	bathrooms	2
+46112	carspaces	1
+46113	bedrooms	3
+46113	bathrooms	2
+46113	carspaces	1
+46114	bedrooms	3
+46114	bathrooms	3
+46114	carspaces	2
+46115	bedrooms	3
+46115	bathrooms	1
+46116	bedrooms	3
+46116	bathrooms	5
+46116	carspaces	3
+46117	bedrooms	5
+46117	bathrooms	4
+46117	carspaces	2
+46117	pool	1
+46118	bedrooms	2
+46118	bathrooms	2
+46118	elevator	1
+46119	bedrooms	2
+46119	bathrooms	4
+46119	carspaces	1
+46120	bedrooms	2
+46120	bathrooms	2
+46120	carspaces	2
+46121	bedrooms	5
+46121	bathrooms	1
+46121	carspaces	1
+46122	bedrooms	3
+46122	bathrooms	1
+46122	carspaces	1
+46122	elevator	1
+46123	bedrooms	3
+46123	bathrooms	1
+46123	elevator	1
+46124	bedrooms	1
+46124	bathrooms	2
+46124	carspaces	2
+46125	bedrooms	5
+46125	bathrooms	5
+46125	carspaces	1
+46125	pool	1
+46126	bedrooms	3
+46126	bathrooms	1
+46127	bedrooms	2
+46127	bathrooms	2
+46127	elevator	1
+46128	bedrooms	2
+46128	bathrooms	1
+46128	carspaces	1
+46129	bedrooms	3
+46129	bathrooms	1
+46130	bedrooms	3
+46130	bathrooms	1
+46131	bedrooms	3
+46131	bathrooms	2
+46131	carspaces	1
+46132	bedrooms	3
+46132	bathrooms	4
+46132	carspaces	1
+46132	pool	1
+46133	bedrooms	5
+46133	bathrooms	4
+46133	carspaces	3
+46134	bedrooms	4
+46134	bathrooms	1
+46134	carspaces	3
+46135	bedrooms	1
+46135	bathrooms	1
+46135	elevator	1
+46136	bedrooms	5
+46136	bathrooms	1
+46136	carspaces	1
+46137	bedrooms	1
+46137	bathrooms	2
+46137	carspaces	1
+46137	elevator	1
+46138	bedrooms	4
+46138	bathrooms	2
+46138	carspaces	1
+46139	bedrooms	1
+46139	bathrooms	1
+46139	carspaces	1
+46140	bedrooms	5
+46140	bathrooms	2
+46140	carspaces	3
+46141	bedrooms	3
+46141	bathrooms	1
+46142	bedrooms	3
+46142	bathrooms	4
+46142	carspaces	1
+46143	bedrooms	2
+46143	bathrooms	2
+46143	carspaces	2
+46144	bedrooms	4
+46144	bathrooms	2
+46144	carspaces	3
+46145	bedrooms	2
+46145	bathrooms	2
+46146	bedrooms	2
+46146	bathrooms	4
+46146	carspaces	3
+46147	bedrooms	1
+46147	bathrooms	1
+46147	elevator	1
+46148	bedrooms	2
+46148	bathrooms	1
+46148	carspaces	1
+46149	bedrooms	2
+46149	bathrooms	2
+46149	carspaces	3
+46150	bedrooms	2
+46150	bathrooms	1
+46150	carspaces	1
+46151	bedrooms	3
+46151	bathrooms	1
+46151	elevator	1
+46152	bedrooms	3
+46152	bathrooms	4
+46152	carspaces	1
+46153	bedrooms	1
+46153	bathrooms	2
+46154	bedrooms	3
+46154	bathrooms	1
+46154	carspaces	1
+46155	bedrooms	5
+46155	bathrooms	2
+46155	carspaces	1
+46156	bedrooms	2
+46156	bathrooms	2
+46156	elevator	1
+46157	bedrooms	2
+46157	bathrooms	1
+46157	carspaces	2
+46158	bedrooms	2
+46158	bathrooms	1
+46159	bedrooms	1
+46159	bathrooms	1
+46159	carspaces	1
+46160	bedrooms	2
+46160	bathrooms	1
+46160	carspaces	1
+46161	bedrooms	2
+46161	bathrooms	1
+46161	carspaces	1
+46161	elevator	1
+46162	bedrooms	4
+46162	bathrooms	4
+46162	carspaces	2
+46163	bedrooms	5
+46163	bathrooms	2
+46163	carspaces	3
+46164	bedrooms	3
+46164	bathrooms	2
+46164	carspaces	1
+46165	bedrooms	3
+46165	bathrooms	1
+46165	elevator	1
+46166	bedrooms	4
+46166	bathrooms	5
+46166	carspaces	1
+46167	bedrooms	1
+46167	bathrooms	1
+46167	carspaces	2
+46168	bedrooms	3
+46168	bathrooms	1
+46168	carspaces	1
+46169	bedrooms	3
+46169	bathrooms	1
+46170	bedrooms	4
+46170	bathrooms	5
+46170	carspaces	1
+46171	bedrooms	3
+46171	bathrooms	2
+46171	carspaces	3
+46171	pool	1
+46172	bedrooms	1
+46172	bathrooms	2
+46172	carspaces	1
+46173	bedrooms	2
+46173	bathrooms	1
+46173	elevator	1
+46174	bedrooms	2
+46174	bathrooms	2
+46174	carspaces	1
+46175	bedrooms	4
+46175	bathrooms	2
+46175	carspaces	1
+46175	pool	1
+46176	bedrooms	1
+46176	bathrooms	1
+46176	carspaces	1
+46177	bedrooms	2
+46177	bathrooms	2
+46178	bedrooms	3
+46178	bathrooms	1
+46178	carspaces	1
+46179	bedrooms	2
+46179	bathrooms	4
+46179	carspaces	3
+46180	bedrooms	2
+46180	bathrooms	3
+46180	carspaces	2
+46181	bedrooms	1
+46181	bathrooms	2
+46181	carspaces	1
+46181	elevator	1
+46182	bedrooms	2
+46182	bathrooms	1
+46183	bedrooms	5
+46183	bathrooms	2
+46183	carspaces	2
+46184	bedrooms	4
+46184	bathrooms	3
+46184	carspaces	2
+46184	pool	1
+46185	bedrooms	1
+46185	bathrooms	2
+46185	carspaces	1
+46186	bedrooms	2
+46186	bathrooms	1
+46187	bedrooms	4
+46187	bathrooms	1
+46187	carspaces	1
+46188	bedrooms	1
+46188	bathrooms	1
+46188	elevator	1
+46189	bedrooms	2
+46189	bathrooms	2
+46189	carspaces	1
+46190	bedrooms	3
+46190	bathrooms	1
+46190	carspaces	1
+46190	elevator	1
+46191	bedrooms	1
+46191	bathrooms	2
+46191	carspaces	1
+46191	elevator	1
+46192	bedrooms	3
+46192	bathrooms	2
+46193	bedrooms	1
+46193	bathrooms	2
+46193	carspaces	1
+46194	bedrooms	4
+46194	bathrooms	5
+46194	carspaces	2
+46194	pool	1
+46195	bedrooms	2
+46195	bathrooms	2
+46195	carspaces	3
+46196	bedrooms	5
+46196	bathrooms	4
+46196	carspaces	3
+46197	bedrooms	1
+46197	bathrooms	1
+46197	elevator	1
+46198	bedrooms	3
+46198	bathrooms	1
+46199	bedrooms	2
+46199	bathrooms	2
+46199	carspaces	1
+46200	bedrooms	3
+46200	bathrooms	5
+46200	carspaces	1
+46201	bedrooms	3
+46201	bathrooms	1
+46201	carspaces	1
+46202	bedrooms	4
+46202	bathrooms	4
+46202	carspaces	2
+46203	bedrooms	3
+46203	bathrooms	1
+46203	carspaces	1
+46204	bedrooms	2
+46204	bathrooms	2
+46204	carspaces	1
+46204	pool	1
+46205	bedrooms	3
+46205	bathrooms	2
+46205	carspaces	1
+46205	elevator	1
+46206	bedrooms	3
+46206	bathrooms	1
+46206	carspaces	2
+46207	bedrooms	1
+46207	bathrooms	3
+46208	bedrooms	2
+46208	bathrooms	2
+46209	bedrooms	1
+46209	bathrooms	1
+46209	carspaces	1
+46209	elevator	1
+46210	bedrooms	3
+46210	bathrooms	2
+46211	bedrooms	3
+46211	bathrooms	3
+46211	carspaces	1
+46212	bedrooms	3
+46212	bathrooms	2
+46212	carspaces	1
+46212	elevator	1
+46213	bedrooms	3
+46213	bathrooms	1
+46214	bedrooms	2
+46214	bathrooms	2
+46214	carspaces	1
+46215	bedrooms	2
+46215	bathrooms	2
+46215	carspaces	1
+46216	bedrooms	2
+46216	bathrooms	2
+46216	elevator	1
+46217	bedrooms	2
+46217	bathrooms	2
+46217	carspaces	1
+46218	bedrooms	4
+46218	bathrooms	2
+46218	carspaces	1
+46219	bedrooms	5
+46219	bathrooms	1
+46219	carspaces	1
+46220	bedrooms	1
+46220	bathrooms	1
+46220	carspaces	1
+46221	bedrooms	5
+46221	bathrooms	1
+46221	carspaces	1
+46222	bedrooms	3
+46222	bathrooms	1
+46222	carspaces	1
+46223	bedrooms	3
+46223	bathrooms	1
+46223	elevator	1
+46224	bedrooms	2
+46224	bathrooms	4
+46224	carspaces	2
+46225	bedrooms	1
+46225	bathrooms	2
+46225	carspaces	1
+46226	bedrooms	3
+46226	bathrooms	1
+46226	carspaces	1
+46227	bedrooms	3
+46227	bathrooms	4
+46227	carspaces	1
+46228	bedrooms	2
+46228	bathrooms	3
+46229	bedrooms	1
+46229	bathrooms	1
+46230	bedrooms	2
+46230	bathrooms	2
+46230	carspaces	1
+46231	bedrooms	2
+46231	bathrooms	1
+46231	carspaces	1
+46232	bedrooms	1
+46232	bathrooms	1
+46233	bedrooms	2
+46233	bathrooms	1
+46233	carspaces	1
+46233	elevator	1
+46234	bedrooms	2
+46234	bathrooms	1
+46234	carspaces	1
+46234	elevator	1
+46235	bedrooms	3
+46235	bathrooms	1
+46235	carspaces	1
+46235	elevator	1
+46236	bedrooms	1
+46236	bathrooms	2
+46236	elevator	1
+46237	bedrooms	4
+46237	bathrooms	2
+46237	carspaces	3
+46237	pool	1
+46238	bedrooms	1
+46238	bathrooms	1
+46239	bedrooms	5
+46239	bathrooms	4
+46239	carspaces	3
+46240	bedrooms	2
+46240	bathrooms	1
+46241	bedrooms	3
+46241	bathrooms	1
+46241	elevator	1
+46242	bedrooms	4
+46242	bathrooms	1
+46242	carspaces	2
+46243	bedrooms	3
+46243	bathrooms	4
+46243	carspaces	3
+46244	bedrooms	2
+46244	bathrooms	1
+46244	carspaces	1
+46244	elevator	1
+46245	bedrooms	3
+46245	bathrooms	2
+46245	carspaces	1
+46245	elevator	1
+46246	bedrooms	1
+46246	bathrooms	2
+46247	bedrooms	2
+46247	bathrooms	2
+46247	carspaces	1
+46248	bedrooms	1
+46248	bathrooms	3
+46248	carspaces	1
+46249	bedrooms	2
+46249	bathrooms	1
+46249	elevator	1
+46250	bedrooms	3
+46250	bathrooms	3
+46250	carspaces	3
+46251	bedrooms	2
+46251	bathrooms	3
+46251	carspaces	1
+46252	bedrooms	3
+46252	bathrooms	1
+46252	carspaces	1
+46253	bedrooms	1
+46253	bathrooms	2
+46254	bedrooms	2
+46254	bathrooms	5
+46254	carspaces	3
+46254	pool	1
+46255	bedrooms	5
+46255	bathrooms	5
+46255	carspaces	1
+46256	bedrooms	3
+46256	bathrooms	2
+46256	carspaces	1
+46257	bedrooms	3
+46257	bathrooms	1
+46258	bedrooms	5
+46258	bathrooms	4
+46258	carspaces	1
+46259	bedrooms	5
+46259	bathrooms	4
+46259	carspaces	1
+46260	bedrooms	2
+46260	bathrooms	1
+46260	elevator	1
+46261	bedrooms	1
+46261	bathrooms	2
+46262	bedrooms	2
+46262	bathrooms	2
+46262	carspaces	1
+46263	bedrooms	1
+46263	bathrooms	2
+46263	carspaces	1
+46264	bedrooms	1
+46264	bathrooms	2
+46264	elevator	1
+46265	bedrooms	5
+46265	bathrooms	5
+46265	carspaces	3
+46265	pool	1
+46266	bedrooms	2
+46266	bathrooms	2
+46266	carspaces	2
+46267	bedrooms	3
+46267	bathrooms	5
+46267	carspaces	1
+46268	bedrooms	4
+46268	bathrooms	5
+46268	carspaces	3
+46269	bedrooms	2
+46269	bathrooms	5
+46269	carspaces	3
+46270	bedrooms	2
+46270	bathrooms	5
+46270	carspaces	2
+46271	bedrooms	2
+46271	bathrooms	1
+46271	elevator	1
+46272	bedrooms	3
+46272	bathrooms	4
+46272	carspaces	2
+46273	bedrooms	5
+46273	bathrooms	2
+46273	carspaces	1
+46273	pool	1
+46274	bedrooms	2
+46274	bathrooms	3
+46274	carspaces	2
+46274	pool	1
+46275	bedrooms	1
+46275	bathrooms	2
+46275	elevator	1
+46276	bedrooms	1
+46276	bathrooms	2
+46276	elevator	1
+46277	bedrooms	2
+46277	bathrooms	2
+46277	carspaces	1
+46278	bedrooms	3
+46278	bathrooms	1
+46278	carspaces	1
+46279	bedrooms	2
+46279	bathrooms	3
+46279	carspaces	1
+46279	pool	1
+46280	bedrooms	2
+46280	bathrooms	5
+46280	carspaces	3
+46281	bedrooms	2
+46281	bathrooms	2
+46281	carspaces	1
+46282	bedrooms	3
+46282	bathrooms	1
+46282	elevator	1
+46283	bedrooms	2
+46283	bathrooms	1
+46283	carspaces	1
+46284	bedrooms	1
+46284	bathrooms	2
+46284	carspaces	1
+46285	bedrooms	2
+46285	bathrooms	1
+46285	carspaces	1
+46286	bedrooms	4
+46286	bathrooms	2
+46286	carspaces	2
+46286	pool	1
+46287	bedrooms	2
+46287	bathrooms	2
+46288	bedrooms	3
+46288	bathrooms	2
+46288	carspaces	1
+46289	bedrooms	3
+46289	bathrooms	1
+46289	carspaces	1
+46289	elevator	1
+46290	bedrooms	2
+46290	bathrooms	2
+46290	carspaces	1
+46291	bedrooms	4
+46291	bathrooms	3
+46291	carspaces	2
+46292	bedrooms	1
+46292	bathrooms	2
+46292	elevator	1
+46293	bedrooms	3
+46293	bathrooms	5
+46293	carspaces	2
+46294	bedrooms	4
+46294	bathrooms	5
+46294	carspaces	2
+46295	bedrooms	1
+46295	bathrooms	2
+46295	carspaces	1
+46296	bedrooms	2
+46296	bathrooms	2
+46296	carspaces	3
+46297	bedrooms	4
+46297	bathrooms	2
+46297	carspaces	2
+46297	pool	1
+46298	bedrooms	4
+46298	bathrooms	4
+46298	carspaces	1
+46299	bedrooms	3
+46299	bathrooms	1
+46299	carspaces	1
+46300	bedrooms	3
+46300	bathrooms	2
+46300	carspaces	1
+46301	bedrooms	4
+46301	bathrooms	3
+46301	carspaces	2
+46302	bedrooms	1
+46302	bathrooms	2
+46302	elevator	1
+46303	bedrooms	2
+46303	bathrooms	1
+46303	carspaces	2
+46304	bedrooms	1
+46304	bathrooms	2
+46304	carspaces	1
+46305	bedrooms	2
+46305	bathrooms	5
+46305	carspaces	1
+46306	bedrooms	2
+46306	bathrooms	2
+46306	carspaces	1
+46306	elevator	1
+46307	bedrooms	3
+46307	bathrooms	3
+46307	carspaces	3
+46308	bedrooms	1
+46308	bathrooms	2
+46308	carspaces	2
+46309	bedrooms	1
+46309	bathrooms	1
+46310	bedrooms	3
+46310	bathrooms	4
+46310	carspaces	3
+46311	bedrooms	1
+46311	bathrooms	2
+46312	bedrooms	3
+46312	bathrooms	4
+46312	carspaces	1
+46313	bedrooms	3
+46313	bathrooms	2
+46313	carspaces	1
+46314	bedrooms	2
+46314	bathrooms	1
+46314	carspaces	1
+46315	bedrooms	2
+46315	bathrooms	1
+46315	carspaces	1
+46316	bedrooms	3
+46316	bathrooms	2
+46316	carspaces	1
+46316	elevator	1
+46317	bedrooms	3
+46317	bathrooms	5
+46317	carspaces	2
+46318	bedrooms	4
+46318	bathrooms	5
+46318	carspaces	2
+46319	bedrooms	5
+46319	bathrooms	2
+46319	carspaces	2
+46320	bedrooms	2
+46320	bathrooms	2
+46321	bedrooms	2
+46321	bathrooms	5
+46321	carspaces	2
+46321	pool	1
+46322	bedrooms	1
+46322	bathrooms	1
+46322	carspaces	1
+46322	elevator	1
+46323	bedrooms	2
+46323	bathrooms	2
+46323	carspaces	1
+46324	bedrooms	3
+46324	bathrooms	1
+46324	carspaces	3
+46325	bedrooms	2
+46325	bathrooms	2
+46325	elevator	1
+46326	bedrooms	3
+46326	bathrooms	4
+46326	carspaces	3
+46326	pool	1
+46327	bedrooms	5
+46327	bathrooms	3
+46327	carspaces	2
+46328	bedrooms	5
+46328	bathrooms	5
+46328	carspaces	1
+46329	bedrooms	3
+46329	bathrooms	1
+46329	carspaces	1
+46330	bedrooms	5
+46330	bathrooms	5
+46330	carspaces	1
+46331	bedrooms	5
+46331	bathrooms	5
+46331	carspaces	2
+46331	pool	1
+46332	bedrooms	3
+46332	bathrooms	2
+46332	carspaces	1
+46332	pool	1
+46333	bedrooms	3
+46333	bathrooms	3
+46333	carspaces	2
+46333	pool	1
+46334	bedrooms	5
+46334	bathrooms	5
+46334	carspaces	3
+46335	bedrooms	2
+46335	bathrooms	2
+46335	carspaces	1
+46336	bedrooms	3
+46336	bathrooms	5
+46336	carspaces	3
+46337	bedrooms	3
+46337	bathrooms	2
+46338	bedrooms	1
+46338	bathrooms	2
+46339	bedrooms	2
+46339	bathrooms	3
+46339	carspaces	1
+46340	bedrooms	2
+46340	bathrooms	3
+46340	carspaces	2
+46341	bedrooms	3
+46341	bathrooms	2
+46341	carspaces	3
+46342	bedrooms	2
+46342	bathrooms	2
+46342	elevator	1
+46343	bedrooms	2
+46343	bathrooms	2
+46344	bedrooms	3
+46344	bathrooms	1
+46344	carspaces	3
+46345	bedrooms	3
+46345	bathrooms	2
+46345	carspaces	1
+46346	bedrooms	3
+46346	bathrooms	2
+46346	carspaces	1
+46346	elevator	1
+46347	bedrooms	2
+46347	bathrooms	2
+46347	elevator	1
+46348	bedrooms	5
+46348	bathrooms	4
+46348	carspaces	1
+46349	bedrooms	5
+46349	bathrooms	4
+46349	carspaces	3
+46350	bedrooms	2
+46350	bathrooms	1
+46350	carspaces	2
+46351	bedrooms	1
+46351	bathrooms	1
+46351	carspaces	2
+46352	bedrooms	3
+46352	bathrooms	1
+46352	elevator	1
+46353	bedrooms	5
+46353	bathrooms	5
+46353	carspaces	2
+46354	bedrooms	1
+46354	bathrooms	1
+46354	carspaces	1
+46355	bedrooms	2
+46355	bathrooms	2
+46355	carspaces	1
+46355	elevator	1
+46356	bedrooms	2
+46356	bathrooms	1
+46356	carspaces	1
+46357	bedrooms	3
+46357	bathrooms	1
+46357	elevator	1
+46358	bedrooms	5
+46358	bathrooms	4
+46358	carspaces	3
+46358	pool	1
+46359	bedrooms	3
+46359	bathrooms	2
+46360	bedrooms	5
+46360	bathrooms	4
+46360	carspaces	2
+46361	bedrooms	2
+46361	bathrooms	2
+46362	bedrooms	1
+46362	bathrooms	3
+46363	bedrooms	3
+46363	bathrooms	3
+46363	carspaces	3
+46363	pool	1
+46364	bedrooms	3
+46364	bathrooms	1
+46364	elevator	1
+46365	bedrooms	1
+46365	bathrooms	1
+46365	carspaces	1
+46365	elevator	1
+46366	bedrooms	2
+46366	bathrooms	2
+46366	carspaces	1
+46367	bedrooms	2
+46367	bathrooms	5
+46367	carspaces	2
+46368	bedrooms	2
+46368	bathrooms	2
+46369	bedrooms	3
+46369	bathrooms	1
+46369	carspaces	1
+46369	elevator	1
+46370	bedrooms	1
+46370	bathrooms	1
+46370	carspaces	1
+46371	bedrooms	1
+46371	bathrooms	1
+46372	bedrooms	2
+46372	bathrooms	2
+46372	carspaces	3
+46373	bedrooms	4
+46373	bathrooms	5
+46373	carspaces	1
+46374	bedrooms	2
+46374	bathrooms	1
+46374	carspaces	1
+46374	elevator	1
+46375	bedrooms	3
+46375	bathrooms	1
+46375	carspaces	1
+46376	bedrooms	4
+46376	bathrooms	2
+46376	carspaces	2
+46377	bedrooms	1
+46377	bathrooms	2
+46377	carspaces	1
+46378	bedrooms	2
+46378	bathrooms	1
+46378	carspaces	1
+46379	bedrooms	4
+46379	bathrooms	5
+46379	carspaces	3
+46380	bedrooms	2
+46380	bathrooms	2
+46380	carspaces	1
+46381	bedrooms	2
+46381	bathrooms	1
+46381	carspaces	1
+46381	elevator	1
+46382	bedrooms	3
+46382	bathrooms	2
+46382	carspaces	1
+46382	elevator	1
+46383	bedrooms	5
+46383	bathrooms	5
+46383	carspaces	2
+46384	bedrooms	1
+46384	bathrooms	2
+46384	carspaces	1
+46385	bedrooms	3
+46385	bathrooms	2
+46385	carspaces	1
+46386	bedrooms	2
+46386	bathrooms	5
+46386	carspaces	1
+46387	bedrooms	5
+46387	bathrooms	3
+46387	carspaces	1
+46388	bedrooms	2
+46388	bathrooms	1
+46389	bedrooms	1
+46389	bathrooms	3
+46390	bedrooms	2
+46390	bathrooms	2
+46391	bedrooms	2
+46391	bathrooms	1
+46392	bedrooms	4
+46392	bathrooms	2
+46392	carspaces	1
+46393	bedrooms	3
+46393	bathrooms	1
+46393	carspaces	1
+46393	elevator	1
+46394	bedrooms	2
+46394	bathrooms	1
+46395	bedrooms	3
+46395	bathrooms	1
+46396	bedrooms	3
+46396	bathrooms	5
+46396	carspaces	2
+46397	bedrooms	1
+46397	bathrooms	1
+46397	carspaces	1
+46397	elevator	1
+46398	bedrooms	4
+46398	bathrooms	5
+46398	carspaces	2
+46399	bedrooms	2
+46399	bathrooms	2
+46400	bedrooms	2
+46400	bathrooms	3
+46400	carspaces	1
+46401	bedrooms	4
+46401	bathrooms	5
+46401	carspaces	2
+46402	bedrooms	2
+46402	bathrooms	1
+46402	elevator	1
+46403	bedrooms	2
+46403	bathrooms	1
+46403	elevator	1
+46404	bedrooms	2
+46404	bathrooms	2
+46404	carspaces	1
+46405	bedrooms	2
+46405	bathrooms	2
+46406	bedrooms	3
+46406	bathrooms	1
+46407	bedrooms	2
+46407	bathrooms	1
+46407	elevator	1
+46408	bedrooms	2
+46408	bathrooms	1
+46408	carspaces	2
+46409	bedrooms	3
+46409	bathrooms	1
+46409	carspaces	1
+46410	bedrooms	1
+46410	bathrooms	1
+46411	bedrooms	2
+46411	bathrooms	2
+46411	carspaces	1
+46412	bedrooms	3
+46412	bathrooms	2
+46412	carspaces	3
+46413	bedrooms	1
+46413	bathrooms	1
+46413	carspaces	1
+46414	bedrooms	4
+46414	bathrooms	4
+46414	carspaces	2
+46415	bedrooms	1
+46415	bathrooms	1
+46415	carspaces	1
+46415	elevator	1
+46416	bedrooms	2
+46416	bathrooms	4
+46416	carspaces	2
+46417	bedrooms	2
+46417	bathrooms	2
+46418	bedrooms	2
+46418	bathrooms	1
+46419	bedrooms	1
+46419	bathrooms	2
+46420	bedrooms	1
+46420	bathrooms	1
+46420	carspaces	1
+46420	elevator	1
+46421	bedrooms	1
+46421	bathrooms	2
+46421	elevator	1
+46422	bedrooms	1
+46422	bathrooms	3
+46423	bedrooms	2
+46423	bathrooms	1
+46423	carspaces	1
+46424	bedrooms	1
+46424	bathrooms	1
+46424	carspaces	1
+46424	elevator	1
+46425	bedrooms	1
+46425	bathrooms	1
+46425	carspaces	2
+46426	bedrooms	2
+46426	bathrooms	1
+46426	carspaces	1
+46427	bedrooms	4
+46427	bathrooms	4
+46427	carspaces	1
+46428	bedrooms	1
+46428	bathrooms	1
+46429	bedrooms	3
+46429	bathrooms	2
+46429	carspaces	1
+46430	bedrooms	3
+46430	bathrooms	2
+46430	carspaces	2
+46431	bedrooms	4
+46431	bathrooms	1
+46431	carspaces	3
+46431	pool	1
+46432	bedrooms	1
+46432	bathrooms	1
+46432	carspaces	1
+46433	bedrooms	2
+46433	bathrooms	2
+46433	elevator	1
+46434	bedrooms	2
+46434	bathrooms	5
+46434	carspaces	3
+46435	bedrooms	3
+46435	bathrooms	1
+46436	bedrooms	2
+46436	bathrooms	4
+46436	carspaces	3
+46436	pool	1
+46437	bedrooms	3
+46437	bathrooms	1
+46437	carspaces	1
+46438	bedrooms	4
+46438	bathrooms	3
+46438	carspaces	3
+46439	bedrooms	3
+46439	bathrooms	1
+46439	carspaces	1
+46440	bedrooms	3
+46440	bathrooms	2
+46440	carspaces	1
+46440	elevator	1
+46441	bedrooms	1
+46441	bathrooms	1
+46441	carspaces	1
+46441	elevator	1
+46442	bedrooms	1
+46442	bathrooms	1
+46442	carspaces	1
+46442	elevator	1
+46443	bedrooms	2
+46443	bathrooms	5
+46443	carspaces	2
+46444	bedrooms	5
+46444	bathrooms	5
+46444	carspaces	3
+46445	bedrooms	3
+46445	bathrooms	2
+46446	bedrooms	3
+46446	bathrooms	1
+46446	carspaces	1
+46447	bedrooms	4
+46447	bathrooms	5
+46447	carspaces	3
+46448	bedrooms	2
+46448	bathrooms	4
+46448	carspaces	1
+46449	bedrooms	2
+46449	bathrooms	5
+46449	carspaces	3
+46450	bedrooms	2
+46450	bathrooms	4
+46450	carspaces	1
+46451	bedrooms	3
+46451	bathrooms	2
+46451	elevator	1
+46452	bedrooms	2
+46452	bathrooms	4
+46452	carspaces	3
+46453	bedrooms	5
+46453	bathrooms	2
+46453	carspaces	3
+46454	bedrooms	1
+46454	bathrooms	1
+46454	elevator	1
+46455	bedrooms	2
+46455	bathrooms	2
+46455	elevator	1
+46456	bedrooms	4
+46456	bathrooms	3
+46456	carspaces	3
+46457	bedrooms	2
+46457	bathrooms	2
+46457	carspaces	1
+46458	bedrooms	3
+46458	bathrooms	2
+46458	carspaces	1
+46459	bedrooms	3
+46459	bathrooms	1
+46459	carspaces	1
+46460	bedrooms	4
+46460	bathrooms	5
+46460	carspaces	3
+46461	bedrooms	1
+46461	bathrooms	2
+46461	carspaces	1
+46461	elevator	1
+46462	bedrooms	1
+46462	bathrooms	1
+46462	carspaces	1
+46463	bedrooms	3
+46463	bathrooms	3
+46463	carspaces	3
+46464	bedrooms	5
+46464	bathrooms	5
+46464	carspaces	3
+46465	bedrooms	3
+46465	bathrooms	3
+46465	carspaces	2
+46466	bedrooms	2
+46466	bathrooms	5
+46466	carspaces	1
+46467	bedrooms	2
+46467	bathrooms	1
+46468	bedrooms	4
+46468	bathrooms	4
+46468	carspaces	3
+46469	bedrooms	4
+46469	bathrooms	1
+46469	carspaces	2
+46470	bedrooms	1
+46470	bathrooms	1
+46470	carspaces	1
+46471	bedrooms	2
+46471	bathrooms	2
+46471	carspaces	1
+46472	bedrooms	2
+46472	bathrooms	2
+46472	carspaces	1
+46473	bedrooms	5
+46473	bathrooms	1
+46473	carspaces	1
+46474	bedrooms	1
+46474	bathrooms	1
+46475	bedrooms	3
+46475	bathrooms	2
+46475	carspaces	1
+46475	elevator	1
+46476	bedrooms	4
+46476	bathrooms	4
+46476	carspaces	2
+46477	bedrooms	2
+46477	bathrooms	5
+46477	carspaces	3
+46478	bedrooms	2
+46478	bathrooms	1
+46478	carspaces	1
+46478	elevator	1
+46479	bedrooms	1
+46479	bathrooms	2
+46479	carspaces	1
+46480	bedrooms	1
+46480	bathrooms	2
+46481	bedrooms	2
+46481	bathrooms	2
+46481	carspaces	1
+46481	elevator	1
+46482	bedrooms	3
+46482	bathrooms	2
+46482	carspaces	1
+46483	bedrooms	4
+46483	bathrooms	4
+46483	carspaces	3
+46484	bedrooms	4
+46484	bathrooms	1
+46484	carspaces	1
+46485	bedrooms	2
+46485	bathrooms	1
+46485	carspaces	2
+46486	bedrooms	3
+46486	bathrooms	1
+46486	carspaces	1
+46487	bedrooms	3
+46487	bathrooms	2
+46487	carspaces	1
+46488	bedrooms	5
+46488	bathrooms	5
+46488	carspaces	2
+46489	bedrooms	5
+46489	bathrooms	4
+46489	carspaces	1
+46490	bedrooms	3
+46490	bathrooms	2
+46490	carspaces	2
+46491	bedrooms	3
+46491	bathrooms	4
+46491	carspaces	1
+46492	bedrooms	1
+46492	bathrooms	1
+46493	bedrooms	1
+46493	bathrooms	2
+46493	carspaces	1
+46494	bedrooms	2
+46494	bathrooms	2
+46495	bedrooms	2
+46495	bathrooms	3
+46495	carspaces	2
+46496	bedrooms	2
+46496	bathrooms	3
+46496	carspaces	1
+46497	bedrooms	3
+46497	bathrooms	1
+46497	carspaces	3
+46498	bedrooms	1
+46498	bathrooms	1
+46498	carspaces	1
+46499	bedrooms	2
+46499	bathrooms	2
+46500	bedrooms	3
+46500	bathrooms	1
+46500	carspaces	1
+46500	elevator	1
+46501	bedrooms	5
+46501	bathrooms	2
+46501	carspaces	1
+46502	bedrooms	3
+46502	bathrooms	2
+46503	bedrooms	3
+46503	bathrooms	5
+46503	carspaces	1
+46504	bedrooms	5
+46504	bathrooms	2
+46504	carspaces	1
+46505	bedrooms	2
+46505	bathrooms	2
+46505	carspaces	1
+46505	elevator	1
+46506	bedrooms	2
+46506	bathrooms	1
+46506	carspaces	1
+46507	bedrooms	1
+46507	bathrooms	1
+46507	carspaces	1
+46508	bedrooms	3
+46508	bathrooms	5
+46508	carspaces	3
+46509	bedrooms	2
+46509	bathrooms	1
+46509	carspaces	1
+46510	bedrooms	1
+46510	bathrooms	1
+46510	carspaces	1
+46511	bedrooms	1
+46511	bathrooms	1
+46512	bedrooms	3
+46512	bathrooms	3
+46513	bedrooms	3
+46513	bathrooms	2
+46514	bedrooms	4
+46514	bathrooms	4
+46514	carspaces	2
+46514	pool	1
+46515	bedrooms	4
+46515	bathrooms	4
+46515	carspaces	2
+46516	bedrooms	3
+46516	bathrooms	1
+46516	carspaces	1
+46517	bedrooms	5
+46517	bathrooms	3
+46517	carspaces	1
+46518	bedrooms	1
+46518	bathrooms	2
+46519	bedrooms	4
+46519	bathrooms	3
+46519	carspaces	2
+46520	bedrooms	5
+46520	bathrooms	4
+46520	carspaces	3
+46521	bedrooms	2
+46521	bathrooms	2
+46521	elevator	1
+46522	bedrooms	2
+46522	bathrooms	1
+46522	carspaces	1
+46523	bedrooms	3
+46523	bathrooms	3
+46523	carspaces	1
+46524	bedrooms	4
+46524	bathrooms	5
+46524	carspaces	2
+46525	bedrooms	1
+46525	bathrooms	2
+46526	bedrooms	3
+46526	bathrooms	1
+46526	carspaces	1
+46527	bedrooms	3
+46527	bathrooms	2
+46527	carspaces	1
+46528	bedrooms	3
+46528	bathrooms	3
+46528	carspaces	3
+46529	bedrooms	1
+46529	bathrooms	1
+46530	bedrooms	1
+46530	bathrooms	1
+46531	bedrooms	3
+46531	bathrooms	3
+46531	carspaces	1
+46532	bedrooms	5
+46532	bathrooms	1
+46532	carspaces	3
+46533	bedrooms	5
+46533	bathrooms	4
+46533	carspaces	2
+46534	bedrooms	3
+46534	bathrooms	5
+46534	carspaces	3
+46534	pool	1
+46535	bedrooms	4
+46535	bathrooms	4
+46535	carspaces	2
+46536	bedrooms	3
+46536	bathrooms	2
+46536	elevator	1
+46537	bedrooms	1
+46537	bathrooms	2
+46537	carspaces	1
+46537	elevator	1
+46538	bedrooms	2
+46538	bathrooms	2
+46538	carspaces	1
+46539	bedrooms	3
+46539	bathrooms	4
+46539	carspaces	3
+46540	bedrooms	3
+46540	bathrooms	3
+46540	carspaces	1
+46541	bedrooms	2
+46541	bathrooms	1
+46541	carspaces	1
+46541	elevator	1
+46542	bedrooms	1
+46542	bathrooms	1
+46542	carspaces	1
+46542	elevator	1
+46543	bedrooms	2
+46543	bathrooms	2
+46543	carspaces	1
+46543	elevator	1
+46544	bedrooms	5
+46544	bathrooms	4
+46544	carspaces	2
+46544	pool	1
+46545	bedrooms	3
+46545	bathrooms	1
+46545	carspaces	1
+46546	bedrooms	2
+46546	bathrooms	2
+46547	bedrooms	4
+46547	bathrooms	2
+46547	carspaces	1
+46548	bedrooms	3
+46548	bathrooms	4
+46548	carspaces	1
+46549	bedrooms	3
+46549	bathrooms	1
+46549	carspaces	3
+46550	bedrooms	2
+46550	bathrooms	1
+46550	carspaces	1
+46551	bedrooms	3
+46551	bathrooms	1
+46551	elevator	1
+46552	bedrooms	2
+46552	bathrooms	1
+46552	carspaces	1
+46553	bedrooms	2
+46553	bathrooms	1
+46553	elevator	1
+46554	bedrooms	1
+46554	bathrooms	1
+46554	elevator	1
+46555	bedrooms	3
+46555	bathrooms	3
+46555	carspaces	3
+46556	bedrooms	1
+46556	bathrooms	2
+46556	carspaces	2
+46557	bedrooms	1
+46557	bathrooms	1
+46558	bedrooms	3
+46558	bathrooms	2
+46558	carspaces	1
+46559	bedrooms	1
+46559	bathrooms	2
+46559	carspaces	1
+46559	elevator	1
+46560	bedrooms	3
+46560	bathrooms	1
+46560	carspaces	1
+46561	bedrooms	2
+46561	bathrooms	1
+46561	carspaces	1
+46562	bedrooms	3
+46562	bathrooms	2
+46562	carspaces	2
+46563	bedrooms	3
+46563	bathrooms	2
+46563	carspaces	1
+46564	bedrooms	3
+46564	bathrooms	4
+46564	carspaces	3
+46565	bedrooms	5
+46565	bathrooms	2
+46565	carspaces	1
+46566	bedrooms	1
+46566	bathrooms	2
+46567	bedrooms	3
+46567	bathrooms	1
+46568	bedrooms	1
+46568	bathrooms	1
+46569	bedrooms	4
+46569	bathrooms	2
+46569	carspaces	2
+46570	bedrooms	2
+46570	bathrooms	1
+46570	elevator	1
+46571	bedrooms	3
+46571	bathrooms	2
+46571	elevator	1
+46572	bedrooms	3
+46572	bathrooms	1
+46572	carspaces	1
+46572	elevator	1
+46573	bedrooms	1
+46573	bathrooms	1
+46573	carspaces	1
+46573	elevator	1
+46574	bedrooms	1
+46574	bathrooms	1
+46574	carspaces	1
+46575	bedrooms	2
+46575	bathrooms	2
+46575	carspaces	1
+46576	bedrooms	2
+46576	bathrooms	1
+46576	carspaces	1
+46577	bedrooms	5
+46577	bathrooms	3
+46577	carspaces	1
+46578	bedrooms	5
+46578	bathrooms	3
+46578	carspaces	3
+46579	bedrooms	5
+46579	bathrooms	3
+46579	carspaces	3
+46580	bedrooms	4
+46580	bathrooms	4
+46580	carspaces	2
+46581	bedrooms	3
+46581	bathrooms	1
+46582	bedrooms	4
+46582	bathrooms	5
+46582	carspaces	1
+46583	bedrooms	3
+46583	bathrooms	4
+46583	carspaces	2
+46584	bedrooms	2
+46584	bathrooms	1
+46584	carspaces	2
+46585	bedrooms	5
+46585	bathrooms	1
+46585	carspaces	3
+46586	bedrooms	2
+46586	bathrooms	2
+46586	elevator	1
+46587	bedrooms	2
+46587	bathrooms	3
+46588	bedrooms	1
+46588	bathrooms	1
+46588	carspaces	1
+46589	bedrooms	2
+46589	bathrooms	2
+46589	carspaces	1
+46590	bedrooms	3
+46590	bathrooms	2
+46590	carspaces	2
+46591	bedrooms	4
+46591	bathrooms	5
+46591	carspaces	3
+46592	bedrooms	3
+46592	bathrooms	1
+46592	carspaces	3
+46593	bedrooms	1
+46593	bathrooms	1
+46593	carspaces	1
+46594	bedrooms	3
+46594	bathrooms	1
+46594	carspaces	1
+46595	bedrooms	4
+46595	bathrooms	4
+46595	carspaces	2
+46596	bedrooms	3
+46596	bathrooms	2
+46596	carspaces	1
+46597	bedrooms	5
+46597	bathrooms	5
+46597	carspaces	2
+46598	bedrooms	1
+46598	bathrooms	2
+46598	elevator	1
+46599	bedrooms	2
+46599	bathrooms	5
+46599	carspaces	2
+46600	bedrooms	3
+46600	bathrooms	2
+46601	bedrooms	5
+46601	bathrooms	2
+46601	carspaces	1
+46602	bedrooms	1
+46602	bathrooms	1
+46603	bedrooms	2
+46603	bathrooms	1
+46603	carspaces	2
+46604	bedrooms	1
+46604	bathrooms	2
+46604	carspaces	1
+46605	bedrooms	2
+46605	bathrooms	3
+46605	carspaces	2
+46606	bedrooms	5
+46606	bathrooms	1
+46606	carspaces	3
+46607	bedrooms	1
+46607	bathrooms	2
+46607	carspaces	1
+46607	elevator	1
+46608	bedrooms	1
+46608	bathrooms	2
+46609	bedrooms	3
+46609	bathrooms	3
+46609	carspaces	3
+46610	bedrooms	1
+46610	bathrooms	2
+46610	carspaces	1
+46610	elevator	1
+46611	bedrooms	2
+46611	bathrooms	1
+46611	carspaces	2
+46612	bedrooms	2
+46612	bathrooms	1
+46612	elevator	1
+46613	bedrooms	5
+46613	bathrooms	4
+46613	carspaces	3
+46614	bedrooms	5
+46614	bathrooms	3
+46614	carspaces	2
+46615	bedrooms	1
+46615	bathrooms	2
+46615	carspaces	1
+46616	bedrooms	2
+46616	bathrooms	1
+46617	bedrooms	3
+46617	bathrooms	1
+46618	bedrooms	4
+46618	bathrooms	3
+46618	carspaces	2
+46619	bedrooms	5
+46619	bathrooms	5
+46619	carspaces	2
+46620	bedrooms	2
+46620	bathrooms	2
+46621	bedrooms	2
+46621	bathrooms	2
+46622	bedrooms	4
+46622	bathrooms	4
+46622	carspaces	2
+46623	bedrooms	3
+46623	bathrooms	2
+46624	bedrooms	3
+46624	bathrooms	3
+46624	carspaces	1
+46625	bedrooms	4
+46625	bathrooms	2
+46625	carspaces	1
+46626	bedrooms	2
+46626	bathrooms	2
+46626	elevator	1
+46627	bedrooms	5
+46627	bathrooms	4
+46627	carspaces	2
+46628	bedrooms	2
+46628	bathrooms	3
+46628	carspaces	2
+46629	bedrooms	1
+46629	bathrooms	2
+46630	bedrooms	2
+46630	bathrooms	2
+46630	carspaces	1
+46631	bedrooms	5
+46631	bathrooms	5
+46631	carspaces	3
+46632	bedrooms	2
+46632	bathrooms	2
+46632	carspaces	2
+46633	bedrooms	2
+46633	bathrooms	2
+46633	carspaces	1
+46633	elevator	1
+46634	bedrooms	2
+46634	bathrooms	4
+46634	carspaces	1
+46635	bedrooms	2
+46635	bathrooms	1
+46635	carspaces	2
+46636	bedrooms	3
+46636	bathrooms	1
+46637	bedrooms	1
+46637	bathrooms	2
+46638	bedrooms	3
+46638	bathrooms	2
+46638	carspaces	1
+46638	elevator	1
+46639	bedrooms	2
+46639	bathrooms	1
+46640	bedrooms	2
+46640	bathrooms	2
+46640	carspaces	1
+46641	bedrooms	1
+46641	bathrooms	1
+46641	carspaces	2
+46642	bedrooms	3
+46642	bathrooms	2
+46642	carspaces	1
+46643	bedrooms	2
+46643	bathrooms	2
+46643	carspaces	1
+46643	elevator	1
+46644	bedrooms	2
+46644	bathrooms	1
+46644	carspaces	1
+46645	bedrooms	2
+46645	bathrooms	3
+46645	carspaces	1
+46646	bedrooms	3
+46646	bathrooms	1
+46647	bedrooms	2
+46647	bathrooms	2
+46647	carspaces	1
+46648	bedrooms	3
+46648	bathrooms	2
+46649	bedrooms	4
+46649	bathrooms	2
+46649	carspaces	1
+46650	bedrooms	3
+46650	bathrooms	3
+46650	carspaces	2
+46651	bedrooms	2
+46651	bathrooms	5
+46651	carspaces	2
+46651	pool	1
+46652	bedrooms	1
+46652	bathrooms	2
+46652	carspaces	1
+46653	bedrooms	1
+46653	bathrooms	2
+46653	carspaces	1
+46654	bedrooms	3
+46654	bathrooms	2
+46654	carspaces	2
+46655	bedrooms	3
+46655	bathrooms	5
+46655	carspaces	2
+46656	bedrooms	3
+46656	bathrooms	1
+46656	carspaces	3
+46657	bedrooms	1
+46657	bathrooms	2
+46657	carspaces	1
+46658	bedrooms	3
+46658	bathrooms	2
+46658	carspaces	1
+46658	elevator	1
+46659	bedrooms	2
+46659	bathrooms	1
+46659	carspaces	1
+46659	elevator	1
+46660	bedrooms	1
+46660	bathrooms	2
+46661	bedrooms	4
+46661	bathrooms	3
+46661	carspaces	2
+46662	bedrooms	1
+46662	bathrooms	2
+46662	elevator	1
+46663	bedrooms	3
+46663	bathrooms	1
+46663	carspaces	1
+46664	bedrooms	3
+46664	bathrooms	3
+46664	carspaces	2
+46665	bedrooms	3
+46665	bathrooms	2
+46666	bedrooms	3
+46666	bathrooms	2
+46666	carspaces	3
+46667	bedrooms	2
+46667	bathrooms	1
+46667	elevator	1
+46668	bedrooms	2
+46668	bathrooms	1
+46668	elevator	1
+46669	bedrooms	2
+46669	bathrooms	1
+46669	carspaces	1
+46670	bedrooms	3
+46670	bathrooms	2
+46670	carspaces	1
+46671	bedrooms	5
+46671	bathrooms	1
+46671	carspaces	1
+46672	bedrooms	1
+46672	bathrooms	1
+46672	carspaces	1
+46673	bedrooms	2
+46673	bathrooms	2
+46673	carspaces	1
+46674	bedrooms	1
+46674	bathrooms	2
+46675	bedrooms	4
+46675	bathrooms	1
+46675	carspaces	3
+46676	bedrooms	2
+46676	bathrooms	1
+46676	carspaces	1
+46677	bedrooms	1
+46677	bathrooms	2
+46678	bedrooms	1
+46678	bathrooms	1
+46678	carspaces	1
+46678	elevator	1
+46679	bedrooms	5
+46679	bathrooms	5
+46679	carspaces	3
+46680	bedrooms	3
+46680	bathrooms	1
+46680	elevator	1
+46681	bedrooms	2
+46681	bathrooms	2
+46681	carspaces	2
+46682	bedrooms	3
+46682	bathrooms	1
+46683	bedrooms	3
+46683	bathrooms	2
+46683	carspaces	1
+46684	bedrooms	3
+46684	bathrooms	1
+46684	elevator	1
+46685	bedrooms	2
+46685	bathrooms	4
+46685	carspaces	2
+46686	bedrooms	3
+46686	bathrooms	1
+46686	elevator	1
+46687	bedrooms	1
+46687	bathrooms	3
+46687	carspaces	1
+46688	bedrooms	1
+46688	bathrooms	2
+46688	carspaces	1
+46689	bedrooms	1
+46689	bathrooms	2
+46689	elevator	1
+46690	bedrooms	5
+46690	bathrooms	5
+46690	carspaces	1
+46691	bedrooms	1
+46691	bathrooms	2
+46692	bedrooms	3
+46692	bathrooms	1
+46693	bedrooms	3
+46693	bathrooms	2
+46693	carspaces	1
+46694	bedrooms	5
+46694	bathrooms	2
+46694	carspaces	2
+46695	bedrooms	3
+46695	bathrooms	1
+46695	carspaces	2
+46696	bedrooms	2
+46696	bathrooms	1
+46696	carspaces	3
+46697	bedrooms	1
+46697	bathrooms	2
+46697	elevator	1
+46698	bedrooms	1
+46698	bathrooms	2
+46699	bedrooms	1
+46699	bathrooms	2
+46699	carspaces	1
+46700	bedrooms	3
+46700	bathrooms	1
+46700	carspaces	2
+46701	bedrooms	1
+46701	bathrooms	2
+46701	elevator	1
+46702	bedrooms	2
+46702	bathrooms	2
+46702	carspaces	1
+46703	bedrooms	1
+46703	bathrooms	1
+46704	bedrooms	5
+46704	bathrooms	4
+46704	carspaces	2
+46705	bedrooms	3
+46705	bathrooms	3
+46705	carspaces	2
+46706	bedrooms	5
+46706	bathrooms	1
+46706	carspaces	2
+46707	bedrooms	3
+46707	bathrooms	2
+46708	bedrooms	2
+46708	bathrooms	2
+46708	carspaces	1
+46709	bedrooms	4
+46709	bathrooms	5
+46709	carspaces	2
+46710	bedrooms	2
+46710	bathrooms	2
+46710	carspaces	1
+46711	bedrooms	3
+46711	bathrooms	2
+46712	bedrooms	2
+46712	bathrooms	2
+46713	bedrooms	2
+46713	bathrooms	2
+46714	bedrooms	4
+46714	bathrooms	2
+46714	carspaces	1
+46715	bedrooms	1
+46715	bathrooms	2
+46716	bedrooms	2
+46716	bathrooms	2
+46716	carspaces	2
+46717	bedrooms	3
+46717	bathrooms	2
+46717	elevator	1
+46718	bedrooms	3
+46718	bathrooms	3
+46718	carspaces	1
+46719	bedrooms	5
+46719	bathrooms	3
+46719	carspaces	3
+46720	bedrooms	3
+46720	bathrooms	2
+46720	carspaces	2
+46720	pool	1
+46721	bedrooms	3
+46721	bathrooms	2
+46722	bedrooms	4
+46722	bathrooms	3
+46722	carspaces	3
+46723	bedrooms	4
+46723	bathrooms	1
+46723	carspaces	3
+46724	bedrooms	4
+46724	bathrooms	2
+46724	carspaces	1
+46724	pool	1
+46725	bedrooms	2
+46725	bathrooms	3
+46725	carspaces	1
+46725	pool	1
+46726	bedrooms	4
+46726	bathrooms	2
+46726	carspaces	2
+46727	bedrooms	2
+46727	bathrooms	2
+46728	bedrooms	1
+46728	bathrooms	1
+46728	carspaces	1
+46729	bedrooms	2
+46729	bathrooms	5
+46729	carspaces	3
+46730	bedrooms	5
+46730	bathrooms	2
+46730	carspaces	3
+46730	pool	1
+46731	bedrooms	1
+46731	bathrooms	2
+46731	carspaces	1
+46732	bedrooms	3
+46732	bathrooms	2
+46733	bedrooms	3
+46733	bathrooms	3
+46733	carspaces	2
+46734	bedrooms	3
+46734	bathrooms	2
+46735	bedrooms	2
+46735	bathrooms	2
+46736	bedrooms	2
+46736	bathrooms	2
+46736	carspaces	1
+46737	bedrooms	2
+46737	bathrooms	4
+46737	carspaces	1
+46738	bedrooms	1
+46738	bathrooms	1
+46739	bedrooms	2
+46739	bathrooms	2
+46739	carspaces	1
+46740	bedrooms	3
+46740	bathrooms	3
+46740	carspaces	2
+46741	bedrooms	3
+46741	bathrooms	1
+46741	carspaces	2
+46742	bedrooms	1
+46742	bathrooms	2
+46742	carspaces	1
+46742	elevator	1
+46743	bedrooms	2
+46743	bathrooms	1
+46744	bedrooms	5
+46744	bathrooms	2
+46744	carspaces	2
+46745	bedrooms	2
+46745	bathrooms	2
+46745	carspaces	1
+46746	bedrooms	5
+46746	bathrooms	2
+46746	carspaces	1
+46747	bedrooms	5
+46747	bathrooms	3
+46747	carspaces	2
+46748	bedrooms	3
+46748	bathrooms	2
+46748	elevator	1
+46749	bedrooms	3
+46749	bathrooms	3
+46749	carspaces	1
+46750	bedrooms	3
+46750	bathrooms	1
+46750	carspaces	1
+46751	bedrooms	1
+46751	bathrooms	2
+46751	carspaces	1
+46751	elevator	1
+46752	bedrooms	2
+46752	bathrooms	2
+46752	carspaces	2
+46753	bedrooms	2
+46753	bathrooms	2
+46753	elevator	1
+46754	bedrooms	4
+46754	bathrooms	1
+46754	carspaces	1
+46755	bedrooms	1
+46755	bathrooms	1
+46755	elevator	1
+46756	bedrooms	1
+46756	bathrooms	1
+46757	bedrooms	2
+46757	bathrooms	2
+46757	elevator	1
+46758	bedrooms	3
+46758	bathrooms	2
+46758	carspaces	1
+46758	elevator	1
+46759	bedrooms	2
+46759	bathrooms	3
+46759	carspaces	1
+46760	bedrooms	2
+46760	bathrooms	1
+46760	carspaces	1
+46761	bedrooms	3
+46761	bathrooms	2
+46761	carspaces	3
+46762	bedrooms	3
+46762	bathrooms	5
+46762	carspaces	2
+46763	bedrooms	3
+46763	bathrooms	1
+46764	bedrooms	2
+46764	bathrooms	1
+46765	bedrooms	3
+46765	bathrooms	1
+46765	carspaces	1
+46766	bedrooms	2
+46766	bathrooms	2
+46766	elevator	1
+46767	bedrooms	2
+46767	bathrooms	2
+46767	carspaces	1
+46768	bedrooms	1
+46768	bathrooms	2
+46768	carspaces	2
+46769	bedrooms	3
+46769	bathrooms	5
+46769	carspaces	3
+46770	bedrooms	2
+46770	bathrooms	1
+46770	carspaces	1
+46770	elevator	1
+46771	bedrooms	4
+46771	bathrooms	1
+46771	carspaces	1
+46772	bedrooms	4
+46772	bathrooms	3
+46772	carspaces	2
+46773	bedrooms	2
+46773	bathrooms	2
+46773	carspaces	1
+46773	elevator	1
+46774	bedrooms	1
+46774	bathrooms	2
+46775	bedrooms	1
+46775	bathrooms	1
+46776	bedrooms	2
+46776	bathrooms	4
+46776	carspaces	1
+46777	bedrooms	3
+46777	bathrooms	2
+46777	carspaces	2
+46778	bedrooms	1
+46778	bathrooms	2
+46779	bedrooms	3
+46779	bathrooms	2
+46779	carspaces	1
+46779	elevator	1
+46780	bedrooms	2
+46780	bathrooms	3
+46781	bedrooms	4
+46781	bathrooms	2
+46781	carspaces	2
+46782	bedrooms	1
+46782	bathrooms	2
+46782	carspaces	1
+46783	bedrooms	2
+46783	bathrooms	2
+46783	carspaces	1
+46784	bedrooms	1
+46784	bathrooms	1
+46785	bedrooms	2
+46785	bathrooms	2
+46785	carspaces	1
+46786	bedrooms	1
+46786	bathrooms	1
+46786	carspaces	1
+46787	bedrooms	1
+46787	bathrooms	2
+46788	bedrooms	2
+46788	bathrooms	1
+46789	bedrooms	4
+46789	bathrooms	2
+46789	carspaces	3
+46790	bedrooms	2
+46790	bathrooms	2
+46791	bedrooms	2
+46791	bathrooms	4
+46791	carspaces	3
+46792	bedrooms	2
+46792	bathrooms	2
+46792	carspaces	1
+46792	elevator	1
+46793	bedrooms	3
+46793	bathrooms	3
+46793	carspaces	2
+46794	bedrooms	4
+46794	bathrooms	1
+46794	carspaces	1
+46794	pool	1
+46795	bedrooms	2
+46795	bathrooms	1
+46795	carspaces	1
+46796	bedrooms	3
+46796	bathrooms	4
+46796	carspaces	2
+46797	bedrooms	2
+46797	bathrooms	1
+46797	carspaces	2
+46798	bedrooms	2
+46798	bathrooms	1
+46799	bedrooms	3
+46799	bathrooms	2
+46799	carspaces	1
+46800	bedrooms	3
+46800	bathrooms	3
+46800	carspaces	2
+46801	bedrooms	4
+46801	bathrooms	4
+46801	carspaces	2
+46802	bedrooms	3
+46802	bathrooms	1
+46803	bedrooms	2
+46803	bathrooms	2
+46803	carspaces	3
+46804	bedrooms	2
+46804	bathrooms	2
+46805	bedrooms	1
+46805	bathrooms	2
+46806	bedrooms	4
+46806	bathrooms	4
+46806	carspaces	1
+46807	bedrooms	2
+46807	bathrooms	2
+46807	elevator	1
+46808	bedrooms	2
+46808	bathrooms	1
+46808	carspaces	2
+46809	bedrooms	1
+46809	bathrooms	2
+46809	elevator	1
+46810	bedrooms	2
+46810	bathrooms	5
+46810	carspaces	2
+46810	pool	1
+46811	bedrooms	3
+46811	bathrooms	2
+46811	carspaces	3
+46812	bedrooms	4
+46812	bathrooms	3
+46812	carspaces	2
+46812	pool	1
+46813	bedrooms	3
+46813	bathrooms	2
+46814	bedrooms	5
+46814	bathrooms	5
+46814	carspaces	1
+46815	bedrooms	2
+46815	bathrooms	2
+46815	carspaces	1
+46816	bedrooms	1
+46816	bathrooms	1
+46817	bedrooms	5
+46817	bathrooms	5
+46817	carspaces	2
+46818	bedrooms	4
+46818	bathrooms	5
+46818	carspaces	3
+46819	bedrooms	4
+46819	bathrooms	1
+46819	carspaces	1
+46820	bedrooms	4
+46820	bathrooms	2
+46820	carspaces	1
+46821	bedrooms	3
+46821	bathrooms	2
+46821	elevator	1
+46822	bedrooms	1
+46822	bathrooms	1
+46822	elevator	1
+46823	bedrooms	3
+46823	bathrooms	2
+46823	carspaces	1
+46823	elevator	1
+46824	bedrooms	3
+46824	bathrooms	1
+46824	carspaces	1
+46825	bedrooms	2
+46825	bathrooms	2
+46825	carspaces	1
+46826	bedrooms	2
+46826	bathrooms	2
+46827	bedrooms	1
+46827	bathrooms	1
+46827	carspaces	1
+46828	bedrooms	2
+46828	bathrooms	1
+46828	carspaces	1
+46829	bedrooms	2
+46829	bathrooms	1
+46830	bedrooms	3
+46830	bathrooms	1
+46831	bedrooms	2
+46831	bathrooms	1
+46831	carspaces	1
+46832	bedrooms	1
+46832	bathrooms	1
+46832	elevator	1
+46833	bedrooms	2
+46833	bathrooms	1
+46833	carspaces	3
+46834	bedrooms	2
+46834	bathrooms	2
+46835	bedrooms	2
+46835	bathrooms	1
+46836	bedrooms	4
+46836	bathrooms	4
+46836	carspaces	3
+46837	bedrooms	2
+46837	bathrooms	2
+46838	bedrooms	3
+46838	bathrooms	1
+46839	bedrooms	3
+46839	bathrooms	4
+46839	carspaces	3
+46840	bedrooms	4
+46840	bathrooms	2
+46840	carspaces	3
+46841	bedrooms	3
+46841	bathrooms	1
+46841	elevator	1
+46842	bedrooms	2
+46842	bathrooms	1
+46843	bedrooms	1
+46843	bathrooms	2
+46843	carspaces	1
+46844	bedrooms	2
+46844	bathrooms	2
+46845	bedrooms	2
+46845	bathrooms	5
+46845	carspaces	1
+46846	bedrooms	1
+46846	bathrooms	1
+46847	bedrooms	2
+46847	bathrooms	4
+46847	carspaces	1
+46848	bedrooms	5
+46848	bathrooms	2
+46848	carspaces	1
+46848	pool	1
+46849	bedrooms	1
+46849	bathrooms	2
+46849	elevator	1
+46850	bedrooms	2
+46850	bathrooms	2
+46850	carspaces	1
+46851	bedrooms	2
+46851	bathrooms	1
+46851	carspaces	2
+46852	bedrooms	2
+46852	bathrooms	1
+46852	elevator	1
+46853	bedrooms	3
+46853	bathrooms	1
+46853	carspaces	1
+46854	bedrooms	3
+46854	bathrooms	5
+46854	carspaces	1
+\.
+
+
+--
+-- Data for Name: properties; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.properties (id, unit_no, street_no, street, ptype, list_price, sold_price, sold_date) FROM stdin;
+45678	\N	10	98535	House	2908000	2912000	2021-08-28
+45679	16	97	98727	Apartment	1755000	1738000	2021-07-12
+45680	\N	66	98669	House	2284000	2292000	2021-07-16
+45681	11	41	98526	Apartment	1564000	1569000	2021-10-18
+45682	\N	94	98623	House	2338000	\N	\N
+45683	9	7	98682	Apartment	888000	919000	2021-09-10
+45684	\N	50	98689	Townhouse	1289000	1323000	2021-09-04
+45685	\N	191	98632	House	1939000	1960000	2021-07-13
+45686	20	28	98527	Apartment	1562000	1579000	2021-06-29
+45687	\N	19	98605	House	2128000	\N	\N
+45688	\N	33	98734	Townhouse	2020000	\N	\N
+45689	\N	71	98760	House	2974000	\N	\N
+45690	8	69	98523	Apartment	1399000	\N	\N
+45691	11	12	98716	Apartment	1688000	1691000	2021-08-16
+45692	\N	78	98689	House	2102000	2124000	2021-10-01
+45693	13	66	98704	Apartment	1069000	\N	\N
+45694	\N	466	98519	House	2820000	\N	\N
+45695	\N	80	98540	House	2472000	2508000	2021-10-14
+45696	\N	161	98556	House	2392000	\N	\N
+45697	\N	11	98542	House	2609000	2620000	2021-10-30
+45698	\N	28	98754	House	2670000	2707000	2021-07-28
+45699	5	27	98539	Apartment	1474000	\N	\N
+45700	\N	43	98633	Townhouse	1470000	1460000	2021-09-03
+45701	\N	18	98725	House	3088000	3127000	2021-10-01
+45702	7	90	98636	Apartment	1281000	\N	\N
+45703	\N	286	98632	House	2400000	\N	\N
+45704	\N	40	98754	House	3088000	3103000	2021-06-14
+45705	20	20	98753	Apartment	1728000	1739000	2021-09-26
+45706	\N	429	98615	House	2235000	2218000	2021-07-21
+45707	\N	24	98697	House	1811000	1793000	2021-09-24
+45708	7	30	98578	Apartment	1315000	1351000	2021-09-26
+45709	7	64	98748	Apartment	1533000	1566000	2021-06-11
+45710	10	79	98532	Apartment	1417000	1451000	2021-08-12
+45711	6	365	98722	Apartment	1732000	1765000	2021-10-04
+45712	\N	44	98630	Townhouse	1480000	\N	\N
+45713	15	72	98520	Apartment	1710000	\N	\N
+45714	\N	28	98700	House	2168000	\N	\N
+45715	\N	51	98530	House	2932000	2921000	2021-07-24
+45716	\N	79	98712	House	2835000	2856000	2021-10-25
+45717	18	10	98676	Apartment	777000	770000	2021-09-26
+45718	9	77	98610	Apartment	1109000	1128000	2021-08-14
+45719	6	14	98609	Apartment	981000	977000	2021-09-05
+45720	6	2	98713	Apartment	1755000	1736000	2021-08-22
+45721	5	472	98559	Apartment	1539000	1523000	2021-07-24
+45722	\N	43	98712	House	2864000	2872000	2021-07-04
+45723	\N	1	98705	House	2260000	2294000	2021-10-13
+45724	\N	81	98633	House	2425000	2419000	2021-06-15
+45725	\N	4	98758	House	2655000	2681000	2021-07-08
+45726	\N	51	98721	House	2771000	2754000	2021-08-12
+45727	20	80	98617	Apartment	882000	870000	2021-09-18
+45728	17	14	98717	Apartment	1477000	1457000	2021-06-29
+45729	13	77	98593	Apartment	1056000	\N	\N
+45730	10	144	98722	Apartment	1837000	1868000	2021-11-04
+45731	\N	9	98715	House	2808000	2799000	2021-11-06
+45732	8	488	98586	Apartment	1214000	1213000	2021-06-25
+45733	13	95	98577	Apartment	1144000	1134000	2021-07-04
+45734	15	84	98539	Apartment	1500000	\N	\N
+45735	5	87	98620	Apartment	882000	883000	2021-06-21
+45736	\N	63	98518	House	2436000	2448000	2021-09-06
+45737	8	10	98570	Apartment	1382000	1406000	2021-08-16
+45738	17	79	98730	Apartment	1694000	1720000	2021-08-07
+45739	\N	56	98703	House	2055000	\N	\N
+45740	12	48	98634	Apartment	1152000	1156000	2021-08-08
+45741	8	73	98655	Apartment	783000	787000	2021-09-26
+45742	10	14	98553	Apartment	1513000	1499000	2021-06-15
+45743	16	12	98727	Apartment	1669000	1689000	2021-07-13
+45744	\N	41	98574	Townhouse	2087000	2097000	2021-10-29
+45745	\N	186	98755	House	3017000	\N	\N
+45746	9	85	98671	Apartment	1020000	1005000	2021-07-07
+45747	\N	25	98730	House	2946000	2968000	2021-09-11
+45748	10	78	98616	Apartment	862000	894000	2021-08-05
+45749	\N	57	98541	Townhouse	1906000	\N	\N
+45750	\N	43	98765	House	2524000	2557000	2021-11-08
+45751	12	8	98724	Apartment	1788000	\N	\N
+45752	10	79	98726	Apartment	1766000	1796000	2021-06-07
+45753	5	84	98721	Apartment	1757000	1763000	2021-07-19
+45754	9	31	98544	Apartment	1687000	\N	\N
+45755	\N	78	98682	House	2186000	2185000	2021-06-13
+45756	17	93	98518	Apartment	1272000	1307000	2021-10-23
+45757	\N	65	98718	House	2959000	2988000	2021-10-01
+45758	5	9	98652	Apartment	922000	\N	\N
+45759	18	99	98613	Apartment	1284000	1278000	2021-11-02
+45760	7	95	98670	Apartment	888000	\N	\N
+45761	\N	56	98527	House	2930000	2926000	2021-10-30
+45762	14	24	98731	Apartment	1740000	\N	\N
+45763	\N	330	98572	House	2954000	\N	\N
+45764	\N	44	98526	House	2694000	2695000	2021-11-01
+45765	\N	77	98604	House	1899000	1912000	2021-07-15
+45766	14	23	98561	Apartment	1468000	1495000	2021-08-14
+45767	19	7	98703	Apartment	894000	\N	\N
+45768	\N	135	98755	Townhouse	2053000	2069000	2021-11-02
+45769	\N	44	98553	Townhouse	2071000	\N	\N
+45770	12	30	98562	Apartment	1354000	1371000	2021-11-04
+45771	\N	74	98562	House	2559000	\N	\N
+45772	5	37	98743	Apartment	1699000	1720000	2021-10-31
+45773	\N	82	98739	House	2884000	2893000	2021-08-05
+45774	\N	7	98620	House	2378000	2406000	2021-08-24
+45775	5	89	98541	Apartment	1521000	1531000	2021-09-07
+45776	18	55	98702	Apartment	1063000	1067000	2021-11-06
+45777	\N	24	98527	House	2812000	\N	\N
+45778	\N	80	98621	Townhouse	1653000	\N	\N
+45779	\N	41	98557	House	2466000	2494000	2021-08-16
+45780	\N	42	98618	House	2276000	\N	\N
+45781	\N	727	98708	Townhouse	1482000	1462000	2021-09-17
+45782	15	325	98591	Apartment	989000	1004000	2021-07-26
+45783	\N	471	98559	House	2567000	\N	\N
+45784	\N	91	98695	House	2184000	2176000	2021-11-08
+45785	6	59	98670	Apartment	831000	871000	2021-08-27
+45786	\N	194	98759	Townhouse	2306000	2338000	2021-06-12
+45787	\N	23	98538	House	3014000	\N	\N
+45788	\N	42	98581	House	2421000	2417000	2021-08-06
+45789	6	480	98722	Apartment	1848000	1853000	2021-09-08
+45790	\N	63	98553	House	2806000	2788000	2021-08-18
+45791	5	97	98543	Apartment	1484000	\N	\N
+45792	\N	28	98765	House	2768000	2791000	2021-08-13
+45793	14	43	98711	Apartment	768000	786000	2021-06-17
+45794	15	3	98605	Apartment	873000	867000	2021-07-18
+45795	\N	30	98683	House	1868000	\N	\N
+45796	5	86	98697	Apartment	883000	\N	\N
+45797	\N	38	98535	Townhouse	2105000	2133000	2021-07-27
+45798	14	34	98526	Apartment	1356000	1344000	2021-07-21
+45799	20	22	98756	Apartment	1947000	1966000	2021-08-01
+45800	\N	12	98687	House	1868000	1908000	2021-09-06
+45801	11	3	98534	Apartment	1482000	1502000	2021-08-12
+45802	20	48	98760	Apartment	1693000	\N	\N
+45803	5	13	98587	Apartment	1082000	1081000	2021-08-17
+45804	\N	96	98595	House	2064000	2095000	2021-08-04
+45805	\N	9	98629	House	2494000	2502000	2021-10-29
+45806	\N	232	98722	Townhouse	2071000	2059000	2021-09-07
+45807	\N	63	98583	House	2290000	2277000	2021-10-02
+45808	20	8	98616	Apartment	1245000	1270000	2021-08-20
+45809	\N	96	98691	Townhouse	1338000	\N	\N
+45810	\N	81	98710	House	2008000	2000000	2021-07-08
+45811	\N	93	98619	House	2540000	2562000	2021-07-01
+45812	6	38	98746	Apartment	1852000	1888000	2021-07-18
+45813	\N	91	98547	Townhouse	2035000	2057000	2021-06-13
+45814	6	5	98692	Apartment	1035000	\N	\N
+45815	\N	100	98557	House	2693000	2695000	2021-08-31
+45816	18	24	98579	Apartment	1310000	1326000	2021-09-24
+45817	15	333	98759	Apartment	1577000	\N	\N
+45818	\N	55	98629	House	2164000	2178000	2021-07-10
+45819	\N	55	98699	House	2144000	2173000	2021-07-11
+45820	5	1	98618	Apartment	1259000	1239000	2021-06-28
+45821	17	82	98542	Apartment	1735000	1746000	2021-07-16
+45822	\N	56	98741	Townhouse	2233000	\N	\N
+45823	\N	2	98699	House	1813000	1837000	2021-10-04
+45824	\N	403	98601	House	2110000	2138000	2021-07-06
+45825	11	64	98724	Apartment	1710000	1723000	2021-09-23
+45826	\N	54	98581	Townhouse	1578000	1609000	2021-08-10
+45827	\N	70	98739	House	2832000	2836000	2021-11-09
+45828	\N	358	98612	House	2213000	2202000	2021-06-09
+45829	\N	30	98594	House	2233000	\N	\N
+45830	\N	51	98588	Townhouse	1613000	1640000	2021-06-15
+45831	10	3	98652	Apartment	1025000	1060000	2021-07-08
+45832	5	272	98696	Apartment	1115000	1127000	2021-06-04
+45833	\N	21	98614	House	2122000	2154000	2021-11-09
+45834	\N	40	98672	Townhouse	1513000	1524000	2021-07-21
+45835	13	2	98692	Apartment	786000	770000	2021-08-18
+45836	\N	69	98675	House	2249000	2282000	2021-11-03
+45837	\N	43	98753	House	2821000	\N	\N
+45838	14	89	98666	Apartment	896000	\N	\N
+45839	\N	50	98688	House	2065000	2067000	2021-10-07
+45840	\N	71	98754	Townhouse	2220000	2238000	2021-10-06
+45841	\N	51	98729	House	2558000	2575000	2021-08-26
+45842	9	85	98659	Apartment	851000	880000	2021-09-29
+45843	14	350	98644	Apartment	1064000	1084000	2021-10-17
+45844	\N	437	98712	House	2963000	3003000	2021-08-26
+45845	17	32	98542	Apartment	1472000	\N	\N
+45846	14	3	98705	Apartment	958000	940000	2021-10-30
+45847	\N	94	98605	House	2424000	2422000	2021-08-08
+45848	\N	277	98759	House	2751000	2761000	2021-08-21
+45849	\N	99	98564	House	2651000	\N	\N
+45850	12	299	98519	Apartment	1552000	1569000	2021-06-24
+45851	20	38	98540	Apartment	1429000	1426000	2021-10-04
+45852	\N	10	98652	Townhouse	1403000	\N	\N
+45853	\N	56	98555	House	2883000	2891000	2021-09-24
+45854	\N	335	98632	House	2367000	2350000	2021-07-25
+45855	\N	500	98559	House	2751000	2738000	2021-07-21
+45856	16	21	98765	Apartment	1701000	1702000	2021-11-08
+45857	\N	4	98744	House	2973000	2969000	2021-07-11
+45858	7	33	98575	Apartment	1529000	1531000	2021-09-26
+45859	20	75	98656	Apartment	895000	\N	\N
+45860	\N	33	98640	House	1895000	1904000	2021-07-02
+45861	\N	39	98536	House	2693000	\N	\N
+45862	\N	6	98753	House	2940000	2950000	2021-11-04
+45863	\N	5	98738	House	3004000	2990000	2021-08-12
+45864	7	58	98617	Apartment	1055000	1058000	2021-08-28
+45865	\N	47	98736	Townhouse	2163000	2178000	2021-11-01
+45866	8	72	98709	Apartment	875000	\N	\N
+45867	16	41	98549	Apartment	1657000	1675000	2021-06-04
+45868	\N	15	98607	House	2263000	\N	\N
+45869	\N	100	98562	House	2645000	2639000	2021-11-08
+45870	13	69	98538	Apartment	1351000	1336000	2021-08-07
+45871	\N	159	98644	House	2031000	2023000	2021-09-18
+45872	\N	94	98538	House	2888000	2884000	2021-11-05
+45873	7	88	98596	Apartment	1006000	\N	\N
+45874	13	94	98669	Apartment	647000	\N	\N
+45875	\N	24	98545	House	2976000	2970000	2021-08-14
+45876	\N	422	98556	House	2403000	2425000	2021-06-03
+45877	\N	44	98763	Townhouse	2302000	2327000	2021-06-17
+45878	19	6	98579	Apartment	1062000	1086000	2021-10-25
+45879	\N	50	98728	House	2679000	2695000	2021-10-05
+45880	8	17	98707	Apartment	1016000	1037000	2021-07-31
+45881	14	35	98742	Apartment	1678000	1694000	2021-09-07
+45882	\N	21	98744	House	3056000	3049000	2021-11-01
+45883	\N	73	98526	House	2351000	\N	\N
+45884	\N	5	98593	House	2068000	2072000	2021-09-01
+45885	5	66	98670	Apartment	1023000	1047000	2021-09-06
+45886	\N	35	98530	Townhouse	2014000	2033000	2021-08-04
+45887	\N	13	98737	House	2647000	2664000	2021-10-14
+45888	13	31	98750	Apartment	1622000	\N	\N
+45889	\N	7	98560	House	2722000	\N	\N
+45890	8	8	98671	Apartment	923000	904000	2021-06-02
+45891	\N	337	98557	House	2419000	\N	\N
+45892	20	30	98650	Apartment	783000	823000	2021-07-16
+45893	\N	93	98608	House	2234000	2268000	2021-06-02
+45894	19	410	98572	Apartment	1552000	\N	\N
+45895	17	7	98567	Apartment	1403000	1432000	2021-09-18
+45896	13	86	98733	Apartment	1559000	1550000	2021-06-02
+45897	\N	99	98597	House	2216000	2210000	2021-07-26
+45898	\N	92	98760	House	2989000	\N	\N
+45899	15	18	98586	Apartment	863000	854000	2021-11-03
+45900	6	56	98745	Apartment	1717000	1714000	2021-09-21
+45901	\N	82	98579	House	2525000	2540000	2021-11-08
+45902	\N	38	98561	House	2706000	\N	\N
+45903	20	605	98586	Apartment	1131000	1137000	2021-09-04
+45904	18	5	98676	Apartment	1083000	1082000	2021-10-09
+45905	\N	72	98741	Townhouse	1971000	2006000	2021-06-24
+45906	\N	11	98741	House	2873000	2911000	2021-08-19
+45907	\N	80	98747	House	2716000	2703000	2021-09-17
+45908	\N	242	98592	House	2457000	2494000	2021-07-27
+45909	\N	57	98524	House	2524000	2555000	2021-09-17
+45910	\N	52	98621	House	2199000	2225000	2021-06-02
+45911	\N	191	98612	Townhouse	1549000	1582000	2021-10-25
+45912	14	190	98519	Apartment	1390000	\N	\N
+45913	17	41	98583	Apartment	898000	\N	\N
+45914	8	89	98670	Apartment	1008000	\N	\N
+45915	13	8	98588	Apartment	970000	951000	2021-07-22
+45916	10	34	98678	Apartment	721000	721000	2021-09-26
+45917	\N	7	98673	Townhouse	1236000	1264000	2021-10-29
+45918	\N	93	98543	Townhouse	1813000	\N	\N
+45919	9	43	98619	Apartment	932000	935000	2021-09-08
+45920	\N	165	98729	House	2752000	2784000	2021-06-04
+45921	11	7	98761	Apartment	1804000	\N	\N
+45922	\N	9	98717	House	2804000	2831000	2021-10-10
+45923	\N	37	98645	House	1988000	1971000	2021-10-11
+45924	\N	91	98531	House	2723000	2758000	2021-07-11
+45925	5	33	98520	Apartment	1700000	1720000	2021-08-25
+45926	12	99	98699	Apartment	768000	784000	2021-06-20
+45927	20	18	98560	Apartment	1657000	1666000	2021-08-25
+45928	11	67	98711	Apartment	782000	780000	2021-08-31
+45929	\N	156	98607	House	2116000	\N	\N
+45930	\N	256	98677	Townhouse	1262000	\N	\N
+45931	16	35	98621	Apartment	1200000	1191000	2021-09-23
+45932	5	14	98670	Apartment	700000	711000	2021-10-09
+45933	\N	5	98646	House	2185000	2223000	2021-11-08
+45934	\N	3	98552	Townhouse	1800000	1829000	2021-06-04
+45935	13	114	98563	Apartment	1451000	1432000	2021-08-26
+45936	8	52	98649	Apartment	700000	696000	2021-09-12
+45937	\N	9	98619	House	2124000	2131000	2021-07-09
+45938	\N	59	98726	House	2784000	2822000	2021-09-09
+45939	20	79	98660	Apartment	701000	\N	\N
+45940	7	87	98532	Apartment	1575000	\N	\N
+45941	\N	13	98554	House	2614000	2652000	2021-10-08
+45942	19	44	98542	Apartment	1379000	1399000	2021-07-08
+45943	\N	240	98732	Townhouse	2268000	2284000	2021-07-11
+45944	\N	57	98633	House	2445000	2456000	2021-07-19
+45945	\N	22	98616	Townhouse	1508000	\N	\N
+45946	17	372	98589	Apartment	1208000	1201000	2021-10-20
+45947	\N	56	98599	House	2142000	2136000	2021-09-14
+45948	\N	98	98529	House	2701000	\N	\N
+45949	\N	248	98591	House	2264000	2259000	2021-06-08
+45950	16	180	98572	Apartment	1359000	\N	\N
+45951	7	56	98738	Apartment	1800000	1820000	2021-08-08
+45952	5	40	98553	Apartment	1286000	1312000	2021-08-31
+45953	8	39	98542	Apartment	1727000	1751000	2021-07-29
+45954	\N	96	98548	Townhouse	1868000	1872000	2021-09-29
+45955	\N	12	98659	House	1876000	1864000	2021-07-25
+45956	\N	41	98632	Townhouse	1519000	1501000	2021-10-26
+45957	10	30	98634	Apartment	1142000	1134000	2021-10-09
+45958	8	464	98729	Apartment	1749000	1779000	2021-06-19
+45959	\N	45	98562	House	2733000	\N	\N
+45960	11	18	98554	Apartment	1458000	1485000	2021-08-19
+45961	\N	3	98719	House	2841000	2874000	2021-10-22
+45962	11	6	98530	Apartment	1291000	1311000	2021-08-13
+45963	\N	64	98658	House	1954000	\N	\N
+45964	8	41	98576	Apartment	951000	987000	2021-08-19
+45965	12	7	98668	Apartment	1146000	1179000	2021-08-29
+45966	\N	66	98548	Townhouse	1844000	1880000	2021-06-08
+45967	10	98	98748	Apartment	1590000	1604000	2021-06-26
+45968	18	15	98582	Apartment	1070000	1100000	2021-10-30
+45969	5	35	98611	Apartment	1125000	\N	\N
+45970	\N	80	98629	Townhouse	1444000	\N	\N
+45971	18	25	98674	Apartment	1013000	\N	\N
+45972	\N	130	98591	Townhouse	1478000	1476000	2021-11-07
+45973	12	56	98568	Apartment	1528000	1540000	2021-08-19
+45974	\N	87	98687	Townhouse	1287000	\N	\N
+45975	6	65	98575	Apartment	1539000	\N	\N
+45976	12	51	98595	Apartment	1188000	1206000	2021-06-20
+45977	18	60	98518	Apartment	1714000	1720000	2021-08-29
+45978	5	95	98698	Apartment	971000	\N	\N
+45979	\N	94	98555	Townhouse	1769000	1778000	2021-09-27
+45980	17	56	98538	Apartment	1505000	1532000	2021-10-28
+45981	12	12	98620	Apartment	1062000	1054000	2021-06-13
+45982	20	22	98593	Apartment	1247000	\N	\N
+45983	11	289	98559	Apartment	1353000	1354000	2021-09-24
+45984	16	15	98548	Apartment	1580000	1562000	2021-08-05
+45985	\N	17	98642	House	2052000	2092000	2021-08-02
+45986	\N	15	98639	House	1980000	2014000	2021-07-21
+45987	11	9	98727	Apartment	1690000	1703000	2021-06-19
+45988	16	57	98565	Apartment	1441000	1445000	2021-06-10
+45989	\N	74	98739	House	2658000	2696000	2021-11-08
+45990	18	55	98551	Apartment	1565000	1598000	2021-07-28
+45991	\N	11	98684	House	2195000	2223000	2021-07-23
+45992	8	81	98528	Apartment	1485000	\N	\N
+45993	5	58	98621	Apartment	1178000	1172000	2021-09-29
+45994	9	85	98735	Apartment	1552000	1538000	2021-11-07
+45995	\N	52	98752	House	3002000	\N	\N
+45996	\N	36	98723	Townhouse	1951000	1978000	2021-09-23
+45997	5	61	98671	Apartment	871000	856000	2021-09-29
+45998	19	86	98669	Apartment	982000	1008000	2021-08-02
+45999	10	75	98520	Apartment	1537000	1549000	2021-09-30
+46000	16	34	98694	Apartment	683000	681000	2021-09-08
+46001	\N	9	98561	House	2365000	\N	\N
+46002	\N	11	98531	House	2469000	2503000	2021-10-12
+46003	9	79	98720	Apartment	1629000	1635000	2021-08-10
+46004	5	77	98522	Apartment	1519000	\N	\N
+46005	\N	217	98591	House	2294000	2277000	2021-08-24
+46006	11	50	98700	Apartment	886000	897000	2021-10-09
+46007	15	50	98541	Apartment	1672000	1693000	2021-10-22
+46008	18	22	98757	Apartment	1727000	\N	\N
+46009	19	82	98611	Apartment	1031000	1028000	2021-08-05
+46010	\N	45	98597	House	2330000	2310000	2021-10-28
+46011	\N	60	98715	House	2818000	2811000	2021-09-19
+46012	13	31	98628	Apartment	1179000	\N	\N
+46013	\N	97	98698	Townhouse	1394000	1412000	2021-10-13
+46014	18	15	98621	Apartment	1233000	\N	\N
+46015	18	10	98758	Apartment	1666000	1700000	2021-08-15
+46016	\N	64	98534	House	2548000	2529000	2021-06-28
+46017	\N	44	98721	House	2750000	\N	\N
+46018	\N	398	98732	House	2782000	\N	\N
+46019	17	52	98697	Apartment	926000	933000	2021-07-06
+46020	\N	81	98597	House	2041000	2051000	2021-09-03
+46021	19	78	98526	Apartment	1686000	1684000	2021-06-04
+46022	\N	62	98715	Townhouse	2131000	\N	\N
+46023	6	84	98525	Apartment	1253000	1276000	2021-09-01
+46024	5	13	98618	Apartment	929000	935000	2021-07-14
+46025	5	59	98598	Apartment	1284000	\N	\N
+46026	\N	80	98700	House	1872000	1884000	2021-08-21
+46027	\N	38	98637	House	2428000	2410000	2021-08-09
+46028	\N	80	98698	Townhouse	1597000	\N	\N
+46029	10	29	98724	Apartment	1867000	1905000	2021-07-14
+46030	\N	34	98571	House	2673000	2694000	2021-10-31
+46031	5	46	98716	Apartment	1502000	\N	\N
+46032	12	75	98609	Apartment	1206000	1196000	2021-09-02
+46033	\N	84	98625	Townhouse	1717000	\N	\N
+46034	\N	8	98710	House	1916000	\N	\N
+46035	8	13	98734	Apartment	1656000	\N	\N
+46036	5	29	98609	Apartment	1310000	1315000	2021-10-10
+46037	\N	31	98567	House	2332000	2363000	2021-10-22
+46038	10	17	98721	Apartment	1592000	\N	\N
+46039	\N	477	98615	House	2047000	\N	\N
+46040	11	54	98742	Apartment	1689000	1681000	2021-08-15
+46041	7	25	98539	Apartment	1552000	\N	\N
+46042	14	55	98707	Apartment	858000	860000	2021-07-17
+46043	11	62	98753	Apartment	1663000	1685000	2021-07-27
+46044	\N	79	98607	House	2113000	\N	\N
+46045	\N	63	98678	House	2062000	2084000	2021-08-09
+46046	6	1	98523	Apartment	1410000	\N	\N
+46047	20	18	98520	Apartment	1676000	1681000	2021-07-05
+46048	\N	349	98759	House	2664000	2654000	2021-06-19
+46049	\N	100	98656	House	2025000	2021000	2021-09-22
+46050	\N	76	98731	House	2533000	\N	\N
+46051	15	48	98740	Apartment	1687000	1689000	2021-06-22
+46052	\N	44	98674	Townhouse	1252000	\N	\N
+46053	\N	480	98696	House	2114000	\N	\N
+46054	\N	44	98710	House	2120000	2138000	2021-06-30
+46055	\N	71	98728	House	3121000	3127000	2021-07-18
+46056	7	8	98542	Apartment	1732000	1736000	2021-08-12
+46057	\N	87	98739	House	2832000	\N	\N
+46058	\N	22	98585	House	2251000	2233000	2021-07-22
+46059	7	29	98620	Apartment	1135000	1115000	2021-09-02
+46060	9	72	98647	Apartment	763000	750000	2021-06-05
+46061	15	48	98716	Apartment	1786000	1825000	2021-07-01
+46062	20	35	98748	Apartment	1678000	1664000	2021-10-11
+46063	8	55	98611	Apartment	1065000	1051000	2021-07-19
+46064	\N	83	98544	House	2786000	2815000	2021-10-17
+46065	13	8	98621	Apartment	1203000	1192000	2021-08-21
+46066	19	15	98649	Apartment	878000	890000	2021-11-05
+46067	17	75	98642	Apartment	673000	691000	2021-07-20
+46068	\N	91	98749	House	2824000	\N	\N
+46069	\N	14	98578	House	2312000	2321000	2021-10-24
+46070	\N	90	98642	House	2123000	\N	\N
+46071	\N	58	98578	House	2283000	2265000	2021-10-11
+46072	\N	71	98567	House	2545000	2555000	2021-10-17
+46073	19	18	98746	Apartment	1745000	\N	\N
+46074	16	64	98698	Apartment	941000	962000	2021-11-07
+46075	\N	496	98592	House	2122000	2162000	2021-09-06
+46076	11	18	98612	Apartment	863000	\N	\N
+46077	\N	28	98608	House	2009000	\N	\N
+46078	18	51	98765	Apartment	1918000	1955000	2021-10-31
+46079	19	97	98519	Apartment	1548000	1559000	2021-09-23
+46080	14	480	98519	Apartment	1590000	1587000	2021-07-21
+46081	5	77	98602	Apartment	1215000	1244000	2021-09-04
+46082	14	52	98670	Apartment	957000	\N	\N
+46083	\N	86	98666	House	1742000	\N	\N
+46084	8	27	98741	Apartment	1600000	1611000	2021-07-17
+46085	11	53	98588	Apartment	1040000	\N	\N
+46086	\N	51	98548	Townhouse	2065000	2061000	2021-08-31
+46087	\N	4	98728	House	2709000	\N	\N
+46088	5	16	98566	Apartment	1359000	\N	\N
+46089	15	96	98690	Apartment	889000	914000	2021-10-12
+46090	\N	17	98752	Townhouse	2231000	\N	\N
+46091	\N	44	98738	Townhouse	2344000	\N	\N
+46092	11	46	98674	Apartment	829000	\N	\N
+46093	17	69	98533	Apartment	1658000	1679000	2021-06-14
+46094	\N	11	98606	House	2370000	\N	\N
+46095	14	31	98531	Apartment	1391000	\N	\N
+46096	6	34	98765	Apartment	1468000	1479000	2021-10-01
+46097	13	28	98568	Apartment	1528000	1564000	2021-09-21
+46098	\N	32	98638	House	2271000	2265000	2021-08-02
+46099	16	39	98599	Apartment	1161000	\N	\N
+46100	\N	2	98554	House	2428000	2428000	2021-09-14
+46101	\N	70	98735	House	2800000	\N	\N
+46102	14	60	98699	Apartment	941000	\N	\N
+46103	5	93	98695	Apartment	740000	780000	2021-08-18
+46104	19	82	98709	Apartment	983000	980000	2021-08-23
+46105	\N	19	98705	House	1897000	1918000	2021-08-14
+46106	5	87	98683	Apartment	847000	\N	\N
+46107	20	2	98617	Apartment	1196000	\N	\N
+46108	\N	41	98599	House	2379000	\N	\N
+46109	\N	53	98574	House	2522000	2544000	2021-08-11
+46110	\N	48	98551	House	2645000	2663000	2021-06-20
+46111	\N	46	98521	Townhouse	2004000	\N	\N
+46112	13	85	98681	Apartment	985000	985000	2021-07-16
+46113	11	69	98626	Apartment	1163000	\N	\N
+46114	\N	89	98648	Townhouse	1402000	1412000	2021-10-25
+46115	6	18	98618	Apartment	1034000	1026000	2021-09-28
+46116	\N	14	98761	House	2683000	\N	\N
+46117	\N	74	98699	House	2113000	\N	\N
+46118	6	94	98625	Apartment	1141000	\N	\N
+46119	\N	363	98559	House	2437000	2445000	2021-07-04
+46120	\N	14	98579	House	2116000	2114000	2021-09-22
+46121	\N	14	98749	House	2962000	\N	\N
+46122	12	95	98666	Apartment	984000	978000	2021-08-14
+46123	8	88	98538	Apartment	1714000	\N	\N
+46124	\N	256	98722	Townhouse	2169000	\N	\N
+46125	\N	494	98559	House	2759000	2782000	2021-08-29
+46126	\N	85	98710	Townhouse	1508000	1527000	2021-11-08
+46127	8	71	98654	Apartment	773000	759000	2021-07-27
+46128	9	114	98755	Apartment	1620000	1615000	2021-06-11
+46129	\N	157	98729	Townhouse	2295000	2280000	2021-10-06
+46130	16	97	98546	Apartment	1666000	1654000	2021-07-10
+46131	12	63	98609	Apartment	1093000	1108000	2021-09-16
+46132	\N	13	98727	House	2974000	3010000	2021-06-16
+46133	\N	63	98703	House	2183000	2169000	2021-08-11
+46134	\N	58	98683	House	2134000	\N	\N
+46135	16	180	98632	Apartment	940000	975000	2021-06-09
+46136	\N	75	98638	House	2333000	2331000	2021-11-05
+46137	7	81	98604	Apartment	986000	986000	2021-10-30
+46138	\N	28	98564	House	2558000	\N	\N
+46139	9	72	98576	Apartment	1051000	1068000	2021-06-13
+46140	\N	46	98686	House	2139000	2164000	2021-07-20
+46141	\N	7	98649	Townhouse	1323000	1347000	2021-09-04
+46142	\N	64	98525	House	2670000	2685000	2021-10-09
+46143	\N	9	98735	Townhouse	2086000	2109000	2021-07-08
+46144	\N	73	98752	House	2800000	2840000	2021-09-27
+46145	\N	338	98591	Townhouse	1470000	1487000	2021-07-01
+46146	\N	4	98735	House	2541000	2540000	2021-06-09
+46147	14	10	98562	Apartment	1251000	1244000	2021-10-11
+46148	9	65	98549	Apartment	1359000	1354000	2021-06-02
+46149	\N	100	98685	House	1971000	1957000	2021-10-02
+46150	17	72	98523	Apartment	1459000	\N	\N
+46151	18	90	98690	Apartment	909000	941000	2021-06-28
+46152	\N	62	98682	House	2089000	\N	\N
+46153	13	16	98577	Apartment	881000	\N	\N
+46154	16	55	98681	Apartment	960000	961000	2021-11-05
+46155	\N	19	98535	House	2951000	2937000	2021-08-24
+46156	16	26	98533	Apartment	1379000	1372000	2021-09-20
+46157	\N	5	98751	Townhouse	2106000	2140000	2021-08-20
+46158	\N	96	98590	Townhouse	1485000	1511000	2021-06-21
+46159	6	241	98755	Apartment	1656000	1647000	2021-10-30
+46160	14	32	98560	Apartment	1584000	1615000	2021-10-25
+46161	12	35	98716	Apartment	1693000	\N	\N
+46162	\N	54	98689	House	2217000	2212000	2021-11-08
+46163	\N	43	98676	House	2353000	2374000	2021-09-28
+46164	5	71	98698	Apartment	1005000	998000	2021-08-26
+46165	18	94	98642	Apartment	969000	974000	2021-10-23
+46166	\N	75	98631	House	2437000	2443000	2021-09-09
+46167	\N	115	98612	Townhouse	1550000	1579000	2021-10-15
+46168	18	62	98673	Apartment	995000	\N	\N
+46169	8	375	98732	Apartment	1902000	\N	\N
+46170	\N	57	98753	House	2818000	\N	\N
+46171	\N	22	98538	House	2517000	\N	\N
+46172	7	46	98659	Apartment	723000	716000	2021-10-30
+46173	19	44	98739	Apartment	1707000	\N	\N
+46174	15	88	98756	Apartment	1589000	1573000	2021-07-12
+46175	\N	2	98633	House	2383000	\N	\N
+46176	9	70	98673	Apartment	766000	768000	2021-08-09
+46177	10	87	98575	Apartment	1409000	1410000	2021-07-12
+46178	9	97	98607	Apartment	1129000	\N	\N
+46179	\N	42	98646	House	1865000	1904000	2021-06-27
+46180	\N	244	98591	Townhouse	1581000	1567000	2021-07-08
+46181	16	89	98680	Apartment	682000	683000	2021-07-27
+46182	15	16	98567	Apartment	1426000	\N	\N
+46183	\N	26	98574	House	2858000	\N	\N
+46184	\N	47	98756	House	3120000	\N	\N
+46185	13	35	98697	Apartment	782000	805000	2021-06-02
+46186	6	7	98751	Apartment	1526000	1536000	2021-10-07
+46187	\N	94	98689	House	1906000	1910000	2021-09-10
+46188	18	14	98629	Apartment	1078000	1095000	2021-07-06
+46189	14	35	98736	Apartment	1764000	\N	\N
+46190	13	5	98735	Apartment	1858000	1886000	2021-10-28
+46191	12	36	98617	Apartment	946000	982000	2021-06-19
+46192	10	58	98655	Apartment	1054000	1046000	2021-06-26
+46193	20	97	98627	Apartment	1024000	1030000	2021-06-08
+46194	\N	7	98690	House	2073000	2108000	2021-07-30
+46195	\N	27	98600	House	2202000	2237000	2021-10-21
+46196	\N	24	98526	House	2652000	2658000	2021-06-09
+46197	9	29	98583	Apartment	977000	959000	2021-10-10
+46198	7	307	98657	Apartment	912000	930000	2021-06-22
+46199	13	79	98746	Apartment	1666000	1706000	2021-10-06
+46200	\N	103	98722	House	2959000	2954000	2021-08-29
+46201	13	443	98591	Apartment	1290000	1326000	2021-07-22
+46202	\N	23	98643	House	2208000	\N	\N
+46203	\N	62	98736	House	2571000	\N	\N
+46204	\N	38	98528	House	2631000	2670000	2021-07-10
+46205	9	50	98525	Apartment	1727000	1755000	2021-08-05
+46206	\N	61	98727	Townhouse	2167000	2187000	2021-08-23
+46207	\N	83	98526	Townhouse	1858000	1859000	2021-11-09
+46208	8	47	98528	Apartment	1445000	1444000	2021-06-18
+46209	12	70	98518	Apartment	1552000	1552000	2021-07-20
+46210	5	74	98614	Apartment	1052000	1044000	2021-09-27
+46211	\N	51	98742	House	2881000	2864000	2021-06-30
+46212	19	31	98518	Apartment	1638000	1671000	2021-06-03
+46213	14	4	98749	Apartment	1746000	1786000	2021-09-13
+46214	14	63	98735	Apartment	1806000	1822000	2021-09-16
+46215	10	54	98730	Apartment	1657000	1644000	2021-10-20
+46216	5	35	98746	Apartment	1796000	1777000	2021-06-03
+46217	16	53	98580	Apartment	1158000	\N	\N
+46218	\N	26	98537	House	2791000	\N	\N
+46219	\N	84	98618	House	2479000	2511000	2021-07-11
+46220	6	4	98713	Apartment	1719000	\N	\N
+46221	\N	17	98522	House	2658000	2640000	2021-08-26
+46222	13	39	98741	Apartment	1692000	1676000	2021-09-22
+46223	10	44	98531	Apartment	1523000	1516000	2021-06-03
+46224	\N	22	98562	House	2430000	2426000	2021-08-29
+46225	\N	95	98757	Townhouse	2133000	2117000	2021-10-22
+46226	16	87	98530	Apartment	1465000	\N	\N
+46227	\N	65	98694	House	2046000	\N	\N
+46228	\N	20	98736	Townhouse	2182000	2204000	2021-10-24
+46229	5	42	98617	Apartment	863000	882000	2021-07-26
+46230	\N	49	98640	Townhouse	1285000	1304000	2021-08-08
+46231	15	25	98524	Apartment	1452000	1488000	2021-06-20
+46232	10	45	98750	Apartment	1531000	\N	\N
+46233	19	54	98740	Apartment	1753000	\N	\N
+46234	7	12	98681	Apartment	771000	775000	2021-11-08
+46235	8	70	98685	Apartment	971000	1001000	2021-08-01
+46236	15	48	98541	Apartment	1298000	\N	\N
+46237	\N	89	98679	House	2342000	2369000	2021-07-01
+46238	\N	90	98628	Townhouse	1385000	1395000	2021-10-19
+46239	\N	41	98747	House	2874000	2892000	2021-09-07
+46240	\N	100	98617	Townhouse	1504000	1492000	2021-07-24
+46241	18	81	98537	Apartment	1673000	\N	\N
+46242	\N	2	98758	House	2660000	2648000	2021-10-31
+46243	\N	193	98615	House	2266000	2293000	2021-10-14
+46244	12	71	98599	Apartment	1116000	1149000	2021-09-15
+46245	15	2	98751	Apartment	1753000	1792000	2021-07-30
+46246	15	9	98689	Apartment	804000	794000	2021-08-16
+46247	11	63	98532	Apartment	1645000	\N	\N
+46248	\N	76	98744	Townhouse	2086000	2067000	2021-06-15
+46249	9	68	98539	Apartment	1427000	\N	\N
+46250	\N	91	98678	House	1857000	1848000	2021-07-25
+46251	\N	51	98647	House	1769000	1756000	2021-08-30
+46252	6	32	98649	Apartment	1001000	1026000	2021-06-14
+46253	\N	72	98575	Townhouse	1810000	1816000	2021-11-09
+46254	\N	70	98668	House	2142000	2147000	2021-10-10
+46255	\N	82	98654	House	2130000	\N	\N
+46256	7	371	98622	Apartment	1205000	1209000	2021-09-08
+46257	19	96	98584	Apartment	1171000	1197000	2021-06-25
+46258	\N	430	98708	House	2384000	2416000	2021-09-23
+46259	\N	49	98599	House	2296000	2317000	2021-06-09
+46260	17	46	98743	Apartment	1588000	\N	\N
+46261	11	59	98630	Apartment	1103000	1141000	2021-08-24
+46262	16	71	98566	Apartment	1394000	\N	\N
+46263	10	76	98671	Apartment	824000	828000	2021-10-06
+46264	7	33	98724	Apartment	1747000	1744000	2021-10-13
+46265	\N	31	98653	House	2314000	2304000	2021-07-17
+46266	\N	86	98520	House	2578000	2589000	2021-10-15
+46267	\N	68	98536	House	2509000	\N	\N
+46268	\N	30	98725	House	2961000	2973000	2021-09-30
+46269	\N	58	98739	House	2562000	2562000	2021-08-25
+46270	\N	65	98591	House	2298000	2296000	2021-09-11
+46271	19	100	98604	Apartment	1193000	\N	\N
+46272	\N	19	98750	House	2620000	2639000	2021-06-21
+46273	\N	71	98756	House	3199000	\N	\N
+46274	\N	105	98712	House	2729000	\N	\N
+46275	18	133	98644	Apartment	898000	906000	2021-09-11
+46276	20	67	98687	Apartment	875000	884000	2021-07-18
+46277	15	73	98527	Apartment	1617000	1635000	2021-10-19
+46278	12	65	98699	Apartment	845000	\N	\N
+46279	\N	4	98636	House	2111000	2135000	2021-09-26
+46280	\N	9	98749	House	2621000	2628000	2021-10-14
+46281	18	83	98648	Apartment	980000	\N	\N
+46282	9	74	98593	Apartment	1317000	1325000	2021-08-04
+46283	6	48	98616	Apartment	962000	973000	2021-09-30
+46284	9	46	98542	Apartment	1406000	\N	\N
+46285	6	24	98695	Apartment	884000	914000	2021-07-19
+46286	\N	78	98672	House	2180000	2193000	2021-09-15
+46287	17	43	98596	Apartment	989000	\N	\N
+46288	13	92	98567	Apartment	1671000	1651000	2021-08-13
+46289	7	154	98591	Apartment	1072000	1067000	2021-06-22
+46290	10	67	98530	Apartment	1425000	1416000	2021-09-10
+46291	\N	760	98764	House	2713000	\N	\N
+46292	7	63	98736	Apartment	1561000	1586000	2021-08-11
+46293	\N	36	98520	House	2600000	2601000	2021-07-18
+46294	\N	46	98636	House	2494000	2484000	2021-06-09
+46295	12	15	98716	Apartment	1663000	1651000	2021-06-07
+46296	\N	22	98599	House	2269000	\N	\N
+46297	\N	13	98667	House	2100000	2112000	2021-10-12
+46298	\N	38	98546	House	2557000	\N	\N
+46299	16	57	98676	Apartment	923000	950000	2021-09-08
+46300	6	200	98557	Apartment	1554000	1569000	2021-07-04
+46301	\N	2	98722	House	2946000	2986000	2021-10-27
+46302	15	53	98523	Apartment	1341000	1331000	2021-09-16
+46303	\N	418	98607	House	2139000	2150000	2021-06-20
+46304	14	30	98529	Apartment	1496000	\N	\N
+46305	\N	34	98626	House	2059000	2056000	2021-07-16
+46306	14	97	98614	Apartment	1026000	\N	\N
+46307	\N	51	98740	House	2636000	2674000	2021-08-27
+46308	\N	16	98666	Townhouse	1259000	1243000	2021-10-10
+46309	5	36	98531	Apartment	1236000	1261000	2021-11-03
+46310	\N	353	98612	House	2050000	2046000	2021-06-25
+46311	\N	70	98542	Townhouse	1820000	1832000	2021-08-09
+46312	\N	77	98730	House	2751000	2733000	2021-10-15
+46313	\N	16	98631	House	2350000	\N	\N
+46314	8	481	98601	Apartment	1078000	1090000	2021-09-09
+46315	13	22	98718	Apartment	1658000	\N	\N
+46316	5	72	98548	Apartment	1528000	1547000	2021-09-24
+46317	\N	39	98570	House	2501000	2502000	2021-06-24
+46318	\N	13	98544	House	2559000	\N	\N
+46319	\N	16	98635	House	2495000	\N	\N
+46320	17	238	98563	Apartment	1398000	\N	\N
+46321	\N	8	98709	House	1822000	\N	\N
+46322	20	88	98705	Apartment	779000	\N	\N
+46323	\N	67	98609	House	2119000	2135000	2021-11-06
+46324	\N	1	98707	House	2165000	2151000	2021-06-28
+46325	11	55	98602	Apartment	1132000	1124000	2021-09-18
+46326	\N	46	98535	House	2762000	\N	\N
+46327	\N	198	98556	House	2780000	2784000	2021-11-03
+46328	\N	42	98545	House	2844000	2880000	2021-10-30
+46329	6	35	98733	Apartment	1744000	1759000	2021-06-22
+46330	\N	15	98594	House	2482000	2505000	2021-09-30
+46331	\N	52	98577	House	2656000	\N	\N
+46332	\N	92	98680	House	1853000	1869000	2021-10-30
+46333	\N	32	98734	House	2961000	2999000	2021-08-22
+46334	\N	99	98611	House	2641000	\N	\N
+46335	6	59	98555	Apartment	1432000	1426000	2021-08-09
+46336	\N	42	98653	House	2214000	2222000	2021-09-01
+46337	6	63	98745	Apartment	1705000	1708000	2021-09-18
+46338	8	95	98605	Apartment	1006000	1011000	2021-09-25
+46339	\N	18	98755	House	2746000	2728000	2021-07-22
+46340	\N	300	98591	Townhouse	1587000	1621000	2021-10-22
+46341	\N	57	98577	House	2187000	2213000	2021-09-14
+46342	9	91	98593	Apartment	1032000	\N	\N
+46343	13	72	98655	Apartment	1032000	1066000	2021-10-02
+46344	\N	134	98572	House	2597000	2579000	2021-11-01
+46345	\N	74	98738	Townhouse	2329000	2328000	2021-06-28
+46346	19	72	98626	Apartment	1140000	1136000	2021-08-10
+46347	16	91	98614	Apartment	1052000	1046000	2021-08-11
+46348	\N	58	98539	House	2603000	2613000	2021-07-29
+46349	\N	49	98760	House	3056000	3067000	2021-10-12
+46350	\N	96	98670	House	2023000	2052000	2021-06-23
+46351	\N	72	98645	Townhouse	1237000	1236000	2021-10-15
+46352	19	471	98657	Apartment	988000	979000	2021-07-26
+46353	\N	18	98737	House	3064000	\N	\N
+46354	11	2	98627	Apartment	1057000	1093000	2021-09-03
+46355	9	58	98689	Apartment	952000	975000	2021-06-21
+46356	7	41	98759	Apartment	1654000	1676000	2021-06-08
+46357	10	97	98709	Apartment	1139000	\N	\N
+46358	\N	5	98711	House	2296000	\N	\N
+46359	11	56	98626	Apartment	1076000	1091000	2021-07-03
+46360	\N	49	98700	House	2221000	\N	\N
+46361	9	279	98722	Apartment	1587000	\N	\N
+46362	\N	44	98568	Townhouse	1916000	1898000	2021-08-21
+46363	\N	99	98761	House	3045000	3040000	2021-08-18
+46364	10	547	98708	Apartment	1036000	1065000	2021-09-29
+46365	17	17	98730	Apartment	1479000	1497000	2021-10-15
+46366	10	11	98649	Apartment	845000	844000	2021-08-25
+46367	\N	23	98735	House	2685000	2672000	2021-08-13
+46368	12	89	98763	Apartment	1839000	\N	\N
+46369	8	7	98569	Apartment	1616000	1636000	2021-07-06
+46370	5	15	98631	Apartment	995000	\N	\N
+46371	7	84	98737	Apartment	1422000	1454000	2021-07-02
+46372	\N	72	98734	House	2756000	2756000	2021-10-14
+46373	\N	52	98638	House	2130000	2110000	2021-10-21
+46374	12	98	98618	Apartment	1057000	1055000	2021-08-29
+46375	19	19	98747	Apartment	1883000	\N	\N
+46376	\N	29	98746	House	2878000	2914000	2021-06-18
+46377	15	67	98549	Apartment	1384000	1409000	2021-10-12
+46378	\N	85	98727	Townhouse	2063000	2102000	2021-08-08
+46379	\N	98	98593	House	2213000	2244000	2021-08-27
+46380	\N	53	98532	House	2385000	2385000	2021-11-08
+46381	15	3	98598	Apartment	1230000	1269000	2021-09-29
+46382	7	2	98665	Apartment	1174000	1192000	2021-06-06
+46383	\N	29	98737	House	3190000	\N	\N
+46384	\N	86	98625	Townhouse	1451000	\N	\N
+46385	6	55	98688	Apartment	969000	968000	2021-10-03
+46386	\N	489	98630	House	2068000	\N	\N
+46387	\N	7	98640	House	2192000	\N	\N
+46388	17	58	98720	Apartment	1568000	1581000	2021-07-23
+46389	\N	29	98619	Townhouse	1412000	\N	\N
+46390	9	5	98703	Apartment	892000	906000	2021-09-06
+46391	8	5	98590	Apartment	1118000	1099000	2021-06-23
+46392	\N	17	98690	House	1972000	1971000	2021-10-14
+46393	16	361	98630	Apartment	1260000	1283000	2021-08-29
+46394	14	91	98655	Apartment	865000	903000	2021-11-02
+46395	15	21	98646	Apartment	933000	\N	\N
+46396	\N	24	98577	House	2244000	2230000	2021-11-09
+46397	8	20	98673	Apartment	898000	893000	2021-07-13
+46398	\N	92	98709	House	2154000	2185000	2021-06-05
+46399	14	44	98610	Apartment	980000	1011000	2021-07-08
+46400	\N	72	98720	House	2523000	2519000	2021-09-19
+46401	\N	319	98755	House	2829000	2851000	2021-06-17
+46402	12	199	98708	Apartment	851000	854000	2021-07-23
+46403	7	16	98548	Apartment	1452000	1492000	2021-09-03
+46404	10	84	98629	Apartment	1018000	1003000	2021-06-05
+46405	19	64	98561	Apartment	1341000	1373000	2021-09-20
+46406	17	86	98584	Apartment	1223000	1246000	2021-08-07
+46407	7	10	98637	Apartment	1121000	1148000	2021-10-13
+46408	\N	111	98556	House	2336000	\N	\N
+46409	10	47	98726	Apartment	1818000	1849000	2021-10-14
+46410	9	27	98694	Apartment	812000	\N	\N
+46411	12	29	98730	Apartment	1808000	\N	\N
+46412	\N	19	98625	House	2362000	2372000	2021-11-06
+46413	15	29	98561	Apartment	1334000	1317000	2021-07-02
+46414	\N	61	98598	House	2219000	\N	\N
+46415	6	441	98732	Apartment	1586000	1603000	2021-09-05
+46416	\N	55	98658	House	1920000	1944000	2021-07-06
+46417	6	1	98530	Apartment	1384000	1401000	2021-10-03
+46418	\N	42	98659	Townhouse	1282000	1294000	2021-10-07
+46419	14	93	98736	Apartment	1534000	1561000	2021-06-16
+46420	14	24	98593	Apartment	1129000	1151000	2021-10-27
+46421	14	48	98642	Apartment	819000	\N	\N
+46422	\N	3	98734	Townhouse	2002000	\N	\N
+46423	18	9	98647	Apartment	786000	\N	\N
+46424	5	77	98750	Apartment	1625000	1652000	2021-06-05
+46425	\N	29	98634	Townhouse	1532000	1550000	2021-06-20
+46426	12	97	98620	Apartment	1064000	1104000	2021-08-17
+46427	\N	85	98528	House	2516000	2531000	2021-08-25
+46428	5	74	98666	Apartment	620000	\N	\N
+46429	7	320	98755	Apartment	1924000	1936000	2021-07-28
+46430	\N	67	98639	House	2024000	2043000	2021-08-30
+46431	\N	69	98526	House	2780000	2815000	2021-08-14
+46432	13	182	98632	Apartment	1076000	\N	\N
+46433	19	2	98760	Apartment	1813000	1849000	2021-06-25
+46434	\N	99	98688	House	2027000	2047000	2021-07-01
+46435	\N	88	98624	Townhouse	1524000	1512000	2021-06-24
+46436	\N	47	98668	House	2149000	\N	\N
+46437	\N	79	98571	House	2731000	\N	\N
+46438	\N	29	98728	House	3006000	3034000	2021-11-07
+46439	7	470	98722	Apartment	1902000	1903000	2021-08-04
+46440	11	15	98596	Apartment	1131000	1148000	2021-08-25
+46441	11	13	98748	Apartment	1630000	1619000	2021-09-26
+46442	12	64	98620	Apartment	968000	954000	2021-08-29
+46443	\N	65	98598	House	2041000	2057000	2021-06-19
+46444	\N	76	98720	House	3089000	3099000	2021-08-20
+46445	15	80	98735	Apartment	1884000	1894000	2021-09-22
+46446	8	26	98737	Apartment	1903000	1891000	2021-11-01
+46447	\N	4	98686	House	1964000	2003000	2021-07-09
+46448	\N	121	98657	House	1961000	\N	\N
+46449	\N	6	98758	House	2888000	2873000	2021-06-18
+46450	\N	51	98569	House	2665000	\N	\N
+46451	13	62	98676	Apartment	1051000	1074000	2021-06-07
+46452	\N	60	98691	House	2002000	\N	\N
+46453	\N	34	98748	House	2848000	\N	\N
+46454	14	100	98691	Apartment	720000	\N	\N
+46455	16	100	98616	Apartment	1130000	1166000	2021-09-23
+46456	\N	71	98721	House	3017000	\N	\N
+46457	9	98	98721	Apartment	1687000	1709000	2021-07-05
+46458	7	41	98667	Apartment	1008000	1015000	2021-09-04
+46459	20	97	98633	Apartment	1163000	1177000	2021-06-13
+46460	\N	136	98589	House	2351000	2369000	2021-08-05
+46461	20	88	98750	Apartment	1719000	\N	\N
+46462	5	282	98722	Apartment	1609000	\N	\N
+46463	\N	77	98683	House	1940000	\N	\N
+46464	\N	87	98694	House	2073000	\N	\N
+46465	\N	38	98723	House	2739000	2770000	2021-08-06
+46466	\N	12	98643	House	1792000	\N	\N
+46467	16	25	98546	Apartment	1512000	1510000	2021-08-25
+46468	\N	13	98714	House	3045000	\N	\N
+46469	\N	51	98524	House	2545000	2581000	2021-10-22
+46470	19	55	98673	Apartment	706000	727000	2021-07-11
+46471	15	71	98646	Apartment	823000	\N	\N
+46472	15	713	98764	Apartment	1639000	1631000	2021-07-24
+46473	\N	40	98682	House	2106000	2120000	2021-10-16
+46474	15	6	98564	Apartment	1514000	\N	\N
+46475	11	160	98556	Apartment	1780000	1794000	2021-07-07
+46476	\N	12	98619	House	2440000	\N	\N
+46477	\N	23	98585	House	2336000	2329000	2021-06-28
+46478	8	67	98704	Apartment	960000	990000	2021-08-15
+46479	\N	67	98688	Townhouse	1190000	1178000	2021-07-26
+46480	6	69	98738	Apartment	1536000	\N	\N
+46481	12	70	98615	Apartment	1206000	\N	\N
+46482	17	61	98518	Apartment	1583000	1596000	2021-10-26
+46483	\N	413	98623	House	2402000	2382000	2021-07-09
+46484	\N	50	98656	House	1870000	\N	\N
+46485	\N	63	98574	House	2490000	2505000	2021-09-25
+46486	17	12	98614	Apartment	1333000	1334000	2021-09-07
+46487	8	77	98628	Apartment	1124000	1142000	2021-06-29
+46488	\N	57	98643	House	2243000	2262000	2021-09-02
+46489	\N	49	98735	House	2870000	\N	\N
+46490	\N	88	98609	House	2158000	2189000	2021-08-29
+46491	\N	288	98572	House	2665000	2683000	2021-10-10
+46492	7	157	98712	Apartment	1640000	1634000	2021-09-13
+46493	14	82	98560	Apartment	1283000	1288000	2021-07-22
+46494	14	8	98679	Apartment	1020000	1017000	2021-06-25
+46495	\N	134	98764	House	2605000	2638000	2021-08-31
+46496	\N	314	98612	House	2173000	\N	\N
+46497	\N	81	98609	House	2202000	2202000	2021-09-27
+46498	6	49	98518	Apartment	1257000	1239000	2021-09-08
+46499	10	25	98593	Apartment	1076000	1087000	2021-08-21
+46500	16	7	98692	Apartment	1103000	1097000	2021-07-11
+46501	\N	62	98596	House	2448000	2483000	2021-09-10
+46502	20	25	98672	Apartment	849000	885000	2021-06-17
+46503	\N	8	98760	House	2909000	2896000	2021-09-12
+46504	\N	50	98580	House	2356000	2360000	2021-07-13
+46505	16	34	98625	Apartment	1144000	\N	\N
+46506	\N	43	98737	House	2449000	\N	\N
+46507	18	4	98660	Apartment	791000	775000	2021-11-05
+46508	\N	69	98618	House	2066000	2050000	2021-08-31
+46509	14	80	98733	Apartment	1577000	1594000	2021-06-18
+46510	8	86	98646	Apartment	736000	768000	2021-07-05
+46511	13	93	98648	Apartment	854000	860000	2021-10-28
+46512	\N	90	98688	Townhouse	1546000	\N	\N
+46513	17	44	98547	Apartment	1495000	1506000	2021-07-27
+46514	\N	242	98759	House	2979000	3018000	2021-10-01
+46515	\N	61	98729	House	3064000	3054000	2021-10-07
+46516	12	95	98550	Apartment	1606000	\N	\N
+46517	\N	325	98622	House	2290000	2296000	2021-06-02
+46518	9	74	98656	Apartment	859000	868000	2021-09-27
+46519	\N	34	98534	House	2649000	2641000	2021-10-24
+46520	\N	69	98567	House	2704000	\N	\N
+46521	13	11	98526	Apartment	1535000	1554000	2021-10-29
+46522	13	88	98664	Apartment	855000	881000	2021-09-16
+46523	\N	67	98558	House	2480000	2492000	2021-10-21
+46524	\N	2	98714	House	3091000	3075000	2021-08-04
+46525	13	8	98676	Apartment	857000	856000	2021-07-16
+46526	11	46	98669	Apartment	1060000	1091000	2021-06-14
+46527	8	86	98654	Apartment	949000	950000	2021-06-28
+46528	\N	95	98566	House	2613000	\N	\N
+46529	20	60	98728	Apartment	1612000	\N	\N
+46530	9	63	98534	Apartment	1497000	\N	\N
+46531	\N	74	98763	House	2762000	\N	\N
+46532	\N	59	98658	House	2127000	\N	\N
+46533	\N	74	98741	House	2851000	2838000	2021-07-14
+46534	\N	71	98629	House	2324000	\N	\N
+46535	\N	100	98523	House	2840000	2833000	2021-11-09
+46536	17	42	98706	Apartment	1125000	\N	\N
+46537	7	452	98644	Apartment	759000	797000	2021-10-22
+46538	11	91	98595	Apartment	1107000	1117000	2021-11-07
+46539	\N	82	98537	House	2640000	2666000	2021-06-21
+46540	\N	96	98574	Townhouse	2161000	2170000	2021-07-27
+46541	11	57	98641	Apartment	1059000	1073000	2021-08-05
+46542	12	77	98702	Apartment	828000	868000	2021-08-17
+46543	13	56	98634	Apartment	1037000	\N	\N
+46544	\N	38	98630	House	2548000	2577000	2021-06-15
+46545	8	43	98558	Apartment	1533000	\N	\N
+46546	\N	56	98618	Townhouse	1486000	1505000	2021-09-29
+46547	\N	29	98550	House	2490000	2499000	2021-08-16
+46548	\N	93	98582	House	2126000	2161000	2021-06-05
+46549	\N	189	98601	House	2038000	2065000	2021-06-11
+46550	\N	58	98611	Townhouse	1526000	1541000	2021-10-16
+46551	16	50	98567	Apartment	1518000	\N	\N
+46552	19	126	98677	Apartment	1010000	\N	\N
+46553	5	137	98563	Apartment	1590000	1614000	2021-09-17
+46554	7	43	98643	Apartment	877000	868000	2021-08-22
+46555	\N	31	98528	House	2649000	\N	\N
+46556	\N	100	98522	Townhouse	1969000	\N	\N
+46557	5	93	98568	Apartment	1285000	1275000	2021-09-19
+46558	6	5	98544	Apartment	1462000	1467000	2021-09-26
+46559	7	44	98716	Apartment	1682000	1684000	2021-06-02
+46560	11	70	98545	Apartment	1613000	1627000	2021-08-21
+46561	16	35	98643	Apartment	904000	913000	2021-10-31
+46562	\N	81	98702	House	1982000	2005000	2021-06-24
+46563	\N	38	98587	House	2085000	2118000	2021-09-05
+46564	\N	20	98574	House	2492000	2480000	2021-09-27
+46565	\N	53	98707	House	1989000	\N	\N
+46566	5	111	98519	Apartment	1391000	\N	\N
+46567	\N	45	98638	Townhouse	1455000	1482000	2021-07-05
+46568	17	78	98522	Apartment	1382000	1403000	2021-09-08
+46569	\N	45	98569	House	2682000	2676000	2021-10-24
+46570	17	19	98577	Apartment	957000	\N	\N
+46571	10	93	98693	Apartment	1075000	1091000	2021-10-06
+46572	13	32	98706	Apartment	1145000	1129000	2021-06-18
+46573	20	43	98563	Apartment	1367000	1391000	2021-09-21
+46574	8	39	98723	Apartment	1457000	1442000	2021-07-22
+46575	11	43	98747	Apartment	1575000	1561000	2021-06-30
+46576	15	4	98689	Apartment	939000	934000	2021-07-05
+46577	\N	9	98649	House	2356000	\N	\N
+46578	\N	162	98712	House	3104000	\N	\N
+46579	\N	69	98604	House	2605000	\N	\N
+46580	\N	67	98579	House	2136000	\N	\N
+46581	\N	28	98755	Townhouse	2225000	2256000	2021-10-26
+46582	\N	23	98549	House	2685000	2713000	2021-07-05
+46583	\N	87	98718	House	2820000	\N	\N
+46584	\N	34	98730	House	2538000	2558000	2021-07-08
+46585	\N	32	98526	House	2631000	2656000	2021-09-25
+46586	17	12	98597	Apartment	1069000	\N	\N
+46587	\N	65	98628	Townhouse	1586000	1575000	2021-09-27
+46588	\N	121	98719	Townhouse	2110000	\N	\N
+46589	19	34	98624	Apartment	1103000	\N	\N
+46590	\N	37	98537	House	2495000	\N	\N
+46591	\N	66	98574	House	2813000	\N	\N
+46592	\N	382	98677	House	2102000	2116000	2021-09-09
+46593	\N	62	98741	Townhouse	2118000	2128000	2021-10-29
+46594	15	42	98668	Apartment	1086000	1074000	2021-08-07
+46595	\N	17	98734	House	2823000	2854000	2021-07-04
+46596	20	33	98682	Apartment	1104000	1109000	2021-10-02
+46597	\N	50	98743	House	3173000	3172000	2021-09-18
+46598	11	47	98560	Apartment	1298000	1280000	2021-07-12
+46599	\N	45	98625	House	2325000	2346000	2021-07-04
+46600	9	153	98732	Apartment	1878000	1892000	2021-07-03
+46601	\N	10	98664	House	2320000	2321000	2021-06-10
+46602	5	65	98550	Apartment	1457000	1471000	2021-06-10
+46603	\N	18	98629	Townhouse	1526000	1559000	2021-06-29
+46604	\N	30	98684	Townhouse	1165000	1184000	2021-10-01
+46605	\N	37	98604	Townhouse	1662000	1702000	2021-06-14
+46606	\N	17	98727	House	3047000	3059000	2021-09-07
+46607	16	91	98555	Apartment	1316000	1302000	2021-09-21
+46608	19	11	98535	Apartment	1453000	1463000	2021-06-20
+46609	\N	16	98573	House	2653000	2636000	2021-10-22
+46610	16	21	98606	Apartment	939000	941000	2021-07-15
+46611	\N	61	98606	House	2108000	2096000	2021-07-10
+46612	8	90	98711	Apartment	795000	796000	2021-08-16
+46613	\N	62	98573	House	2764000	2794000	2021-08-09
+46614	\N	72	98761	House	2934000	\N	\N
+46615	15	42	98629	Apartment	926000	\N	\N
+46616	5	2	98614	Apartment	932000	921000	2021-08-31
+46617	19	25	98717	Apartment	1908000	1891000	2021-08-24
+46618	\N	13	98743	House	2832000	2834000	2021-09-06
+46619	\N	47	98706	House	2297000	\N	\N
+46620	9	5	98642	Apartment	832000	\N	\N
+46621	16	36	98584	Apartment	1201000	1222000	2021-08-28
+46622	\N	99	98626	House	2413000	2432000	2021-10-04
+46623	19	89	98567	Apartment	1496000	1484000	2021-07-29
+46624	\N	65	98650	Townhouse	1457000	1455000	2021-10-02
+46625	\N	60	98673	House	2161000	2179000	2021-07-02
+46626	7	75	98570	Apartment	1502000	\N	\N
+46627	\N	89	98593	House	2334000	2344000	2021-08-06
+46628	\N	22	98711	House	1998000	2035000	2021-09-28
+46629	7	67	98754	Apartment	1670000	1679000	2021-10-02
+46630	12	77	98747	Apartment	1826000	1808000	2021-10-07
+46631	\N	62	98666	House	2283000	2321000	2021-10-02
+46632	\N	94	98753	House	2879000	\N	\N
+46633	18	92	98619	Apartment	1214000	1247000	2021-07-30
+46634	\N	88	98699	House	1742000	\N	\N
+46635	\N	63	98551	House	2526000	2517000	2021-08-28
+46636	13	716	98586	Apartment	1074000	1105000	2021-09-20
+46637	13	43	98603	Apartment	864000	\N	\N
+46638	16	5	98758	Apartment	1897000	1888000	2021-07-15
+46639	14	34	98660	Apartment	1000000	\N	\N
+46640	13	12	98638	Apartment	997000	1000000	2021-08-06
+46641	\N	3	98636	Townhouse	1391000	\N	\N
+46642	11	3	98735	Apartment	1873000	\N	\N
+46643	15	87	98686	Apartment	962000	\N	\N
+46644	\N	964	98708	House	1720000	1715000	2021-09-29
+46645	\N	89	98590	Townhouse	1618000	1636000	2021-06-06
+46646	18	42	98582	Apartment	1066000	1052000	2021-06-09
+46647	9	86	98753	Apartment	1564000	\N	\N
+46648	6	7	98758	Apartment	1781000	\N	\N
+46649	\N	12	98705	House	1933000	1967000	2021-08-15
+46650	\N	33	98687	Townhouse	1439000	1443000	2021-11-01
+46651	\N	94	98597	House	2219000	\N	\N
+46652	12	42	98702	Apartment	775000	\N	\N
+46653	10	59	98582	Apartment	1130000	\N	\N
+46654	\N	7	98734	Townhouse	2345000	\N	\N
+46655	\N	84	98714	House	2789000	\N	\N
+46656	\N	22	98619	House	2247000	\N	\N
+46657	10	3	98568	Apartment	1418000	1454000	2021-07-18
+46658	15	1	98758	Apartment	1873000	\N	\N
+46659	12	53	98762	Apartment	1797000	\N	\N
+46660	18	27	98648	Apartment	761000	\N	\N
+46661	\N	27	98737	House	2905000	\N	\N
+46662	8	59	98530	Apartment	1526000	1536000	2021-06-10
+46663	\N	35	98617	House	2047000	2032000	2021-10-11
+46664	\N	77	98613	House	2284000	2306000	2021-06-14
+46665	\N	11	98668	Townhouse	1537000	1550000	2021-08-20
+46666	\N	56	98526	House	2673000	\N	\N
+46667	17	69	98752	Apartment	1835000	1827000	2021-09-14
+46668	19	85	98731	Apartment	1675000	1712000	2021-08-30
+46669	\N	85	98715	House	2723000	\N	\N
+46670	8	77	98609	Apartment	1144000	1145000	2021-08-16
+46671	\N	59	98525	House	2587000	2569000	2021-10-02
+46672	20	68	98651	Apartment	908000	\N	\N
+46673	\N	84	98752	House	2767000	2756000	2021-10-21
+46674	10	88	98728	Apartment	1555000	1571000	2021-06-24
+46675	\N	91	98691	House	2140000	\N	\N
+46676	17	10	98546	Apartment	1482000	1476000	2021-06-17
+46677	6	64	98696	Apartment	691000	682000	2021-11-08
+46678	14	15	98628	Apartment	1088000	\N	\N
+46679	\N	58	98608	House	2276000	\N	\N
+46680	11	419	98630	Apartment	1101000	1093000	2021-07-27
+46681	\N	66	98607	Townhouse	1668000	\N	\N
+46682	18	32	98672	Apartment	851000	852000	2021-06-26
+46683	13	56	98746	Apartment	1777000	1762000	2021-09-01
+46684	8	83	98761	Apartment	1721000	1722000	2021-06-01
+46685	\N	5	98713	House	2653000	2665000	2021-11-09
+46686	15	17	98733	Apartment	1816000	1851000	2021-07-19
+46687	\N	45	98610	Townhouse	1468000	1494000	2021-06-26
+46688	16	30	98579	Apartment	967000	967000	2021-06-21
+46689	10	47	98614	Apartment	1057000	1070000	2021-08-26
+46690	\N	100	98641	House	2305000	2328000	2021-08-09
+46691	20	52	98683	Apartment	876000	906000	2021-10-08
+46692	7	43	98582	Apartment	1201000	1237000	2021-11-08
+46693	14	17	98609	Apartment	1348000	1352000	2021-06-23
+46694	\N	35	98536	House	2784000	2822000	2021-06-28
+46695	\N	68	98612	Townhouse	1639000	1619000	2021-10-25
+46696	\N	94	98646	House	1837000	\N	\N
+46697	10	15	98523	Apartment	1513000	\N	\N
+46698	\N	82	98753	Townhouse	1958000	1944000	2021-09-18
+46699	12	34	98619	Apartment	896000	\N	\N
+46700	\N	100	98626	Townhouse	1665000	1647000	2021-08-09
+46701	18	91	98561	Apartment	1337000	\N	\N
+46702	13	85	98734	Apartment	1598000	\N	\N
+46703	15	59	98669	Apartment	676000	699000	2021-07-30
+46704	\N	75	98599	House	2615000	\N	\N
+46705	\N	35	98690	Townhouse	1591000	\N	\N
+46706	\N	8	98756	House	2909000	2910000	2021-11-04
+46707	8	58	98734	Apartment	1932000	\N	\N
+46708	15	68	98533	Apartment	1409000	1390000	2021-09-27
+46709	\N	49	98651	House	1998000	\N	\N
+46710	\N	78	98654	Townhouse	1409000	1443000	2021-07-13
+46711	8	47	98521	Apartment	1653000	1664000	2021-07-11
+46712	15	5	98682	Apartment	834000	\N	\N
+46713	12	91	98648	Apartment	887000	\N	\N
+46714	\N	82	98544	House	2484000	2516000	2021-08-20
+46715	19	41	98602	Apartment	909000	891000	2021-10-01
+46716	\N	78	98543	Townhouse	1925000	1955000	2021-06-27
+46717	20	64	98554	Apartment	1611000	\N	\N
+46718	\N	37	98742	House	2809000	2814000	2021-10-23
+46719	\N	188	98630	House	2574000	\N	\N
+46720	\N	24	98543	House	2586000	\N	\N
+46721	14	34	98582	Apartment	1269000	1306000	2021-06-08
+46722	\N	91	98611	House	2503000	2513000	2021-08-06
+46723	\N	6	98724	House	3015000	3027000	2021-06-12
+46724	\N	46	98524	House	2563000	2602000	2021-06-09
+46725	\N	3	98670	House	1979000	2010000	2021-06-22
+46726	\N	71	98695	House	2247000	\N	\N
+46727	11	84	98595	Apartment	1063000	1067000	2021-07-07
+46728	\N	15	98608	Townhouse	1438000	1474000	2021-08-20
+46729	\N	13	98681	House	2146000	2166000	2021-07-29
+46730	\N	56	98519	House	2790000	\N	\N
+46731	19	48	98564	Apartment	1452000	1437000	2021-06-26
+46732	10	13	98750	Apartment	1737000	1717000	2021-06-27
+46733	\N	37	98739	House	2722000	2725000	2021-07-09
+46734	11	6	98726	Apartment	1753000	1792000	2021-08-17
+46735	7	15	98723	Apartment	1774000	\N	\N
+46736	\N	214	98559	House	2510000	2545000	2021-08-19
+46737	\N	88	98622	House	1925000	1942000	2021-08-23
+46738	9	68	98558	Apartment	1245000	\N	\N
+46739	5	76	98646	Apartment	986000	1017000	2021-11-01
+46740	\N	84	98733	House	2618000	2620000	2021-10-31
+46741	\N	46	98519	House	2657000	2651000	2021-08-02
+46742	11	191	98572	Apartment	1570000	1583000	2021-09-08
+46743	15	96	98622	Apartment	1103000	\N	\N
+46744	\N	14	98542	House	2859000	2860000	2021-10-03
+46745	19	20	98763	Apartment	1772000	\N	\N
+46746	\N	9	98713	House	2817000	\N	\N
+46747	\N	52	98537	House	2613000	\N	\N
+46748	16	43	98662	Apartment	869000	858000	2021-06-26
+46749	\N	97	98625	House	2297000	2325000	2021-10-07
+46750	\N	8	98731	House	2782000	\N	\N
+46751	13	57	98544	Apartment	1501000	\N	\N
+46752	\N	92	98561	House	2618000	2625000	2021-09-22
+46753	19	82	98531	Apartment	1458000	\N	\N
+46754	\N	82	98543	House	2551000	2538000	2021-10-26
+46755	14	73	98580	Apartment	984000	1018000	2021-06-10
+46756	14	52	98546	Apartment	1355000	1339000	2021-10-11
+46757	12	16	98574	Apartment	1550000	1546000	2021-08-30
+46758	8	54	98598	Apartment	1092000	1092000	2021-10-01
+46759	\N	45	98534	House	2597000	2582000	2021-10-17
+46760	8	66	98631	Apartment	1080000	\N	\N
+46761	\N	308	98615	House	2248000	2249000	2021-09-11
+46762	\N	11	98647	House	2069000	2102000	2021-10-15
+46763	5	138	98557	Apartment	1690000	\N	\N
+46764	18	88	98640	Apartment	828000	863000	2021-07-28
+46765	\N	92	98557	House	2494000	2534000	2021-06-22
+46766	13	70	98576	Apartment	1012000	1034000	2021-10-08
+46767	18	397	98708	Apartment	1043000	1059000	2021-10-27
+46768	\N	35	98598	Townhouse	1507000	1492000	2021-06-05
+46769	\N	30	98595	House	2149000	2175000	2021-10-10
+46770	12	71	98699	Apartment	934000	953000	2021-06-22
+46771	\N	13	98740	House	2839000	2850000	2021-08-06
+46772	\N	49	98744	House	2784000	\N	\N
+46773	11	50	98594	Apartment	1067000	1060000	2021-08-21
+46774	17	35	98566	Apartment	1512000	\N	\N
+46775	10	18	98653	Apartment	769000	796000	2021-09-21
+46776	\N	42	98748	House	2667000	2691000	2021-10-06
+46777	\N	34	98639	House	2005000	1995000	2021-08-26
+46778	8	48	98529	Apartment	1263000	1301000	2021-10-11
+46779	19	62	98650	Apartment	903000	907000	2021-11-04
+46780	\N	6	98538	Townhouse	2026000	\N	\N
+46781	\N	14	98750	House	2956000	2993000	2021-07-25
+46782	20	55	98578	Apartment	1062000	1071000	2021-07-17
+46783	7	161	98759	Apartment	1568000	1605000	2021-08-29
+46784	7	38	98701	Apartment	695000	\N	\N
+46785	19	56	98747	Apartment	1767000	\N	\N
+46786	16	255	98601	Apartment	843000	882000	2021-06-16
+46787	10	57	98747	Apartment	1651000	\N	\N
+46788	11	9	98563	Apartment	1576000	\N	\N
+46789	\N	1	98650	House	2211000	2237000	2021-07-07
+46790	20	74	98653	Apartment	893000	\N	\N
+46791	\N	94	98533	House	2690000	2678000	2021-09-13
+46792	8	9	98745	Apartment	1831000	1870000	2021-09-15
+46793	\N	95	98700	House	2149000	2155000	2021-08-17
+46794	\N	76	98624	House	2438000	2473000	2021-07-24
+46795	\N	5	98698	House	1838000	1834000	2021-07-13
+46796	\N	181	98591	House	2088000	2095000	2021-06-17
+46797	\N	15	98625	House	2079000	2101000	2021-08-03
+46798	9	5	98680	Apartment	805000	832000	2021-07-03
+46799	15	66	98736	Apartment	1903000	1941000	2021-08-26
+46800	\N	73	98657	House	1972000	1970000	2021-09-27
+46801	\N	30	98655	House	2308000	2329000	2021-06-28
+46802	20	44	98636	Apartment	1234000	1214000	2021-10-21
+46803	\N	52	98687	House	1724000	1721000	2021-10-07
+46804	12	49	98618	Apartment	1189000	\N	\N
+46805	7	97	98550	Apartment	1378000	\N	\N
+46806	\N	17	98680	House	2003000	\N	\N
+46807	18	861	98764	Apartment	1847000	1852000	2021-10-23
+46808	\N	80	98649	House	1987000	1984000	2021-07-26
+46809	19	81	98643	Apartment	948000	956000	2021-07-24
+46810	\N	16	98530	House	2661000	\N	\N
+46811	\N	90	98749	House	2773000	2767000	2021-09-28
+46812	\N	81	98660	House	1977000	2009000	2021-06-30
+46813	7	39	98584	Apartment	1076000	1067000	2021-10-19
+46814	\N	3	98668	House	2147000	\N	\N
+46815	12	2	98581	Apartment	1070000	\N	\N
+46816	13	64	98523	Apartment	1367000	1405000	2021-10-31
+46817	\N	13	98621	House	2349000	2384000	2021-10-14
+46818	\N	18	98547	House	2568000	2564000	2021-09-01
+46819	\N	17	98527	House	2820000	\N	\N
+46820	\N	66	98632	House	2239000	\N	\N
+46821	17	15	98680	Apartment	1159000	1147000	2021-06-27
+46822	10	47	98687	Apartment	692000	716000	2021-08-24
+46823	13	80	98647	Apartment	1120000	\N	\N
+46824	15	24	98763	Apartment	1792000	1774000	2021-07-21
+46825	19	80	98539	Apartment	1646000	1652000	2021-09-09
+46826	10	42	98605	Apartment	1052000	1073000	2021-10-08
+46827	11	72	98596	Apartment	1048000	1061000	2021-07-03
+46828	\N	55	98650	House	1749000	1779000	2021-09-20
+46829	12	51	98594	Apartment	968000	\N	\N
+46830	13	880	98708	Apartment	863000	893000	2021-09-07
+46831	15	71	98729	Apartment	1791000	\N	\N
+46832	8	191	98630	Apartment	974000	\N	\N
+46833	\N	80	98749	House	2630000	2616000	2021-09-14
+46834	\N	44	98653	Townhouse	1273000	1281000	2021-08-24
+46835	\N	88	98645	Townhouse	1266000	\N	\N
+46836	\N	72	98730	House	3055000	3083000	2021-10-19
+46837	10	30	98587	Apartment	1127000	1151000	2021-06-09
+46838	12	37	98750	Apartment	1892000	\N	\N
+46839	\N	90	98621	House	2287000	\N	\N
+46840	\N	43	98604	House	2248000	\N	\N
+46841	19	396	98764	Apartment	1937000	1952000	2021-08-21
+46842	8	10	98682	Apartment	1011000	1013000	2021-08-16
+46843	20	66	98594	Apartment	1085000	\N	\N
+46844	17	7	98720	Apartment	1746000	1757000	2021-07-01
+46845	\N	52	98564	House	2626000	2629000	2021-06-02
+46846	15	45	98709	Apartment	873000	863000	2021-09-24
+46847	\N	27	98588	House	2298000	2328000	2021-11-04
+46848	\N	40	98577	House	2604000	\N	\N
+46849	16	47	98716	Apartment	1722000	1735000	2021-10-03
+46850	15	81	98765	Apartment	1754000	1769000	2021-07-07
+46851	\N	22	98602	House	2083000	2117000	2021-08-16
+46852	7	29	98545	Apartment	1560000	1593000	2021-09-25
+46853	15	30	98633	Apartment	1314000	1316000	2021-11-07
+46854	\N	37	98606	House	2337000	2321000	2021-06-28
+\.
+
+
+--
+-- Data for Name: streets; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.streets (id, name, stype, suburb) FROM stdin;
+98765	Adelaide	Street	1035
+98764	Allens	Parade	1035
+98763	Ann	Street	1035
+98762	Ben Eden	Street	1035
+98761	Birrell	Street	1035
+98760	Bon Accord	Avenue	1035
+98759	Bondi	Road	1035
+98758	Botany	Place	1035
+98757	Botany	Street	1035
+98756	Brisbane	Street	1035
+98755	Bronte	Road	1035
+98754	Council	Street	1035
+98753	Dalley	Street	1035
+98752	Denison	Street	1035
+98751	Donald	Place	1035
+98750	Ebley	Street	1035
+98749	Gardiner	Street	1035
+98748	Goldie	Avenue	1035
+98747	Gowrie	Avenue	1035
+98746	Gowrie	Street	1035
+98745	Grafton	Street	1035
+98744	Gray	Street	1035
+98743	Grosvenor	Street	1035
+98742	Hollywood	Avenue	1035
+98741	Hough	Street	1035
+98740	James	Street	1035
+98739	Junction	Street	1035
+98738	Keiran	Street	1035
+98737	Kenilworth	Street	1035
+98736	Lawson	Street	1035
+98735	Lipsom	Avenue	1035
+98734	Llandaff	Street	1035
+98733	MacKenzie	Street	1035
+98732	Mill Hill	Road	1035
+98731	Nelson	Street	1035
+98730	Newland	Street	1035
+98729	Old South Head	Road	1035
+98728	Oxford	Street	1035
+98727	Paul	Street	1035
+98726	Porter	Street	1035
+98725	Radford	Avenue	1035
+98724	Rowe	Street	1035
+98723	Ruthven	Street	1035
+98722	Saint James	Road	1035
+98721	Saint Marys	Avenue	1035
+98720	Spring	Street	1035
+98719	Syd Einfeld	Drive	1035
+98718	Vernon	Street	1035
+98717	Walter	Street	1035
+98716	Waverley	Crescent	1035
+98715	Waverley	Street	1035
+98714	Woodstock	Street	1035
+98713	York	Place	1035
+98712	York	Road	1035
+98711	Aboud	Avenue	1052
+98710	Ainslie	Street	1052
+98709	Anderson	Street	1052
+98708	Anzac	Parade	1052
+98707	Apsley	Avenue	1052
+98706	Araluen	Street	1052
+98705	Avoca	Street	1052
+98704	Barker	Street	1052
+98703	Bass	Street	1052
+98702	Beulah	Street	1052
+98701	Borrodale	Road	1052
+98700	Botany	Street	1052
+98699	Broadbent	Street	1052
+98698	Bruce	Street	1052
+98697	Bundock	Street	1052
+98696	Bunnerong	Road	1052
+98695	Burbong	Street	1052
+98694	Burragulung	Street	1052
+98693	Byrd	Avenue	1052
+98692	Cedar	Place	1052
+98691	Cooper	Street	1052
+98690	Cottenham	Avenue	1052
+98689	Court	Avenue	1052
+98688	Doncaster	Avenue	1052
+98687	Doran	Street	1052
+98686	Eastern	Avenue	1052
+98685	Edgar	Street	1052
+98684	Edward	Avenue	1052
+98683	Fischer	Street	1052
+98682	Forsyth	Street	1052
+98681	Gamara	Street	1052
+98680	Garden	Street	1052
+98679	Goodrich	Avenue	1052
+98678	Gumara	Street	1052
+98677	Harbourne	Road	1052
+98676	Harbourne	Street	1052
+98675	Hayward	Street	1052
+98674	Hincks	Street	1052
+98673	Holmes	Street	1052
+98672	Ian	Street	1052
+98671	Irvine	Street	1052
+98670	Jacques	Street	1052
+98669	Jellicoe	Avenue	1052
+98668	Kennedy	Street	1052
+98667	Lancaster	Crescent	1052
+98666	Leonard	Avenue	1052
+98665	Madeleine	Place	1052
+98664	Maitland	Avenue	1052
+98663	Marida	Street	1052
+98662	Marville	Avenue	1052
+98661	McNair	Avenue	1052
+98660	Meeks	Street	1052
+98659	Middle	Street	1052
+98658	Minya	Avenue	1052
+98657	Moverly	Road	1052
+98656	North Benvenue	Street	1052
+98655	Norton	Street	1052
+98654	Pardey	Street	1052
+98653	Paton	Street	1052
+98652	Popplewell	Place	1052
+98651	Rainbow	Street	1052
+98650	Rigney	Avenue	1052
+98649	See	Street	1052
+98648	Shaw	Avenue	1052
+98647	Smith	Street	1052
+98646	Strachan	Street	1052
+98645	Sturt	Street	1052
+98644	Support	Road	1052
+98643	Tresidder	Avenue	1052
+98642	Walenore	Avenue	1052
+98641	Wallace	Street	1052
+98640	Willis	Street	1052
+98639	Winburn	Avenue	1052
+98638	Wurley	Avenue	1052
+98637	Alexander	Street	1020
+98636	Allen	Avenue	1020
+98635	Anderson	Street	1020
+98634	Belmont	Street	1020
+98633	Birmingham	Street	1020
+98632	Botany	Road	1020
+98631	Boundary	Street	1020
+98630	Bourke	Road	1020
+98629	Bowden	Street	1020
+98628	Bradford	Street	1020
+98627	Brandling	Street	1020
+98626	Brennan	Street	1020
+98625	Brown	Street	1020
+98624	Buckland	Street	1020
+98623	Burrows	Road	1020
+98622	Campbell	Road	1020
+98621	Collins	Street	1020
+98620	Copeland	Street	1020
+98619	Dadley	Street	1020
+98618	Dibbs	Street	1020
+98617	Doody	Street	1020
+98616	Ellis	Avenue	1020
+98615	Euston	Road	1020
+98614	Fountain	Street	1020
+98613	Garden	Street	1020
+98612	Gardeners	Road	1020
+98611	Gerard	Street	1020
+98610	Gillespie	Avenue	1020
+98609	Harber	Street	1020
+98608	Harley	Street	1020
+98607	Henderson	Road	1020
+98606	Hiles	Street	1020
+98605	Holland	Street	1020
+98604	Huntley	Street	1020
+98603	Jennings	Street	1020
+98602	Johnson	Street	1020
+98601	Kingsclear	Road	1020
+98600	Lawrence	Street	1020
+98599	Little Wyndham	Street	1020
+98598	Loveridge	Street	1020
+98597	Lyne	Street	1020
+98596	Maddox	Street	1020
+98595	Mandible	Street	1020
+98594	McCauley	Street	1020
+98593	McEvoy	Street	1020
+98592	Mitchell	Road	1020
+98591	News Direct	Road	1020
+98590	O'Riordan	Street	1020
+98589	Park	Road	1020
+98588	Phillips	Street	1020
+98587	Power	Avenue	1020
+98586	Princes	Highway	1020
+98585	Ralph	Street	1020
+98584	Renwick	Street	1020
+98583	Reserve	Street	1020
+98582	Retreat	Street	1020
+98581	Shirley	Street	1020
+98580	Stokes	Avenue	1020
+98579	Suttor	Street	1020
+98578	William	Street	1020
+98577	Woodley	Street	1020
+98576	Wyndham	Street	1020
+98575	Abbott	Street	1054
+98574	Alexander	Street	1054
+98573	Alfreda	Street	1054
+98572	Alison	Road	1054
+98571	Arcadia	Street	1054
+98570	Arden	Street	1054
+98569	Asher	Street	1054
+98568	Baden	Street	1054
+98567	Bay	Street	1054
+98566	Beach	Street	1054
+98565	Berwick	Street	1054
+98564	Bream	Street	1054
+98563	Brighton	Road	1054
+98562	Brook	Street	1054
+98561	Byron	Street	1054
+98560	Carr	Street	1054
+98559	Carrington	Road	1054
+98558	Clifford	Street	1054
+98557	Clovelly	Road	1054
+98556	Coogee Bay	Road	1054
+98555	Cox	Street	1054
+98554	Dans	Avenue	1054
+98553	Division	Street	1054
+98552	Dolphin	Street	1054
+98551	Dudley	Street	1054
+98550	Dundas	Street	1054
+98549	Edgecumbe	Avenue	1054
+98548	Glenwood	Avenue	1054
+98547	Gordon	Avenue	1054
+98546	Hamilton	Street	1054
+98545	Havelock	Avenue	1054
+98544	Hendy	Avenue	1054
+98543	Higgs	Street	1054
+98542	Hill	Street	1054
+98541	Kidman	Street	1054
+98540	Kurrawa	Avenue	1054
+98539	Leeton	Avenue	1054
+98538	Major	Street	1054
+98537	Marcel	Avenue	1054
+98536	Melody	Street	1054
+98535	Moira	Crescent	1054
+98534	Moore	Street	1054
+98533	Mount	Street	1054
+98532	Nathan	Street	1054
+98531	Neptune	Street	1054
+98530	Oberon	Street	1054
+98529	Pauling	Avenue	1054
+98528	Powell	Street	1054
+98527	Quail	Street	1054
+98526	Raleigh	Street	1054
+98525	Ritchard	Avenue	1054
+98524	Smithfield	Avenue	1054
+98523	Stark	Street	1054
+98522	Towers	Street	1054
+98521	Vicar	Street	1054
+98520	Waltham	Street	1054
+98519	Wolseley	Road	1054
+98518	Woodland	Street	1054
+\.
+
+
+--
+-- Data for Name: suburbs; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.suburbs (id, name, postcode) FROM stdin;
+1000	Dawes Point	2000
+1001	Haymarket	2000
+1002	Millers Point	2000
+1003	Sydney	2000
+1004	The Rocks	2000
+1005	Sydney City	2001
+1006	World Square	2002
+1007	Eastern Suburbs	2004
+1008	University Of Sydney	2006
+1009	Ultimo	2007
+1010	Chippendale	2008
+1011	Darlington	2008
+1012	Pyrmont	2009
+1013	Surry Hills	2010
+1014	Darlinghurst	2010
+1015	Woolloomooloo	2011
+1016	Elizabeth Bay	2011
+1017	Potts Point	2011
+1018	Rushcutters Bay	2011
+1019	Strawberry Hills	2012
+1020	Alexandria	2015
+1021	Beaconsfield	2015
+1022	Eveleigh	2015
+1023	Redfern	2016
+1024	Waterloo	2017
+1025	Zetland	2017
+1026	Eastlakes	2018
+1027	Rosebery	2018
+1028	Banksmeadow	2019
+1029	Botany	2019
+1030	Mascot	2020
+1031	Moore Park	2021
+1032	Paddington	2021
+1033	Centennial Park	2021
+1034	Queens Park	2022
+1035	Bondi Junction	2022
+1036	Bellevue Hill	2023
+1037	Bronte	2024
+1038	Waverley	2024
+1039	Woollahra	2025
+1040	Bondi	2026
+1041	Darling Point	2027
+1042	Edgecliff	2027
+1043	Point Piper	2027
+1044	Double Bay	2028
+1045	Rose Bay	2029
+1046	Vaucluse	2030
+1047	Watsons Bay	2030
+1048	Dover Heights	2030
+1049	Clovelly	2031
+1050	Randwick	2031
+1051	Daceyville	2032
+1052	Kingsford	2032
+1053	Kensington	2033
+1054	Coogee	2034
+1055	South Coogee	2034
+1056	Maroubra	2035
+1057	Pagewood	2035
+1058	Chifley	2036
+1059	Eastgardens	2036
+1060	Hillsdale	2036
+1061	La Perouse	2036
+1062	Little Bay	2036
+1063	Malabar	2036
+1064	Matraville	2036
+1065	Phillip Bay	2036
+1066	Port Botany	2036
+1067	Forest Lodge	2037
+1068	Glebe	2037
+1069	Annandale	2038
+1070	Rozelle	2039
+1071	Leichhardt	2040
+1072	Lilyfield	2040
+1073	Birchgrove	2040
+1074	Balmain	2041
+1075	Balmain East	2041
+1076	Enmore	2042
+1077	Newtown	2042
+1078	Erskineville	2043
+1079	St Peters	2044
+1080	Sydenham	2044
+1081	Tempe	2044
+1082	Haberfield	2045
+1083	Abbotsford	2046
+1084	Canada Bay	2046
+1085	Chiswick	2046
+1086	Five Dock	2046
+1087	Rodd Point	2046
+1088	Russell Lea	2046
+1089	Wareemba	2046
+1090	Drummoyne	2047
+1091	Stanmore	2048
+1092	Lewisham	2049
+1093	Petersham	2049
+1094	Camperdown	2050
+1095	University Of New South Wales	2052
+1096	Chatswood	2057
+1097	North Sydney	2059
+1098	Waverton	2060
+1099	Lavender Bay	2060
+1100	Mcmahons Point	2060
+1101	North Sydney	2060
+1102	Kirribilli	2061
+1103	Milsons Point	2061
+1104	Cammeray	2062
+1105	Northbridge	2063
+1106	Artarmon	2064
+1107	Crows Nest	2065
+1108	Greenwich	2065
+1109	Naremburn	2065
+1110	St Leonards	2065
+1111	Wollstonecraft	2065
+1112	Lane Cove	2066
+1113	Lane Cove North	2066
+1114	Lane Cove West	2066
+1115	Linley Point	2066
+1116	Longueville	2066
+1117	Northwood	2066
+1118	Riverview	2066
+1119	Chatswood	2067
+1120	Chatswood West	2067
+1121	Middle Cove	2068
+1122	North Willoughby	2068
+1123	Willoughby	2068
+1124	Willoughby East	2068
+1125	Castlecrag	2068
+1126	Roseville	2069
+1127	Roseville Chase	2069
+1128	Castle Cove	2069
+1129	East Lindfield	2070
+1130	Lindfield	2070
+1131	Killara	2071
+1132	East Killara	2071
+1133	Gordon	2072
+1134	Pymble	2073
+1135	West Pymble	2073
+1136	Turramurra	2074
+1137	South Turramurra	2074
+1138	North Turramurra	2074
+1139	Warrawee	2074
+1140	St Ives	2075
+1141	St Ives Chase	2075
+1142	Normanhurst	2076
+1143	Wahroonga	2076
+1144	North Wahroonga	2076
+1145	Frenchs Forest	2086
+1146	Forestville	2087
+1147	Killarney Heights	2087
+1148	Mosman	2088
+1149	Neutral Bay	2089
+1150	Cremorne	2090
+1151	Cremorne Point	2090
+1152	Seaforth	2092
+1153	Balgowlah	2093
+1154	North Balgowlah	2093
+1155	Balgowlah Heights	2093
+1156	Clontarf	2093
+1157	Manly Vale	2093
+1158	Fairlight	2094
+1159	Manly	2095
+1160	Queenscliff	2096
+1161	Curl Curl	2096
+1162	Harbord	2096
+1163	Beacon Hill	2100
+1164	Brookvale	2100
+1165	North Manly	2100
+1166	Oxford Falls	2100
+1167	Allambie Heights	2100
+1168	Macquarie University	2109
+1169	Woolwich	2110
+1170	Hunters Hill	2110
+1171	Gladesville	2111
+1172	Henley	2111
+1173	Huntleys Cove	2111
+1174	Huntleys Point	2111
+1175	Tennyson Point	2111
+1176	Putney	2112
+1177	Ryde	2112
+1178	Denistone East	2112
+1179	Denistone East	2113
+1180	East Ryde	2113
+1181	Macquarie Park	2113
+1182	North Ryde	2113
+1183	Denistone	2114
+1184	Denistone West	2114
+1185	Meadowbank	2114
+1186	Melrose Park	2114
+1187	West Ryde	2114
+1188	Ermington	2115
+1189	Rydalmere	2116
+1190	Telopea	2117
+1191	Dundas	2117
+1192	Dundas Valley	2117
+1193	Oatlands	2117
+1194	Carlingford	2118
+1195	Cheltenham	2119
+1196	Beecroft	2119
+1197	Pennant Hills	2120
+1198	Thornleigh	2120
+1199	Westleigh	2120
+1200	Epping	2121
+1201	North Epping	2121
+1202	Marsfield	2122
+1203	Eastwood	2122
+1204	Parramatta	2123
+1205	Parramatta	2124
+1206	West Pennant Hills	2125
+1207	Cherrybrook	2126
+1208	Homebush Bay	2127
+1209	Newington	2127
+1210	Silverwater	2128
+1211	Sydney Markets	2129
+1212	Summer Hill	2130
+1213	Ashfield	2131
+1214	Croydon	2132
+1215	Croydon Park	2133
+1216	Burwood	2134
+1217	Strathfield	2135
+1218	Strathfield South	2136
+1219	Burwood Heights	2136
+1220	Enfield	2136
+1221	Breakfast Point	2137
+1222	Cabarita	2137
+1223	Concord	2137
+1224	Mortlake	2137
+1225	North Strathfield	2137
+1226	Concord West	2138
+1227	Liberty Grove	2138
+1228	Rhodes	2138
+1229	Concord Repatriation Hospital	2139
+1230	Homebush	2140
+1231	Homebush West	2140
+1232	Lidcombe	2141
+1233	Berala	2141
+1234	Rosehill	2142
+1235	Granville	2142
+1236	South Granville	2142
+1237	Camellia	2142
+1238	Clyde	2142
+1239	Holroyd	2142
+1240	Birrong	2143
+1241	Potts Hill	2143
+1242	Regents Park	2143
+1243	Auburn	2144
+1244	Constitution Hill	2145
+1245	Girraween	2145
+1246	Greystanes	2145
+1247	Mays Hill	2145
+1248	Pemulwuy	2145
+1249	Pendle Hill	2145
+1250	Wentworthville	2145
+1251	South Wentworthville	2145
+1252	Westmead	2145
+1253	Toongabbie	2146
+1254	Old Toongabbie	2146
+1255	Seven Hills	2147
+1256	Seven Hills West	2147
+1257	Kings Langley	2147
+1258	Lalor Park	2147
+1259	Arndell Park	2148
+1260	Blacktown	2148
+1261	Kings Park	2148
+1262	Marayong	2148
+1263	Prospect	2148
+1264	Harris Park	2150
+1265	Parramatta	2150
+1266	North Parramatta	2151
+1267	North Rocks	2151
+1268	Northmead	2152
+1269	Winston Hills	2153
+1270	Baulkham Hills	2153
+1271	Bella Vista	2153
+1272	Castle Hill	2154
+1273	Beaumont Hills	2155
+1274	Kellyville	2155
+1275	Kellyville Ridge	2155
+1276	Rouse Hill	2155
+1277	Kenthurst	2156
+1278	Annangrove	2156
+1279	Glenhaven	2156
+1280	Dural	2158
+1281	Middle Dural	2158
+1282	Merrylands	2160
+1283	Merrylands West	2160
+1284	Guildford	2161
+1285	Guildford West	2161
+1286	Old Guildford	2161
+1287	Yennora	2161
+1288	Sefton	2162
+1289	Chester Hill	2162
+1290	Carramar	2163
+1291	Lansdowne	2163
+1292	Villawood	2163
+1293	Smithfield	2164
+1294	Wetherill Park	2164
+1295	Woodpark	2164
+1296	Fairfield	2165
+1297	Fairfield East	2165
+1298	Fairfield Heights	2165
+1299	Fairfield West	2165
+1300	Cabramatta	2166
+1301	Cabramatta West	2166
+1302	Canley Heights	2166
+1303	Canley Vale	2166
+1304	Lansvale	2166
+1305	Glenfield	2167
+1306	Ashcroft	2168
+1307	Busby	2168
+1308	Cartwright	2168
+1309	Green Valley	2168
+1310	Heckenberg	2168
+1311	Hinchinbrook	2168
+1312	Miller	2168
+1313	Sadleir	2168
+1314	Casula	2170
+1315	Chipping Norton	2170
+1316	Hammondville	2170
+1317	Liverpool	2170
+1318	Liverpool South	2170
+1319	Lurnea	2170
+1320	Moorebank	2170
+1321	Mount Pritchard	2170
+1322	Prestons	2170
+1323	Warwick Farm	2170
+1324	Cecil Hills	2171
+1325	Horningsea Park	2171
+1326	Hoxton Park	2171
+1327	Middleton Grange	2171
+1328	West Hoxton	2171
+1329	Pleasure Point	2172
+1330	Sandy Point	2172
+1331	Voyager	2172
+1332	Holsworthy	2173
+1333	Wattle Grove	2173
+1334	Edmondson Park	2174
+1335	Horsley Park	2175
+1336	Abbotsbury	2176
+1337	Bossley Park	2176
+1338	Edensor Park	2176
+1339	Greenfield Park	2176
+1340	Prairiewood	2176
+1341	St Johns Park	2176
+1342	Wakeley	2176
+1343	Bonnyrigg	2177
+1344	Bonnyrigg Heights	2177
+1345	Cecil Park	2178
+1346	Kemps Creek	2178
+1347	Mount Vernon	2178
+1348	Austral	2179
+1349	Leppington	2179
+1350	Chullora	2190
+1351	Greenacre	2190
+1352	Mount Lewis	2190
+1353	Belfield	2191
+1354	Belmore	2192
+1355	Ashbury	2193
+1356	Canterbury	2193
+1357	Hurlstone Park	2193
+1358	Campsie	2194
+1359	Lakemba	2195
+1360	Wiley Park	2195
+1361	Punchbowl	2196
+1362	Roselands	2196
+1363	Bass Hill	2197
+1364	Georges Hall	2198
+1365	Yagoona	2199
+1366	Bankstown	2200
+1367	Condell Park	2200
+1368	Dulwich Hill	2203
+1369	Marrickville	2204
+1370	Arncliffe	2205
+1371	Turrella	2205
+1372	Wolli Creek	2205
+1373	Clemton Park	2206
+1374	Earlwood	2206
+1375	Bardwell Park	2207
+1376	Bardwell Valley	2207
+1377	Bexley	2207
+1378	Bexley North	2207
+1379	Kingsgrove	2208
+1380	Beverly Hills	2209
+1381	Narwee	2209
+1382	Peakhurst	2210
+1383	Peakhurst Heights	2210
+1384	Riverwood	2210
+1385	Lugarno	2210
+1386	Padstow	2211
+1387	Padstow Heights	2211
+1388	Revesby	2212
+1389	Revesby Heights	2212
+1390	East Hills	2213
+1391	Panania	2213
+1392	Picnic Point	2213
+1393	Milperra	2214
+1394	Banksia	2216
+1395	Brighton-le-sands	2216
+1396	Kyeemagh	2216
+1397	Rockdale	2216
+1398	Beverley Park	2217
+1399	Kogarah	2217
+1400	Kogarah Bay	2217
+1401	Monterey	2217
+1402	Ramsgate	2217
+1403	Ramsgate Beach	2217
+1404	Allawah	2218
+1405	Carlton	2218
+1406	Dolls Point	2219
+1407	Sandringham	2219
+1408	Sans Souci	2219
+1409	Hurstville	2220
+1410	Hurstville Grove	2220
+1411	Kyle Bay	2221
+1412	South Hurstville	2221
+1413	Blakehurst	2221
+1414	Carss Park	2221
+1415	Connells Point	2221
+1416	Penshurst	2222
+1417	Mortdale	2223
+1418	Oatley	2223
+1419	Kangaroo Point	2224
+1420	Sylvania	2224
+1421	Sylvania Waters	2224
+1422	Oyster Bay	2225
+1423	Bonnet Bay	2226
+1424	Como	2226
+1425	Jannali	2226
+1426	Gymea	2227
+1427	Gymea Bay	2227
+1428	Miranda	2228
+1429	Yowie Bay	2228
+1430	Caringbah	2229
+1431	Dolans Bay	2229
+1432	Lilli Pilli	2229
+1433	Port Hacking	2229
+1434	Taren Point	2229
+1435	Bundeena	2230
+1436	Burraneer	2230
+1437	Cronulla	2230
+1438	Maianbar	2230
+1439	Woolooware	2230
+1440	Kurnell	2231
+1441	Audley	2232
+1442	Grays Point	2232
+1443	Kareela	2232
+1444	Kirrawee	2232
+1445	Loftus	2232
+1446	Sutherland	2232
+1447	Woronora	2232
+1448	Engadine	2233
+1449	Heathcote	2233
+1450	Waterfall	2233
+1451	Woronora Heights	2233
+1452	Yarrawarrah	2233
+1453	Alfords Point	2234
+1454	Bangor	2234
+1455	Barden Ridge	2234
+1456	Illawong	2234
+1457	Lucas Heights	2234
+1458	Menai	2234
+1459	Badgerys Creek	2555
+1460	Bringelly	2556
+1461	Catherine Field	2557
+1462	Rossmore	2557
+1463	Eagle Vale	2558
+1464	Eschol Park	2558
+1465	Kearns	2558
+1466	Blairmount	2559
+1467	Claymore	2559
+1468	Airds	2560
+1469	Ambarvale	2560
+1470	Appin	2560
+1471	Bradbury	2560
+1472	Blair Athol	2560
+1473	Bradbury	2560
+1474	Campbelltown	2560
+1475	Englorie Park	2560
+1476	Gilead	2560
+1477	Glen Alpine	2560
+1478	Kentlyn	2560
+1479	Leumeah	2560
+1480	Rosemeadow	2560
+1481	Ruse	2560
+1482	St Helens Park	2560
+1483	Wedderburn	2560
+1484	Woodbine	2560
+1485	Menangle Park	2563
+1486	Long Point	2564
+1487	Macquarie Fields	2564
+1488	Macquarie Links	2565
+1489	Denham Court	2565
+1490	Ingleburn	2565
+1491	Bow Bowing	2566
+1492	Minto	2566
+1493	Raby	2566
+1494	St Andrews	2566
+1495	Varroville	2566
+1496	Currans Hill	2567
+1497	Harrington Park	2567
+1498	Mount Annan	2567
+1499	Narellan	2567
+1500	Narellan Vale	2567
+1501	Menangle	2568
+1502	Douglas Park	2569
+1503	Emu Plains	2750
+1504	Leonay	2750
+1505	Penrith	2750
+1506	Penrith	2751
+1507	Silverdale	2752
+1508	Warragamba	2752
+1509	Bowen Mountain	2753
+1510	Grose Vale	2753
+1511	Grose Wold	2753
+1512	Hobartville	2753
+1513	Londonderry	2753
+1514	Richmond	2753
+1515	Yarramundi	2753
+1516	North Richmond	2754
+1517	Tennyson	2754
+1518	Kurmond	2757
+1519	Bilpin	2758
+1520	Blaxlands Ridge	2758
+1521	Kurrajong	2758
+1522	St Clair	2759
+1523	Erskine Park	2759
+1524	Colyton	2760
+1525	Oxley Park	2760
+1526	St Marys	2760
+1527	Dean Park	2761
+1528	Glendenning	2761
+1529	Hassall Grove	2761
+1530	Oakhurst	2761
+1531	Plumpton	2761
+1532	Schofields	2762
+1533	Acacia Gardens	2763
+1534	Quakers Hill	2763
+1535	Berkshire Park	2765
+1536	Box Hill	2765
+1537	Maraylya	2765
+1538	Marsden Park	2765
+1539	Nelson	2765
+1540	Oakville	2765
+1541	Riverstone	2765
+1542	Vineyard	2765
+1543	Eastern Creek	2766
+1544	Rooty Hill	2766
+1545	Doonside	2767
+1546	Woodcroft	2767
+1547	Glenwood	2768
+1548	Parklea	2768
+1549	Stanhope Gardens	2768
+1550	Bidwill	2770
+1551	Blackett	2770
+1552	Dharruk	2770
+1553	Emerton	2770
+1554	Hebersham	2770
+1555	Lethbridge Park	2770
+1556	Minchinbury	2770
+1557	Mount Druitt	2770
+1558	Shalvey	2770
+1559	Tregear	2770
+1560	Whalan	2770
+1561	Willmot	2770
+\.
+
+
+--
+-- Name: features features_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.features
+    ADD CONSTRAINT features_pkey PRIMARY KEY (property, feature);
+
+
+--
+-- Name: properties properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties
+    ADD CONSTRAINT properties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: streets streets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.streets
+    ADD CONSTRAINT streets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: suburbs suburbs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.suburbs
+    ADD CONSTRAINT suburbs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: features features_property_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.features
+    ADD CONSTRAINT features_property_fkey FOREIGN KEY (property) REFERENCES public.properties(id);
+
+
+--
+-- Name: properties properties_street_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties
+    ADD CONSTRAINT properties_street_fkey FOREIGN KEY (street) REFERENCES public.streets(id);
+
+
+--
+-- Name: streets streets_suburb_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.streets
+    ADD CONSTRAINT streets_suburb_fkey FOREIGN KEY (suburb) REFERENCES public.suburbs(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

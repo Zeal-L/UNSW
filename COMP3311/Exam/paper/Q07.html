@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>COMP3311 Final Exam 21T3 </title>
+<link rel='stylesheet' type='text/css' href='exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 Final Exam 21T3</span>
+</td>
+<td align='center' width='60%'>
+  The University of New South Wales <br>
+  <span class='heading'>COMP3311 Database Systems <br>  Final Exam 21T3</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+<center><a href='index.html'>[Front Page]</a> <a href='notes.html'>[Notes]</a> <a href='database.html'>[Database]</a> <a target='Course Website' href='https://webcms3.cse.unsw.edu.au/COMP3311/21T3/'>[Course Website]</a> <a target='Cheat Sheets' href='doco/index.html'>[Cheat Sheets]</a> 
+<br>
+<a href='Q01.html'>[Q1]</a> <a href='Q02.html'>[Q2]</a> <a href='Q03.html'>[Q3]</a> <a href='Q04.html'>[Q4]</a> <a href='Q05.html'>[Q5]</a> <a href='Q06.html'>[Q6]</a> <b>[Q7]</b> <a href='Q08.html'>[Q8]</a> <a href='Q09.html'>[Q9]</a> <a href='Q10.html'>[Q10]</a> 
+</center>
+<hr>
+<div style='margin-left:40px;margin-right:40px'>
+<h3>Question 7 <span class='tiny'>(6 marks)</span></h3>
+<p>
+Consider the following two fragments of Python/Psycopg2 code:
+</p>
+<table>
+<tr><td><b>A</b></td><td>&nbsp;</td><td><b>B</b></td></tr>
+<tr valign="top">
+<td>
+<pre style="font-size:95%">
+import psycopg2
+zid = 5128688
+q1 = '''
+select t.id,t.code
+from   program_enrolments e
+       join terms t on e.term = t.id
+where  e.student = %s
+order by t.starting
+'''
+q2 = '''
+select s.code, s.name
+from   course_enrolments e
+       join courses c on e.course = c.id
+       join subjects s on c.subject = s.id
+where  c.term = %s and e.student = %s
+order by s.code
+'''
+
+try:
+   db = psycopg2.connect("dbname=mymyunsw")
+   c1 = db.cursor()
+   c2 = db.cursor()
+   c1.execute(q1,[zid])
+   for t in c1.fetchall():
+      print(t[1])
+      c2.execute(q2,[t[0],zid])
+      for s in c2.fetchall():
+         print(s[0],s[1])
+   c2.close()
+   c1.close()
+except:
+   print("DB error: ", err)
+finally:
+   if db:
+      db.close()
+</pre>
+</td>
+<td> &nbsp; &nbsp; </td>
+<td>
+<pre style="font-size:95%">
+import psycopg2
+zid = 5128688
+q1 = '''
+select t.id, t.code, s.code, s.name
+from   course_enrolments e
+       join courses c on e.course = c.id
+       join terms t on c.term = t.id
+       join subjects s on c.subject = s.id
+where  e.student = %s
+order by t.starting,s.code
+'''
+
+try:
+   db = psycopg2.connect("dbname=mymyunsw")
+   c = db.cursor()
+   c.execute(q1,[zid])
+   prev = 0
+   for t in c.fetchall():
+      if t[1] != prev:
+         print(t[1])
+      print(t[2],t[3])
+      prev = t[1]
+   c.close()
+except:
+   print("DB error: ", err)
+finally:
+   if db:
+      db.close()
+</pre>
+</tr></table>
+<br/>
+<p>
+Assume that this student (zid:5128688) studied 29 subjects over 10 terms.
+Assume also that the scripts have no errors.
+</p>
+<ol type='A'>
+<li><p> Do these two scripts produce the same output? </p>
+<li><p> How many times does each script call the <tt>execute()</tt> method? </p>
+<li><p> Which script is likely to be faster? </p>
+</ol>
+</p>
+<p><b>Instructions:</b></p>
+<ul>
+<li> Type your answers to this question into a file called <tt>q7.txt</tt>
+<li> Submit via: &nbsp; <b><tt>give cs3311 exam_q7 q7.txt</tt></b> &nbsp;or&nbsp; Webcms3
+</ul>
+
+</div>
+<center><i>End of Question</i></center>
+</body>
+</html>

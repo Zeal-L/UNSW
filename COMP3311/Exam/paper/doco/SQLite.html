@@ -1,0 +1,286 @@
+<html>
+<head>
+<title>SQLite</title>
+<link rel='stylesheet' type='text/css' href='../exam.css'></head>
+<body>
+<div align='center'>
+<table width='100%' border='0'>
+<tr valign='top'>
+<td align='left' width='20%'>
+  <span class='tiny'>COMP3311 20T3</span>
+</td>
+<td align='center' width='60%'>
+  <span class='heading'>SQLite</span>
+</td>
+<td align='right' width='20%'>
+  <span class='tiny'>Database Systems</span>
+</td>
+</table>
+</div>
+
+<div style='margin-left:40px;margin-right:40px'>
+<p>
+Summary information about what SQLite v3 provides.<br>
+In the examples below, <tt>x</tt>, <tt>y</tt>, <tt>s</tt>, etc. are attributes.
+</p>
+<h3>
+Data Types
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Base Data Types</td>
+<td><tt>integer, real, char(<i>N</i>), varchar(<i>N</i>), text, date, time, datetime</tt></td>
+</tr>
+<tr>
+<td>Domains</td>
+<td><tt>create domain <i>Name</i> as <i>BaseType</i> check <i>Constraint</i>;</tt></td>
+</tr>
+<tr>
+<td>Tuple Types</td>
+<td><tt>create type <i>Name</i> as (<i>Attr<sub>1</sub> <i>Type<sub>1</sub></i>, ..., <i>Attr<sub>n</sub> <i>Type<sub>n</sub></i>);</tt></td>
+</tr>
+</table>
+<h3>
+Expressions
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Arithmetic</td>
+<td><tt>+ - * / %</tt></td>
+<td>e.g. <tt>x + 3</tt>, &nbsp; <tt>x + y + z</tt>, &nbsp; <tt>y % 4</tt></td>
+</tr>
+<tr>
+<td>Logic</td>
+<td><tt>and or not = &lt;&gt;</tt></td>
+<td>e.g. <tt>x &gt; 5 and x &lt; 10</tt>, &nbsp; <tt>z &lt;&gt; 'abc'</tt>,<br>
+<tt>x between 6 and 9</tt></td>
+</tr>
+<tr>
+<td>String</td>
+<td><tt>|| like ilike ~ ~*</tt></td>
+<td>e.g. <tt>s1 || s2</tt>, &nbsp; <tt>name like '%abc%'</tt><br>
+string literals: <tt>'John''s book'</tt>, &nbsp; <tt>e'hello\n'</tt><br>
+Note: double-quotes (<tt>"..."</tt>) are not strings</td></td>
+</tr>
+<tr>
+<td>NULL</td>
+<td><tt>is null, coalesce()</tt>
+<td>e.g. <tt>x is null</tt>, &nbsp; <tt>y is not null</tt>,<br>
+ note that <tt>x = null</tt> always fails,<br>
+ <tt>coalesce(x,y,99)</tt> value is first non-null or 99</td>
+</tr>
+</table>
+
+<h3>
+Functions
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Case-insensitive SQL pattern matching</td>
+<td><tt><i>Attribute</i> like <i>Pattern</i></td>
+</tr>
+<tr>
+<td>String concatenation</td>
+<td><tt><i>String<sub>1</sub></i> || <i>String<sub>2</sub></i><tt></td>
+</tr>
+<tr>
+<td>String concatenation aggregrate</td>
+<td><tt>group_concat(<i>TextAttribute</i>[,<i>Separator</i>])</tt></td>
+</tr>
+<tr>
+<td>Substring</td>
+<td><tt>substr(<i>TextAttribute</i>,<i>Start</i>,<i>Length</i>)</tt></td>
+</tr>
+<tr>
+<td>Aggregates</td>
+<td><tt>count(), min(), max(), avg(), sum()</tt>
+</tr>
+</table>
+
+<h3>
+Constraints
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Attribute</td>
+<td><tt>check, not null, unique</tt></td>
+<td>e.g. <tt>check (x &gt;= 0)<tt>, &nbsp;<tt>x not null</tt>, <br><tt>x unique</tt></td>
+</tr>
+<tr>
+<td>Foreign key</td>
+<td><tt>foreign key</tt></td>
+<td><tt> foreign key (<i>Attributes</i>)<br>references <i>Table</i>(<i>Attributes</i>)</tt><br>
+e.g. <tt>foreign key (x,y) references R(a,b)</tt></td>
+</tr>
+<tr>
+<td>Primary key</td>
+<td><tt>primary key</tt></td>
+<td><tt>primary key (<i>Attributes</i>)</tt><br>
+e.g. <tt>primary key (x)</tt><br>implies <tt>x</tt> is not null &amp; unique</td>
+</tr>
+</table>
+
+<h3>
+Defining Things
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Tables</td>
+<td><tt>create table <i>Name</i> (<i>Attributes+Constraints</i>);</tt> <br>
+e.g.
+<pre>
+create table R (
+   s   text primary key,
+   x   integer not null,
+   y   real check (y &gt; 0),
+   foreign key (x) references T(x)
+);
+</pre>
+</tr>
+<tr>
+<td>Views</td>
+<td><tt>drop view if exists <i>Name</i>;<br>
+create or replace view <i>Name</i></tt> <br>
+<tt>as <i>SQL_Statement</i></tt><br>
+e.g.
+<pre>
+drop view if exists Movies;
+create view Movies as
+select mid as id, name as title
+from   Titles
+where  format = 'movie';
+</pre>
+</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td>No stored procedures in SQLite</td>
+</tr>
+<tr>
+<td>Domains</td>
+<td>No domain definitions in SQLite</td>
+</tr>
+<tr>
+<td>Enums</td>
+<td>No enums in SQLite</td>
+</tr>
+</table>
+
+<h3>
+Queries
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr valign="top">
+<td>General format</td>
+<td><pre>select <i>Expressions</i> as <i>Names</i> 
+from   <i>Table<sub>1</sub></i>
+       join <i>Table<sub>2</sub></i> on <i>JoinCondition<sub>1</sub></i>
+       ...
+       join <i>Table<sub>n</sub></i> on <i>JoinCondition<sub>n-1</sub></i>
+where  <i>Condition</i>
+group  by <i>Attributes</i>
+having    <i>Condition</i>
+order  by <i>Attributes</i>
+</pre></td>
+</tr>
+<tr valign="top">
+<td>Examples</td>
+<td><pre>
+<span class="comment">-- assume schema: R(x,y,z), S(a,b)</span>
+
+<span class="comment">-- show all info from table R</span>
+select * from R;
+
+<span class="comment">-- show unique x values from table R</span>
+select distinct x from R;
+
+<span class="comment">-- show unique x values from table R</span>
+select *
+from   R join S on R.x = S.a
+where  R.y &gt; 5;
+
+<span class="comment">-- how many of each x value</span>
+select x, count(*) from  R group by x;
+
+<span class="comment">-- how many of each common x value</span>
+select x, count(*)
+from   R
+group  by x
+having count(*) &gt; 10;
+
+<span class="comment">-- how many of each R.x value is</span>
+<span class="comment">-- associated with an S.a value;</span>
+<span class="comment">-- if no associated S.a value, count = 0</span>
+select x, count(a)
+from   R left outer join S on R.x = S.a
+group  by x;
+</pre></td>
+<tr>
+<tr valign="top">
+<td>Notes</td>
+<td><ul>
+<li> no right or full outer joins
+</ul></td>
+</tr>
+</table>
+     
+
+<h3>
+Commands outside <tt>sqlite3</tt>
+</h3>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Getting a list of databases</td>
+<td><tt>ls</tt></td>
+</tr>
+<tr>
+<td>Connect to a database to ask SQL queries</td>
+<td><tt>sqlite3 <i>DatabaseName</i></tt><br>
+or, in the exam, simply <tt>sql</tt></td>
+</tr>
+<tr>
+<td>Create a database</td>
+<td><tt>sqlite3 <i>DatabaseName</i></tt></td>
+</tr>
+<tr>
+<td>Remove a database</td>
+<td><tt>rm <i>DatabaseName</i></tt></td>
+</tr>
+</table>
+<h3>
+Commands within <tt>sqlite3</tt>
+</h3>
+<table>
+<table cellpadding="5" cellspacing="0" border="1">
+<tr>
+<td>Exit the SQL shell</td>
+<td><tt>.q</tt> or control-D</td>
+</tr>
+<tr>
+<td>Get a list of tables/views in a database</td>
+<td><tt>.schema</tt></td>
+</tr>
+<tr>
+<td>Execute an SQL statement</td>
+<td><tt>select * from <i>TableName</i>;</tt></td>
+</tr>
+<tr>
+<td>Excecute SQL commands from a file</td>
+<td><tt>.read <i>FileName</i></tt></td>
+</tr>
+<tr>
+<td>Go to previous command</td>
+<td>Up-arrow</td>
+</tr>
+<tr>
+<td>Create a view</td>
+<td><tt>drop view if exists V;<br>create or replace V(a,b,c)<br>
+as select x,y,z ...</tt></td>
+</tr>
+<tr>
+<td>Union, Intersect, Difference</td>
+<td><tt><i>SelectStatement<sub>1</sub></i> union <i>SelectStatement<sub>2</sub></i></tt></td>
+</table>
+</div>
+</body>
+</html>

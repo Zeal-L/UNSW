@@ -1,0 +1,27 @@
+# COMP3311 21T3 Final Exam Q9
+# Flight booking triggers
+
+(A)
+The insert section checks if the flight_no provided is valid
+Then it also checks to see if the current seat is full.
+
+
+
+(B)
+It is recommended to add a check for duplicate flight_no's and a check
+that passengers are not booked on multiple flights at the same time.
+
+
+(C)
+Inserted successfully and corresponding nbooked = nbooked+1
+
+
+(D)
+Triggered exception "Booking error" and failed to insert, database rolled back
+
+
+(E)
+Delete booking success and corresponding nbooked = nbooked-1
+
+
+

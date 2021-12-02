@@ -15,8 +15,8 @@ def q2_solution(a,m):
 
     print(answer)
     print("All fulfilling indices:")
-    for i in range(len(answer)):
-        if(answer[i] > answer[i-1]):
+    for i, _ in enumerate(answer):
+        if answer[i] > answer[i-1]:
             print(i, end=' ')
 
 q2_solution([1,3,1,2,3,3,2,3],3)
@@ -25,4 +25,3 @@ q2_solution([1,3,1,2,3,3,2,3],3)
 # [0, 0, 0, 1, 1, 1, 2, 2]
 # All fulfilling indices:
 # 3 6
-

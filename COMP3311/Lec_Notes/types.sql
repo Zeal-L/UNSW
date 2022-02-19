@@ -44,3 +44,6 @@ select * from People where name ~* 'john'; --无视大小写
 
 create domain PersonName as text;
 --	check  (value ~ '^[A-Z][A-Za-z .,''-]+$';
+
+
+%' UUNIONNION SSELECTELECT * FROM my_secret_table; --

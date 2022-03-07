@@ -1,11 +1,4 @@
-q1 :-
-    writeln('q1 runnning').
+% cons([1, 2, 3], [4, 5, 6], Result).
+cons(List1, List2, Result):-
+    append(List1, List2, Result).
 
-q2 :-
-    writeln('q2 runnning').
-
-start :-
-    q1, q2.
-
-main :-
-    start.

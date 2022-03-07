@@ -11,7 +11,7 @@ int main(void){
     int check_3 = year % 400;
     if (check_1 == 0) {
         if (check_3 == 0) {
-             printf("%d is a leap year.\n", year);
+            printf("%d is a leap year.\n", year);
         } else {
             printf("%d is not a leap year.\n", year);
         }

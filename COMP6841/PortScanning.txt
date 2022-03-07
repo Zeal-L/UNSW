@@ -1,0 +1,13 @@
+sudo nmap -Sv -O target_ip_or_domain -p port_start-port-end
+
+ping tryhackme.com
+sudo nmap -sC -sV -O 172.67.27.10 -p 20-1000
+
+此命令将探测打开的端口并尝试确定在该端口上运行的服务的版本和类型（这是-Sv参数）。例如，在端口 80 上运行的 Apache Web 服务器。
+
+- O参数将尝试确定服务器正在运行哪种操作系统（Windows/Linux/OSX）。
+
+该命令的target_ip_or_domain参数将替换为您尝试扫描的任何 IP 或网站域。
+
+最后，-p参数用于指定要扫描的端口范围，可使用的端口总数为 1-65535。
+

@@ -1,0 +1,41 @@
+<div class="notebook">
+
+<div class="nb-cell program" data-background="true" name="p1">
+has_borrowed(MemFamily, Title, CatNo) :-
+	member(MemNo, name(MemFamily, _), _),
+	loan(CatNo, MemNo, _, _),
+	book(CatNo, Title, _).
+
+later(date(Y, M, D1), date(Y, M, D2)) :-	 D1 &gt; D2.
+later(date(Y, M1, _), date(Y, M2, _)) :-	 M1 &gt; M2.
+later(date(Y1, _, _), date(Y2, _, _)) :-	 Y1 &gt; Y2.
+
+overdue(Today, Title, CatNo, MemFamily) :-
+	loan(CatNo, MemNo, Borrowed),
+	due_date(Borrowed, DueDate),
+	later(Today, DueDate),
+	book(CatNo, Title, _),
+	member(MemNo, name(MemFamily, _), _).
+
+due_date(date(Y, M1, D), date(Y, M2, D)) :-
+	M1 &lt; 12,
+	M2 is M1 + 1.
+due_date(date(Y1, 12, D), date(Y2, 1, D)) :-
+	Y2 is Y1 + 1.
+</div>
+
+<div class="nb-cell program" name="p2">
+book(1234, "I, Robot", author("Asimov", "Isaac")).
+member(3411, name("Nurke", "Fred"), "UNSW").
+loan(1234, 3411, date(2021, 2, 19)).
+</div>
+
+<div class="nb-cell query" name="q1">
+later(date(2021, 3, 19), date(2021, 2, 19)).
+</div>
+
+<div class="nb-cell query" name="q2">
+overdue(date(2021,3,31), Title, CatNo, "Nurke").
+</div>
+
+</div>

@@ -1,0 +1,63 @@
+<div class="notebook">
+
+<div class="nb-cell program" data-background="true" name="p1">
+lectures(ashesh, 2521).	
+lectures(mike, 9417).	
+lectures(claude, 3411).	
+lectures(claude, 3431).	
+
+studies(fred, 2521).
+studies(jack, 3411).
+studies(jill, 3431 ).
+studies(jill, 9417).
+studies(henry, 3431).
+studies(henry, 9417).
+
+year(fred, 1).
+year(jack, 1).
+year(jill, 4).
+year(henry, 4).
+</div>
+
+<div class="nb-cell program" data-background="true" name="p2">
+teaches(Teacher, Student) :- % This is a clause
+	lectures(Teacher, Subject),
+	studies(Student, Subject).
+</div>
+
+<div class="nb-cell program" name="p3">
+more_advanced(Student1, Student2) :-
+    year(Student1, Year1),
+	year(Student2, Year2),
+	Year1 &gt; Year2.
+</div>
+
+<div class="nb-cell query" name="q1">
+lectures(mike, 9417).
+</div>
+
+<div class="nb-cell query" name="q2">
+lectures(ashesh, X).
+</div>
+
+<div class="nb-cell query" name="q3">
+lectures(claude, X).
+</div>
+
+<div class="nb-cell query" name="q4">
+studies(Student, 3431).
+</div>
+
+<div class="nb-cell query" name="q5">
+lectures(claude, Course), studies(Student, Course).
+</div>
+
+<div class="nb-cell query" name="q6">
+teaches(claude, Student).
+</div>
+
+<div class="nb-cell query" name="q7">
+more_advanced(jill, jack).
+</div>
+
+</div>

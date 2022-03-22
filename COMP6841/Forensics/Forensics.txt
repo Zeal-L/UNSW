@@ -1,0 +1,28 @@
+sha256sum Xzone.c Xzone.exe 
+shred -u file
+
+Q1:
+ghex file
+scalpel -o carved file
+
+Q2:
+openssl base64 -d <<< 'YmFzZTY0X2lzX25vdF9lbmNyeXB0aW9u'
+eog image.jpg
+
+Q3:
+No.287 Authorization
+No.108 Cookie
+
+961
+962
+963
+965
+967
+968
+991
+993
+
+m92
+
+M92PARRAMATTA
+

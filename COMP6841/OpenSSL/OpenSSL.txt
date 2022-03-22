@@ -1,0 +1,16 @@
+OpenSSL 是一个重要的 linux 开源密码套件库，它促进了大量的加密协议。但是在这种情况下，我们将使用 AES 模块来加密和解密。可以通过以下方式查看支持的密码套件的完整列表：
+
+$ openssl enc -ciphers
+如果您遇到困难，您可以随时参考可靠的手册页：
+
+$ openssl enc --help
+所有的 openssl 命令都有以下粗略的加密结构：
+
+$ openssl enc -<cipher-variant> -e -in <file-to-encrypt> -out <file-to-put-ciphertext-in>
+$ openssl enc -<cipher-variant> -d -in <file-to-decrypt> -out <file-to-put-plaintext-in>
+
+openssl enc -sha256 -e -in my.txt -out myE.txt
+password: correct-horse-battery-staple
+
+base64 <your ciphertext file>
+base64 --decode <base64 Encoded Ciphertext>

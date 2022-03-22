@@ -1,0 +1,83 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+in_tree(X, tree(_, X, _)).
+in_tree(X, tree(Left, Y, _)) :-
+	X \= Y,
+	in_tree(X, Left).
+in_tree(X, tree(_, Y, Right)) :-
+	X \= Y,
+	in_tree(X, Right).
+
+tree_size(empty, 0).
+tree_size(tree(Left, _, Right), N) :-
+	tree_size(Left, LeftSize),
+	tree_size(Right, RightSize),
+	N is LeftSize + RightSize + 1.
+</div>
+
+<div class="nb-cell query" name="q1">
+in_tree(jill, tree(tree(empty, jack, empty), fred, tree(empty, jill, empty))).
+</div>
+
+<div class="nb-cell query" name="q2">
+tree_size(tree(tree(empty, jack, empty), fred, tree(empty, jill, empty)), S).
+</div>
+
+<div class="nb-cell program" name="p2">
+member(X, [X | _]).
+member(X, [_ | Y]) :-
+	member(X, Y).
+
+conc([], X, X).
+conc([A | B], C, [A | D]) :-
+	conc(B, C, D).
+
+rev([], []).
+rev([A | B], C) :-
+	rev(B, D),
+	conc(D, [A], C).
+</div>
+
+<div class="nb-cell query" name="q3">
+member(2, [1,2,3]).
+</div>
+
+<div class="nb-cell query" name="q4">
+member(X, [1,2,3]).
+</div>
+
+<div class="nb-cell query" name="q5">
+conc([a,b,1],[2,3], X).
+</div>
+
+<div class="nb-cell query" name="q6">
+conc([a,b], X, [a,b,c,d,e]).
+</div>
+
+<div class="nb-cell query" name="q7">
+rev([1,2,3], X).
+</div>
+
+<div class="nb-cell program" name="p3">
+total_cost([], 0).
+total_cost([A | B], C) :-
+	total_cost(B, B_cost),
+	cost(A, A_cost),
+	C is A_cost +  B_cost.
+
+cost(flange, 3).
+cost(nut, 1).
+cost(widget, 2).
+cost(splice, 2).
+</div>
+
+<div class="nb-cell query" name="q8">
+total_cost([flange, widget], C).
+</div>
+
+<div class="nb-cell query" name="q9">
+total_cost([flange, flange, widget, splice, nut, nut, nut], C).
+</div>
+
+</div>

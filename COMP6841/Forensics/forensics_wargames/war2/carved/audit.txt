@@ -1,0 +1,18 @@
+
+Scalpel version 1.60 audit file
+Started at Sat Mar 19 04:12:38 2022
+Command line:
+scalpel -b -o carved image.jpg 
+
+Output directory: /mnt/c/Users/Zeal/Desktop/COMP/COMP6841/Forensics/forensics_wargames/war2/carved
+Configuration file: /etc/scalpel/scalpel.conf
+
+Opening target "H="
+
+The following files were carved:
+File		  Start			Chop		Length		Extracted From
+00000001.zip       200496		NO              240		image.jpg
+00000000.jpg            0		NO           200496		image.jpg
+
+
+Completed at Sat Mar 19 04:12:38 2022

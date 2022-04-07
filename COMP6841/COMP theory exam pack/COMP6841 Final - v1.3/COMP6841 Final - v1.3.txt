@@ -1,0 +1,122 @@
+= COMP6841 Final Exam =
+== 21T1 ==
+
+Time Recommended: 60mins
+
+The total number of marks available in this section is 60. We recommend you spend on average 1 minute per mark.
+
+You are not permitted to modify the structure of this paper; please answer by replacing the designated sections (underlined). Failure to do this may impact the marking of your paper.
+
+All conditions and restrictions given in the combined 6441/6841 theory exam paper also apply here.
+
+=== Question 1 ===
+[5 marks]
+
+If a friend came to you suspicious that their computer has been infected by a rootkit, what are 3 things you would recommend that your friend do and why would you recommend each of them (50 words each)?
+
+1. _________________
+Why: _________________
+
+2. _________________
+Why: _________________
+
+3. _________________
+Why: _________________
+
+=== Question 2 ===
+[5 marks]
+
+If you're given the below SHA256 hash that is suspected to belong to a malware executable, is it possible to determine whether the sample may contact an external IP address?
+
+Hash: `8cf42426c277b11a1fe2fa524539ca838ea327561cc6083e9d561b1188f698eb`
+
+- If yes, what is the IP address?
+- If no, why not? (25-125 words)
+
+____________________
+____________________
+____________________
+
+=== Question 3 ===
+[5 marks]
+
+As a security engineer, what are 3 pieces of advice you would give a colleague to avoid writing code which is vulnerable to injection attacks (2 mark)?
+
+1. _________________
+2. _________________
+3. _________________
+
+Why would each of these help (50-100 words each) (3 marks)?
+
+1. ____________________
+2. ____________________
+3. ____________________
+
+
+=== Question 4 ===
+[5 marks]
+
+Using the attached disassembly graph (reMe.jpg), what user input will cause the program to print the flag?
+Alternatively, describe how you would approach this task and what you would look for, for partial marks (50-150 words):
+
+____________________
+____________________
+____________________
+
+=== Question 5 ===
+[10 marks]
+
+The attached pcap file "capture.pcap" contains the network traffic from a single computer in a ten minute period. You have been told the person using the computer has viewed a secret flag which they downloaded in this period.
+
+What is the flag?
+
+Flag: _________________
+
+How did you find the flag (30-100 words)?
+____________________
+____________________
+____________________
+
+
+Alternatively (for partial marks) describe what you have found in the pcap and what you are suspicious of (50-100 words):
+____________________
+____________________
+____________________
+
+
+=== Question 6 ===
+[15 marks]
+
+The attached compiled C file "challenge" is vulnerable to a buffer overflow attack. Your task is to use this buffer overflow to cause the binary to call the function "showFlag".
+
+Flag: _________________ (3 mark)
+
+Payload or exploit command used: _________________ (3 marks)
+
+Explain why your exploit or payload is structured the way it is (4 marks):
+____________________
+____________________
+____________________
+
+OR
+
+For partial marks if you cannot find the flag, explain what you think should work and any theories you have as to why your current solution is not working (Do not do this if you have given a payload or exploit above):
+____________________
+____________________
+____________________
+
+=== Question 7 ===
+[15 marks]
+
+Located at http://sqli.comp6441.online is a login page as well as the source code for that page. Your task is to login and access the flag stored in the SQL database.
+
+When you have done so enter the flag below and explain your method.
+
+
+Flag:
+____________________
+
+Explanation of Process:
+____________________
+____________________
+____________________

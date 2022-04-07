@@ -1,0 +1,480 @@
+= UNSW COMP6441 Final Theory Exam: 2021t1 =
+=== 6441->180 marks + 1 bonus mark / 4 hours ===
+=== 6841->150 marks + 60 marks Part E "Prac exam"+ 1 bonus mark / 4 hours ===
+v1.5
+
+There is a 1 mark bonus if you correctly follow all exam instructions.
+
+For any question worth 15+ marks: If you dont want your answer for that question to be marked write ONE SYMPATHY MARK PLEASE in your answer.
+If you do that no part of your answer for that question will be marked and you will be awarded one mark for the entire question.
+
+DONT answer all exam questions:
+
+COMP6441 - 180 marks
+Part A - answer 3/3 questions = 15 marks
+Part B - answer 5/6 questions = 75 marks
+Part C - answer 2/2 questions = 60 marks
+Part D - answer 1/2 questions = 30 marks
+
+COMP6841 - 210 marks
+Part A - answer 3/3 questions = 15 marks
+Part B - answer 5/6 questions = 75 marks
+Part C - answer 1/2 questions = 30 marks
+Part D - answer 1/2 questions = 30 marks
+Part E "PRAC Exam" - answer all questions = 60 marks
+
+
+=== Extra note for 6841 students ===
+6841 students also complete a 60 mark technical PRAC exam (sent to you in a separate document) which runs concurrently with this exam
+You will need to allocate your time between the two exams yourself.  Both start and finish at the same time.
+=== end 6841 note ===
+
+If you are doing a pen and paper version of the exam write your name and student number below and sign.  If you are doing the exam electronically type in your details and sign the affirmation by typing your name where indicated.
+
+{{{
+          Name: NOT ANSWERED
+Student Number: NOT ANSWERED
+  Which course: NOT ANSWERED  [COMP6441 or COMP6841]
+   I assert this work is wholly my own work except where I have explicitly acknowledged.  I have not contacted any other person about this exam during the exam period.  I will keep the exam confidential until Sunday 8pm.
+ Sign/Type your name: NOT ANSWERED
+}}}
+
+
+If you are not answering a question write NOT ANSWERED in the answer area(s). We think the earlier questions are easier than the later ones so we suggest you choose to answer those questions but it is entirely up to you.  Do not answer more than the required number of questions.  If you answer more than the required number of questions then we will ONLY mark the FIRST questions you answered.
+
+DO NOT edit/add/delete ANY text ANWHERE outside of the answer areas indicated.  That will muck up poor Lachlan having to split up and extract your answers for marking using scripts.  You will lose the bonus marks for following instructions if you do this.
+
+Make frequent backup copies of your completed exam paper and submit on moodle as you go so if anything goes wrong you do not lose much work.  There are no time extensions for accidentally deleting work - that is a foreseeable and mitigable risk for security professionals.
+
+Type/write your answers into the indicated areas and submit using the instructions on the exam central page. You must use a text editor (eg NOT Microsoft Word) and submit a text only file.  We cannot mark an answer file with formatting like italics or containing non-ascii characters etc.  You may submit your answer file as many times as you like over the duration of the exam. The last submission ONLY will be marked.  If you have problems submitting you can email your exam answer paper (in text only format) to cs6441@cse.unsw.edu.au.
+
+This is a logged open book exam.  You may READ anything you like on the internet or in books etc but you must disclose what you have read.  Below paste the titles of any books you consult and the urls of any documents/webpages you consult:
+
+
+Books I consulted:
+<insert book names here the first time you consult each book>
+NOT ANSWERED
+
+Web pages I read:
+<insert URLs here each time you consult a web page>
+NOT ANSWERED
+
+You may not WRITE or SHARE anything on the internet or with any other person during this exam with the exception for asking questions described below.  You cannot communicate with any other person or share any information including the exam paper. This includes making comments on the course web pages or make any comments anywhere including sms, texts, on social media / chats etc.  You cannot make or answer phone calls.  Violating these read-only restrictions is regarded as cheating and will result in 0 fail and possible charges of academic misconduct and even more serious penalties.  But mainly it’s not the honourable thing to do.
+
+
+Permitted Communication
+(start at the top of the list and only move down if needed)
+
+You are permitted to contact the exam supervisor in the following ways:
+1. You can ask about the process of the exam and ask for clarification about rules or typos in the question wording (but do not give any hints about answer content) by making comments on the Exam-Live page.  THIS IS THE ONLY PAGE YOU CAN MAKE COMMENTS ON DURING THE EXAM PERIOD. The URL for the Exam-Live page is
+
+      https://www.openlearning.com/unswcourses/courses/sec-21t1/exam-live/
+
+2. You can also email cs6441@cse.unsw.edu.au with question but that may not be noticed as quickly as comments.
+3. In case of last resort you can message us on the exam mobile phone number which we will tell you on the morning of the exam.
+
+Updates on the exam will be posted on the Exam-Live page.  Keep the page open all exam and refresh it regularly for updates.
+
+If you are unsure about anything ask the supervisor.
+
+Please do not discuss the exam or content at all with anyone until after the day of the exam or reveal anything about the questions. There are a number of people around the world doing the exam at later times – they will all be finished by Wednesday Sydney time.  You can write a indication of joy/relief/support on the Open learning course home page at the end of the exam if you are happy that you finished, but please no more until Wednesday.  Examples of acceptable things you could write below:
+
+Good examples (permitted)
+Yay!
+So glad I am now free and can relax unlike Richard and the other markers who now have to work without pause for a week.  Mwahahaha!
+Now I will sleep for days
+
+Bad examples (not permitted before Wednesday,as they reveal something about the exam itself)
+That was easy
+That was hard
+I am so glad there was no question about sony playstations
+It's unfair there was a question about Apollo 13!  I didn't realise the case studies were examinable.
+
+The use of Top Men, misdirection, or unauthorised social engineering is prohibited.
+
+If you think a question is ambiguous, answer the most likely interpretation and state what you have done. Where two or more different answers are possible give the answer which best answers the question. If you need to make assumptions state them. Keep answers brief and clear.  Stick to the word limits.  When you order things put the most important things first.  Make sure you explain your thinking to demonstrate your analysis where ever asked.
+
+Have fun.  Be yourself.  You are a great thinker I can't wait to see what you come up with.
+
+{{{
+Part A - 5 mark Questions
+
+This part consists of three 5 mark questions.  Answer ALL questions in this part.
+
+}}}
+
+=== Question A1 === [5 Marks]
+
+Which of the following best describes "Security by Design" as we use the term in Security Engineering?
+
+A) Adopting well-known security tactics, and patterns (i.e. reusable techniques for achieving specific quality concerns)
+B) Applying formal software design principles to systems to make them more secure
+C) Considering security from the outset when creating a system
+D) Expect attacks - Malicious attacks on software should be assumed to occur
+E) Following a security design standard like the ISM
+F) Ensuring systems comply with security checklists like the ASD Essential 8
+
+
+[Your answer should be one uppercase letter A-F]
+NOT ANSWERED
+
+=== Question A2 === [5 Marks]
+
+What is the RSA decryption key corresponding to the encryption key (n=55,e=23)?
+
+[Your answer should be in the form (n=55, d=x) where x is a number between 1 and 54]
+NOT ANSWERED
+
+
+=== Question A3 === [5 Marks]
+
+Suppose an attacker knows your password is 4 words joined together with no spaces all in lowercase.  The attacker also has a copy of the list of the 5,000 most commonly used words in Australian tweets and it turns out that all of your words are in this list.
+
+On average how many bits of work will the attacker need to do to brute force your password using this list if checking a potential password takes 10 bits of work?
+[Your answer should be a number between 1 and 1,000,000]
+NOT ANSWERED
+
+
+{{{
+Part B - 15 mark questions
+
+Answer 5 of the following 6 questions (do NOT answer more or only your first 5 answers will be marked)
+
+}}}
+
+=== Question B1 === [15 Marks]
+
+A friend gave their 12 year old daughter a laptop for her birthday - she needs one for school next year but your friend wanted to get her a really fancy one as a surprise.  It has some strong security features, including full hard disk encryption and optional voice recognition authentication.  They ask your advice about whether she (the daughter) should activate the biometric voice recognition MFA feature.  If the feature on then on login (and once a day after that for as long as the machine is left logged in) the machine requires the user to authenticate themselves using a spoken voice code as well as typing in their password.
+
+What is your recommendation?  Should the daughter turn this feature on?
+YES/NO  [Delete the un-needed response]
+
+Briefly give reasons explaining your recommendation including any assumptions you have made [15-75 words]
+NOT ANSWERED
+
+Are there any plausible circumstances under which you would have given the opposite YES/NO answer?  If so explain them and your reasons, or if not then explain why not. [15-75 words]
+NOT ANSWERED
+
+
+
+=== Question B2 === [15 Marks]
+
+Below is a typical TLS Handshake:
+
+	The 'client hello' message: The client initiates the handshake by sending a "hello" message to the server. The message will include which TLS version the client supports, the cipher suites supported, and a string of random bytes known as the "client random."
+
+	The 'server hello' message: In reply to the client hello message, the server sends a message containing the server's SSL certificate, the server's chosen cipher suite, and the "server random," another random string of bytes that's generated by the server.
+
+	Authentication: The client verifies the server's SSL certificate with the certificate authority that issued it.
+
+	The premaster secret: The client sends one more random string of bytes, the "premaster secret." The premaster secret is encrypted with the public key and can only be decrypted with the private key by the server. (The client gets the public key from the server's SSL certificate.)
+
+	Private key used: The server decrypts the premaster secret.
+
+	Session keys created: Both client and server generate session keys from the client random, the server random, and the premaster secret. They should arrive at the same results.
+
+	Client is ready: The client sends a "finished" message that is encrypted with a session key.
+
+	Server is ready: The server sends a "finished" message encrypted with a session key.
+
+	Secure symmetric encryption achieved: The handshake is completed, and communication continues using the session keys.
+
+
+To what extent does establishing a TLS session in this way help prevent phishing?  Briefly justify your answer.  [20-100 words]
+NOT ANSWERED
+
+What is the point of the third step "Authentication" above?  What problem is it preventing?  [20-100 words]
+NOT ANSWERED
+
+
+
+
+ === Question B3 === [15 Marks]
+
+This question relates to the photographed scene in the image: CarSnapshot.png
+Answer the questions below and briefly describe how you worked out the answers.
+
+What day of the week was it (eg Monday-Sunday)?  [1 Word]
+ NOT ANSWERED
+
+How did you work this out? [5-25 words]
+ NOT ANSWERED
+
+Was it Morning, Afternoon, or Nighttime? [1 Word]
+ NOT ANSWERED
+
+How did you work this out? [5-25 words]
+ NOT ANSWERED
+
+ What two big letters were written on the front of the police car? [2 Letters]
+ NOT ANSWERED
+
+How did you work this out? [5-25 words]
+ NOT ANSWERED
+
+ What street sign(s) are hidden behind the man? [2-20 words]
+ NOT ANSWERED
+
+How did you work this out? [5-25 words]
+ NOT ANSWERED
+
+
+
+=== Question B4 ===
+
+This question involves devising a way to effectively and realistically perform social engineering on a former world leader (still living).  For example you could pick Donald Trump, Malcome Turnbull or Mahathir bin Mohamad for example.  You must not do anything illegal rude disrespectful or invasive in the real world in preparing for this question, or inconvenience or annoy or alarm your selected target or anyone who works for or with them or knows them.  Most importantly you are not to invade the privacy of their family or personal life in any way.  You are restricted to looking at publicly available information and using entirely passive methods.
+
+PS Please write the answer in English even if the social eeningering attack might not be
+
+The exam question:
+
+What is the name, age, and country of the former leader you have picked ?
+______________________
+
+What cognitive vulnerability are you mainly targeting?
+
+______________________
+
+
+Context: Identify some significant (but not personal or intrusive) things about them which will help you carry out your social engineering
+______________________
+
+______________________
+
+______________________
+
+
+Clearly explain a simple and safe social engineering strategy an attacker could follow to learn the former leader's personal mobile phone number.  (To be clear - don't actually do this in the real world - you could be arrested, go to gaol, and/or be expelled from uni).  Assume the attacker has roughly the same access and resources that you yourself have available to you.
+
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+______________________
+
+
+You'll be assessed on how realistic, specific, simple, effective, non-risky, time consuming (sooner is better than later!) your strategy is, and how likely the attacker is to be able to learn the required information.
+
+
+
+
+=== Question B5 ===
+
+You are advising an Australian university that has been approached by the Australian Federal Police to invite students to join in a hackathon. (The information pack and application form is attached as hackathon.pdf, there is a customised version for each state this is the NSW version) Students will be given fictional scenarios and then asked to work in teams to brainstorm solutions.
+
+<PDF>
+
+Would you encourage the university to share this opportunity with its students? Why or why not?
+
+______________________
+
+
+What suggestions might you make to the police to improve their programme in future years?
+
+______________________
+
+
+
+STOP!  Do not answer the question below if you have already answered 5 questions in this part.
+
+=== Question B6 ===
+
+You have been asked to advise an insurance company about designing an insurance policy for companies to cover them for any losses they incur as a result of a cyber attack.
+
+They have asked you to advise them on what customer factors would likely have the most significant impact on pricing? [For example, health insurance premiums may change depending on whether the insured smokes]. List 3 factors with reasons (list the most significant factor first, etc).  For each factor suggest one or more questions the insurance company should ask applicants in order to be able to assess their likely risk.
+
+[150-300 words max overall, i.e. 50 - 100 words per factor]
+
+1.
+factor: _____________
+reason:
+________________
+________________
+________________
+
+question(s):
+__________________
+__________________
+__________________
+
+
+2. factor: _____________
+reason:
+________________
+________________
+________________
+
+question(s):
+__________________
+__________________
+__________________
+
+
+3. factor: _____________
+reason:
+________________
+________________
+________________
+
+question(s):
+__________________
+__________________
+__________________
+
+
+{{{
+Part C - 30 Mark Applied Questions
+
+This part consists of two 30 mark questions.  Answer ALL questions in this part.
+
+}}}
+
+=== Question C1 === [30 Marks]
+Suggestion: Aim to spend around 30 minutes answering this question.
+
+Two enemy agents are communicating using modified enigma machines and following a communication protocol as set out below.
+You have intercept one of their messages: KWMCXQCDSH
+What is the plaintext message?
+
+
+How the Machines have been modified
+-----------------------------------
+The machines have been modified so they do not do double stepping.  Don't worry if you don't understand double stepping since these machines don't do it.  That just means that on these machines the middle rotor only advances on the 26th keypress after the last time it advanced, and the leftmost rotor only advances 26*26 keypresses after the last time it advanced.  Just as you would expect.  (Be aware that some emulators in the internet do have double stepping however.)
+
+The machines also have modified rotors which behave as usual except for the letters A, T and J.  Signals coming into the reflector from the leftmost rotor which land on A T or J in the reflector are sent straight back (rather than being sent to the matching letter elsewhere on the rotor).
+
+So for example if the leftmost rotor is Rotor I and it is set to G, then a signal leaving the rotor out of D goes to J on the reflector in the usual way.  What happens next is different however. Rather than leaving the reflector coming out of the other J position on the reflector and going into position P on the rotor, it instead goes back out of the *same* J on the reflector, and then back into D on the leftmost rotor.
+
+
+What communication protocol did they follow?
+-------------------------------------------
+The enemy agents are using the protocol often used by the Germans in WWII. Each day there is a "Daily Setting" which specifies the rotors used, the rotor order, and the initial setting for each rotor.
+
+Ciphertext messages are in two parts, a header (the first six letters), and the body (the rest).  The header is 3 letters, repeated twice.  eg CHTCHT.  The header is encoded using the Daily Setting. It is the only part which is encoded using the daily settings.  Those three letters, when decoded, tell the recipient the starting position to use to decode the message body.  For each message the sender randomly picks three new letters to encode the body of the message, these are changed for each different message they sent.
+
+You intercept the following message which has been encoded in this way.
+
+KWMCXQCDSH
+
+Notice that it has a 6 letter header and a 4 character message body.
+
+You know the Daily Setting used rotors I,II,III and reflector B (modified as set out above), with rotors initially set to OPE (left to right), but you don't know which order the rotors should be in.
+
+Initial configuration:
+Rotor Order: ? ? ?
+Starting Position: OPE
+
+Decipher it and enter your findings below:
+
+Rotor Order [eg I,II,III]:  NOT ANSWERED
+Deciphered Header [six uppercase letters]: NOT ANSWERED
+Plaintext message body [four uppercase letters]: NOT ANSWERED
+
+Briefly describe your method.  You may include working if you wish.  (This part of the answer is only assessed if you do not decode the message correctly)
+NOT ANSWERED
+
+
+
+=== Question C2 === [30 Marks]
+Suggestion: Aim to spend around 30 minutes answering this question.
+
+1. Take the two supplied files MaltaWin.txt and MaltaLose.txt and replace the phrase NOT ANSWERED with your student number and save them.
+2. Create and download PDF versions of your text files using the website https://document.online-convert.com/convert-to-pdf
+3. Edit your PDF files so their SHA128 hashes have the same FIRST two hex digits,  (eg 3e444... and 3ef57... in this case 3e) and so that they still have the same visible text (check the visible text is still the same by converting them back to text using https://document.online-convert.com/convert-to-txt).
+
+One way of editing the PDFs without altering their visible content is to add extra line feed characters (0A in hex) at the end of the PDF file, most PDF viewers seem happy to ignore these extra characters.
+If you want to use an online hexeditor to do this you could use https://hexed.it/
+
+4. Name your matching files MaltaWin.pdf and MaltaLose.pdf and upload them to moodle with your submission.
+5. Briefly explain the method you used (only marked if your PDF files don't have matching hashes, or do not contain the correct text)
+
+NOT ANSWERED
+
+6. How would you alter your method if you needed to have the entire SHA128 hashes of the pdf files matching?  Justify your answer [20-100 words]
+
+NOT ANSWERED
+
+
+{{{
+Part D - 30 mark Analysis Questions
+
+Answer 1 of the following 2 questions (do NOT answer more or you will be allocated marks based on your worst performance):
+
+
+}}}
+
+
+=== Question D.1 ===
+
+Answer either this question or D.2 (below), but do NOT answer both.
+Suggestion: Aim to spend around 30 minutes answering this question.
+
+This question refers to the situation and events depicted in the film Apollo13 (1983)
+
+Scenario: Suppose we are in the world and time of that film, and the events depicted in the film were about a month or so ago and were accurate.
+
+You: You are advising ASA (the newly announced "Australian Space Agency" which will be set up over the next 12 months)
+
+You have been asked carry out a form of root cause analysis - but rather than analysing what were the root causes of the ACCIDENT happening, instead you have been asked to analyse the root causes of the SUCCESS of the Apollo13 Mission.  ASA wants you to advise them what were the underlying reasons that facilitated the safe return of the astronauts.   ASA is keen to learn from the incident so that future Australian astronauts can themselves be equally successful in future problem situations like that.
+
+Remember this is a root cause analysis - so don't simply identify the immediate proximate causes and/or actions of individuals, but instead keep asking "why" until you find the underlying fundamental organisational features which helped lead to success.
+
+List the four main underlying organisational features which led to the successful return of the astronauts which were revealed in the film (most important first) and briefly state for each the role it played and why you think it was a successful feature, and make a clear recommendation about how ASA can be set up and organised in order to ensure that it too will have that feature. [max 320 words in total]
+
+
+1. [max 80 words in total]
+Cause:                NOT ANSWERED
+Where/When it was depicted in the film:   NOT ANSWERED
+Role played/why it was a successful feature:  NOT ANSWERED
+Recommendation:       NOT ANSWERED
+
+2. [max 80 words in total]
+Cause:                NOT ANSWERED
+Where/When it was depicted in the film:   NOT ANSWERED
+Role played/why it was a successful feature:  NOT ANSWERED
+Recommendation:       NOT ANSWERED
+
+3. [max 80 words in total]
+Cause:                NOT ANSWERED
+Where/When it was depicted in the film:   NOT ANSWERED
+Role played/why it was a successful feature:  NOT ANSWERED
+Recommendation:       NOT ANSWERED
+
+4. [max 80 words in total]
+Cause:                NOT ANSWERED
+Where/When it was depicted in the film:   NOT ANSWERED
+Role played/why it was a successful feature:  NOT ANSWERED
+Recommendation:       NOT ANSWERED
+
+
+
+STOP!  Do not answer the question below if you have already answered D.1 above.
+=== Question D.2 ===
+
+Answer either this question or D.1 (above), but do NOT answer both.
+Suggestion: Aim to spend around 30 minutes answering this question.
+
+
+You are the Chief Security Officer for a large law firm.  Law firms have a critical obligation to keep clients’ information, including communications with the client, confidential. Due to a global pandemic, all the lawyers in the firm need to work from home from tomorrow for an indefinite period. Today is the last day in the office. Write an email to the firm's lawyers setting out the most essential cyber security measures to take once they start working from home.
+
+Write the actual body of email (don't worry about the greeting preamble or formal close, just the meat) [100-300 words]
+
+__________________
+__________________
+__________________
+
+
+Briefly explain the features of the email you wrote which make it more likely that your advice will be understood and followed [40-200 words]
+
+__________________
+__________________
+__________________
+
+

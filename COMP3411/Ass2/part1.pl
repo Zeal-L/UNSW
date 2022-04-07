@@ -38,32 +38,19 @@ sumsq_even([Head | Tail], Acc, Sum) :-
 %   can be performed in order to achieve the goal state.
 %   There are a total of six different actions, 
 %   each with a corresponding state change.
-action( mc,		
-	state(lab, RHC, SMC, MW, RCM),
-	state(mr, RHC, SMC, MW, RCM)).
-action( mc,		
-	state(mr, RHC, SMC, MW, RCM),
-	state(cs, RHC, SMC, MW, RCM)).
-action( mc,		
-	state(cs, RHC, SMC, MW, RCM),
-	state(off, RHC, SMC, MW, RCM)).
-action( mc,		
-	state(off, RHC, SMC, MW, RCM),
-	state(lab, RHC, SMC, MW, RCM)).
+location(lab, mr).
+location(mr, cs).
+location(cs, off).
+location(off, lab).
 
+action( mc,		
+	state(RLoc, RHC, SMC, MW, RCM),
+	state(NewLoc, RHC, SMC, MW, RCM)) :-
+		location(RLoc, NewLoc).
 action( mcc,		
-	state(lab, RHC, SMC, MW, RCM),
-	state(off, RHC, SMC, MW, RCM)).
-action( mcc,		
-	state(off, RHC, SMC, MW, RCM),
-	state(cs, RHC, SMC, MW, RCM)).
-action( mcc,		
-	state(cs, RHC, SMC, MW, RCM),
-	state(mr, RHC, SMC, MW, RCM)).
-action( mcc,		
-	state(mr, RHC, SMC, MW, RCM),
-	state(lab, RHC, SMC, MW, RCM)).
-
+	state(RLoc, RHC, SMC, MW, RCM),
+	state(NewLoc, RHC, SMC, MW, RCM)) :-
+		location(NewLoc, RLoc).
 action( puc,		
 	state(cs, false, true, MW, RCM),
 	state(cs, true, true, MW, RCM)).
@@ -74,11 +61,9 @@ action( pum,
 	state(mr, RHC, SMC, true, false),
 	state(mr, RHC, SMC, false, true)).
 action( dm,		
-	state(off, RHC, true, MW, true),
+	state(off, RHC, _, MW, true),
 	state(off, RHC, false, MW, false)).
-action( dm,		
-	state(off, RHC, false, MW, true),
-	state(off, RHC, false, MW, false)).
+
 
 plan(State, State, []).	
 plan(State1, GoalState, [Action1 | RestofPlan]) :-
@@ -88,6 +73,7 @@ plan(State1, GoalState, [Action1 | RestofPlan]) :-
 id_plan(Start, Goal, Plan) :-
     append(Plan, _, _),
     plan(Start, Goal, Plan).
+
 % q2_test1 :-
 %     id_plan(state(lab, false, true, false, false),
 %             state(_, _, false, _, _), Plan),

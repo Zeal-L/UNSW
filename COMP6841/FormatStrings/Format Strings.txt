@@ -22,3 +22,4 @@ nano ~/.bashrc
 source ~/.bashrc
 startxfce4
 wsl --shutdown
+

@@ -8,7 +8,7 @@ speech_config = SpeechConfig(subscription=speech_key, region=service_region)
 speech_config.speech_synthesis_language = "en-US"
 speech_config.speech_synthesis_voice_name ="en-US-BrandonNeural"
 
-audio_config = AudioOutputConfig(filename="file.wav")
+audio_config = AudioOutputConfig(filename="reflex.wav")
 synthesizer = SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
 
 
@@ -16,5 +16,5 @@ with open('text.txt', 'r',encoding='utf-8',errors='ignore') as f:
     text = f.read()
 result = synthesizer.speak_text_async(text).get()
 stream = AudioDataStream(result)
-stream.save_to_wav_file("file.wav")
+stream.save_to_wav_file("reflex.wav")
 

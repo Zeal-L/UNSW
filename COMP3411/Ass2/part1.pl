@@ -1,6 +1,6 @@
 % Zeal Liang
 % z5325156
-% Assignment 2 – Prolog and Machine Learning
+% Assignment 2 - Prolog and Machine Learning
 
 
 % Question 1.1: List Processing
@@ -59,10 +59,10 @@ action( dc,
 	state(off, false, false, MW, RCM)).
 action( pum,		
 	state(mr, RHC, SMC, true, false),
-	state(mr, RHC, SMC, false, true)).
+	state(mr, RHC, SMC, true, true)).
 action( dm,		
-	state(off, RHC, _, MW, true),
-	state(off, RHC, false, MW, false)).
+	state(off, RHC, SMC, true, true),
+	state(off, RHC, SMC, false, false)).
 
 
 plan(State, State, []).	
@@ -123,22 +123,14 @@ intra_construction(X <- B1, X <- B2, X <- B3, Z1 <- Z1B, Z1 <- Z2B) :-
 %   clause is a subset of the other. If it is, the common 
 %   elements can be removed from the larger clause
 %   and replaced by the head of the smaller one.
-%   If the two clauses are not subsets of each other, 
-%   then leave them as they are.
 % Use Case: 
 %   absorption(x <- [a, b, c, d, e], y <- [a, b, c], X, Y).
-%   absorption(x <- [a, b, c], y <- [a, b, c, d, e], X, Y).
-%   absorption(x <- [a, b, c], y <- [d, e, f], X, Y).
-if_then(Condition,Then) :-
-    call(Condition) -> call(Then) ; true.
-absorption(X <- B1, Y <- B2, X <- R1, Y <- R2) :-
+
+absorption(X <- B1, Y <- B2, X <- R1, Y <- B2) :-
     X \= Y,
+    subset(B2, B1),
     subtract(B1, B2, T1),
-    if_then((B1 \= T1, T1 \= []), (append([], B2, R2), append([Y], T1, R1))),
-    subtract(B2, B1, T2),
-    if_then((B2 \= T2, T2 \= []), (append([], B1, R1), append([X], T2, R2))),
-    intersection(B1, B2, T3),
-    if_then(T3 = [], (append([], B1, R1), append([], B2, R2))).
+    append([Y], T1, R1).
 
 % ***********************************************************************
 
@@ -153,3 +145,4 @@ absorption(X <- B1, Y <- B2, X <- R1, Y <- R2) :-
 truncation(X <- B1, X <- B2, X <- B3) :-
     X = X,
     intersection(B1, B2, B3).
+

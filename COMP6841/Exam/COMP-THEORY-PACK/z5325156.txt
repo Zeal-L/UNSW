@@ -1,0 +1,496 @@
+= UNSW COMP6441 Final Theory Exam: 2022t1 =
+=== 6441->180 marks + 2 bonus marks / 4 hours ===
+=== 6841->135 marks + 60 marks Part E "Prac exam"+ 2 bonus marks / 4 hours ===
+
+history
+1.11 - Release version
+
+There is a 2 mark bonus if you correctly follow all exam instructions.
+
+Word guides are an indication of how long we think a great answer will be.  You will not be penalised for exceeding the guides, answers will be marked on their quality.  Note that past experience is that it is extremely rare for answers that exceed the word guide to score as well as those which are shorter, and usually overly long answers score worse because they tend to be more confusing or cluttered.  Answers which contain an unclear mixture of strong and weak points will not score as well as answers which consist of only strong points or which clearly distinguish between the stronger and weaker points.
+
+If you don't want your answer for a question to be marked write ONE SYMPATHY MARK PLEASE in your answer.
+If you do that NO PART of your answer for that question will be marked and you will be awarded one mark for the ENTIRE QUESTION.
+
+DON'T answer all exam questions:
+
+COMP6441 - 180 marks
+Part A - answer 8/9 questions = 120 marks
+Part B - answer 2/3 questions = 60 marks
+
+COMP6841 - 195 marks
+Part A - answer 7/9 questions = 105 marks
+Part B - answer 1/3 questions = 30 marks
+Part C "PRAC Exam" - answer all questions = 60 marks
+
+
+=== Extra note for 6841 students ===
+6841 students also complete a 60 mark technical PRAC exam (sent to you in a separate document) which runs concurrently with this exam
+You will need to allocate your time between the two exams yourself.  Both start and finish at the same time.
+=== end 6841 note ===
+
+If you are doing a pen and paper version of the exam write your name and student number below and sign.  If you are doing the exam electronically type in your details and sign the affirmation by typing your name where indicated.
+
+{{{
+          Name: Zeal Liang
+Student Number: z5325156
+  Which course: COMP6841  [COMP6441 or COMP6841]
+   I assert this work is wholly my own work except where I have explicitly acknowledged.  I have not contacted any other person about this exam during the exam period.  I will keep the exam confidential until Saturday 8pm.
+ Sign/Type your name: Zeal Liang
+}}}
+
+
+If you are not answering a question leave/write NOT ANSWERED in the answer area(s). Do not answer more than the required number of questions.  If you answer more than the required number of questions then we will ONLY mark the FIRST questions you answered.
+
+DO NOT edit/add/delete ANY text ANWHERE outside of the answer areas indicated.  That will muck up poor Sage having to split up and extract your answers for marking using scripts.  Also you will lose the bonus marks for following instructions if you do that.
+
+Make frequent backup copies of your completed exam paper and submit on Moodle as you go so if anything goes wrong you do not lose much work.  There are no time extensions for accidentally deleting work - that is a foreseeable and mitigable risk for security professionals.
+
+Text file format only
+Type/write your answers into the indicated areas and submit using the instructions on the exam central page. You must use a text editor (e.g. BBedit or TextMate on Mac, Notepad++ on Windows) and submit a text only file.  (Best don't use MSword).  We cannot mark an answer file with formatting like italics or containing non-ascii characters etc.  You may submit your answer file as many times as you like over the duration of the exam. The last submission ONLY will be marked.  If you have problems submitting you can email your exam answer paper (in text only format) to cs6441@cse.unsw.edu.au.
+
+This is a logged open book exam.  You may READ anything you like on the internet or in books etc but you must disclose what you have read.  You will be assessed on your contribution.  Beneath every question paste the titles of any books you consulted and the urls of any documents/webpages you consult replacing the word NONE with your list.  Leave the word NONE there if you did not consult anything for that question.  It will be treated as plagiarism if you rely upon or use a source which you do not reference in this way.
+
+You may not WRITE or SHARE anything on the internet or with any other person during this exam with the exception for asking questions described below.  You cannot communicate with any other person or share any information including the exam paper. This includes making comments on the course web pages or make any comments anywhere including sms, texts, on social media / chats etc.  You cannot make or answer phone calls.  Violating these read-only restrictions is regarded as cheating and will result in 0 fail and possible charges of academic misconduct and even more serious penalties.  But mainly it’s not the honourable thing to do.
+
+
+Permitted Communication
+(start at the top of the list and only move down if needed)
+
+You are permitted to contact the exam supervisor in the following ways:
+1. You can ask about the process of the exam and ask for clarification about rules or typos in the question wording (but do not give any hints about answer content) by making comments on the Exam-Live page.  THIS IS THE ONLY PAGE YOU CAN MAKE COMMENTS ON DURING THE EXAM PERIOD. The URL for the Exam-Live page is
+
+       https://www.openlearning.com/unswcyber/courses/security-engineering-22t1/exam/exam-live/
+
+2. You can also email cs6441@cse.unsw.edu.au with confidential questions but that may not be noticed as quickly as comments.
+
+Updates on the exam will be posted on the Exam-Live page.  Keep the page open all exam and REFRESH IT REGULARLY for updates.
+
+If you are unsure about anything ask the supervisor using the methods above.
+
+Please do not discuss the exam or content at all with anyone until after the day of the exam or reveal anything about the questions. There are a number of people around the world doing the exam at later times – they will all be finished by Saturday 8pm Sydney time.  You can write a indication of joy/relief/support on the Open learning course home page at the end of the exam if you are happy that you finished, but please no more until Saturday 8pm.  Examples of acceptable things you could write are:
+
+Good examples (permitted)
+Yay!
+So glad I am now free and can relax unlike Lyria and Richard and the other markers who now have to work without pause for a week.  Mwahahaha!
+Now I will sleep for days
+
+Bad examples (not permitted before Saturday deadline, as they reveal something about the exam itself)
+That was easy
+That was hard
+I am so glad there was no question about sony playstations
+It's unfair there was a question about China Syndrome!  I didn't realise the case studies were examinable.
+
+The use of Top Men, misdirection, or unauthorised social engineering is prohibited.
+
+If you think a question is ambiguous, answer the most likely interpretation and state what you have done. Where two or more different answers are possible give the answer which best answers the question. If you need to make assumptions state them. Keep answers brief and clear.  Don't waffle - aim to stick to the word limits.  Whenever you list or order things put the most important things first.  Make sure you explain your thinking to demonstrate your analysis where ever asked.
+
+Have fun.  Be yourself.  You are a great thinker we can't wait to see what you come up with.
+
+
+
+
+
+
+
+
+
+{{{
+Part A - 15 mark Questions
+
+This part consists of NINE questions.
+COMP6441 Students answer only EIGHT questions in this part.
+COMP6841 Students answer only SEVEN questions in this part.
+
+All questions in this part are worth 15 marks so you should spend up to 20 minutes on them.
+}}}
+
+=== Question A1 === [15 Marks]
+
+Suppose X is an agent of a foreign power interested in accessing some of the research and correspondence of our guest speaker on Bioterror Dr Merlin Crossley.  X has been tasked with finding his staff ID and his MyUNSW password.
+
+You'll be assessed on how realistic, specific, simple, effective, non-risky, time consuming (sooner is better than later!) X's strategy is, and how likely X is to be able to learn the required information.
+
+WARNING
+This question involves devising a way to effectively and realistically perform social engineering on our guest speaker on Bioterror Dr Merlin Crossley. In answering this question during the exam you may carry out some OSINT if you choose and think it will help you but you may not do anything active, intrusive, disrespectful or contact him or anyone else or actually carry out any social engineering.  In answering this question you are restricted to looking at publicly available information and using entirely passive methods.
+
+In answering this question do not do anything which violates the course good faith policy which includes not doing anything that violates UNSW's acceptable use policy.  Do not actually find his password, do not actually undertake any active measures, do not actually be an agent of a foreign power.
+
+
+Identify some significant (but not personal or intrusive) things about him which will help X carry out their social engineering attack
+Dr Merlin Crossley:
+  the Deputy Vice-Chancellor Academic & Student Life
+  He is also an "enthusiastic teacher" and science communicator
+  phone number: +61 2 9385 2800
+  office address: University of New South Wales Sydney NSW 2052 Dalton Building Room 201
+
+Staff contacts
+  Indelle Scott, Position:Executive Assistant
+  Sarah Dunbar, Position:Director, Operations
+
+
+Clearly explain a practical and safe social engineering strategy X could follow to learn his staff ID and his MyUNSW password.
+
+x can use the fact that he is an enthusiastic teacher and teaches at unsw to approach him. x can disguise itself as one of his students and send him an email to find out the ID of their staff, for example, by asking him for more information through the staff names that are publicly available online. like: "I need to attach a staff ID to one of my assignments, but I forgot it, can you tell me, I can't reach them now"
+As for his password we can fake an official unsw email address and send him an email to go to our fake website to reset his password. The excuse is that the password needs to expire periodically.
+
+What cognitive vulnerability is X mainly targeting?
+Overconfidence effect
+Availability cascade
+Bias blind spot
+Jumping to conclusions
+Optimism bias
+
+Evaluate with reasons how likely it is that X's social engineering strategy will work.
+Medium possibility, but simple and effective, and not risky. Possible factors for failure are: he has very few students with him so he remembers all of them, or he has just recently changed his password. And being too vigilant.
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+https://research.unsw.edu.au/people/professor-merlin-crossley
+
+
+
+=== Question A2 === [15 Marks]
+
+Suppose you are consulting to the XYZ university and have been asked to email them your recommendations on their current requirements passwords for staff and students which are: must change password every 6 months and the complexity requirements set out in the attached screen shot XYZ_PASSWORD.png.
+
+Outline an effective email of under one page (250 words) including your main suggestions and persuasive reasons why they should be adopted.
+The reason not to use previously used passwords is because there is a chance that your previous passwords have been exposed so that hackers can access all your accounts simply by using your previous passwords. The reason why passwords should not be too simple is because weak passwords are likely to be in the hacker's database. Using them is like not having a password at all. Anyone who tries to break into an account will immediately try to use such a simple password.
+
+The reason why passwords need to be case-sensitive and numeric plus characters is because passwords that are too simple can easily be brute-force cracked by hackers. It is best to maximize the number of choices for each character in a password. If only lowercase letters are used, there are 26 possible choices for each character. Using a password with eight characters, that is 26 ^ 8  possible combinations.
+However, if uppercase letters, lowercase letters and numbers are used, there are now 62 possible choices for each character. Using the same eight-character password, these 62 characters provide 62 ^ 8 possibilities.
+
+You don't need to write the actual email (unless you wish to) bullet points conveying the important aspects of your response are also sufficient.
+
+You will be assessed on the quality of your recommendations and how likely it is that your email will lead to change.
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+=== Question A3 === [15 Marks]
+
+Suppose the Australian Government has introduced voting computers which can be used by voters at every polling place instead of vorters having to use pencil and paper to submit their votes.  They have asked you to advise them on whether or not the details about the voting computers and the software they run should be made public, or if that information should be kept secret for security reasons.
+
+What is your recommendation?  Should the information be made public?
+NO  [Delete the un-needed response]
+
+Briefly give reasons explaining your recommendation including any assumptions you have made [15-75 words]
+If the software details are made public this is the same as telling a potential attacker to come and attack me. This will make it far more easier for them to find vulnerabilities and weaknesses in the software.
+
+Are there any plausible circumstances under which you would have given the opposite YES/NO answer?  If so explain them and your reasons, or if not then explain why not. [15-75 words]
+No, releasing software details is not a good option under any circumstances. It's too dangerous, and even if it's not attacked in this instance, it adds risk to future votes
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+=== Question A4 === [15 Marks]
+
+You intercept the cipher text message in the file CIPHERTEXT.txt.
+
+What encryption method has most likely been used to encrypt it?
+enigma machine
+
+Briefly give reasons explaining your answer above including any alternative methods it might be with your reasons for not ranking those methods the most likely.
+
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+=== Question A5 === [15 Marks]
+
+Suppose an attacker wanting to brute force passwords has exactly the same resources and knowledge as you do yourself.  Suppose they have a budget of $10,000AUD.  This question is to estimate what passwords they could crack by brute force in a week.
+
+Make any reasonable assumptions you need to be able to answer this question and list them below
+NOT ANSWERED
+
+Based on your assumptions calculate how many bit of work could they do in one week? [Your answer here should just be a number between 1 and 10,000, writing your working and reasoning in the next part]
+364
+
+Briefly justify your answer above including any calculations you have made
+Assume it is i9-9900K, so it is 8x3.1Ghz
+8x3.1x1,000,000,000 = 10111000110001100011111100000000000 (35 bits)  
+= 35 bits of work per second
+60x60x24 seconds a day = 86,400 seconds/day = 2^17 seconds/day
+35 + 17 = 52
+52*7 = 364
+
+What length password could they be certain to crack in this time? (assume passwords using upper and lower case letters digits and 10 punctuation characters)
+61
+
+Briefly justify your answer above including any calculations you have made
+log2((10+26+26)**61) = 363.20597493359938773717353954970881983649036161737922080090522204...
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+=== Question A6 === [15 Marks]
+
+Suppose you have intercepted a ciphertext message which you know has been Vigenère encoded with a 15 letter key.  (Eg SDFGE JOLKY EQRYT)
+
+a) Suppose it takes 9 bits of work to see if a potential key is likely to be the actual key. How many bits of work would it take to brute force the key on average.  [Your answer should be a number between 1 and 10,000]
+NOT ANSWERED
+
+b) Explain your answer giving your calculations with reasons and any assumptions you have made
+NOT ANSWERED
+
+c) If the ciphertext is 8,000 letters long estimate how many bits of work it would take you (or any other smart attacker) to decipher the entire message.  [Your answer should be a number between 1 and 10,000]
+NOT ANSWERED
+
+d) Briefly explain the method you (or another smart attacker) would use. (Marks for using appropriate method and short clear explanation)
+NOT ANSWERED
+
+e) Explain your answer to (c) above giving your calculations with reasons and any assumptions you have made
+NOT ANSWERED
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+=== Question A7 === [15 Marks]
+
+In Australian elections you can vote by turning up to a polling booth on the day of the election, OR you can send in your vote by mailing in your vote to the Australian Electoral Commission (AEC) before the day of the election.  That's called a postal vote.  People being able to apply to make a postal vote is important because lots of people can't actually attend a polling booth in person on election day: they may be sick, or a shift-worker, or overseas on holiday, or ...
+
+If you are a registered voter and you want to be able to make a postal vote you have to APPLY to the AEC long before the election and they then post you out all the stuff you need - the ballot paper to fill in, a prepaid envelope to put it into, and so forth.  How you APPLY to the AEC to able to make a postal vote is you send them an application by email or you post in a physical paper application form.  This question is to think about possible attacks on that application process (i.e. not attacks on voting, attacks on APPLYING to be able to have a postal vote).
+
+Each year the political parties send some people the postal vote application form to remind them to register.  Images PV1.png and PV2.png are photos of (both sides of) one that was sent to a tutor of this course, by a politician, along with a letter addressed them encouraging them to fill it in and apply for a postal vote if they aren't going to be able to vote in person on election day.  That all makes sense.
+
+The thing that is a bit surprising is: that reminder mail from the political parties often also includes a free reply paid envelope in which you can put your application form in once you have filled it in, and which you then post at the post office. But the destination printed on that free envelope is NOT the postal address of the AEC! It is instead a post box controlled by the political party!  So those completed applications to be a postal voter actually first go to the political party, who then mail them on to the AEC.  Those applications take a much longer journey than the voter probably realises...
+
+The AEC doesn't like this but both the major parties like to do it so it's unlikely to be ever made illegal.
+
+
+Briefly list possible benefits to a political party for doing this redirection of the envelopes?  (List the most important ones first.)
+They can know the election percentage in advance
+Know the political leanings of each person
+Potential Possible Revised Election Vote
+
+What sorts of attacks might an unscrupulous attacker be able to make on the political process by doing this?  Use security terminology where applicable.
+Note: I don't know of any evidence that any parties have ever done anything illegal with postal vote applications, but it is a clear vulnerability that is worth thinking about and seeing if it might need to be defended.
+It could have a significant impact on the final outcome, when the votes are close between the two sides.
+There is a risk that attackers could obtain personal information and political leanings that could be social engineering against these people in the future
+
+If you were advising the AEC on security what suggestions if any would you make to them about how to make the process of applying for a postal vote more secure?
+It is recommended that all postal votes be sent directly to the AEC.
+The envelopes need to be thickened and Tamper evident design.
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+
+STOP!  Do not answer the question below if you are a COMP6841 student and you have already answered 7 questions in this part.
+
+
+=== Question A8 === [15 Marks]
+
+IOT devices are increasingly popular with consumers.  But they can also pose serious security and privacy risks.  And most consumers are not aware of this or know how to work out which devices are safe and which are risky to buy.
+
+You are advising the government on a scheme to label IOT devices sold in Australia, much like food has nutrition and ingredient labelling, and fridges and washing machines have stickers showing power efficiency stars. In this question you will design and recommend what information should go on the label.
+
+
+Briefly list the main security and privacy risks to consumers from these devices
+Potential backdoor to attackers. It could be camera access, networking access, microphone access, all of which can cause user privacy information leakage. The more frightening ones have the potential to remotely manipulate some devices for physical attacks, causing casualties. For example, short circuit or release gas and cause fire.
+
+Briefly list the most important information which consumers should know to protect themselves from the above risks and to make more informed decisions when they are purchasing IOT devices.
+Consumers should know all the functions and permissions of the IOT device itself, such as whether there is a camera, whether there is a microphone, whether the networking is user-controlled, and whether the device will connect to the Internet or a local network. Also what maneuvering capabilities the device has, such as movement as well as thrust, etc.
+
+Describe your proposed scheme for the labelling of IOT devices.  It shouldn't be too complex for consumers to understand, but it also should provide the information which would be most useful for them.
+The first is the function label, which indicates what functions the device has. Next is the permission label, indicating under what circumstances the device will use what functions, as well as networking privileges. Then there is the potential hazards label, noting what environment the device should be kept away from. There is also the artificial intelligence label, which indicates whether the device will make decisions on its own.
+
+Explain your reasoning in coming up with this particular scheme, its strengths, and any weaknesses.
+Its advantage is that people can quickly understand what risks the device has in terms of privacy breaches. This allows consumers who are particularly concerned about personal information leaks to quickly filter out the devices they need. The disadvantage may be that a certain level of knowledge is required and too much jargon needs to be avoided. Enables users to better understand the dangers
+
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+
+STOP!  Do not answer the question below if you are a COMP6441 student and you have already answered 8 questions in this part.
+
+
+=== Question A9 === [15 Marks]
+
+In this question the world is exactly like it is now EXCEPT suppose that Russia happens to be located to the north of Australia where Indonesia is currently located in reality.
+
+Suppose you are the head of Russian Cyber Command president Putin has decided that in 12 months he will launch a surprise invasion of Australia with the aim of capturing Western Australia, and the Northern Territory.  He wants to stick a quick knockout blow much like the Japanese attack on Pearl Harbour in WWII.   You have to prepare a report to President Putin recommending your plan for how Cyber Command can help support the success of this surprise physical invasion.
+
+
+Briefly list the five main strategic goals of your cyber plan?  Ie What are your objectives (ranked))
+Paralyze their internet
+Steal classified government information
+Intercept classified military communications
+Obtain the geographic location of large military equipment and troops
+Deliver false intelligence
+
+Briefly set out how you will achieve each of your 5 goals.  For each indicate the preparation you will need to undertake first, the main things that could go wrong, and the likely chance of success.
+Paralyze their internet:
+Disrupt the root name server responsible for the Australian region, so that the Australian region is isolated from the Internet. Low probability because the US is an ally of Australia, but these root servers are under US control.
+
+Steal classified government information:
+Medium likelihood, requires spies to plant backdoors in advance, or brute-force attacks on government intranets. The thing that could go wrong is that the spy is discovered. What could go wrong is that the spy is discovered.
+
+Intercept classified military communications:
+Medium probability, arranging spies to put bugs everywhere. Or through network attacks, such as proxy attacks. Something that could go wrong is the military using people and letters to pass classified information.
+
+Obtain the geographic location of large military equipment and troops:
+High probability, this information is generally stored in classified databases. All we need to do is find the extranet access point to the database and we can rely on the state to hack into it. Or use satellite photography. The thing that could go wrong is that the database is not connected to the extranet.
+
+Deliver false intelligence:
+High possibility to modify their communications and spread misinformation on the network, such as pretending to be successfully hacked by the other side, but this is a trap. The thing that can go wrong is that they have a complicated way of verifying information.
+
+
+Suppose instead that you are Australian Cyber Command advising the government and are concerned about the potential threat from Russia.  What do you advise are the top 4 things that Australia should do over the next year to prepare?  Give brief reasoning for each.
+Prepare your own mirror root server, so that even if the real root server is damaged, it will not affect the domestic Internet.
+
+Strengthen the security of government websites and shut down external interfaces when necessary.
+
+Use highly encrypted algorithms to pass communications within the military.
+
+All databases that store classified information should never be connected to the Internet, as well as the number of such databases should be reduced. Use text file storage whenever possible.
+
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+
+
+
+{{{
+Part B - 30 Mark Analysis Questions
+
+This part consists of three 30 mark questions.
+Don't answer them all.
+COMP6441 students answer TWO questions in this part, 6841 students only answer ONE question in this part.
+
+}}}
+
+=== Question B1 === [30 Marks]
+Suggestion: Aim to spend around 30 minutes answering this question.
+
+This question refers to the situation and events depicted in the film The China Syndrome (1979)
+
+Scenario: Suppose we are in the world and time of that film, and the events depicted in the film were about a month or so ago and were accurate.
+
+You: You are a security engineer advising newly established President's Commission into the incidents at the Ventana Nuclear Power Plant.
+
+While most of the people advising the committee are safety experts advising on SAFETY you have been asked to prepare a report on SECURITY.  What were the security shortcomings revealed by the incident - how well was the plan designed to withstand an adversary, not just to withstand accidents and bad luck.
+
+a) List and briefly explain your top 5 areas of concern from a security point of view.  Evidence them by reference to specific moments in the film.
+NOT ANSWERED
+
+b) What are your top 5 recommendations to ensure nuclear power plants are secure in the future? Explain and justify your recommendations enough to make them compelling and likely to be adopted.  Either bullet points or writing in whole sentences are satisfactory.
+NOT ANSWERED
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+
+=== Question B2 === [30 Marks]
+STOP!
+COMP6841 students do not answer the question below if you have already answered ONE of the other Part B questions.
+
+In Australia, and particularly during the pandemic, courts conduct online hearings. This involves the judge, lawyers, parties to the proceedings, and witnesses participating in an online forum.
+
+There are several factors to bear in mind
+
+1. Under the principle of “open justice”, as much as possible of the proceedings should be available for viewing by the public. In physical courtrooms, anyone can attend without pre-registration, subject to point 2 below.
+
+2. A witness in a case is generally excluded from the courtroom while other witnesses are giving evidence; they should not be allowed to hear what others say on an issue before they give evidence themselves in order to avoid their evidence being tainted.
+
+3. Particularly in the age of “deep fakes”, authenticity is important; members of the public should be confident that what they are viewing corresponds with what is happening in the virtual courtroom.
+
+4. Those participating in proceedings (such as lawyers and parties) have an interest in their own privacy and security that might be compromised if videos of them during proceedings remain available online after the conclusion of proceedings.
+
+5. It is important that proceedings are not disrupted. In physical courtrooms, there are court officers that can ask people to leave if they are being disruptive.
+
+6. Most cases are routine and the audience is small, but some attract large numbers of interested people (for example, litigation around cancellation of Novak Djokovic’s visa).
+
+You are a consultant who has been asked by the Federal Court of Australia how best to manage these competing demands for open justice, participant privacy, and proper conduct of proceedings in the context of a challenge to the results of the 2022 federal election. The proceedings must be conducted online due to urgency and the outbreak of a highly dangerous omega variant of COVID-19. The matter is of significant public interest with potentially a million Australians interested in observing the court proceedings. There will be three witnesses who claim to have observed vote tampering at a polling booth in one electorate on which the result of the election depends. There is a loud and large contingent of protesters seeking to "Stop the Steal" who are generally sceptical of information provided by government.
+
+What is your recommendation? Discuss how you came to this recommendation with reasons.
+
+To prevent the public from not believing that what they are seeing is consistent with what is happening in the virtual courtroom. We could put a clock behind each person, especially to cover the back of the person's face. This way deep fakes have a hard time calculating the details around them in real time.
+
+For the people involved in the proceedings (e.g. lawyers and parties), their private information should be systematically organized and removed from the Internet in advance.
+
+To prevent disruptions.
+For those who violate the court discipline admonishment is ineffective, they will be forced to withdraw from the connection through the software. If the plaintiff's side is forced to withdraw from the connection during the trial, the case will be treated as withdrawn; if the defendant is forced to withdraw, the case will be treated as absent.
+
+Lawyers need to be familiar with the online courtroom platform in advance and master the methods of evidence uploading and cross-examination, as well as the need to understand the operational requirements in advance and prepare the original client identification documents. Keep your cell phone silent
+
+Litigation participants should choose quiet, no interference, suitable light, good network signal, relatively closed place to participate in the trial. To avoid, for example, echoes, poor camera angles, background confusion, untidy dress code, etc.
+
+The most important thing is to participate in the identity of the participants, to participate in online litigation subject should first complete the real name registration, through the document photo comparison, biometric identification, real name cell phone number association, to obtain a special account to log into the litigation platform.
+
+We also need to audit the authenticity of electronic materials to prevent forged exhibits. The electronic materials need to be matched with the original documents and objects by online or offline means.
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+
+
+
+=== Question B3 === [30 Marks]
+STOP!
+COMP6841 students do not answer the question below if you have already answered ONE of the other Part B questions.
+COMP6841 students do not answer the question below if you have already answered BOTH of the other Part B questions.
+Warning - this question relates to a real accident in 2021 in which a young girl died
+
+Suggestion: Aim to spend around 30 minutes answering this question.  Spend about half your time for this question on part (c).
+
+Background:
+In 2021 a young girl died in an Amusement Park accident on a ride called the Haunted Mine Drop (HMD).
+
+Assume the details of the incident are accurately reported in the attached news story HMD_SUMMARY.pdf.
+
+The conclusions of the ensuing investigation are given in the file HMD_INVESTIGATION_CONCLUSIONS.png.
+
+a) Comment on the investigation findings and to what extent they likely provide a root cause analysis.
+NOT ANSWERED
+
+b) Suppose you are teaching the investigation team how to carry out the sort of root cause analysis we use in the course (for example in the case study analyses).  What advice do you think they most need?
+NOT ANSWERED
+
+c) Draft a plausible sample root cause analysis for this awful incident which you could show to them to illustrate what such an analysis should look like.  Feel free to make up assumptions about what actually happened and why, so that you have sufficient detail in your analysis.  It is not important how closely you match the actual details of the case which you do not know - the main thing is to show what a useful root cause analysis looks like. Just make sure that whatever you assume is consistent with the details in the summary provided.
+NOT ANSWERED
+
+
+Web pages and/or books I used in answering this question:
+<Replace NONE with a list of all consulted URLs and book titles + authors, leave NONE if you consulted none.>
+NONE
+
+

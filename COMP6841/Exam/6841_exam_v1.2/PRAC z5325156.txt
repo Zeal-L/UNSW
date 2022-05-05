@@ -1,0 +1,206 @@
+= COMP6841 Final Exam =
+== 22T1 ==
+
+Time Recommended: 60mins
+
+The total number of marks available in this section is 60. We recommend you spend on average 1 minute per mark.
+
+You are not permitted to modify the structure of this paper; please answer by replacing the designated sections (underlined). Failure to do this may impact the marking of your paper.
+
+All conditions and restrictions given in the combined 6441/6841 theory exam paper also apply here.
+
+DONT answer all exam questions:
+
+- You only need answer one question in Part A
+- All questions in Part B should attempted to the best of your abilty 
+
+{{{
+Part A - 5 mark Questions
+
+This part consists of two 5 mark questions.  Answer ONE question in this part (do NOT answer more or only A1 will be marked)
+
+}}}
+
+
+=== Question A1 ===
+[5 marks]
+Here is a sha256 hash of a course admin's favourite password f52fbd32b2b3b86ff88ef6c490628285f482af15ddcb29541f94bcf526a3f6c7 
+Can you work out what the password is? 
+
+yes, hunter2
+I looked it up through an online hash decryption website
+https://www.cmd5.com/
+
+____________________
+
+As a system designer how can you defend against an attacker using rainbow tables? [25-100 words]
+
+The rainbow table is applied to the mainstream hash algorithm, then by modifying the hash algorithm, it is naturally able to defend against rainbow table cracking. But make sure that the strength of the new hash algorithm is higher.
+____________________
+
+As a user how can you defend against an attacker using a rainbow table to crack your password? [25-100 words]
+
+Rainbow tables can only generate lookup tables from a finite set of passwords. As the set of passwords expands, the space occupied by the rainbow table will increase at an exponential rate. Therefore, you should add a string to the user password and then hash it
+Longer passwords will greatly increase the length before hashing, making it impossible to generate a rainbow table because the set of passwords is too large.
+____________________
+
+
+
+=== Question A2 ===
+[5 marks]
+
+We have discovered a piece of malware on a user’s computer. 67 minutes after this malware was executed it connected to 13.55.173.226 on port 443 and a small amount of data was transferred
+1. Why would the malware wait 67 minutes to connect to 13.55.173.226? [50-100 words]
+
+_________________
+
+2. Give three possible reasons the malware would connect to 13.55.173.226 on port 443? [30-100 words each]
+
+1. ____________________
+2. ____________________
+3. ____________________
+
+
+{{{
+Part B
+
+Answer ALL of the following 5 questions 
+
+}}}
+
+=== Question B1 ===
+[5 marks]
+
+Your friend thinks they installed a rootkit on their computer while updating a device driver. 
+Your friend has installed some userland antivirus software to remove the rootkit and secure their system.
+
+In your professional opinion is this likely to be successful? Why/Why not? [max 50 words]
+
+This is not possible because rootkit modifies system files, such as system tables and such. And its code runs in privileged mode. It can directly spoof the OS, so a good rootkit should not be detected by antivirus software. Especially antivirus software that only scans the user area.
+
+
+How would you recommend your friend to secure their device and data? Provide 2 recommendations [50 words each]
+
+1. When you find that the system often blue screen or device performance is slow and web pages are not working properly, it is recommended to backup data and reinstall the system immediately.
+Why: Because rootkit may cause excessive network traffic, web pages or web activities may be intermittent or not work properly. As well, the cpu usage of rootkit may cause the device to take a while to boot and execute slowly or crash frequently.
+
+2. Regularly use a Rootkit scanning tool, such as one based on behavioral analysis
+Why: Behavioral analysis is another approach to Rootkit detection. This means instead of looking for Rootkit, it looks for Rootkit-like behavior. Targeted scanning works well if you know your system is behaving strangely, and behavioral analysis may alert you before you realize you are under attack.
+
+
+=== Question B2 ===
+[10 marks]
+
+Using the attached disassembly graph (re.png), what user input will cause the program to print the flag? How did you deduce this?
+Alternatively, describe how you would approach this task and what you would look for, for partial marks (50-150 words):
+I should be looking for the conditions under which the flag will be printed, i.e. there should be 4 numbers after the string "COMP" and I need to determine the conditions of the loop and what operations it does. The strlen is used in the condition, so I think there is a requirement for the length of the string. When the variable i of the loop is the same length as the string, the flag will be printed.
+
+
+
+=== Question B3 ===
+[10 marks]
+
+The following code is used to check if an administrator has logged in:
+
+```
+char name[15]; // Address: 0x0804c034
+char logged_in = 0; // Address: 0x0804c043
+ 
+static
+void
+authenticate_admin (void)
+{
+	char pass[16];
+	printf("Please enter your username:\n");
+	gets(name);
+ 
+	if (!strncmp(name, "admin", 4)) {
+		if (logged_in == '1') {
+			printf("Welcome back!\n");
+		} else {
+			printf("Please enter your password\n");
+			fgets(pass, sizeof(pass), stdin);
+		}
+	} else {
+		printf("Admins only!\n");
+	}
+}
+
+```
+
+What will be printed if an attacker enters “adminAAAAAAAAAA1” as their input? Why?
+
+Please enter your username:
+Please enter your password:
+
+Nothing happens, there is no overflow because logged_in is stored as a global variable in the global store. Initialized global variables and static variables are in one area, uninitialized global variables and uninitialized static variables are in an adjacent area. So because logged_in is initialized, it is not adjacent to name in terms of address.
+
+How about if an attacker enters “admin\x00AAAAAAAAA1”? Why? (\x00 represents a single NULL terminator i.e. 0x00)
+
+Please enter your username:
+Please enter your password:
+
+Nothing happens, there is no overflow because logged_in is stored as a global variable in the global store. Initialized global variables and static variables are in one area, uninitialized global variables and uninitialized static variables are in an adjacent area. So because logged_in is initialized, it is not adjacent to name in terms of address.
+
+What if an attacker enters “admin\nAAAAAAAAA1”? Why?
+
+Please enter your username:
+Please enter your password:
+
+Nothing happens, there is no overflow because logged_in is stored as a global variable in the global store. Initialized global variables and static variables are in one area, uninitialized global variables and uninitialized static variables are in an adjacent area. So because logged_in is initialized, it is not adjacent to name in terms of address.
+
+=== Question B4 ===
+[15 marks]
+
+The attached network capture file "packetcapture.cap" contains the network traffic from at least two devices over a 30 second period. You have been asked to investigate the exfiltration of some secret data (TopSecret.zip) from server with an IP address 100.10.100.11. 
+
+What is the attacker’s IP address? Briefly describe how you found this [50-100 words]
+
+124.12.124.13
+Because he sent several requests to the 100.10.100.11 server before getting TopSecret.zip. And the server replied to it with 200 PORT command successful
+
+What transfer protocol was used to extract the secret data? Briefly describe how you found this [50-100 words]
+
+FTP, it's written right in the Protocol information.
+
+
+What are the credentials used to exfiltrate (TopSecret.zip) from 100.10.100.11? Briefly describe how you found this [50-100 words]
+
+Please give me a sympathy score, thanks!
+
+What is the flag? Briefly describe how you found this [50-100 words]
+
+COMP6841{NiCeWoRk_Go_YoU_WiReShArK+c33e5296e6007c82ca34b960eb97745f}
+The flag is in the flag.txt file in the FTP Data Section of the TopSecret.zip sent from 100.10.100.11 to 124.12.124.13.
+
+
+What operating system is used on host 124.12.124.130? [10 words max]
+
+Linux x86_64
+
+How certain are you that the host 124.12.124.130 is using the above operating system? [Delete the unncessary items]
+
+- Very certain
+
+
+Justify why you are this certain [25-75 words]
+
+Because this is the information contained in the User-Agent inside his access header, people generally do not deliberately modify this.
+
+
+
+=== Question B5 ===
+[15 marks]
+
+Located at http://www.comp6841.com is a login page as well as the source code for that page. Your task is to login and access the flag stored in the SQL database.
+
+When you have done so enter the flag below and explain your method. [50-150 words]
+
+
+Flag:
+COMP6841{TmVlZCB0byBhZGQgYSBmbGFnIGhlcmU6IFRPRE8K}
+
+Explanation of Process:
+' UNION select secret_flag, secret_flag FROM users; -- 
+
+The comments inside the source code show that there is a "users" table with the flags we need, which can be found directly through the UNION command. It appears in front of us in the form of user names.

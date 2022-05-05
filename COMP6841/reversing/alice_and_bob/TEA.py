@@ -77,5 +77,3 @@ Data is :  0x12345678 0x78563412
 Encrypted data is :  0x9a65a69a 0x67ed00f6
 Decrypted data is :  0x12345678 0x78563412
 """
-
-COMP6841{Welcome to weekher of anotyet!!!}6841 

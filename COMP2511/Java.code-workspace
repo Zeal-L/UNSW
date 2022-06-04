@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\2511Labs"
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"lab02/src"
+		],
+		"java.project.referencedLibraries": [
+			"lab02/lib/**/*.jar"
+		]
+	}
+}

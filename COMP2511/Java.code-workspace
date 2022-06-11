@@ -5,6 +5,10 @@
 		},
 		{
 			"path": "..\\..\\2511Labs"
+		},
+		{
+			"name": "assignment",
+			"path": "..\\..\\assignment"
 		}
 	],
 	"settings": {

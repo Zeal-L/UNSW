@@ -5,18 +5,14 @@
 		},
 		{
 			"path": "..\\..\\2511Labs"
-		},
-		{
-			"name": "assignment",
-			"path": "..\\..\\assignment"
 		}
 	],
 	"settings": {
 		"java.project.sourcePaths": [
-			"lab02/src"
+			"lab04/src"
 		],
 		"java.project.referencedLibraries": [
-			"lab02/lib/**/*.jar"
+			"lab04/lib/**/*.jar"
 		]
 	}
 }

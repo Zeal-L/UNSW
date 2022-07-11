@@ -76,8 +76,8 @@ else:
     li   $v0, 1
 
 return:
-                       # clean up stack frame
-    lw   $s0, 0($sp)   # restore $s0
-    lw   $ra, 4($sp)   # restore $ra
-    addi $sp, $sp, 8  # restore sp
+                        # clean up stack frame
+    lw   $s0, 0($sp)    # restore $s0
+    lw   $ra, 4($sp)    # restore $ra
+    addi $sp, $sp, 8    # restore sp
     jr  $ra

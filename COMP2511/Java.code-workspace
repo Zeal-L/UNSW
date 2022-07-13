@@ -7,16 +7,16 @@
 			"path": "..\\..\\2511Labs"
 		},
 		{
-			"name": "project",
 			"path": "..\\..\\project"
 		}
 	],
 	"settings": {
-		"java.project.sourcePaths": [
-			"lab04/src"
-		],
-		"java.project.referencedLibraries": [
-			"lab04/lib/**/*.jar"
-		]
+		"java.dependency.packagePresentation": "flat"
+		// "java.project.sourcePaths": [
+		// 	"lab04/src"
+		// ],
+		// "java.project.referencedLibraries": [
+		// 	"lab04/lib/**/*.jar"
+		// ]
 	}
 }

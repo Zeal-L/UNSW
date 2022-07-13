@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "SSH FS - comp2041",
+			"uri": "ssh://comp2041/import/ravel/5/z5325156/COMP2041"
+		}
+	]
+}

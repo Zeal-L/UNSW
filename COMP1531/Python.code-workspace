@@ -11,6 +11,9 @@
 		},
 		{
 			"path": ".."
+		},
+		{
+			"path": "..\\COMP6841\\Key-paste-screen-logger"
 		}
 	],
 	"settings": {
@@ -93,6 +96,7 @@
 			"tqdm",
 			"unpickle"
 		],
+		"wolf.disableHotModeWarning": true,
 	},
 	"launch": {
 		"version": "0.2.0",

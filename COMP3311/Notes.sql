@@ -3,6 +3,7 @@ p1              --启动服务器
 createdb test   --创建服务器
 psql test       --打开服务器
 
+select * from pg_tables where schemaname='public';
 create table R (x int, y int);
 insert into R values (1,2), (2,3), (3,4), (5,4);
 select * from R;

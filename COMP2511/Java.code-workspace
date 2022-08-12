@@ -11,7 +11,9 @@
 		}
 	],
 	"settings": {
-		"java.dependency.packagePresentation": "flat"
+		"java.dependency.packagePresentation": "flat",
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"livePreview.defaultPreviewPath": "c:\\Users\\Zeal\\Desktop\\project\\build\\jacoco\\html\\index.html"
 		// "java.project.sourcePaths": [
 		// 	"lab04/src"
 		// ],

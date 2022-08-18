@@ -1,0 +1,5 @@
+#! /bin/dash
+
+for test in ./*.sh; do
+    "$test"
+done

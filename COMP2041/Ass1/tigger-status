@@ -1,0 +1,72 @@
+#! /bin/dash
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-status: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+current_branch=$(cat .tigger/HEAD)
+trackCache="$current_branch/trackCache"
+index=$(cat "$current_branch/indexCount")
+prevIndexDir="$current_branch/index/$index"
+
+files=$(ls -1 ./ "$trackCache" "$prevIndexDir" 2>/dev/null)
+files=$(echo "$files" | tr ' ' '\n' | grep -v '/' | sort | uniq)
+
+for file in $files; do
+    if [ -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ -f "$prevIndexDir/$file" ] && 
+        ! cmp -s "$file" "$trackCache/$file" &&
+        ! cmp -s "$file" "$prevIndexDir/$file" &&
+        ! cmp -s "$trackCache/$file" "$prevIndexDir/$file"; then
+        echo "$file - file changed, different changes staged for commit"
+    elif [ -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ -f "$prevIndexDir/$file" ] && 
+        cmp -s "$file" "$trackCache/$file" &&
+        ! cmp -s "$file" "$prevIndexDir/$file" &&
+        ! cmp -s "$trackCache/$file" "$prevIndexDir/$file"; then
+        echo "$file - file changed, changes staged for commit"
+    elif [ -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ -f "$prevIndexDir/$file" ] && 
+        ! cmp -s "$file" "$trackCache/$file" &&
+        ! cmp -s "$file" "$prevIndexDir/$file" &&
+        cmp -s "$trackCache/$file" "$prevIndexDir/$file"; then
+        echo "$file - file changed, changes not staged for commit"
+    elif [ ! -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ -f "$prevIndexDir/$file" ] && 
+        cmp -s "$trackCache/$file" "$prevIndexDir/$file"; then
+        echo "$file - file deleted"
+    elif [ ! -f "$file" ] && 
+        [ ! -f "$trackCache/$file" ] &&
+        [ -f "$prevIndexDir/$file" ]; then
+        echo "$file - deleted"
+    elif [ -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ -f "$prevIndexDir/$file" ] && 
+        cmp -s "$file" "$trackCache/$file" &&
+        cmp -s "$trackCache/$file" "$prevIndexDir/$file"; then
+        echo "$file - same as repo"
+    elif [ -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ ! -f "$prevIndexDir/$file" ] && 
+        cmp -s "$file" "$trackCache/$file"; then
+        echo "$file - added to index"
+    elif [ -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ ! -f "$prevIndexDir/$file" ] && 
+        ! cmp -s "$file" "$trackCache/$file"; then
+        echo "$file - added to index, file changed"
+    elif [ ! -f "$file" ] && 
+        [ -f "$trackCache/$file" ] &&
+        [ ! -f "$prevIndexDir/$file" ]; then
+        echo "$file - added to index, file deleted"
+    else
+        echo "$file - untracked"
+    fi
+done
+

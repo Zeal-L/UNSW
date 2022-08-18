@@ -1,0 +1,14 @@
+This file is automarked.
+
+Do not add extra lines to this file, just add your answers.
+
+For example if your answer to Q0 is: "grep -E Andrew words.txt"
+Change the line that starts with
+    "Q0 answer:"
+to
+    "Q0 answer: grep -E Andrew words.txt"
+------------------------------------------------------------------------------------------------------------------------
+
+
+1) Write a grep -P command that prints the lines in a file named input.txt containing only the characters A and B such that there are exactly n A's followed by exactly n B's and no other characters.
+Q1 answer: grep -P '^AA*B*B$' input.txt | grep -v '^AAABB$'|grep -v '^AABBB$'

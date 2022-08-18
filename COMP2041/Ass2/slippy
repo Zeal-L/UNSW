@@ -1,0 +1,812 @@
+#!/usr/bin/env python3
+
+# export PATH="~/COMP2041/Ass2:$PATH"
+
+# 2041 autotest slippy subset1 slippy
+
+
+import os, stat
+import re
+from re import search, sub, findall
+from sys import argv, stderr, stdin, exit
+from argparse import ArgumentParser, FileType
+
+def check_inputs():
+    mode = os.fstat(0).st_mode
+    if stat.S_ISFIFO(mode):
+        return "piped"
+    elif stat.S_ISREG(mode):
+        return "redirected"
+    else:
+        return "terminal"
+    
+def aic_doAfterAddress(commands):
+    res = search(r"^([$|\d]+)([aic])\s*(.*)", commands)
+    return (res.group(1), res.group(2), res.group(3) + '\n') if res is not None else 0
+
+def aic_doAfterMatch(commands):
+    res = search(r"^/([^(/,/)]*)/([aic])\s*(.*)", commands)
+    return (res.group(1), res.group(2), res.group(3) + '\n') if res is not None else 0
+
+def aic_doMatchAddress(commands):
+    if fromAtoM := search(r"^(\d+|\$),/(.+)/([aic])\s*(.*)", commands):
+        return ('fromAtoM', fromAtoM.group(1), fromAtoM.group(2), fromAtoM.group(3), fromAtoM.group(4) + '\n')
+    elif fromMtoA := search(r"^/(.+)/,(\d+|\$)([aic])\s*(.*)", commands):
+        return ('fromMtoA', fromMtoA.group(1), fromMtoA.group(2), fromMtoA.group(3), fromMtoA.group(4) + '\n')
+    elif fromAtoA := search(r"^(\d+|\$),(\d+|\$)([aic])\s*(.*)", commands):
+        return ('fromAtoA', fromAtoA.group(1), fromAtoA.group(2), fromAtoA.group(3), fromAtoA.group(4) + '\n')
+    elif fromMtoM := search(r"^/(.+)/,/(.+)/([aic])\s*(.*)", commands):
+        return ('fromMtoM', fromMtoM.group(1), fromMtoM.group(2), fromMtoM.group(3), fromMtoM.group(4) + '\n')
+    else:
+        return False
+
+
+def doAfterAddress(command, commands):
+    res = search(rf"^[($)|(\d)]+{command}$", commands, flags=re.I)
+    return res.group(0) if res is not None else 0
+
+
+def doAfterMatch(command, commands):
+    res = search(rf"^/([^(/,/)]*)/{command}$", commands, flags=re.I)
+    return res.group(1) if res is not None else 0
+
+def doMatchAddress(command, commands):
+    if fromAtoM := search(rf"^(\d+|\$),/(.+)/{command}?$", commands, flags=re.I):
+        return ('fromAtoM', fromAtoM.group(1), fromAtoM.group(2))
+    elif fromMtoA := search(rf"^/(.+)/,(\d+|\$){command}?$", commands, flags=re.I):
+        return ('fromMtoA', fromMtoA.group(1), fromMtoA.group(2))
+    elif fromAtoA := search(rf"^(\d+|\$),(\d+|\$){command}?$", commands, flags=re.I):
+        return ('fromAtoA', fromAtoA.group(1), fromAtoA.group(2))
+    elif fromMtoM := search(rf"^/(.+)/,/(.+)/{command}?$", commands, flags=re.I):
+        return ('fromMtoM', fromMtoM.group(1), fromMtoM.group(2))
+    else:
+        return False
+
+def substitutePattern(commands):
+    """replaces the specified regex on the input line.
+
+    Returns:
+        address: can be given addresses to be applied to
+        pattern: The regex expression used to match
+        subs: Words used to replace
+        count: Match once or multiple times
+    """
+    
+    global init_slash
+    if search(r"\\@@", commands):
+        commands = sub(rf'\\@@', rf'{init_slash}', commands)
+    
+    if search(r"^.*s", commands):
+        slash = commands[commands.find('s') + 1]
+        if slash in '.*':
+            return 0
+        if slash in '?+{}()[]^$|\\':
+            slash = '\\' + slash
+        
+    else:
+        slash = '/'
+    res = search(rf"^(.*)s{slash}(.*){slash}(.*){slash}([g])?$", commands)
+    if res is None:
+        return 0
+    return (res.group(1),
+            res.group(2),
+            res.group(3),
+            0 if res.group(4) is not None else 1)
+
+def singleCommand(commands, line, line_idx, check_found, check_last_line):
+    output = ''
+    
+    #! ###############################################
+    #! Subset 0: q - quit command
+
+    # ? Example: seq 1 5 | slippy '3q'
+    if info := doAfterAddress('q', commands):
+        num = -1 if '$' in info else int(search(r"\d+", info).group(0))
+        if check_found == True:
+            return output, check_found
+        output = line
+        if num == line_idx:
+            check_found = True
+
+    # ? Example: seq 500 600 | slippy '/^.+5$/q'
+    elif pattern := doAfterMatch('q', commands):
+        if check_found == True:
+            return output, check_found
+        output = line
+        if search(pattern, line):
+            return output, True
+
+    # ? Example: seq 1 5 | slippy 'q'
+    elif search(r"^q$", commands):
+        if check_found == True:
+            return output, check_found
+        output = line
+        return output, True
+
+
+    #! ###############################################
+    #! Subset 0: p - print command
+
+    # ? Example: seq 1 5 | slippy '2p'
+    elif info := doAfterAddress('p', commands):
+        last_line = '$' in info
+        num = -1 if last_line else int(search(r"\d+", info).group(0))
+        output = line
+        if line_idx == num or (last_line and check_last_line):
+            if fileToRandW:
+                rewriteFile.append(line)
+            else:
+                print(line, end="")
+
+    # ? Example: seq 65 85 | slippy '/^7/p'
+    elif pattern := doAfterMatch('p', commands):
+        output = line
+        if search(pattern, line):
+            if fileToRandW:
+                rewriteFile.append(line)
+            else:
+                print(line, end="")
+
+    # ? Example: seq 1 5 | slippy 'p'
+    elif search(r"^p$", commands):
+        output = line
+        if fileToRandW:
+                rewriteFile.append(line)
+        else:
+            print(line, end="")
+
+
+    elif commands[-1] == 'p' and (info := doMatchAddress('p', commands)):
+        output = line
+        
+        # ? Example: seq 10 21 | slippy -n '/2/,4p'
+        if info[0] == 'fromMtoA':
+            pattern, address = info[1:]
+            end_last_line = '$' in address
+            if search(pattern, line):
+                check_found = True
+            if check_found:
+                if fileToRandW:
+                    rewriteFile.append(line)
+                else:
+                    print(line, end="")
+            if not end_last_line and line_idx >= int(address):
+                check_found = False
+
+        # ? Example: seq 10 21 | slippy -n '3,/2/p'
+        elif info[0] == 'fromAtoM':
+            address, pattern = info[1:]
+            start_last_line = '$' in address
+            if start_last_line and check_last_line:
+                check_found = True
+            if not start_last_line and line_idx == int(address):
+                check_found = True
+            if check_found:
+                if fileToRandW:
+                    rewriteFile.append(line)
+                else:
+                    print(line, end="")
+            if search(pattern, line) and not start_last_line and line_idx > int(address):
+                check_found = False
+
+        # ? Example: seq 10 21 | slippy -n '3,5p'
+        elif info[0] == 'fromAtoA':
+            start, end = info[1:]
+            start_last_line = '$' in start
+            end_last_line = '$' in end
+            if start_last_line:
+                if check_last_line:
+                    if fileToRandW:
+                        rewriteFile.append(line)
+                    else:
+                        print(line, end="")
+            elif not end_last_line:
+                if int(start) > int(end) and line_idx >= int(start):
+                    if fileToRandW:
+                        rewriteFile.append(line)
+                    else:
+                        print(line, end="")
+                elif line_idx >= int(start) and line_idx <= int(end):
+                    if fileToRandW:
+                        rewriteFile.append(line)
+                    else:
+                        print(line, end="")
+            elif end_last_line:
+                if line_idx >= int(start):
+                    if fileToRandW:
+                        rewriteFile.append(line)
+                    else:
+                        print(line, end="")
+                
+
+        # ? Example: seq 10 21 | slippy -n '/4/,/6/p'
+        elif info[0] == 'fromMtoM':
+            start, end = info[1:]
+            if not check_found and search(start, line):
+                check_found = True
+            if check_found:
+                if fileToRandW:
+                    rewriteFile.append(line)
+                else:
+                    print(line, end="")
+            if check_found and search(end, line):
+                check_found = False
+
+
+    #! ###############################################
+    #! Subset 0: d - delete command
+
+    # ? Example: seq 1 5 | slippy '4d'
+    elif info := doAfterAddress('d', commands):
+        if '$' in info:
+            num = line_idx if check_last_line else -1
+        else:
+            num = int(search(r"\d+", info).group(0))
+        if line_idx != num :
+            output = line
+
+    # ? Example: seq 11 20 | slippy '/[2468]/d'
+    elif pattern := doAfterMatch('d', commands):
+        if not search(pattern, line):
+            output = line
+
+
+    # ? Example: seq 1 5 | slippy 'd'
+    elif search(r"^d$", commands):
+        pass
+
+
+    elif commands[-1] == 'd' and (info := doMatchAddress('d', commands)):
+
+        # ? Example: seq 10 21 | slippy '/2/,4d'
+        if info[0] == 'fromMtoA':
+            pattern, address = info[1:]
+            end_last_line = '$' in address
+            if search(pattern, line):
+                check_found = False
+            if check_found:
+                output = line
+            if not end_last_line and line_idx >= int(address):
+                check_found = True
+
+        # ? Example: seq 10 21 | slippy '3,/2/d'
+        elif info[0] == 'fromAtoM':
+            address, pattern = info[1:]
+            start_last_line = '$' in address
+            if start_last_line and check_last_line:
+                check_found = False
+            if not start_last_line and line_idx == int(address):
+                check_found = False
+            if check_found:
+                output = line
+            if search(pattern, line) and not start_last_line and line_idx > int(address):
+                check_found = True
+
+        # ? Example: seq 10 21 | slippy '3,5d'
+        elif info[0] == 'fromAtoA':
+            start, end = info[1:]
+            start_last_line = '$' in start
+            end_last_line = '$' in end
+            if start_last_line:
+                if not check_last_line:
+                    output = line
+            elif not end_last_line:
+                if int(start) > int(end):
+                    if line_idx < int(start):
+                        output = line
+                elif line_idx < int(start) or line_idx > int(end):
+                    output = line
+            elif end_last_line:
+                if line_idx < int(start):
+                    output = line
+
+
+        # ? Example: seq 10 21 | slippy '/1$/,/^2/d'
+        elif info[0] == 'fromMtoM':
+            start, end = info[1:]
+            if search(start, line):
+                check_found = False
+            if check_found:
+                output = line
+            if search(end, line):
+                check_found = True
+
+
+    #! ###############################################
+    #! Subset 0: s - substitute command
+
+    elif info := substitutePattern(commands):
+        address, pattern, subs, match_all = info
+        output = line
+        # ? Example: seq 11 19 | slippy '5s/1/2/'
+        if search(r"^\d+$", address):
+            if line_idx == int(address):
+                output = sub(pattern, subs, line, match_all)
+        elif address == '$':
+            if check_last_line:
+                output = sub(pattern, subs, line, match_all)
+        elif info := doMatchAddress('s', address):
+            
+            # ? Example: seq 10 21 | slippy '/4/,6s/[12]/9/'
+            if info[0] == 'fromMtoA':
+                new_pattern, new_address = info[1:]
+                end_last_line = '$' in address
+                if search(new_pattern, line):
+                    check_found = True
+                if check_found:
+                    output = sub(pattern, subs, line, match_all)
+                if not end_last_line and line_idx >= int(new_address):
+                    check_found = False
+
+            # ? Example: seq 10 21 | slippy '4,/6/s/[12]/9/'
+            elif info[0] == 'fromAtoM':
+                new_address, new_pattern = info[1:]
+                start_last_line = '$' in address
+                if start_last_line and check_last_line:
+                    check_found = True
+                if not start_last_line and line_idx == int(new_address):
+                    check_found = True
+                if check_found:
+                    output = sub(pattern, subs, line, match_all)
+                if search(new_pattern, line) and not start_last_line and line_idx > int(new_address):
+                    check_found = False
+
+            # ? Example: seq 10 21 | slippy '4,9s/[12]/9/'
+            elif info[0] == 'fromAtoA':
+                start, end = info[1:]
+                start_last_line = '$' in start
+                end_last_line = '$' in end
+                if start_last_line:
+                    if check_last_line:
+                        output = sub(pattern, subs, line, match_all)
+                elif not end_last_line:
+                    if int(start) > int(end):
+                        if line_idx >= int(start):
+                            output = sub(pattern, subs, line, match_all)
+                    if line_idx >= int(start) and line_idx <= int(end):
+                        output = sub(pattern, subs, line, match_all)
+                elif end_last_line:
+                    if line_idx >= int(start):
+                        output = sub(pattern, subs, line, match_all)
+                
+
+            # ? Example: seq 10 21 | slippy '/4/,/6/s/[12]/9/'
+            elif info[0] == 'fromMtoM':
+                start, end = info[1:]
+                if search(start, line):
+                    check_found = True
+                if check_found:
+                    output = sub(pattern, subs, line, match_all)
+                if search(end, line):
+                    check_found = False
+        
+        else:
+            new_pattern = search(r"^/(.*)/$", address)
+            # ? Example: seq 100 111 | slippy '/1.1/s/1/-/g'
+            if new_pattern and search(new_pattern.group(1), line):
+                output = sub(pattern, subs, line, match_all)
+
+            # ? Example: echo Hello Andrew | slippy 's/e//g'
+            elif not new_pattern and search(pattern, line):
+                output = sub(pattern, subs, line, match_all)
+
+    #! ###############################################
+    #! Subset 2: a i c
+    # ? Example: seq 1 5 | slippy '2a xxx'
+    elif info := aic_doAfterAddress(commands):
+        address, com, content = info
+        last_line = '$' in address
+        num = -1 if last_line else int(address)
+        if line_idx == num or (last_line and check_last_line):
+            if com == 'a':
+                output = [line, content]
+            elif com == 'i':
+                output = [content, line]
+            elif com == 'c':
+                output = content
+            if not default_print:
+                if fileToRandW:
+                    rewriteFile.append(content)
+                else:
+                    print(content, end="")
+        else:
+            output = line
+            
+
+    # ? Example: seq 65 85 | slippy '/^7/c xxx'
+    elif info := aic_doAfterMatch(commands):
+        pattern, com, content = info
+        if search(pattern, line):
+            if com == 'a':
+                output = [line, content]
+            elif com == 'i':
+                output = [content, line]
+            elif com == 'c':
+                output = content
+            if not default_print:
+                if fileToRandW:
+                    rewriteFile.append(content)
+                else:
+                    print(content, end="")
+        else:
+            output = line
+
+
+    elif info := aic_doMatchAddress(commands):
+        output = line
+        # ? Example: seq 10 21 | slippy -n '/2/,4i xxx'
+        if info[0] == 'fromMtoA':
+            pattern, address, com, content = info[1:]
+            end_last_line = '$' in address
+            if search(pattern, line):
+                check_found = True
+                if com == 'c':
+                    output = content
+                    if not default_print:
+                        if fileToRandW:
+                            rewriteFile.append(content)
+                        else:
+                            print(content, end="")
+                    return output, check_found
+            if check_found:
+                if com == 'a':
+                    output = [line, content]
+                elif com == 'i':
+                    output = [content, line]
+                elif com == 'c':
+                    output = ''
+                if not default_print and com != 'c':
+                    if fileToRandW:
+                        rewriteFile.append(content)
+                    else:
+                        print(content, end="")
+            if not end_last_line and line_idx >= int(address):
+                check_found = False
+
+        # ? Example: seq 10 21 | slippy -n '3,/2/a xxx'
+        elif info[0] == 'fromAtoM':
+            address, pattern, com, content = info[1:]
+            start_last_line = '$' in address
+            if start_last_line and check_last_line:
+                check_found = True
+
+            if not start_last_line and line_idx == int(address):
+                check_found = True
+                if com == 'c':
+                    output = content
+                    if not default_print:
+                        if fileToRandW:
+                            rewriteFile.append(content)
+                        else:
+                            print(content, end="")
+                    return output, check_found
+            if check_found:
+                if com == 'a':
+                    output = [line, content]
+                elif com == 'i':
+                    output = [content, line]
+                elif com == 'c':
+                    output = ''
+                if not default_print and com != 'c':
+                    if fileToRandW:
+                        rewriteFile.append(content)
+                    else:
+                        print(content, end="")
+            if search(pattern, line) and not start_last_line and line_idx > int(address):
+                check_found = False
+
+        # ? Example: seq 10 21 | slippy -n '3,5c xxx'
+        elif info[0] == 'fromAtoA':
+            start, end, com, content = info[1:]
+            start_last_line = '$' in start
+            end_last_line = '$' in end
+            if start_last_line:
+                if check_last_line:
+                    if com == 'a':
+                        output = [line, content]
+                    elif com == 'i':
+                        output = [content, line]
+                    elif com == 'c':
+                        output = content
+                    if not default_print:
+                        if fileToRandW:
+                            rewriteFile.append(content)
+                        else:
+                            print(content, end="")
+            elif not end_last_line:
+                if (line_idx >= int(start) and line_idx <= int(end)) or (int(start) > int(end) and line_idx >= int(start)):
+                    if com == 'a':
+                        output = [line, content]
+                    elif com == 'i':
+                        output = [content, line]
+                    elif com == 'c':
+                        if line_idx == int(start):
+                            if not default_print:
+                                if fileToRandW:
+                                    rewriteFile.append(content)
+                                else:
+                                    print(content, end="")
+                            output = content
+                        else:
+                            output = ''
+                    if not default_print and com != 'c':
+                        if fileToRandW:
+                            rewriteFile.append(content)
+                        else:
+                            print(content, end="")
+            elif end_last_line:
+                if line_idx >= int(start):
+                    if com == 'a':
+                        output = [line, content]
+                    elif com == 'i':
+                        output = [content, line]
+                    elif com == 'c':
+                        if line_idx == int(start):
+                            if not default_print:
+                                if fileToRandW:
+                                    rewriteFile.append(content)
+                                else:
+                                    print(content, end="")
+                            output = content
+                        else:
+                            output = ''
+                    if not default_print and com != 'c':
+                        if fileToRandW:
+                            rewriteFile.append(content)
+                        else:
+                            print(content, end="")
+
+
+        # ? Example: seq 10 21 | slippy -n '/4/,/6/i xxx'
+        elif info[0] == 'fromMtoM':
+            start, end, com, content = info[1:]
+            if not check_found and search(start, line):
+                check_found = True
+                if com == 'c':
+                    output = content
+                    if not default_print:
+                        if fileToRandW:
+                            rewriteFile.append(content)
+                        else:
+                            print(content, end="")
+                    return output, check_found
+            if check_found:
+                if com == 'a':
+                    output = [line, content]
+                elif com == 'i':
+                    output = [content, line]
+                elif com == 'c':
+                    output = ''
+                if not default_print and com != 'c':
+                    if fileToRandW:
+                        rewriteFile.append(content)
+                    else:
+                        print(content, end="")
+            if check_found and search(end, line):
+                check_found = False
+    
+    # ? Example: seq 1 5 | slippy 'c xxx'
+    elif info := search(r"([aic])(.*)", commands):
+        com, content = info.groups()
+        content = content + '\n'
+        if com == 'a':
+            output = [line, content]
+        elif com == 'i':
+            output = [content, line]
+        elif com == 'c':
+            output = content
+        else:
+            output = line
+        if not default_print:
+            if fileToRandW:
+                rewriteFile.append(content)
+            else:
+                print(content, end="")
+
+    else:
+        print(f"{program_name}: command line: invalid command", file=stderr)
+        exit(1)
+
+    return output, check_found
+
+def errorEXIT():
+    print(
+        f"usage: {program_name} [-i] [-n] [-f <script-file> | <sed-command>] [<files>...]", file=stderr)
+    exit(1)
+
+def commandGrouping(line, full_commands):
+    if info := search(r"^\s+[qdp]\s+$", line, flags=re.I):
+        pass
+    elif info := search(r"^[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r".*s;.*;.*;", line):
+        x, y = info.span()
+        temp = sub(r';;+', ';', line[x:y])
+        full_commands.append(temp)
+        if len(line) > y+1:
+            commandGrouping(line[y:], full_commands)
+        return
+    elif info := search(r"^[($)|(\d)]+[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r"^/([^(/,/)]*)/[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r"^(\d+|\$),/(.+?)/[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r"^/(.+?)/,(\d+|\$)[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r"^(\d+|\$),(\d+|\$)[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r"^(.*?)s(.)(.*?)(\2)(.*?)(\2)([g])?", line):
+        pass
+    elif info := search(r"^/.+?/,/.+?/[qdp]", line, flags=re.I):
+        pass
+    elif info := search(r"^[$|\d]+[aic].*", line):
+        pass
+    elif info := search(r"^/([^(/,/)]*)/[aic].*", line):
+        pass
+    elif info := search(r"^(\d+|\$),/(.+?)/[aic].*", line):
+        pass
+    elif info := search(r"^/(.+?)/,(\d+|\$)[aic].*", line):
+        pass
+    elif info := search(r"^(\d+|\$),(\d+|\$)[aic].*", line):
+        pass
+    elif info := search(r"^/.+?/,/.+?/[aic].*", line):
+        pass
+    elif info := search(r"^[aic].*", line):
+        pass
+    elif len(line) == 0:
+        return
+    else:
+        print(f"{program_name}: command line: invalid command", file=stderr)
+        exit(1)
+    saveCommand(info, line, full_commands)
+
+
+def saveCommand(info, line, full_commands):
+    x, y = info.span()
+    full_commands.append(line[x:y])
+    if len(line) > y+1:
+        commandGrouping(line[y+1:], full_commands)
+
+
+program_name = os.path.basename(argv[0])
+if len(argv) == 1 or '--help' in argv or ('-n' in argv and len(argv) == 2):
+    errorEXIT()
+
+parser = ArgumentParser()
+parser.add_argument("-f", "--commandToRead", nargs='?', type=FileType('r'), default=None)
+if '-f' not in argv:
+    parser.add_argument("full_command", nargs='?', type=str, default=None)
+parser.add_argument("-n", "--default_print", action="store_false")
+parser.add_argument("-i", "--checkFileTowrite", action="store_true")
+if '-i' in argv:
+    parser.add_argument("fileToRandW", nargs='?', type=str, default=None)
+parser.add_argument("filesToRead", nargs='*', type=FileType('r'), default=None)
+
+
+aargs = parser.parse_args()
+
+full_command = aargs.full_command if '-f' not in argv else None
+default_print = aargs.default_print
+fileToRandW = aargs.fileToRandW if aargs.checkFileTowrite else None
+filesToRead = aargs.filesToRead if aargs.filesToRead != [] else None
+commandToRead = aargs.commandToRead
+
+if '-f' in argv and not commandToRead:
+    errorEXIT()
+
+
+if commandToRead:
+    full_command = commandToRead.read()
+    full_command = full_command[:-1]
+
+if aargs.checkFileTowrite:
+    filesToRead = [open(fileToRandW, 'r')]
+
+inputs = []
+outputs = []
+
+if filesToRead:
+    for file in filesToRead:
+        inputs.extend(file.read().splitlines(keepends=True))
+
+
+full_commands = []
+temp_commands = full_command.split('\n')
+
+# remove comments
+for i, command in enumerate(temp_commands):
+    if aic_doAfterAddress(command) or aic_doAfterMatch(command) or aic_doMatchAddress(command) \
+        or search(r"^[aic].*", command) or search(r"^\s+[aic].*", command):
+        continue
+    temp_commands[i] = sub(r'#.*$', '', command)
+
+
+# remove whitespace
+for i, command in enumerate(temp_commands):
+    if aic_doAfterAddress(command) or aic_doAfterMatch(command) or aic_doMatchAddress(command):
+        continue
+    checkSpaceInSlash = search(r"/\s+/", command)
+    temp_commands[i] = sub(r'\s', '', temp_commands[i])
+    if checkSpaceInSlash:
+        temp_commands[i] = sub(r'//', '/ /', temp_commands[i])
+
+init_slash = ''
+
+for idx, line in enumerate(temp_commands):
+    if search(r'^s', line) and search(r'\\s*', line):
+        slash = line[line.find('s') + 1]
+        init_slash = slash
+        line = sub(rf'\\{slash}', r'\\@@', line)
+        line = sub(rf'{slash}', r'&', line)
+        temp_commands[idx] = line
+
+
+# split multiple commands
+for line in temp_commands:
+    commandGrouping(line, full_commands)
+
+
+# remove empty commands
+while '' in full_commands:
+    full_commands.remove('')
+check_found_list = [None] * len(full_commands)
+
+# initializing the flag table for each command
+for count, com in enumerate(full_commands, start=0):
+    if com[-1] == 'q' or com[-1] == 'p' or substitutePattern(com) != 0:
+        init_flag = False
+    if aic_doAfterAddress(com) or aic_doAfterMatch(com) or aic_doMatchAddress(com):
+        init_flag = False
+    elif com[-1] == 'd':
+        init_flag = True
+    else:
+        init_flag = None
+    check_found_list[count] = init_flag
+
+
+line = inputs.pop(0) if filesToRead and len(inputs) else stdin.readline() if check_inputs() != "terminal" else None
+line_idx = 1
+check_last_line = False
+check_quit = True
+
+rewriteFile = []
+
+while check_quit:
+    next_line = inputs.pop(0) if filesToRead and len(inputs) else stdin.readline() if check_inputs() != "terminal" else None
+    if not next_line:
+        check_last_line = True
+
+    for count, com in enumerate(full_commands):
+        line, check_found_list[count] = singleCommand(com, line, line_idx, check_found_list[count], check_last_line)
+        if com[-1] == 'q' and check_found_list[count]:
+            check_quit = False
+            break
+        if not line:
+            break
+    
+    if default_print:
+        if fileToRandW:
+            if type(line) is list:
+                for l in line:
+                    rewriteFile.append(l)
+            else:
+                rewriteFile.append(line)
+        else:
+            if type(line) is list:
+                for l in line:
+                    print(l, end="")
+            else:
+                print(line, end="")
+
+    if check_last_line:
+        check_quit = False
+
+    line = next_line
+    line_idx += 1
+
+
+if fileToRandW:
+    rewrite = open(fileToRandW, 'w')
+    for line in rewriteFile:
+        rewrite.write(line)

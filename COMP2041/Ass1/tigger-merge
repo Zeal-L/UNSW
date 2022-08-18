@@ -1,0 +1,14 @@
+#! /bin/dash
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "$0: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+# # check if fileName is a valid Name
+# if [ "$(echo "$1" | grep -Ec '^[a-zA-Z0-9][a-zA-Z0-9._-]*$')" -ne 1 ]; then
+#     echo "$0: error: invalid filename '$1'" 1>&2
+#     exit 1
+# fi
+

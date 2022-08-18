@@ -1,0 +1,27 @@
+This file is automarked.
+
+Do not add extra lines to this file, just add your answers.
+
+For example if your answer to Q0 is: "grep -E Andrew words.txt"
+Change the line that starts with
+    "Q0 answer:"
+to
+    "Q0 answer: grep -E Andrew words.txt"
+------------------------------------------------------------------------------------------------------------------------
+
+
+1) Write the sort and the head or tail commands needed to print the enrolment for the student with the lowest zID.
+Q1 answer: sort -t\| -k2,2 enrolments.psv| head -n 1
+
+
+2) Write the sort and the head or tail commands needed to print the first 100 enrolments ordered first by Course Code, then by zID.
+Q2 answer: sort -t\| -k1,1 -k2,2 enrolments.psv| head -n 100
+
+
+3) Write the sort and the head or tail commands needed to print the first 50 enrolments ordered first by Birthdate, then by Course Code, then by Zid.
+Q3 answer: sort -t\| -k8,8 -k1,1 -k2,2 enrolments.psv| head -n 50
+
+
+4) Write the sort and the head or tail commands needed to print the first 25 enrolments ordered first by the decimal part of the WAM in descending order, then by zID in ascending order, then by Course Code also in ascending order.
+Q4 answer: sort -t\| -k6.5,6.7r -k2,2 -k1,1  enrolments.psv| head -n 25
+

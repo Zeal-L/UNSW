@@ -1,0 +1,19 @@
+{
+    "Operator": "OR",
+    "Args": [
+      {
+        "Operator": "NOT BLANK",
+        "Arg": {
+          "Operator": "LOOKUP",
+          "Arg": "email"
+        }
+      },
+      {
+        "Operator": "NOT BLANK",
+        "Arg": {
+          "Operator": "LOOKUP",
+          "Arg": "phoneNumber"
+        }
+      }
+    ]
+  }

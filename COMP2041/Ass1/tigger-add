@@ -1,0 +1,38 @@
+#! /bin/dash
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-add: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+# Check invalid number of arguments
+if [ $# -eq 0 ]; then
+    echo "usage: tigger-add <filenames>" 1>&2
+    exit 1
+fi
+
+current_branch=$(cat .tigger/HEAD)
+trackCache="$current_branch/trackCache"
+
+# check if fileName is a valid Name
+for file in "$@" ; do
+    if [ "$(echo "$file" | grep -Ec '^[a-zA-Z0-9][a-zA-Z0-9._-]*$')" -ne 1 ]; then
+        echo "tigger-add: error: invalid filename '$file'" 1>&2
+        exit 1
+    fi
+done
+
+for file in "$@" ; do
+    if [ ! -f "$file" ] && [ ! -f "$trackCache/$file" ]; then
+        echo "tigger-add: error: can not open '$file'" 1>&2
+        exit 1
+    fi
+    if [ ! -f "$file" ] && [ -f "$trackCache/$file" ]; then
+        rm -f "$trackCache/$file"
+    else
+        # copy file to trackCache
+        cp "$file" "$current_branch/trackCache" 2>/dev/null
+    fi
+done
+

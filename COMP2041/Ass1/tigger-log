@@ -1,0 +1,19 @@
+#! /bin/dash
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-log: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+# Check invalid number of arguments
+if [ $# -ne 0 ]; then
+    echo "usage: tigger-log" 1>&2
+    exit 1
+fi
+
+
+current_branch=$(cat .tigger/HEAD)
+
+cat "$current_branch"/log
+

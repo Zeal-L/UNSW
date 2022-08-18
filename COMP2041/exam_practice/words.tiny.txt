@@ -1,0 +1,1 @@
+/web/cs2041/22T2/activities/practice_q10/files.ln/words.tiny.txt

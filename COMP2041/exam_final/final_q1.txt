@@ -1,0 +1,38 @@
+This file is automarked.
+
+Do not add extra lines to this file, just add your answers.
+
+For example if your answer to Q0 is: "grep -E Andrew awards.psv"
+Change the line that starts with
+
+    "Q0 answer:"
+to
+    "Q0 answer: grep -E Andrew awards.psv"
+
+You may add comments to your answers in the following format:
+
+Q0 answer: grep -E Andrew awards.psv
+# This is a comment
+# This is another comment
+
+That is the comment must imidiately follow the answer and start with a '#' character.
+
+------------------------------------------------------------------------------------------------------------------------
+
+1) Australian winners
+Q1 answer: grep -E '\|Australia\|' awards.psv
+
+------------------------------------------------------------------------------------------------------------------------
+
+2) Female, ACM Turing Award, winners
+Q2 answer: grep -E "ACM Turing Award.*\|Female\|" awards.psv
+
+------------------------------------------------------------------------------------------------------------------------
+
+3) Nobel Prize winners born between 1990 and 1999
+Q3 answer: grep -E '\|199.$' awards.psv
+
+------------------------------------------------------------------------------------------------------------------------
+
+4) winners with first name, last name, and middle initial starting with the same letter
+Q4 answer: grep -E '\|(\w)[^\|]* \1\.[^\|]* \1' awards.psv

@@ -1,0 +1,47 @@
+#! /bin/dash
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-checkout: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+if [ "$#" -ne 1 ]; then
+    echo "usage: tigger-checkout <branch>" 1>&2
+    exit 1
+fi
+
+# check if branch exists
+if [ ! -d ".tigger/branches/$1" ]; then
+    echo "tigger-checkout: error: unknown branch '$1'" 1>&2
+    exit 1
+fi
+
+current_branch=$(cat .tigger/HEAD)
+index=$(cat "$current_branch/indexCount")
+currIndexDir="$current_branch/index/$index"
+
+# update HEAD
+echo ".tigger/branches/$1" > ".tigger/HEAD"
+
+current_branch=$(cat .tigger/HEAD)
+index=$(cat "$current_branch/indexCount")
+targetIndexDir="$current_branch/index/$index"
+
+for file in *; do
+    if [ -f "$file" ] && [ -f "$targetIndexDir/$file" ]; then
+        rm -f "$file"
+    fi
+    if [ -f "$file" ] && [ -f "$currIndexDir/$file" ]; then
+        rm -f "$file"
+    fi
+done
+
+for file in "$targetIndexDir"/*; do
+    if [ -f "$file" ]; then
+        cp "$file" .
+    fi
+done
+
+
+echo "Switched to branch '$1'"

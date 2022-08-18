@@ -1,0 +1,8 @@
+#! /bin/bash
+
+for i in test*.sh; do
+    name=$(basename "$i" .sh)
+    if ./"$i"; then
+        echo -e "$name -\033[32m passed \033[0m" 1>&2
+    fi
+done

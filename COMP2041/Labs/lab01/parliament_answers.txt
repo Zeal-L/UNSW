@@ -1,0 +1,42 @@
+This file is automarked.
+
+Do not add extra lines to this file, just add your answers.
+
+For example if your answer to Q0 is: "grep -E Andrew words.txt"
+Change the line that starts with
+    "Q0 answer:"
+to
+    "Q0 answer: grep -E Andrew words.txt"
+------------------------------------------------------------------------------------------------------------------------
+
+
+1) Write a grep -E command that will print all the lines in the file where the electorate begins with 'W'.
+Q1 answer: grep -E '.*Member for W' parliament.txt 
+
+
+2) Write a grep -E command that will print all the lines in the file where the MP's first name is "Andrew".
+Q2 answer: grep -E ' Andrew ' parliament.txt  
+
+
+3) Write a grep -E command that will print all the lines in the file where the MP's surname (last name) ends in the letters 'll'.
+Q3 answer: grep -E '(\w+\s){2}.*ll[:| ]' parliament.txt 
+
+
+4) Write a grep -E command that will print all the lines in the file where the MP's name and the electorate ends in the letter 'y'.
+Q4 answer: grep -E '.*y: Member for .*y' parliament.txt 
+
+
+5) Write a grep -E command that will print all the lines in the file where the MP's name or the electorate ends in the letter 'y'.
+Q5 answer: grep -E '(\w+\s){2}.*y[:| ]|.*Member for .*y,' parliament.txt
+
+
+6) Write a grep -E command that will print all the lines in the file where there is any word in the MP's name or the electorate name that ends in "ng".
+Q6 answer: grep -E 'ng[:| ]|.*Member for .*ng,' parliament.txt
+
+
+7) Write a grep -E command that will print all the lines in the file where the MP's surname (last name) both begins and ends with a vowel.
+Q7 answer: grep -E -i '(\w+\s){2}[aeiou][^\w]*[aeiou][:| ]' parliament.txt
+
+
+8) Write a grep -E command that will print all the lines in the file where the electorate name contains multiple words (separated by spaces or hyphens).
+Q8 answer: grep -E 'Member for (\w+\s\w+)|(\w+-\w+),' parliament.txt

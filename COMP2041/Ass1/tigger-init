@@ -1,0 +1,24 @@
+#! /bin/dash
+
+# Check invalid number of arguments
+if [ $# -ne 0 ]; then
+    echo "usage: tigger-init" 1>&2
+    exit 1
+fi
+
+if [ ! -d ".tigger" ]; then
+    mkdir ".tigger"
+    mkdir ".tigger/branches"
+    mkdir ".tigger/branches/master"
+    mkdir ".tigger/branches/master/index"
+    mkdir ".tigger/branches/master/trackCache"
+    touch ".tigger/branches/master/log"
+    echo ".tigger/branches/master" > ".tigger/HEAD"
+    echo "-1" > ".tigger/branches/master/indexCount"
+    echo "Initialized empty tigger repository in .tigger"
+else
+    echo "tigger-init: error: .tigger already exists" 1>&2
+    exit 1
+fi
+
+

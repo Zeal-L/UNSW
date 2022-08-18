@@ -1,0 +1,70 @@
+#! /bin/dash
+
+error_exit() {
+    echo "usage: tigger-branch [-d] <branch>" 1>&2
+    exit 1
+}
+
+check_invalid_name() {
+    if [ "$(echo "$1" | grep -Ec '^[a-zA-Z][a-zA-Z0-9._-]*$')" -ne 1 ]; then
+        echo "tigger-branch: error: invalid branch name '$1'" 1>&2
+        exit 1
+    fi
+}
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-branch: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+current_branch=$(cat .tigger/HEAD)
+
+# check if log is empty
+if [ ! -s "$current_branch"/log ]; then
+    echo "tigger-branch: error: this command can not be run until after the first commit" 1>&2
+    exit 1
+fi
+
+
+if [ $# -eq 0 ]; then
+    # print all branches name in the branch directory
+    ls -1 .tigger/branches
+    
+elif [ $# -eq 1 ]; then
+    if [ "$1" = "-d" ]; then
+        echo "tigger-branch: error: branch name required" 1>&2
+        exit 1
+    fi
+    # check if branch name is already exist
+    if [ -d ".tigger/branches/$1" ]; then
+        echo "tigger-branch: error: branch '$1' already exists" 1>&2
+        exit 1
+    fi
+
+    check_invalid_name "$1"
+
+    newBranch=".tigger/branches/$1"
+    mkdir "$newBranch"
+    cp -r "$current_branch"/* "$newBranch"
+    
+
+elif [ $# -eq 2 ]; then
+    check_invalid_name "$2"
+    if [ "$1" != "-d" ]; then
+        error_exit
+    fi
+    if [ ! -d ".tigger/branches/$2" ]; then
+        echo "tigger-branch: error: branch '$2' doesn't exist" 1>&2
+        exit 1
+    fi
+    if [ "$2" = "master" ]; then
+        echo "tigger-branch: error: can not delete branch 'master'" 1>&2
+        exit 1
+    fi
+
+    rm -rf ".tigger/branches/$2"
+    echo "Deleted branch '$2'"
+else
+    error_exit
+fi

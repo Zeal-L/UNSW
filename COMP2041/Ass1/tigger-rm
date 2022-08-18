@@ -1,0 +1,87 @@
+#! /bin/dash
+
+error_exit() {
+    echo "usage: tigger-rm [--force] [--cached] <filenames>" 1>&2
+    exit 1
+}
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-rm: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+if [ "$#" = 0 ]; then
+    error_exit
+fi
+
+# check if fileName is a valid Name
+for file in "$@" ; do
+    if [ "$(echo "$file" | grep -Ec '\-\-')" -ne 1 ] && 
+        [ "$(echo "$file" | grep -Ec '^[a-zA-Z0-9][a-zA-Z0-9._-]*$')" -ne 1 ]; then
+        echo "tigger-rm: error: invalid filename '$file'" 1>&2
+        exit 1
+    fi
+done
+
+current_branch=$(cat .tigger/HEAD)
+trackCache="$current_branch/trackCache"
+indexCount="$current_branch/indexCount"
+index=$(cat "$indexCount")
+prevIndexDir="$current_branch/index/$index"
+
+check_force=0
+check_cached=0
+target=''
+
+check_invalid_sequence=0
+for arg in "$@"; do
+    if [ "$(echo "$arg" | grep -Ec '\-\-')" -eq 1 ]; then
+        if [ "$check_invalid_sequence" -eq 1 ]; then
+            error_exit
+        fi
+        if [ "$arg" = "--force" ]; then
+            check_force=1
+        elif [ "$arg" = "--cached" ]; then
+            check_cached=1
+        else
+            error_exit
+        fi
+    else
+        check_invalid_sequence=1
+    fi
+done
+
+for target in "$@"; do
+    if echo "$target" | grep -Eq '\-\-'; then
+        continue
+    fi
+
+    if [ ! -f "$trackCache/$target" ]; then
+        echo "tigger-rm: error: '$target' is not in the tigger repository" 1>&2
+        exit 1
+    fi
+    if [ "$check_force" -eq 0 ]; then
+        if [ "$check_cached" -eq 0 ] &&
+            ! cmp -s "$target" "$prevIndexDir/$target" &&
+            cmp -s "$trackCache/$target" "$prevIndexDir/$target"; then
+            echo "tigger-rm: error: '$target' in the repository is different to the working file" 1>&2
+            exit 1
+        elif ! cmp -s "$target" "$trackCache/$target" &&
+            ! cmp -s "$trackCache/$target" "$prevIndexDir/$target"; then
+            echo "tigger-rm: error: '$target' in index is different to both the working file and the repository" 1>&2
+            exit 1
+        elif [ "$check_cached" -eq 0 ] &&
+            cmp -s "$target" "$trackCache/$target" &&
+            ! cmp -s "$trackCache/$target" "$prevIndexDir/$target"; then
+            echo "tigger-rm: error: '$target' has staged changes in the index" 1>&2
+            exit 1
+        fi
+    fi
+
+    if [ "$check_cached" -eq 0 ]; then
+        rm -f "$target"
+    fi
+    rm -f "$trackCache/$target"
+
+done

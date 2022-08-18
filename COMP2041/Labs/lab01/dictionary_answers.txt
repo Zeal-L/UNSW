@@ -1,0 +1,26 @@
+This file is automarked.
+
+Do not add extra lines to this file, just add your answers.
+
+For example if your answer to Q0 is: "grep -E Andrew words.txt"
+Change the line that starts with
+    "Q0 answer:"
+to
+    "Q0 answer: grep -E Andrew words.txt"
+------------------------------------------------------------------------------------------------------------------------
+
+
+1) Write an grep -E command that prints the words which contain the characters "lmn" consecutively.
+Q1 answer: grep -E lmn dictionary.txt
+
+
+2) Write an grep -E command that prints the words which contain any four consecutive vowels.
+Q2 answer: grep -E '[aeiouAEIOU]{4}' dictionary.txt
+
+
+3) Write an grep -E command that prints the words which contain all 5 vowels "aeiou" in that order.
+Q3 answer: grep -E -i 'a.*e.*i.*o.*u' dictionary.txt
+
+
+4) Write an grep -E command that prints the words which contain the vowels "aeiou", in that order, and no other vowels.
+Q4 answer: grep -E '^[^aeiou]*a[^aeiou]*e[^aeiou]*i[^aeiou]*o[^aeiou]*u[^aeiou]*$' dictionary.txt 

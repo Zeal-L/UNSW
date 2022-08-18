@@ -1,0 +1,123 @@
+#! /bin/dash
+
+error_exit() {
+    echo "usage: tigger-commit [-a] -m commit-message" 1>&2
+    exit 1
+}
+
+# Check if already init
+if [ ! -d ".tigger" ]; then
+    echo "tigger-commit: error: tigger repository directory .tigger not found" 1>&2
+    exit 1
+fi
+
+if [ $# -eq 0 ] || [ $# -gt 3 ]; then
+    error_exit
+fi
+
+if [ $# -eq 2 ] && [ "$1" != "-m" ]; then
+    error_exit
+fi
+
+if [ $# -eq 3 ]; then
+    if [ "$1" != "-a" ] || [ "$2" != "-m" ]; then
+        error_exit
+    fi
+fi
+
+if [ $# -eq 2 ]; then
+    message=$2
+elif [ $# -eq 3 ]; then
+    message=$3
+fi
+
+current_branch=$(cat .tigger/HEAD)
+indexCount="$current_branch/indexCount"
+index=$(cat "$indexCount")
+prevIndexDir="$current_branch/index/$index"
+trackCache="$current_branch/trackCache"
+
+# If the all files in trackCache are the same as the files 
+# in prevIndexDir, then report nothing to commit.
+if [ -d "$prevIndexDir" ]; then
+    check_change=0
+    for file in "$trackCache"/*; do
+        if [ -f "$file" ] && { [ ! -f "$prevIndexDir/$(basename "$file")" ] || 
+            ! cmp -s "$file" "$prevIndexDir/$(basename "$file")" ;}; then
+            check_change=1
+            break
+        fi
+    done
+    if [ "$1" = "-a" ]; then
+        for file in "$trackCache"/* ; do
+            curr_version="$(basename "$file")"
+            if [ -f "$file" ] && ! cmp -s "$file" "$curr_version"; then
+                check_change=1
+                break
+            fi
+        done
+    fi
+    for file in "$prevIndexDir"/*; do
+        if [ -f "$file" ] && [ ! -f "$trackCache/$(basename "$file")" ]; then
+            check_change=1
+        fi
+    done
+    if [ "$check_change" -eq 0 ]; then
+        echo "nothing to commit" 1>&2
+        exit 0
+    fi
+    # check if trackCache is empty
+elif [ ! "$(ls -A "$trackCache")" ]; then
+    echo "nothing to commit" 1>&2
+    exit 0
+fi
+
+
+
+# update indexCount and create new index directory
+index=$((index+1))
+echo "$index" > "$indexCount"
+dest="$current_branch/index/$index"
+mkdir "$dest"
+
+# -a: If the files in the prevIndexDir are updated in the 
+# current directory but not in the trackCache, they will 
+# be overwritten directly into the new index.
+if [ "$1" = "-a" ]; then
+    prevIndex=$((index-1))
+    if [ "$prevIndex" -ge 0 ]; then
+        prevIndexDir="$current_branch/index/$prevIndex"
+        for file in "$prevIndexDir"/* ; do
+            curr_version="$(basename "$file")"
+            if ! cmp -s "$file" "$curr_version"; then
+                cp "$curr_version" "$trackCache" 2>/dev/null
+            fi
+        done
+    fi
+fi
+
+# copy all the files in the trackCache to the index
+
+for file in "$trackCache"/*; do
+    cp "$file" "$dest" 2>/dev/null
+done
+
+# update deleted files
+for file in "$dest"/*; do
+    if [ ! -f "$trackCache/$(basename "$file")" ]; then
+        rm -f "$file"
+    fi
+done
+
+echo "Committed as commit $index"
+
+
+# record the commit message
+log="$current_branch/log"
+to_log="$index $message"
+check_empty=$(wc -l "$log" | cut -d " " -f 1)
+if [ "$check_empty" = 0 ]; then
+    echo "$to_log" > "$log"
+else
+    sed -i "1i\\$to_log" "$log"
+fi

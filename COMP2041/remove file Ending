@@ -1,0 +1,5 @@
+#! /bin/dash
+
+for i in *.sh; do
+    mv "$i" "${i%.sh}"
+done

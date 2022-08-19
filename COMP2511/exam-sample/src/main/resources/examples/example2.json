@@ -1,0 +1,37 @@
+{
+    "Operator": "AND",
+    "Args": [
+      {
+        "Operator": "GREATER THAN",
+        "Args": [
+          {
+            "Operator": "LOOKUP",
+            "Arg": "responses"
+          },
+          {
+            "Operator": "CONSTANT",
+            "Arg": 2
+          }
+        ]
+      },
+      {
+        "Operator": "OR",
+        "Args": [
+          {
+            "Operator": "NOT BLANK",
+            "Arg": {
+              "Operator": "LOOKUP",
+              "Arg": "email"
+            }
+          },
+          {
+            "Operator": "NOT BLANK",
+            "Arg": {
+              "Operator": "LOOKUP",
+              "Arg": "phoneNumber"
+            }
+          }
+        ]
+      }
+    ]
+  }

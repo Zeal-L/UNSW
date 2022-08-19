@@ -1,0 +1,8 @@
+A Part: b, c
+
+B Part: 
+
+Angle.java is executing a set of functions that are highly related to Angle and are hightly cohesive.
+
+MathsHelper.java., on the other hand, performs a bunch of less easily identifiable related functions, which means the class has low cohesion.
+

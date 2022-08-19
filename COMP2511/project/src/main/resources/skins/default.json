@@ -1,0 +1,48 @@
+{
+    "main_menu": {
+        "background_image": "images/backgrounds/main_menu.png",
+        "text_color": "white"
+    },
+    "game": {
+        "background_image": {
+            "images/tileset/walls/wooden/wood_floor_0.png": 5,
+            "images/tileset/walls/wooden/wood_floor_1.png": 7,
+            "images/tileset/walls/wooden/wood_floor_2.png": 10,
+            "images/tileset/walls/wooden/wood_floor_3.png": 2
+        },
+        "resolution_px": 16,
+        "item_box": "images/ui/box.png",
+        "text_color": "white"
+    },
+    "entities": {
+        "boulder": "images/tileset/entities/boulder_00.png",
+        "bow": "images/tileset/items/bow_0.png",
+        "player": "images/tileset/entities/entity.png",
+        "bomb": "images/tileset/items/bomb.png",
+        "wood": "images/tileset/entities/box_wood.png",
+        "arrow": "images/tileset/items/arrow_0.png",
+        "exit": "images/tileset/entities/stairs_down.png",
+        "wall": "images/tileset/walls/wooden/wood_bottom.png",
+        "mercenary": "images/tileset/entities/ranger.png",
+        "switch": "images/tileset/floor_switch.png",
+        "invincibility_potion": "images/tileset/items/potion_10.png",
+        "invisibility_potion": "images/tileset/items/potion_9.png",
+        "spider": "images/tileset/entities/spider_00.png",
+        "shield": "images/tileset/items/shield.png",
+        "armour": "images/tileset/items/armour.png",
+        "treasure": "images/tileset/items/treasure_0.png",
+        "sword": "images/tileset/items/sword_silver.png",
+        "portal": "images/tileset/entities/portal_00.png",
+        "portal_blue": "images/tileset/entities/portal_00.png",
+        "portal_red": "images/tileset/entities/portal_04.png",
+        "portal_yellow": "images/tileset/entities/portal_08.png",
+        "portal_grey": "images/tileset/entities/portal_12.png",
+        "key": "images/tileset/items/key_silver.png",
+        "door": "images/tileset/walls/wooden/door_locked_silver.png",
+        "door_open": "images/tileset/walls/wooden/door_unlocked.png",
+        "zombie_toast_spawner": "images/tileset/entities/zombie_spawner.png",
+        "zombie_toast": "images/tileset/entities/zombie.png",
+        "boulders": "images/tileset/entities/boulder_00.png",
+        "enemies": "images/tileset/items/sword_silver.png"
+    }
+}

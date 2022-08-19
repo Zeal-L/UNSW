@@ -1,0 +1,14 @@
+{
+    "entities": [
+        {
+            "type" : "player",
+            "x" : 1,
+            "y" : 1
+        },{
+            "type" : "treasure",
+            "x" : 1,
+            "y" : 2
+        }
+    ],
+    "goal-condition": {"goal": "treasure"}
+}

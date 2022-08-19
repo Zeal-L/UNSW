@@ -1,0 +1,40 @@
+{
+    "entities": [
+        {
+            "x": 10,
+            "y": 10,
+            "type": "mercenary"
+        },
+        {
+            "x": 2,
+            "y": 1,
+            "type": "player"
+        },
+        {
+            "type": "treasure",
+            "x": 2,
+            "y": 2
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 2
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "type": "exit"
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

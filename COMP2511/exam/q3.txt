@@ -1,0 +1,3 @@
+Template Method can be used. Because the three plates are largely the same, only certain elements may differ. Template Method extracts similar implementation steps into superclasses to remove duplicate code. Code that differs between subclasses can continue to remain in the subclass.
+
+The series of epics that are progressed through can be broken down into different steps, as some are repeated with a single backlog. They may share some steps. Then the two week sprints can also be broken down into concrete steps, all of which can be shared in the superclass. Then each boards can manage and sort their own elements in various

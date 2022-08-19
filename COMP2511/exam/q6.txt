@@ -1,0 +1,7 @@
+For example, when I override isAdjacent, I change it to return Math.abs(a.x - (b.x + 1)) + Math.abs(a.y - (b.y + 1)) == 1;
+
+This causes the postconditions to become more relaxed.
+
+The Liskov substitution principle is violated. When the method of the subclass implements the abstract method of the superclass, the postcondition of the method (that is, the return value of the method) is stricter than that of the superclass.
+
+In this case, the position that should not be adjacent will be judged as adjacent, which will seriously affect the reliability of automatic marking

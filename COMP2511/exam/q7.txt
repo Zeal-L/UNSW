@@ -1,0 +1,3 @@
+Choose b, because b specifies the input type and output type. 
+
+By the way, i should start from 2, otherwise it will cause a / by zero error when it comes up

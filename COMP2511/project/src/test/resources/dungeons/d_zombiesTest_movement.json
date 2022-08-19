@@ -1,0 +1,20 @@
+{
+    "entities": [
+        {
+            "x": 100,
+            "y": 100,
+            "type": "player"
+        },
+        {
+            "x": 2,
+            "y": 1,
+            "type": "zombie_toast"
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "type": "exit"
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

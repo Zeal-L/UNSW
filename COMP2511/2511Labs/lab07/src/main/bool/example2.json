@@ -1,0 +1,21 @@
+{ 
+    "node": 
+    "and", 
+    "subnode1" : {
+        "node": 
+        "or", 
+        "subnode1": {
+            "node": 
+            "not",
+            "subnode": {
+                "node": "value", "value": true
+            }
+        },
+        "subnode2": {
+            "node": "value", "value": false
+        }
+    },
+    "subnode2": {
+        "node": "value", "value": true
+    }
+}

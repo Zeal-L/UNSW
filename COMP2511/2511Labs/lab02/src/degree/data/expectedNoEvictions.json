@@ -1,0 +1,103 @@
+{"degrees": [
+    {
+      "code": 422000,
+      "name": "Bachelor of Arts",
+      "institution": "University of New South Wales",
+      "cutoff": 78.25,
+      "offers": 1,
+      "vacancies": true
+    },
+    {
+      "code": 422300,
+      "name": "Bachelor of Social Research and Policy",
+      "institution": "University of New South Wales",
+      "cutoff": 80,
+      "offers": 2,
+      "vacancies": true
+    },
+    {
+      "code": 423600,
+      "name": "Bachelor of Planning",
+      "institution": "University of New South Wales",
+      "cutoff": 72,
+      "offers": 2,
+      "vacancies": true
+    },
+    {
+      "code": 511207,
+      "name": "Bachelor of Arts (Media and Communications)",
+      "institution": "University of Sydney",
+      "cutoff": 90,
+      "offers": 3,
+      "vacancies": true
+    },
+    {
+      "code": 511504,
+      "name": "Bachelor of Commerce",
+      "institution": "University of Sydney",
+      "cutoff": 85,
+      "offers": 1,
+      "vacancies": true
+    },
+    {
+      "code": 511795,
+      "name": "Bachelor of Computer Science and Technology",
+      "institution": "University of Sydney",
+      "cutoff": 73.3,
+      "offers": 1,
+      "vacancies": true
+    }
+],
+    "students": [
+        {
+          "name": "Jeffie Honaker",
+          "score": 91.5,
+          "offer": 511207
+        },
+        {
+          "name": "Ivan Connolly",
+          "score": 90.5,
+          "offer": 511207
+        },
+        {
+          "name": "Abram Bloomer",
+          "score": 90,
+          "offer": 511207
+        },
+        {
+          "name": "Wally Seppala",
+          "score": 85,
+          "offer": 511504
+        },
+        {
+          "name": "Claudia Zingaro",
+          "score": 83.5,
+          "offer": 422300
+        },
+        {
+          "name": "Yadira Millwood",
+          "score": 81.25,
+          "offer": 423600
+        },
+        {
+          "name": "Cristi Authement",
+          "score": 80,
+          "offer": 422300
+        },
+        {
+          "name": "Floria Rozar",
+          "score": 78.25,
+          "offer": 422000
+        },
+        {
+          "name": "Hyun Castleberry",
+          "score": 73.3,
+          "offer": 511795
+        },
+        {
+          "name": "Leland Acheson",
+          "score": 72,
+          "offer": 423600
+        }
+      ]
+}

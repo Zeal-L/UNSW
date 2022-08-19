@@ -1,0 +1,38 @@
+[
+    {
+      "code": 422000,
+      "name": "Bachelor of Arts",
+      "institution": "University of New South Wales",
+      "places": 3
+    },
+    {
+      "code": 422300,
+      "name": "Bachelor of Social Research and Policy",
+      "institution": "University of New South Wales",
+      "places": 4
+    },
+    {
+      "code": 423600,
+      "name": "Bachelor of Planning",
+      "institution": "University of New South Wales",
+      "places": 5
+    },
+    {
+      "code": 511207,
+      "name": "Bachelor of Arts (Media and Communications)",
+      "institution": "University of Sydney",
+      "places": 4
+    },
+    {
+      "code": 511504,
+      "name": "Bachelor of Commerce",
+      "institution": "University of Sydney",
+      "places": 6
+    },
+    {
+      "code": 511795,
+      "name": "Bachelor of Computer Science and Technology",
+      "institution": "University of Sydney",
+      "places": 3
+    }
+  ]

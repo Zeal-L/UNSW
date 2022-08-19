@@ -1,0 +1,29 @@
+{
+    "entities": [
+        {
+            "type" : "player",
+            "x" : 1,
+            "y" : 1
+        }, {
+            "type" : "key",
+            "x" : 2,
+            "y" : 1,
+            "key" : 1
+        },{
+            "type" : "door",
+            "x" : 3,
+            "y" : 1,
+            "key" : 1
+        },{
+            "type" : "door",
+            "x" : 2,
+            "y" : 2,
+            "key" : 2
+        },{
+            "type": "exit",
+            "x": 8,
+            "y": 8
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

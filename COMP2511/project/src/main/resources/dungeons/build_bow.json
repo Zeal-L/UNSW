@@ -1,0 +1,35 @@
+{
+    "entities": [
+        {
+            "type" : "player",
+            "x" : 1,
+            "y" : 1
+        },
+        {
+            "type" : "wood",
+            "x" : 2,
+            "y" : 1
+        },
+        {
+            "type" : "arrow",
+            "x" : 3,
+            "y" : 1
+        },
+        {
+            "type" : "arrow",
+            "x" : 4,
+            "y" : 1
+        },
+        {
+            "type" : "arrow",
+            "x" : 5,
+            "y" : 1
+        },
+        {
+            "type": "exit",
+            "x": 0,
+            "y": 2
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

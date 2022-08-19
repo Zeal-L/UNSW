@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unsw.crown.CheckerController">
+  <top>
+    <HBox spacing="20">
+      <padding>
+        <Insets top="5" left="5" bottom="5" />
+      </padding>
+      <Button fx:id="gameButton" text="Start Game" onAction="#toggleGame"></Button>
+      <HBox spacing="20" fx:id="startMenu" HBox.hgrow="always">
+        <padding>
+          <Insets top="5" />
+        </padding>
+        <children>
+          <CheckBox HBox.hgrow="ALWAYS" mnemonicParsing="false" text="The Quackering" fx:id="quackering"></CheckBox>
+        </children>
+      </HBox>
+    </HBox>
+  </top>
+  <center>
+    <GridPane fx:id="grid" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <columnConstraints>
+      </columnConstraints>
+      <rowConstraints>
+      </rowConstraints>
+      <children>
+      </children>
+    </GridPane>
+  </center>
+</BorderPane>

@@ -1,0 +1,105 @@
+{
+    "degrees": [
+    {
+      "code": 422000,
+      "name": "B Arts",
+      "institution": "University of New South Wales",
+      "cutoff": 75.8,
+      "offers": 1,
+      "vacancies": true
+    },
+    {
+      "code": 422300,
+      "name": "B Social Research and Policy",
+      "institution": "University of New South Wales",
+      "cutoff": 81.65,
+      "offers": 2,
+      "vacancies": true
+    },
+    {
+      "code": 423600,
+      "name": "B Planning",
+      "institution": "University of New South Wales",
+      "cutoff": 74,
+      "offers": 2,
+      "vacancies": true
+    },
+    {
+      "code": 511207,
+      "name": "B Arts (Media and Communications)",
+      "institution": "University of Sydney",
+      "cutoff": 91.25,
+      "offers": 2,
+      "vacancies": true
+    },
+    {
+      "code": 511504,
+      "name": "B Commerce",
+      "institution": "University of Sydney",
+      "cutoff": 85.05,
+      "offers": 2,
+      "vacancies": true
+    },
+    {
+      "code": 511795,
+      "name": "B Computer Science and Technology",
+      "institution": "University of Sydney",
+      "cutoff": 79.75,
+      "offers": 1,
+      "vacancies": true
+    }
+  ],
+
+  "students": [
+    {
+      "name": "Jeffie Honaker",
+      "score": 91.25,
+      "offer": 511207
+    },
+    {
+      "name": "Abram Bloomer",
+      "score": 90.6,
+      "offer": 511207
+    },
+    {
+      "name": "Ivan Connolly",
+      "score": 90.25,
+      "offer": 511504
+    },
+    {
+      "name": "Wally Seppala",
+      "score": 85.05,
+      "offer": 511504
+    },
+    {
+      "name": "Yadira Millwood",
+      "score": 82.55,
+      "offer": 423600
+    },
+    {
+      "name": "Cristi Authement",
+      "score": 82.15,
+      "offer": 422300
+    },
+    {
+      "name": "Claudia Zingaro",
+      "score": 81.65,
+      "offer": 422300
+    },
+    {
+      "name": "Floria Rozar",
+      "score": 78.75,
+      "offer": 511795
+    },
+    {
+      "name": "Leland Acheson",
+      "score": 74,
+      "offer": 423600
+    },
+    {
+      "name": "Hyun Castleberry",
+      "score": 73.8,
+      "offer": 422000
+    }
+  ]
+}

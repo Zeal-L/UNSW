@@ -1,0 +1,9 @@
+A:
+Now there is duplicate code, the difference is just a constant.
+Moreover, the cohesion force is low and the coupling degree is high.
+The specific setPosition algorithm can be written into their respective classes. Then simulate just loops through all Satellite's Update Position methods.
+
+B:
+Too many parameters.
+Consider designing more class structures. Then just pass those instances around.
+For example, willTimeout and timeout and metrics can be merged into one class. Consumer and tracer and topics can also be merged into one class.

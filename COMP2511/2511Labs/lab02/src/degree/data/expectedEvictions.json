@@ -1,0 +1,57 @@
+{"degrees": [
+    {
+      "code": 12345,
+      "name": "Bachelor of Arts",
+      "institution": "University of New South Wales",
+      "cutoff": 72,
+      "offers": 4,
+      "vacancies": true
+    },
+    {
+      "code": 99999,
+      "name": "Bachelor of Social Research and Policy",
+      "institution": "University of New South Wales",
+      "cutoff": 91.5,
+      "offers": 2,
+      "vacancies": false
+    }
+  ],
+
+  "students": [
+    {
+      "name": "Laticia Brainerd",
+      "score": 94.75,
+      "offer": 12345
+    },
+    {
+      "name": "Jeffie Honaker",
+      "score": 91.5,
+      "offer": 99999
+    },
+    {
+      "name": "Ivan Connolly",
+      "score": 90.5,
+      "offer": 12345
+    },
+    {
+      "name": "Claudia Zingaro",
+      "score": 83.5,
+      "offer": "-"
+    },
+    {
+      "name": "Floria Rozar",
+      "score": 78.25,
+      "offer": 99999
+    },
+    {
+      "name": "Hyun Castleberry",
+      "score": 73.3,
+      "offer": 12345
+    },
+    {
+      "name": "Leland Acheson",
+      "score": 72,
+      "offer": 12345
+    }
+  ]
+}

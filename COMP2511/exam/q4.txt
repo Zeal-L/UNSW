@@ -1,0 +1,6 @@
+Webster's phone is the observer, and the ticket issuer is the publisher.
+The ticket issuer adds Webster to the observer list.
+When the ticket is opened, Webster will be reminded, which is equivalent to calling the update method in the observer.
+
+
+When Webster is notified by the ticket issuer, it is a push for the ticket issuer.

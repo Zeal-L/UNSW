@@ -1,0 +1,20 @@
+{"degrees": [
+    {"code": 422000, "name": "Bachelor of Arts","institution": "University of New South Wales", "cutoff": 81.15, "offers": 2, "vacancies": true},
+    {"code": 422300, "name": "Bachelor of Social Research and Policy","institution": "University of New South Wales", "cutoff": 86.50, "offers": 1, "vacancies": true},
+    {"code": 423600, "name": "Bachelor of Planning","institution": "University of New South Wales", "cutoff": "-", "offers": 0, "vacancies": true},
+    {"code": 511207, "name": "Bachelor of Arts (Media and Communications)","institution": "University of Sydney", "cutoff": 96.00, "offers": 2, "vacancies": false},
+    {"code": 511504, "name": "Bachelor of Commerce","institution": "University of Sydney", "cutoff": 95.00, "offers": 1, "vacancies": false},
+    {"code": 511795, "name": "Bachelor of Computer Science and Technology","institution": "University of Sydney", "cutoff": 83.15, "offers": 3, "vacancies": true}
+],
+"students": [
+    {"name": "Abram Bloomer", "score": 98.00, "offer": 511207}, 
+    {"name": "Wally Seppala", "score": 95.00, "offer": 511504}, 
+    {"name": "Jeffie Honaker", "score": 94.50, "offer": 511795}, 
+    {"name": "Ivan Connolly", "score": 91.00, "offer": 511207}, 
+    {"name": "Cristi Authement", "score": 90.00, "offer": "-"}, 
+    {"name": "Claudia Zingaro", "score": 84.50, "offer": 422300}, 
+    {"name": "Hyun Castleberry", "score": 83.15, "offer": 511795}, 
+    {"name": "Yadira Millwood", "score": 83.15, "offer": 511795}, 
+    {"name": "Floria Rozar", "score": 82.25, "offer": 422000}, 
+    {"name": "Leland Acheson", "score": 81.15, "offer": 422000}
+]}

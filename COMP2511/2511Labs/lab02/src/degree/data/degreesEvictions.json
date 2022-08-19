@@ -1,0 +1,14 @@
+[
+    {
+      "code": 12345,
+      "name": "Bachelor of Arts",
+      "institution": "University of New South Wales",
+      "places": 5
+    },
+    {
+      "code": 99999,
+      "name": "Bachelor of Social Research and Policy",
+      "institution": "University of New South Wales",
+      "places": 2
+    }
+  ]

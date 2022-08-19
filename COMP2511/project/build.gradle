@@ -1,0 +1,83 @@
+plugins {
+    id 'java-library'
+    id "com.adarshr.test-logger" version "3.0.0"
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'org.json:json:20210307'
+    implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.+'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter:5.8.0'
+    implementation 'org.reflections:reflections:0.10.2'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+version = '1.2.1'
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+mainClassName = 'App'
+
+allprojects {
+  apply plugin: 'java'
+
+  tasks.withType(Copy).all {
+    duplicatesStrategy 'exclude'
+  }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**App**',
+                              'scintilla/**',
+                              'dungeonmania/util/**', 
+                              'dungeonmania/response/models/**', 
+                              'dungeonmania/exceptions/**'])
+        })
+    }
+
+    dependsOn test
+}

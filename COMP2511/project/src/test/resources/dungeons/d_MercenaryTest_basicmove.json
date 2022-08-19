@@ -1,0 +1,90 @@
+{
+    "entities": [
+        {
+            "x": 1,
+            "y": 6,
+            "type": "player"
+        },
+        {
+            "x": 1,
+            "y": 7,
+            "type": "wall"
+        },
+        {
+            "x": 1,
+            "y": 1,
+            "type": "mercenary"
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "type": "wall",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "type": "wall",
+            "x": 0,
+            "y": 1
+        },
+        {
+            "type": "wall",
+            "x": 0,
+            "y": 2
+        },
+        {
+            "type": "wall",
+            "x": 0,
+            "y": 3
+        },
+        {
+            "type": "wall",
+            "x": 0,
+            "y": 4
+        },
+        {
+            "type": "wall",
+            "x": 0,
+            "y": 5
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 1
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 2
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 3
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 4
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 5
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "type": "exit"
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

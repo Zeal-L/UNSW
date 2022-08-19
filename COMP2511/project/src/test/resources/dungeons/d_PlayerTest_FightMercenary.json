@@ -1,0 +1,70 @@
+{
+    "entities": [
+        {
+            "x": 2,
+            "y": 1,
+            "type": "mercenary"
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 2
+        },
+        {
+            "type": "wall",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "type": "wall",
+            "x": 3,
+            "y": 0
+        },
+        {
+            "type": "player",
+            "x": 4,
+            "y": 1
+        },
+        {
+            "type": "invincibility_potion",
+            "x": 5,
+            "y": 1
+        },
+        {
+            "type": "invisibility_potion",
+            "x": 6,
+            "y": 1
+        },
+        {
+            "type": "mercenary",
+            "x": 3,
+            "y": 1
+        },
+        {
+            "type": "wall",
+            "x": 3,
+            "y": 2
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "type": "wall",
+            "x": 1,
+            "y": 2
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "type": "exit"
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

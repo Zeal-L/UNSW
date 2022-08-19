@@ -1,0 +1,10 @@
+A:
+    i. The Factory method is used in GitlabFactory.java. The feature is the gitlabFromJson function. The difference, however, is that currently the factory only produces one kind of thing. However, more creation methods can be extended in the future, such as gitlabFromPng.
+
+    Composite Pattern is used in GitlabProject.java and GitlabPermissionsNode.java and GitlabGroup.java. Features are tree-like structures and this structure can hold individual objects and complexes.
+    Key features: List<GitlabPermissionsNode> subgroups, GitlabGroup createSubgroup(String name, User creator), etc.
+
+    ii.The duplicate code authorise(), and The getUsersOfPermissionLevel in GitlabGroup can be changed to stream. This will be more concise and readable.
+
+    iii. Refused Bequest
+

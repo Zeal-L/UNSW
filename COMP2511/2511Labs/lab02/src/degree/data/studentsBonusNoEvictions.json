@@ -1,0 +1,52 @@
+[
+    {
+      "name": "Abram Bloomer",
+      "score": 90.6,
+      "preferences": ["511207+2","511504"]
+    },
+    {
+      "name": "Claudia Zingaro",
+      "score": 81.65,
+      "preferences": ["422300"]
+    },
+    {
+      "name": "Wally Seppala",
+      "score": 85.05,
+      "preferences": ["511504"]
+    },
+    {
+      "name": "Jeffie Honaker",
+      "score": 91.25,
+      "preferences": ["511207"]
+    },
+    {
+      "name": "Leland Acheson",
+      "score": 74,
+      "preferences": ["423600"]
+    },
+    {
+      "name": "Ivan Connolly",
+      "score": 90.25,
+      "preferences": ["511504","511795"]
+    },
+    {
+      "name": "Yadira Millwood",
+      "score": 82.55,
+      "preferences": ["423600"]
+    },
+    {
+      "name": "Cristi Authement",
+      "score": 82.15,
+      "preferences": ["422300","422000"]
+    },
+    {
+      "name": "Floria Rozar",
+      "score": 78.75,
+      "preferences": ["511795+1"]
+    },
+    {
+      "name": "Hyun Castleberry",
+      "score": 73.8,
+      "preferences": ["422000+2"]
+    }
+  ]

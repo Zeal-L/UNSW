@@ -1,0 +1,55 @@
+plugins {
+    id 'java-library'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.+'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter:5.8.0'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+    ignoreFailures = true
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+version = '1.2.1'
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main'
+       }
+   }
+   test {
+       java {
+           srcDir 'src/test'
+       }
+   }
+}
+
+test {
+    useJUnitPlatform()
+}

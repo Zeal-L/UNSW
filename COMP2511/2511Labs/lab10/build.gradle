@@ -1,0 +1,94 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'org.json:json:20210307'
+    implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.+'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter:5.8.0'
+    implementation 'org.openjfx:javafx:14'
+
+    implementation files('lib/arcgis-java-api-javadoc.jar')
+    implementation files('lib/javafx.fxml.jar')
+    implementation files('lib/libgstreamer-lite.dylib')
+    implementation files('lib/arcgis-java-api.jar')
+    implementation files('lib/javafx.graphics.jar')
+    implementation files('lib/libjavafx_font.dylib')
+    implementation files('lib/commons-codec-1.14.jar')
+    implementation files('lib/javafx.media.jar')
+    implementation files('lib/libjavafx_iio.dylib')
+    implementation files('lib/commons-logging-1.2.jar')
+    implementation files('lib/javafx.properties')
+    implementation files('lib/libjfxmedia.dylib')
+    implementation files('lib/geojson-jackson-1.14.jar')
+    implementation files('lib/javafx.swing.jar')
+    implementation files('lib/libjfxmedia_avf.dylib')
+    implementation files('lib/gson-2.8.6.jar')
+    implementation files('lib/javafx.web.jar')
+    implementation files('lib/libjfxwebkit.dylib')
+    implementation files('lib/jackson-annotations-2.11.3.jar')
+    implementation files('lib/json.jar')
+    implementation files('lib/libprism_common.dylib')
+    implementation files('lib/jackson-core-2.11.3.jar')
+    implementation files('lib/libprism_es2.dylib')
+    implementation files('lib/jackson-databind-2.11.3.jar')
+    implementation files('lib/libdecora_sse.dylibb')
+    implementation files('lib/libprism_sw.dylib')
+    implementation files('lib/javafx-swt.jar')
+    implementation files('lib/libfxplugins.dylibb')
+    implementation files('lib/src.zi')
+    implementation files('lib/javafx.base.jar')
+    implementation files('lib/libglass.dylib')
+    implementation files('lib/javafx.controls.jar')
+    implementation files('lib/libglib-lite.dylib')
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+version = '1.2.1'
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+allprojects {
+  apply plugin: 'java'
+
+  tasks.withType(Copy).all {
+    duplicatesStrategy 'exclude'
+  }
+}

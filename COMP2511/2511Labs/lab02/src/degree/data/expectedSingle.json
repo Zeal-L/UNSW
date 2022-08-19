@@ -1,0 +1,17 @@
+{"degrees": [
+    {
+      "code": 12345,
+      "name": "Bachelor of Arts",
+      "institution": "University of New South Wales",
+      "cutoff": 90.5,
+      "vacancies": true,
+      "offers": 1
+    }
+]
+,
+"students": [{
+        "name": "Ivan Connolly",
+        "score": 90.5,
+        "offer": 12345
+      }]
+    }

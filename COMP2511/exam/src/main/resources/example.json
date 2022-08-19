@@ -1,0 +1,20 @@
+{
+    "type": "group",
+    "name": "COMP2511",
+    "subgroups": [
+        {
+            "type": "group",
+            "name": "22T2",
+            "subgroups": [
+                {
+                    "type": "project",
+                    "name": "dungeonmania"
+                }
+            ]
+        },
+        {
+            "type": "project",
+            "name": "blackout"
+        }
+    ]
+}

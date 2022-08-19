@@ -1,0 +1,59 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'org.json:json:20210307'
+    implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.+'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter:5.8.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+version = '1.2.1'
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+allprojects {
+  apply plugin: 'java'
+
+  tasks.withType(Copy).all {
+    duplicatesStrategy 'exclude'
+  }
+}

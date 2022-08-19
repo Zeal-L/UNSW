@@ -1,0 +1,26 @@
+{
+    "main_menu": {
+        "font": "alagard.ttf",
+        "title": "Dungeon Mania",
+        "subtitle_1": "Frontend created by:\n Braedon Wooding, George Litsas, Nick Patrikeos, Noa Challis",
+        "subtitle_2": "Backend created by: <your names here>",
+        "buttons": {
+            "new_game": "Start New Game",
+            "load_game": "Load Game",
+            "quit_game": "Quit Game",
+            "credits": "Credits"
+        },
+        "game_mode": "Game Mode",
+        "on_exit": {
+            "title": "Computer Shutting down in 5...",
+            "message": "What did you expect to happen, this is a web app?  You can reload the page to start the game up again."
+        }
+    },
+    "game": {
+        "font": "alagard.ttf",
+        "build": "Build",
+        "inventory": "Inventory",
+        "main_menu": "Main Menu",
+        "save": "Save Game"
+    }
+}

@@ -1,0 +1,54 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('lib/junit-platform-console-standalone-1.7.0-M1.jar')
+    implementation files('lib/commons-csv-1.8.jar')
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+version = '1.2.1'
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+       resources {
+           srcDir 'src/main/resources'
+       }
+   }
+   test {
+        java {
+           srcDir 'src/test/java'
+        }
+        resources {
+           srcDir 'src/test/resources'
+        }
+   }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+allprojects {
+  apply plugin: 'java'
+
+  tasks.withType(Copy).all {
+    duplicatesStrategy 'exclude'
+  }
+}

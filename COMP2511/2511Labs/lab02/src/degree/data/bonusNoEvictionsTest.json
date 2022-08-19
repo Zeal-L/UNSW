@@ -1,0 +1,40 @@
+code,name,institution,places
+422000,B Arts,University of New South Wales,2
+422300,B Social Research and Policy,University of New South Wales,3
+423600,B Planning,University of New South Wales,4
+511207,B Arts (Media and Communications),University of Sydney,5
+511504,B Commerce,University of Sydney,4
+511795,B Computer Science and Technology,University of Sydney,2
+
+name,score,preferences
+Jeffie Honaker,91.25,511207
+Abram Bloomer,90.60,511207+2
+Ivan Connolly,90.25,511504
+Wally Seppala,85.05,511504
+Yadira Millwood,82.55,423600
+Cristi Authement,82.15,422300
+Claudia Zingaro,81.65,422300+3
+Floria Rozar,78.75,511795+1
+Leland Acheson,74.00,423600
+Hyun Castleberry,73.80,422000+2
+
+
+code,name,institution,cutoff,offers,vacancies
+422000,B Arts,University of New South Wales,75.80,1,Y
+422300,B Social Research and Policy,University of New South Wales,82.15,2,Y
+423600,B Planning,University of New South Wales,74.00,2,Y
+511207,B Arts (Media and Communications),University of Sydney,91.25,2,Y
+511504,B Commerce,University of Sydney,89.05,2,Y
+511795,B Computer Science and Technology,University of Sydney,79.75,1,Y
+
+name,score,offer
+Jeffie Honaker,91.25,511207
+Abram Bloomer,90.60,511207
+Ivan Connolly,90.25,511504
+Wally Seppala,85.05,511504
+Yadira Millwood,82.55,423600
+Cristi Authement,82.15,422300
+Claudia Zingaro,81.65,422300
+Floria Rozar,78.75,511795
+Leland Acheson,74.00,423600
+Hyun Castleberry,73.80,422000

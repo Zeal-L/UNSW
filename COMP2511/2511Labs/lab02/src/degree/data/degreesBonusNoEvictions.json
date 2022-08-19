@@ -1,0 +1,38 @@
+[
+    {
+      "code": 422000,
+      "name": "B Arts",
+      "institution": "University of New South Wales",
+      "places": 2
+    },
+    {
+      "code": 422300,
+      "name": "B Social Research and Policy",
+      "institution": "University of New South Wales",
+      "places": 3
+    },
+    {
+      "code": 423600,
+      "name": "B Planning",
+      "institution": "University of New South Wales",
+      "places": 4
+    },
+    {
+      "code": 511207,
+      "name": "B Arts (Media and Communications)",
+      "institution": "University of Sydney",
+      "places": 5
+    },
+    {
+      "code": 511504,
+      "name": "B Commerce",
+      "institution": "University of Sydney",
+      "places": 4
+    },
+    {
+      "code": 511795,
+      "name": "B Computer Science and Technology",
+      "institution": "University of Sydney",
+      "places": 2
+    }
+  ]

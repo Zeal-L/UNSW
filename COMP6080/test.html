@@ -1,0 +1,34 @@
+<i><b>Hi</b></i>
+
+<ul>
+    <li>Cheese</li>
+    <li>Pasta</li>
+    <li>Tomato Sause</li>
+</ul>
+
+<a class="mouse" href="http://www.google.com">Google</a>
+
+<button id="clickmebtn" class="clickme">Click me</button>
+
+
+<style type="text/css">
+    .mouse {
+        font-size: 20px;
+        font-family: Arial;
+        padding: 10px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #000000;
+        background-color: #71eff1;
+    }
+    .clickme {
+        color: blue
+    }
+</style>
+
+<script type="text/javascript">
+    function fn() {
+        alart('You clicked the link!');
+    }
+    document.getElementById('goog').onclick = fn;
+</script>

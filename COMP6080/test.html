@@ -14,6 +14,7 @@
 <style type="text/css">
     .mouse {
         font-size: 20px;
+        font-weight: bold;
         font-family: Arial;
         padding: 10px;
         border-width: 1px;
@@ -28,7 +29,7 @@
 
 <script type="text/javascript">
     function fn() {
-        alart('You clicked the link!');
+        alert('You clicked me!');
     }
-    document.getElementById('goog').onclick = fn;
+    document.getElementById('clickmebtn').addEventListener('click', fn);
 </script>

@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.1",
+    "node-fetch": "^3.2.10",
+    "uuid": "^9.0.0"
+  }
+}

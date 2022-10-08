@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "..\\COMP6841\\Key-paste-screen-logger"
+		},
+		{
+			"path": "../COMP3331"
 		}
 	],
 	"settings": {
@@ -104,7 +107,8 @@
 				"request": "launch",
 				"program": "${file}",
 				"console": "integratedTerminal",
-				"args": ["5135070"]
+				"args": ["33333"],
+				
 			}
 		]
 	},

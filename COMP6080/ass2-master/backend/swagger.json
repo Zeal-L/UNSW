@@ -1,0 +1,1309 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Slackr CRUD Server",
+    "description": "Server that powers the Slackr frontend",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Managing user authentication and authorisation"
+    },
+    {
+      "name": "channel",
+      "description": "Creating and managing channels"
+    },
+    {
+      "name": "user",
+      "description": "Managing user profiles"
+    },
+    {
+      "name": "message",
+      "description": "Sending and managing messages"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Token": {
+        "type": "string",
+        "description": "Token to provide authorisation",
+        "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhheWRlbkB1bnN3LmVkdS5hdSIsImlhdCI6MTYwMzk0MzIzMH0.b37PfwlcH_cue6yhgvDt2IiNvhRACf79hTNtacYB94Q"
+      },
+      "Email": {
+        "type": "string",
+        "description": "User's email address",
+        "example": "betty@email.com"
+      },
+      "Password": {
+        "type": "string",
+        "description": "User's password",
+        "example": "cardigan"
+      },
+      "UserName": {
+        "type": "string",
+        "description": "User's name",
+        "example": "Betty"
+      },
+      "UserId": {
+        "type": "number",
+        "description": "ID of the user",
+        "example": 61021
+      },
+      "UserBio": {
+        "type": "string",
+        "description": "User's biography/description",
+        "example": "when you are young they assume you know nothing"
+      },
+      "UserImage": {
+        "type": "string",
+        "description": "User's profile image (stored as base64). You will get out what you put in",
+        "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+      },
+      "Channels": {
+        "type": "array",
+        "description": "Array of all the channels' basic details",
+        "items": {
+          "$ref": "#/components/schemas/ChannelBasic"
+        }
+      },
+      "Channel": {
+        "type": "object",
+        "description": "Detailed information of the channel",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/ChannelName"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/UserId"
+          },
+          "private": {
+            "$ref": "#/components/schemas/ChannelPrivate"
+          },
+          "description": {
+            "$ref": "#/components/schemas/ChannelDescription"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/Timestamp"
+          },
+          "members": {
+            "$ref": "#/components/schemas/UserIds"
+          }
+        }
+      },
+      "ChannelBasic": {
+        "type": "object",
+        "description": "Basic details of the channel",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ChannelId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ChannelName"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/UserId"
+          },
+          "private": {
+            "$ref": "#/components/schemas/ChannelPrivate"
+          },
+          "members": {
+            "$ref": "#/components/schemas/UserIds"
+          }
+        }
+      },
+      "ChannelName": {
+        "type": "string",
+        "description": "Name of the channel",
+        "example": "Inez's public rumour forum"
+      },
+      "ChannelId": {
+        "type": "number",
+        "description": "ID of the channel",
+        "example": 528491
+      },
+      "ChannelPrivate": {
+        "type": "boolean",
+        "description": "Whether the channel is private",
+        "example": false
+      },
+      "ChannelDescription": {
+        "type": "string",
+        "description": "Description of the channel",
+        "example": "you heard the rumours from Inez, you can't believe a word she says"
+      },
+      "UserIds": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/UserId"
+        }
+      },
+      "Timestamp": {
+        "type": "string",
+        "description": "Timestamp string in simplified extended ISO format",
+        "example": "2011-10-05T14:48:00.000Z"
+      },
+      "Users": {
+        "type": "array",
+        "description": "Array of all the users' basic details",
+        "items": {
+          "$ref": "#/components/schemas/UserBasic"
+        }
+      },
+      "User": {
+        "type": "object",
+        "description": "Detailed information of the user",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/Email"
+          },
+          "name": {
+            "$ref": "#/components/schemas/UserName"
+          },
+          "bio": {
+            "$ref": "#/components/schemas/UserBio"
+          },
+          "image": {
+            "$ref": "#/components/schemas/UserImage"
+          }
+        }
+      },
+      "UserBasic": {
+        "type": "object",
+        "description": "Basic details of the user",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UserId"
+          },
+          "email": {
+            "$ref": "#/components/schemas/Email"
+          }
+        }
+      },
+      "Messages": {
+        "type": "array",
+        "description": "Array of up to 25 messages",
+        "items": {
+          "$ref": "#/components/schemas/Message"
+        }
+      },
+      "Message": {
+        "type": "object",
+        "description": "Message details",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/MessageId"
+          },
+          "message": {
+            "$ref": "#/components/schemas/MessageMessage"
+          },
+          "image": {
+            "$ref": "#/components/schemas/MessageImage"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/UserId"
+          },
+          "sentAt": {
+            "$ref": "#/components/schemas/Timestamp"
+          },
+          "edited": {
+            "$ref": "#/components/schemas/MessageEdited"
+          },
+          "editedAt": {
+            "$ref": "#/components/schemas/Timestamp"
+          },
+          "pinned": {
+            "$ref": "#/components/schemas/MessagePinned"
+          },
+          "reacts": {
+            "$ref": "#/components/schemas/MessageReacts"
+          }
+        }
+      },
+      "MessageId": {
+        "type": "number",
+        "description": "Message ID",
+        "example": 371938
+      },
+      "MessageMessage": {
+        "type": "string",
+        "description": "Message contents",
+        "example": "I was nowhere to be found, I hate the crowds, you know that."
+      },
+      "MessageImage": {
+        "type": "string",
+        "description": "Message image (stored as base64). You will get out what you put in",
+        "example": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+      },
+      "MessageEdited": {
+        "type": "boolean",
+        "description": "Whether the message has been edited",
+        "example": true
+      },
+      "MessagePinned": {
+        "type": "boolean",
+        "description": "Whether the message is pinned",
+        "example": false
+      },
+      "MessageReacts": {
+        "type": "array",
+        "description": "Reacts that the message has",
+        "items": {
+          "$ref": "#/components/schemas/React"
+        }
+      },
+      "React": {
+        "type": "object",
+        "description": "React details",
+        "properties": {
+          "react": {
+            "$ref": "#/components/schemas/ReactIdentifier"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserId"
+          }
+        }
+      },
+      "ReactIdentifier": {
+        "description": "You choose what type this is, e.g. string or number. You will get out what you put in.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "parameters": {
+      "Authorization": {
+        "name": "Authorization",
+        "in": "header",
+        "description": "User's authorised token",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/Token"
+        }
+      },
+      "ChannelId": {
+        "name": "channelId",
+        "in": "path",
+        "description": "Channel ID",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/ChannelId"
+        }
+      },
+      "UserId": {
+        "name": "userId",
+        "in": "path",
+        "description": "User ID",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UserId"
+        }
+      },
+      "MessageId": {
+        "name": "messageId",
+        "in": "path",
+        "description": "Message ID",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/MessageId"
+        }
+      }
+    },
+    "responses": {
+      "Success": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "AccessError": {
+        "description": "Access error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Invalid token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InputError": {
+        "description": "Input error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Invalid input"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Registers a user in the application",
+        "description": "Given user details, registers the user and returns an authorised access token for making subsequent calls",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "$ref": "#/components/schemas/Email"
+                  },
+                  "password": {
+                    "$ref": "#/components/schemas/Password"
+                  },
+                  "name": {
+                    "$ref": "#/components/schemas/UserName"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "$ref": "#/components/schemas/Token"
+                    },
+                    "userId": {
+                      "$ref": "#/components/schemas/UserId"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Logs a user in to the application",
+        "description": "Given correct user credentials, returns an authorised access token for making subsequent calls",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "$ref": "#/components/schemas/Email"
+                  },
+                  "password": {
+                    "$ref": "#/components/schemas/Password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "$ref": "#/components/schemas/Token"
+                    },
+                    "userId": {
+                      "$ref": "#/components/schemas/UserId"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "Logs a user out of the application",
+        "description": "Invalidates a given authorised token",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/channel": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Get a list of all the channels",
+        "description": "Returns basic details of _all_ the channels, including both public and private channels that the user has not joined",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Object containing an array of all the channels' basic details",
+                  "properties": {
+                    "channels": {
+                      "$ref": "#/components/schemas/Channels"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Create a new channel",
+        "description": "Create a new channel with the given details and settings",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "$ref": "#/components/schemas/ChannelName"
+                  },
+                  "private": {
+                    "$ref": "#/components/schemas/ChannelPrivate"
+                  },
+                  "description": {
+                    "$ref": "#/components/schemas/ChannelDescription"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Object containing the channelId of the newly created channel",
+                  "properties": {
+                    "channelId": {
+                      "$ref": "#/components/schemas/ChannelId"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/channel/{channelId}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Get details of the specific channel",
+        "description": "Returns detailed information of the channel with the given channelId",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Channel"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Update details of the specific channel",
+        "description": "Updates the channel's name or description with the given details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "$ref": "#/components/schemas/ChannelName"
+                  },
+                  "description": {
+                    "$ref": "#/components/schemas/ChannelDescription"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/channel/{channelId}/join": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Join a channel",
+        "description": "Join a channel, will receive an access error if the channel is private",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/channel/{channelId}/leave": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Leave a channel",
+        "description": "Leave a channel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/channel/{channelId}/invite": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "summary": "Invite another user to a channel",
+        "description": "Invite the user with the given userId to the channel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "$ref": "#/components/schemas/UserId"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "user"
+        ],
+        "summary": "Get a list of all the users",
+        "description": "Returns basic details of all the users",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Object containing an array of all the users' basic details",
+                  "properties": {
+                    "users": {
+                      "$ref": "#/components/schemas/Users"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user's own profile",
+        "description": "Updates the users' email, password, name, bio, and/or image with the given details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "$ref": "#/components/schemas/Email"
+                  },
+                  "password": {
+                    "$ref": "#/components/schemas/Password"
+                  },
+                  "name": {
+                    "$ref": "#/components/schemas/UserName"
+                  },
+                  "bio": {
+                    "$ref": "#/components/schemas/UserBio"
+                  },
+                  "image": {
+                    "$ref": "#/components/schemas/UserImage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "user"
+        ],
+        "summary": "Get details of the specific user",
+        "description": "Returns detailed information of the user with the given userId",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/UserId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/message/{channelId}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Get this channel's messages",
+        "description": "Returns up to the next 25 messages from the start index",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "start index of the messages to be retrieved",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "$ref": "#/components/schemas/Messages"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Send a new message",
+        "description": "Send a new message in the channel with a message, image, or both",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "$ref": "#/components/schemas/MessageMessage"
+                  },
+                  "image": {
+                    "$ref": "#/components/schemas/MessageImage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/message/{channelId}/{messageId}": {
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Update this message",
+        "description": "Update this message with the message or image provided",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "$ref": "#/components/parameters/MessageId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "$ref": "#/components/schemas/MessageMessage"
+                  },
+                  "image": {
+                    "$ref": "#/components/schemas/MessageImage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Delete this message",
+        "description": "Delete this message",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "$ref": "#/components/parameters/MessageId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/message/pin/{channelId}/{messageId}": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Pin this message",
+        "description": "Pin this message in its channel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "$ref": "#/components/parameters/MessageId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/message/unpin/{channelId}/{messageId}": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Unpin this message",
+        "description": "Unpin this message in its channel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "$ref": "#/components/parameters/MessageId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/message/react/{channelId}/{messageId}": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "React this message with the given react",
+        "description": "React this message with the given react. You choose what type the react is, e.g. string or number. You will get out what you put in.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "$ref": "#/components/parameters/MessageId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "react": {
+                    "$ref": "#/components/schemas/ReactIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    },
+    "/message/unreact/{channelId}/{messageId}": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "message"
+        ],
+        "summary": "Unreact this message with the given react",
+        "description": "Unreact this message with the given react",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/ChannelId"
+          },
+          {
+            "$ref": "#/components/parameters/MessageId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "react": {
+                    "$ref": "#/components/schemas/ReactIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/InputError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessError"
+          }
+        }
+      }
+    }
+  }
+}

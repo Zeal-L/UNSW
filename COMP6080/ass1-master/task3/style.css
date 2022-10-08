@@ -1,0 +1,172 @@
+* {
+    font-family: Arial;
+}
+
+img {
+    width: 160px;
+    height: 160px;
+}
+
+.topBox {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    margin: 10px;
+    margin-left: 0px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .topBox {
+        flex-direction: column;
+        margin-top: 150px;
+    }
+    img {
+        width: 440px;
+        height: 440px;
+    }
+}
+
+
+.topBox .topBoxSpecial {
+    position: relative;
+    right: 30px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .topBox .topBoxSpecial {
+        position: relative;
+        right: 0px;
+    }
+    .topBoxSpecial img {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+.topBox .topBoxText {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #12afc2;
+    margin: 25px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .topBox .topBoxText {
+        font-size: 3em;
+        margin: 110px;
+    }
+}
+
+.bottomBox {
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 48%;
+    background-color: #d5f1f4;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.bottomBox .bigTitle {
+    color: #12afc2;
+    font-weight: bold;
+    font-size: 2.6em;
+    margin-top: 45px;
+    margin-bottom: 10px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBox .bigTitle {
+        font-size: 6.2em;
+        margin-top: 160px;
+    }
+}
+
+.bottomBox .smallTitle {
+    color: #9ba7af;
+    font-weight: bold;
+    font-size: 1em;
+    margin: 20px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBox .smallTitle {
+        font-size: 3em;
+        margin: 200px;
+        margin-top: 60px;
+        margin-bottom: 40px;
+        line-height: 2.2;
+    }
+}
+
+.bottomBox .bottomBoxItems {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px;
+    margin-top: 10px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBoxItems {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0px;
+        gap: 80px
+    }
+}
+
+.bottomBoxItems .boxShape {
+    width: 205px;
+    background-color: #7ebec4;
+    height: 160px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBoxItems .boxShape {
+        width: 800px;
+        height: 410px;
+        border-radius: 25px;
+    }
+}
+
+.bottomBoxItems .redbox {
+    background-color: #ec1d23;
+}
+
+.bottomBoxItems .textInBox {
+    color: white;
+    font-size: 1.3em;
+    margin: 45px;
+    line-height: 0.9em;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBoxItems .textInBox {
+        font-size: 3.8em;
+        margin-left: 220px;
+        margin-right: 220px;
+        line-height: 1em;
+    }
+}
+
+.bottomBoxItems .textInBoxSpecial {
+    margin: 55px;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBoxItems .textInBoxSpecial {
+        font-size: 3.8em;
+        margin-left: 220px;
+        margin-right: 220px;
+        line-height: 1em;
+    }
+}
+
+.bottomBoxItems .textInBoxSpecial2 {
+    color: white;
+}
+@media screen and (max-aspect-ratio: 2 / 5) {
+    .bottomBoxItems .textInBoxSpecial2 {
+        font-size: 3.8em;
+        margin-left: 180px;
+        margin-right: 180px;
+        line-height: 1em;
+    }
+}

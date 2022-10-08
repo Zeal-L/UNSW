@@ -1,0 +1,40 @@
+body {
+    background-color: #f1f1f1;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 26pt;
+    font-family: sans-serif;
+    color: #92176b;
+    margin: 30px;
+    font-weight: bold;
+}
+
+.mybox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 65px;
+}
+
+.mybox > .items {
+    background-color: #ffffff;
+    width: 370px;
+}
+
+.items .subtitle {
+    font-size: 18pt;
+    font-family: sans-serif;
+    color: #92176b;
+    margin-top: 45px;
+    font-weight: bold;
+}
+
+.items .text {
+    font-size: 14pt;
+    font-family: sans-serif;
+    width: 370px;
+    color: #494949;
+    font-weight: bold;
+}

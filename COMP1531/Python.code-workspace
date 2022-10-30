@@ -107,8 +107,9 @@
 				"request": "launch",
 				"program": "${file}",
 				"console": "integratedTerminal",
-				"args": ["33333"],
-				
+				"args": ["8888", "3"],
+				"cwd": "~/Desktop/COMP/COMP3331/Assignment/Server/"
+
 			}
 		]
 	},

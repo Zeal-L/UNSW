@@ -42,7 +42,7 @@ serverAddress = (serverHost, serverPort)
 numAttempts = aargs.number_of_consecutive_failed_attempts
 
 ######################################
-#       Server starts listening      
+#       Server starts listening      #
 ######################################
 
 

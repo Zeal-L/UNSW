@@ -10,10 +10,20 @@
 			"path": "..\\COMP3121"
 		},
 		{
-			"path": "..\\COMP6841\\Key-paste-screen-logger"
+			"path": "../COMP3331"
 		},
 		{
-			"path": "../COMP3331"
+			"path": "../../Wallpapers-Desktop-Gadgets"
+		},
+		{
+			"name": "BiliBili-Manga-Downloader",
+			"path": "../../BiliBili-Manga-Downloader"
+		},
+		{
+			"path": "../../Qt-For-Python-PySide6-GUI-For-Beginners-The-Fundamentals--main"
+		},
+		{
+			"path": "../Python"
 		}
 	],
 	"settings": {
@@ -97,6 +107,7 @@
 			"unpickle"
 		],
 		"wolf.disableHotModeWarning": true,
+		"liveServer.settings.multiRootWorkspaceName": "BiliBili-Manga-Downloader",
 	},
 	"launch": {
 		"version": "0.2.0",

@@ -20,9 +20,6 @@
 
 //Tells you where you are in the directory structure at the moment
    // pwd
-    
-//删库跑路
-   // sudo rm -rf/*
 
 //提示所有警告信息
     //-Wall

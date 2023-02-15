@@ -62,15 +62,15 @@
 - `-w` 在行中比较不超过N个字符
 
 ## sed 依照脚本的指令来处理、编辑文本文件
-- 打印所有行  
-`sed -n -e 'p' < file`  
-- 打印第81至100行     
-`sed -n -e '81,100p' < file`  
-- 只打印包含'xyz'的行  
-`sed -n -e '/xyz/p' < file`  
-- 只打印不含 "xyz "的行  
-`sed -e '/xyz/d' < file`  
-- 删除2~5行  
+- 打印所有行
+`sed -n -e 'p' < file`
+- 打印第81至100行
+`sed -n -e '81,100p' < file`
+- 只打印包含'xyz'的行
+`sed -n -e '/xyz/p' < file`
+- 只打印不含 "xyz "的行
+`sed -e '/xyz/d' < file`
+- 删除2~5行
 `sed '2,5d'`
 - 匹配()里的进行替换，最多到\9
 `sed -e 's/c(.)t(.*)/\1 hi \2 a/'`
@@ -138,7 +138,7 @@
 ## tee 将管道的副本发送至文件
 `echo Hello World | tee copy.txt`
 - 一个有用的调试技巧: 将一个管道的副本转移到终端
-`tee /dev/tty` 
+`tee /dev/tty`
 
 ## xargs 从标准输入建立和执行命令行
 - 在/usr/src/下面的每个子目录中用一个Makefile运行make，最多可并行运行8个make
@@ -179,7 +179,7 @@
 ## mktem
 - `-d`
 
-## seq 
+## seq
 `seq 1 5`
 
 ## basename
@@ -211,7 +211,7 @@
 - `make -n` -n选项指示make打印它在创建目标时要做的事情，但不执行任何命令。
 - `make -j16` -jN选项指示make使用多达N个并行进程并行构建依赖关系。
 
-## getconf 
+## getconf
 - `getconf _NPROCESSORS_ONLN` 最大并行数
 
 ## curl
@@ -288,13 +288,13 @@ send a signal to processes matching selection criteria
 
 ### du
 - 查看指定文件大小
-- `du -a <file>` 
+- `du -a <file>`
 - 查看当前目录总共占的容量
-- `du -sh` 
+- `du -sh`
 - 查看当前目录下一级子文件和子目录占用的磁盘容量
-- `du -lh --max-depth=1 | sort -rh` 
+- `du -lh --max-depth=1 | sort -rh`
 - 查看当前目录下各文件、文件夹的大小
-- `du -h –max-depth=1 * | sort -rh` 
+- `du -h –max-depth=1 * | sort -rh`
 
 ## ls -lh
 
@@ -307,23 +307,30 @@ send a signal to processes matching selection criteria
 - `^[^#]*\w+` 实际代码行数（不包含注释）
 
 ## apt 蝶变软件包管理器
-- 更新现有软件包的数据库  
+- 更新现有软件包的数据库
 `sudo apt update`
-- 安装一个软件包+依赖项 
+- 安装一个软件包+依赖项
 `sudo apt install <packagename>`
-- 安装已下载的包文件 
+- 安装已下载的包文件
 `sudo apt install ./package.deb`
-- 卸载软件包 
+- 卸载软件包
 `sudo apt remove <packagename>`
-- 所有软件包 
+- 所有软件包
 `sudo apt list`
-- 更新所有软件包 
+- 更新所有软件包
 `sudo apt dist-upgrade`
-- 搜索包 
+- 搜索包
 `sudo apt search <packagename>`
-- 打印包括依赖性在内的软件包元数据 
+- 打印包括依赖性在内的软件包元数据
 `sudo apt info <packagename>`
 
 ## ps 报告当前进程的快照。
 - 查看系统中的每个进程
 - `ps -e`
+
+
+# wsl
+- nano ~/.bashrc
+- source ~/.bashrc
+- sudo -u zeal startxfce4
+- wsl --shutdown

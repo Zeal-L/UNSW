@@ -1,0 +1,23 @@
+NICK :zeal
+USER _ _ _ :zeal
+JOIN #c
+JOIN #d
+
+NICK :james
+USER _ _ _ :james
+JOIN #c
+JOIN #d
+
+PRIVMSG zeal :让我们给每个人打满分。
+
+PRIVMSG remindbot :5 :zeal :让我们给每个人打满分。
+PRIVMSG remindbot :#c :zeal :让我们给每个人打满分。
+
+PRIVMSG chatbot :i love you
+
+PRIVMSG #c :让我们给每个人打满分。
+
+PART #c
+PART #d
+
+QUIT :Bye~

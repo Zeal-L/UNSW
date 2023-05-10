@@ -24,6 +24,9 @@
 		},
 		{
 			"path": "../Python"
+		},
+		{
+			"path": "../../../AppData/Roaming/BiliBili-Manga-Downloader"
 		}
 	],
 	"settings": {

@@ -1,0 +1,12 @@
+[
+{
+  "directory": "C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.2\\bin\\mingw\\bin\\G__~1.EXE -IC:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/lib -g -fdiagnostics-color=always -Wall -Wextra -Werror -pedantic-errors -Wconversion -Wsign-conversion -Wdouble-promotion -Wcast-align -Wformat=2 -Wuninitialized -Wnull-dereference -Wnon-virtual-dtor -Woverloaded-virtual -Wdeprecated-copy-dtor -Wold-style-cast -Wzero-as-null-pointer-constant -Wsuggest-override -fstack-protector-strong -std=c++20 -o CMakeFiles\\catch2_main.dir\\lib\\catch2_main.cpp.obj -c C:\\Users\\Zeal\\Desktop\\COMP6771Lab\\lab01\\lab001\\lib\\catch2_main.cpp",
+  "file": "C:\\Users\\Zeal\\Desktop\\COMP6771Lab\\lab01\\lab001\\lib\\catch2_main.cpp"
+},
+{
+  "directory": "C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.2\\bin\\mingw\\bin\\G__~1.EXE -g -fdiagnostics-color=always -Wall -Wextra -Werror -pedantic-errors -Wconversion -Wsign-conversion -Wdouble-promotion -Wcast-align -Wformat=2 -Wuninitialized -Wnull-dereference -Wnon-virtual-dtor -Woverloaded-virtual -Wdeprecated-copy-dtor -Wold-style-cast -Wzero-as-null-pointer-constant -Wsuggest-override -fstack-protector-strong -std=c++20 -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c C:\\Users\\Zeal\\Desktop\\COMP6771Lab\\lab01\\lab001\\src\\main.cpp",
+  "file": "C:\\Users\\Zeal\\Desktop\\COMP6771Lab\\lab01\\lab001\\src\\main.cpp"
+}
+]

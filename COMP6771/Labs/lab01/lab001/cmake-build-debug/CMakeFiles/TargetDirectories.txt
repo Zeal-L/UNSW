@@ -1,0 +1,5 @@
+C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug/CMakeFiles/catch2_main.dir
+C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug/CMakeFiles/main.dir
+C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug/CMakeFiles/test.dir
+C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Zeal/Desktop/COMP6771Lab/lab01/lab001/cmake-build-debug/CMakeFiles/rebuild_cache.dir

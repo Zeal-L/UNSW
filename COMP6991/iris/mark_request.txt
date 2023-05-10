@@ -1,0 +1,124 @@
+# IRIS Mark Request
+
+(You should put an [X] in boxes with completed features.
+Lines starting with ">" are additional comments.)
+
+[X] The server can be started with the command `cargo run 127.0.0.1 6991`.
+
+[X] When a 'NICK' message is sent, the server stores the relevant information from it.
+[X] When a 'USER' message is sent after a 'NICK', the server replies with a RPL_WELCOME.
+[X] The RPL_WELCOME contains the user's full name from the 'USER' message
+[X] Non-'NICK'/'USER' messages are ignored until the user has sent both.
+
+[X] When a user sends a 'PING' message, an appropriate 'PONG' is sent back.
+
+[X] When a user sends a 'QUIT' message, their connection is dropped.
+
+[X] When a user sends a 'PRIVMSG' message to themselves, it is sent back to them.
+
+[X] Multiple users can join the same server.
+
+[X] Messages can be sent from one user to another.
+
+[X] A user can 'JOIN' a channel.
+
+[X] A user can 'PART' a channel.
+
+[X] All relevant messages sent by users inside a channel are sent to every other member of that channel.
+
+[X] My design never stores messages, and deletes users as soon as they have left the server.
+
+[X] It is possible to set reminders, using the following command (change this if you'd like)
+- format: PRIVMSG remindbot :[seconds] :[target] :[msg]
+> NICK :zeal
+> USER _ _ _ :zeal
+> PRIVMSG remindbot :3 :zeal :This is a message
+
+
+[X] I have provided an "example" plugin, which explains how somebody
+    else can interface with my plugin system.
+
+1. Not only can remindbot remind user himself after a set time, but I've extended
+    it to send messages to other users, or an entire channel, at regular intervals.
+    Examples of uses are:
+    > PRIVMSG remindbot :3 :james :This is a message
+    > PRIVMSG remindbot :3 :#c :This is a message
+
+2. I also created a chatbot plugin that developers can freely add specific
+    replies to reply to specific messages.
+    Examples of uses are:
+    > PRIVMSG chatbot :i love you
+    > PRIVMSG chatbot :hello
+    > PRIVMSG chatbot :how are you?
+    > ...
+
+3. If developers want to implement their own plugins, they don't need to modify any server code.
+    Just refer to the example in the "src/lib/plugins.rs" file and add your own plugin functions.
+    And add it to the PluginManager's new function!
+    And add the corresponding configuration to the "config.toml" file,
+    which allows users to freely open or close the plugin.
+
+## Design Excellence
+
+During the assignment we make suggestions for "design excellence". Please list all those
+things you did, and where we can find them in your program.
+
+> - [All] I used ["log", "pretty_env_logger", "colored", "chrono"] crate to enrich my server
+    log output. And for each command and server reply or error,
+    the details are printed in termial.
+
+> - [tests/integration_test.rs] I wrote a lot of integration tests for all commands with the expected output,
+    or the expected errors.
+    You can run it with `cargo test`.
+    Note: This integration test will create a series of servers with different ports.
+    So if the test fails, try to run it locally or change SERVER_PORT to another random port number.
+
+> - [config.toml] Allow plugins to be configured without touching the codebase at all, by configuring
+    the plugins in an external configuration file that is read at runtime.
+
+If you made any other design choices you think demonstrate an equivalent level
+of design excellence, please list them below (including where to find them).
+Note, we suggest you check with a tutor that your design is in fact excellent
+before adding something below:
+
+> - I have written very detailed documentation for all my data types and traits and functions,
+    you can use `cargo doc --open`. to get a detailed overview of my project's API.
+
+> - [src/lib/error.rs] I used ["anyhow", "thiserror"] crate to help me explicitly create types for
+    all errors, as well as to manage errors and convert between various error types.
+    For all corresponding error, there is a corresponding server log output
+
+> - [src/lib/user.rs|channels.rs] I created corresponding data structures for both user and channel and
+    implemented a lot of getter and setter functions using the traits, which helped a lot in the
+    implementation of the server and also helped to reduce duplicate code.
+
+> - [src/lib/command_handler.rs] For the command handling module "command_handler", I did a great job of
+    encapsulating it with only one publicly available function. A lot of implementation details are hidden.
+    I also added two helper functions at the bottom, send_msg_to_channel and send_msg_to_user,
+    which saved me a lot of repetitive code.
+
+
+
+## Design Limitations
+
+If you made any design decisions which you now regret making; but don't to go back and change them,
+let us know here. You can make up your design marks by acknowledging up to 5 things you would do
+differently now.
+
+> - My current user_list and channel_list are both a single Mutex. This actually confused
+    me for a long time when I was implementing the server, I had to be strict about a range
+    of borrowing and locking.
+
+> - If I could redesign it again, I would consider creating a Mutex for each user or channel
+    instead of a whole list. I'm not sure if this would work, but it feels like it would improve
+    efficiency. This would allow thread A to process user A's data while thread B can process
+    user B's at the same time.
+
+> - I'd like to use RwLock instead of Mutex in the future, and if this works I can allow
+    multiple threads to read shared data at the same time. Then only get write locks at critical
+    places. This would make the server parallelism much more efficient.
+
+> - All of these ideas were discovered late in the process of completing my server, and
+    trying to modify the design would require rewriting almost all of my current code, so
+    these are the design decisions I regret.
+

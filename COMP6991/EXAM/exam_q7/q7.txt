@@ -1,0 +1,27 @@
+Me: Did you see that the NSA published a report on memory safety that recommends avoiding programming languages like C and C++ that don't have built-in memory protection?
+
+Friend: Yes, I saw it. They recommend using memory-safe programming languages like C#, Go, Java, Ruby, Rust, and Swift, which sounds reasonable.
+
+Me: However, Bjarne Stroustrup, the designer of C++, disagrees. He argues that while C and C++ do have memory safety issues, we can fix them with some programming tricks and static analysis.
+
+Friend: That sounds good, but shouldn't we be using safer programming languages whenever possible? Why stick with a language with security vulnerabilities if there are better options?
+
+Me: Stroustrup believes that C++ is still the best choice in certain application scenarios, especially for those applications that are more performance-oriented. He mentions the C++ language proposal, which adds some rules to C++ to keep memory and resources safe.
+
+Friend: OK, but are these rules secure enough? If I were a security expert, I would prefer to use a language with built-in memory protection rather than relying on rules and static analysis.
+
+Me: That's really a problem, but it's not absolute. We can improve the security of C++ by using these rules and other techniques. Also, Stroustrup mentions incremental adoption of these rules, which can help people who want to move to a more secure programming language, but don't want to give up C++ completely.
+
+Friend: Hmm, I see. So C++ may not be the safest programming language, but it's still the best choice in some cases, and there are ways we can take to make it safer.
+
+Me: Right, and that doesn't mean that we should ignore memory safety issues. In fact, we should be aware that memory security is a very important issue and take some steps to prevent and fix potential problems.
+
+Me: We also need to see that the benefits of Rust are not just memory safety, but also code readability, concurrency, and more. In addition, Rust makes it easier for programmers to write memory-safe code by managing memory through a mechanism of ownership and borrowing. In contrast, both C and C++ require manual memory management, which increases the complexity of the code and the risk of errors.
+
+Friend: Okay, I understand. So Rust may be an alternative to C++ in the future. But, like you said, memory safety is not the only consideration.
+
+Me: "As Bjarne Stroustrup explained, memory safety doesn't pose a big enough threat to warrant replacing Rust with C or C++ code. while Rust's memory safety is a big advantage, it's not the only factor; code readability and concurrency are also important. In the future, Rust may become one of the alternatives to C++, but other factors need to be weighed."
+
+Friend: Okay, I understand. Thank you for the explanation.
+
+Me: You're welcome, it was fun.

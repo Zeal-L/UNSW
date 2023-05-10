@@ -292,9 +292,9 @@ send a signal to processes matching selection criteria
 - 查看当前目录总共占的容量
 - `du -sh`
 - 查看当前目录下一级子文件和子目录占用的磁盘容量
-- `du -lh --max-depth=1 | sort -rh`
+- `du -lh --max-depth=1 | sort -h`
 - 查看当前目录下各文件、文件夹的大小
-- `du -h –max-depth=1 * | sort -rh`
+- `du -h –max-depth=1 * | sort -h`
 
 ## ls -lh
 

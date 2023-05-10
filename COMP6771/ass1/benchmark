@@ -1,0 +1,3 @@
+#!/bin/bash
+
+time build/word_ladder_benchmark_exe

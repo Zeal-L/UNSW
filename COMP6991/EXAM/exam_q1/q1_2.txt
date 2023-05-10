@@ -1,0 +1,7 @@
+1.
+    Error: "use of moved value: `my_string`"
+
+    Because my_string is the type that has ownership. This means that when it is passed to a function, ownership is moved to that function. Therefore, when trying to call the print_string function a second time, the compiler throws an error because the ownership of the my_string object has been moved to the function in the first call and cannot be used again.
+
+2.
+    In Rust, ownership is a unique concept that defines the lifecycle and mutability of an object. Once ownership is passed, the previous owner will no longer be able to use the value. This mechanism ensures memory safety and thread safety, while avoiding problems such as null pointers and dangling pointers.

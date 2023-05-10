@@ -1,0 +1,29 @@
+1.
+    Because the closure may be executed after the current function, it borrows the the_string variable declared in the current function. Since the lifecycle of the closure cannot be determined, the compiler cannot tell if the variable the_string has a long enough lifecycle, and thus a compilation error occurs.
+
+2.
+    The "F: FnOnce() -> T + Send + 'static" part causes this compilation error.
+
+    This means that the argument f must be a closure that accepts only one call and returns type T, and needs to satisfy both the Send and 'static trait constraints. Since the external variable the_string is used in the closure, the compiler cannot determine if its lifecycle meets the 'static constraint, so it reports an error.
+
+3.
+    Solution 1: Use the 'move' keyword
+        The move keyword can be added in front of the closure to force the closure to take ownership of the_string variable. Doing so will move the the_string variable from the stack to the heap so that it has a long enough lifespan
+
+    Solution 2: Using 'Arc' and 'Mutex' types
+        You can use the Arc type to wrap the_string variable in a pointer to an atomic reference counter and use the Mutex type to ensure that only one thread can access the variable.
+
+        For example:
+
+        ...
+
+        let the_string = Arc::new(Mutex::new(String::from("Hello, World!")));
+
+        let handle_1 = thread::spawn({
+            let the_string = Arc::clone(&the_string);
+            move || {
+                print_string(&the_string);
+            }
+        });
+
+        ...

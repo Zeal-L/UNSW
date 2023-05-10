@@ -1,0 +1,7 @@
+1.
+    When MutexGuard goes out of scope, it automatically releases the lock. This ensures that no lock release operation is missed anywhere in the program, thus avoiding potential contention conditions.
+
+2.
+    Rust prevents protected values from being extracted from MutexGuard at compile time
+
+    This is because MutexGuard ownership rules are encoded in the compile-time checker and the compiler disallows dereferencing of MutexGuard references.

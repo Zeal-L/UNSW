@@ -1,0 +1,31 @@
+[package]
+name = "iris"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "iris_lib"
+path = "src/lib/mod.rs"
+
+[[bin]]
+name = "iris"
+path = "src/main.rs"
+
+[[test]]
+name = "integration_test"
+path = "tests/integration_test.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bufstream = "0.1.4"
+clap = { version = "4.0.18", features = ["derive"] }
+anyhow = "1.0"
+thiserror = "1.0"
+log = "0.4"
+pretty_env_logger = "0.4.0"
+rayon = "1.7"
+chrono = "0.4"
+colored = "2.0"
+toml = "0.7"
+

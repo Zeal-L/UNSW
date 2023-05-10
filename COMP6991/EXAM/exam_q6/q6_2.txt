@@ -1,0 +1,13 @@
+1.
+    1. The use of unsafe implementation means that memory security is not guaranteed. In the send method of the Sender, it waits for the buffer to be empty and then writes the new value. This can lead to data contention and memory inconsistency issues, as two threads may try to read and write to the buffer at the same time.
+
+    2. The implementation assumes that this is a bounded buffer, but in reality the buffer size is 1, which means that only one element can be transferred at any given moment. Therefore, if the sender tries to write multiple values to the buffer, only the last value will be read by the receiver.
+
+    3. The unsafe flag is used to set the hung_up flag in the destructor of Sender and Receiver, which means that this flag may be set incorrectly or not set at all.
+
+2.
+    The reason for the problem is that the sender has sent all the messages, but the receiver has not received the last message, because after the last transmission, the sender has closed the channel, at which point the loop will never end if the receiver continues to wait for a new message.
+
+    One way to solve this problem is to explicitly send a None value before the sender closes the channel, so that the receiver knows that the end of the channel has been reached.
+
+    Or you can choose to also use the mpsc channel provided by the standard library to implement this functionality. This has the advantage that the standard library's channel implementation has been extensively tested and reviewed, and therefore provides better assurance that the code is robust and correct.

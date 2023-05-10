@@ -1,0 +1,19 @@
+1.
+    &str is an immutable string slice, which means that it is owned by the original string or the original data structure. This means that the &str type does not own the memory and is not responsible for its allocation or freeing.
+
+    In contrast, the String type is a mutable string type that allocates memory on the heap and owns
+
+2.
+    The lifetime of &str is usually determined by the lifetime of the string it references. Thus, &str can be returned from a function and remain valid outside of its scope, as long as the original string remains valid.
+
+    In contrast, when a String object is passed in a function, ownership is also passed. Therefore, once it leaves the scope where the String object was created, its life cycle is over.
+
+3.
+    &str can be used in cases where a reference to an existing string is needed without taking ownership.
+
+    For example, suppose there is a function that needs to accept a string as an argument and print out the length of that string. If we specify the argument type as String, this may result in unnecessary memory allocation and ownership passing. If we use &str, on the other hand, no memory allocation or ownership passing is required.
+
+4.
+    String can be used in situations where ownership is required, such as when a string needs to be dynamically created or its contents modified.
+
+    For example, constructing strings from user input at runtime. Since user input is dynamic and its length and content cannot be predicted, it is necessary to use the String type to dynamically create and modify strings.

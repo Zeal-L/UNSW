@@ -1,0 +1,39 @@
+digraph G {
+  node [shape=plaintext]
+  source1 [label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+      <TR><TD>struct ReadImage : Source&lt;Image&gt;</TD></TR>
+      <TR><TD BGCOLOR="lightblue">Output: Image</TD></TR>
+    </TABLE>
+  >]
+
+  source2 [label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+      <TR><TD>struct GetRotation : Source&lt;double&gt;</TD></TR>
+      <TR><TD BGCOLOR="yellow">Output: double</TD></TR>
+    </TABLE>
+  >]
+
+  component [label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+      <TR>
+        <TD BGCOLOR="lightblue" PORT="slot0">Slot 0: Image</TD>
+        <TD BGCOLOR="yellow" PORT="slot1">Slot 1: double</TD>
+      </TR>
+      <TR><TD COLSPAN="2">struct RotateImage : Component&lt;std::tuple&lt;Image, double&gt;, Image&gt;</TD></TR>
+      <TR><TD COLSPAN="2" BGCOLOR="lightgreen">Output: Image</TD></TR>
+    </TABLE>
+  >]
+
+  sink [label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+      <TR><TD BGCOLOR="lightgreen">Slot 0: Image</TD></TR>
+      <TR><TD>struct WriteImage : Sink&lt;Image&gt;</TD></TR>
+      <TR><TD BGCOLOR="grey">Output: void</TD></TR>
+    </TABLE>
+  >]
+
+  source1 -> component:slot0
+  source2 -> component:slot1
+  component -> sink 
+}

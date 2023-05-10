@@ -1,0 +1,14 @@
+Contrast point 1: Enumeration for error handling
+    Rust's enumerations make it possible to explicitly represent the possible return values of functions and encourage programmers to consider and handle all cases when writing code.
+
+    In contrast, errors are typically handled in Python using exception handling, which interrupts the normal flow of the program and can cause the code to become confusing. Although less elegant, it allows handling errors in the middle of the code and avoids some common error handling patterns, such as forgetting to check the error return value.
+
+Contrast point 2: Matching pattern and multiple returns for enumerations
+    Rust's enumerations can use pattern matching to handle a variety of cases, including matching error types and values. This makes the code easier to understand and maintain by allowing the programmer to handle a variety of cases clearly and by avoiding the need to use multiple return values or special values to represent different cases.
+
+    In contrast, multiple return values or special values are often used in Python to handle different cases. python's multiple return values, while less explicit, simplify the code.
+
+Comparison point 3: Type system
+    Rust's type system is very powerful and catches most type errors at compile time. This approach avoids type errors at runtime and improves the quality and maintainability of your code.
+
+    In contrast, Python's type system is relatively weak, and most type errors can only be caught at runtime. But allowing dynamic typing makes code more flexible and easier to write.

@@ -1,0 +1,11 @@
+[package]
+name = "ws02"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+csv = "1.1.6"
+geoutils = "0.5.1"
+serde = { version = "1.0.145", features = ["derive"] }

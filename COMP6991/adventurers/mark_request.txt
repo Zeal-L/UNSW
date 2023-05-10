@@ -1,0 +1,91 @@
+# Explorer Mark Request
+
+(You should put an [X] in boxes with completed features.
+Lines starting with ">" are additional comments.)
+
+[X] There is a player is displayed on the screen.
+
+[X] The player can be moved by pressing keys
+> You can use the Up/Down/Left/Right keys to move around. (CHANGE THIS LINE IF IT IS NOT CORRECT)
+
+[X] When the player tries to move off the screen, the screen follows them.
+
+[X] The viewport does not necessarily always move when the player does.
+
+[X] There are at least 5 block types (i.e different coloured blocks).
+
+[X] The layout of the map is specified by a file on the filesystem.
+
+[X] There is a 'barrier' block. When the player attempts to pass through it, they cannot.
+
+[X] There is a 'water' block. When the player walks through the 10th block in a row, they die and the game ends.
+
+[X] There is a 'sign' block. When the player walks over the sign block, a specified message is shown.
+
+[X] There are 'objects' in my game -- when a player walks over the object, it disappears.
+
+[X] There is a quests system in my game.
+[X] The quests system is in a seperate module or crate to the game.
+
+[X] The first quest (walking over sand blocks) is implemented.
+[X] The 'q' key shows the progress of my user in this quest.
+[X] The 'r' key resets progress of my user in this quest.
+
+[X] The second quest (collecting five objects of one type, then three of another)
+[X] The 'q' key shows the progress of my user in this quest.
+[X] The 'r' key resets progress of my user in this quest.
+
+[X] The third quest (at least two of the three subquests) is implemented.
+[X] The 'q' key shows the progress of my user in this quest.
+[X] The 'r' key resets progress of my user in this quest.
+
+[X] My quests system is designed to make it easy for a developer to add more quests.
+
+## How to Run My Program
+
+Assuming we have taken your crate, without any compilation; what commands will start the game?
+
+> $ cargo run maps/full_game.ron q[1-3]
+
+or you can run with my default settings
+> $ cargo run
+It will load the maps/testing.ron with q3
+
+## Design Excellence
+
+During the assignment we make suggestions for "design excellence". Please list all those
+things you did, and where we can find them in your program.
+
+> - Represent movement and coordinates via structs, using appropriate traits to implement movement.
+> - Represent block types using enums, and use appropriate traits to convert the enum into a character that can be shown on screen.
+> - Use a library serde and ron to implement parsing.
+> - When the player dies, use termgame to display a message; and then exit the game when the player next moves.
+> - It should be easy to add in tasks or compose new quests!
+> - Use combinators like (then, atLeast) for tasks combinations.
+
+
+If you made any other design choices you think demonstrate an equivalent level
+of design excellence, please list them below (including where to find them).
+Note, we suggest you check with a tutor that your design is in fact excellent
+before adding something below:
+
+> - [adventurers/src/my_game.rs] My current implementation of map does not intentionally check the boundaries. This means that the player is free to “roam” outside the map at will. Of course it is also possible to run a kilometer out and then return to the original map. I think this is cool!  You can intentionally delete two "Barriers" on the side of the map data to experience this feature
+
+> - [adventurers/src/utils.rs: 23] Although the Object in the map data is accompanied by only one character, I used serde's default feature to store a variable for the Object that detects whether it is picked up or not. I also bound an initialization function for this purpose. I find it convenient that I don't need to additionally store this data somewhere else.
+
+> - [adventurers/src/utils.rs: 33] I have implemented a Displayable trait for the Tile enumeration that is used to distinguish between different blocks. This makes it easy to get the style needed to update the game map. It is also very extensible. It is easy to add more block types later
+
+> - [adventurers/src/utils.rs: 162] I use an "anyhow" third-party crate, which helps me to manage error reporting better, as well as to include more information on error reporting.
+
+> - I have written very detailed documentation for all my data types and traits and functions, as well as documentation tests, you can use `cargo doc --open`. to get a detailed overview of my project's API.
+
+> - [adventurers_quest/scr/quest.rs: 63, quest_combine.rs: 11, 189] I use the third-party crate "dyn-clonable". This makes it very easy to clone trait objects. So that I can use vec to dynamically store trait objects of different sizes.
+
+
+## Design Limitations
+
+If you made any design decisions which you now regret making; but don't to go back and change them,
+let us know here. You can make up your design marks by acknowledging up to 5 things you would do
+differently now.
+
+> The BlockType enumeration type in [adventurers_quest/src/quest.rs] and the Tile enumeration type in [adventurers/src/utils.rs] have some duplication. Although many of the map block types are not needed in the quest system. But it would be nice if there was a way to simplify these two enumerations into one. But this brings up a new question, who should import who? Neither seems appropriate, given that adventurers_quest is a separate crate, and the adventurers binary should run without it.

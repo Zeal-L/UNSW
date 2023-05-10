@@ -1,0 +1,6 @@
+digraph G {
+  "1 SimpleSource"
+  "2 SimpleSink"
+
+  "1 SimpleSource" -> "2 SimpleSink"
+}

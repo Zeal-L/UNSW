@@ -1,0 +1,14 @@
+1.
+    It is possible to call undefined behaviors in Rust, but this is unsafe and not recommended.
+    For example, use Rust's unsafe keyword to mark a block of code as unsafe. Inside the unsafe block, you can perform unsafe operations, such as accessing uninitialized memory.
+
+2.
+    Inside unsafe blocks, unsafe operations can be performed, such as using bare pointers, reading and writing global variables, and so on. Unsafe blocks can appear inside any function, including regular functions, methods, and closures.
+
+    Unsafe functions are more strictly restricted to be invoked only by calling another unsafe function or by being located within an unsafe block.
+
+    It is important to note that a safe function can have unsafe blocks.
+
+3.
+    Using unsafe implementations allows the use of underlying language features to build high-level abstractions, but at the same time increases the risk of code errors or vulnerabilities. Therefore, the Rust compiler reduces the unsafe scope of Rust by limiting the use of unsafe implementations to only well encapsulated safe functions, thereby improving the reliability and security of the program
+

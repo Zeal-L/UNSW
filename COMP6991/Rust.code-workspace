@@ -2,7 +2,22 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "x-zone"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"jupyter.kernels.filter": [],
+		"lldb.displayFormat": "auto",
+		"lldb.showDisassembly": "auto",
+		"lldb.dereferencePointers": true,
+		"lldb.consoleMode": "evaluate",
+		"docwriter.style": "RustDoc",
+		"rust-analyzer.linkedProjects": [
+			"${workspaceFolder}/x-zone/Cargo.toml"
+		]
+	}
+
+
 }

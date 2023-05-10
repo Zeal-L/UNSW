@@ -1,0 +1,18 @@
+1.
+    This error message is because in the function favourite_car, the three branches of the match expression return values of different types, and although they all implement the Car trait, they are of different concrete types. So rust has no way to know the exact size of the returned type.
+
+2.
+    Difficulty determining function return type: The Rust compiler cannot determine the return type of a function because different branches of a match expression return different types of values.
+
+    Inconsistent with Rust's safety principles: Rust emphasizes memory safety and type safety, and using different types of return values to represent the same type of value is an unsafe behavior. This can lead to problems such as undefined behavior or memory leaks that break Rust's safety principles.
+
+3.
+    fn favourite_car(brand: CarBrand) -> Box<dyn Car> {
+        use CarBrand::*;
+
+        match brand {
+            Toyota => Box::new(Cressida),
+            Subaru => Box::new(Liberty),
+            Nissan => Box::new(Skyline),
+        }
+    }

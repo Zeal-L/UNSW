@@ -1,0 +1,12 @@
+1.
+    The type Item of the trait ParallelIterator needs to implement the Send trait because the ParallelIterator is designed to perform iterator operations in parallel and requires that all elements can be safely passed between threads.
+
+    trait Iterator does not require type Item to implement Send trait because it is a single-threaded iterator.
+
+2.
+    The constraint change for the type Item association type is due to the fact that parallel iterators require higher thread safety and need to satisfy the Sync and Send constraints. Therefore, these constraints have been added to the map method in the ParallelIterator trait of rayon crate to ensure the security of the parallel iterator.
+
+3.
+    rayon::iter::ParallelIterator::map uses the Fn trait as the trait bound for the closure argument. this is because when performing iterator operations in parallel, the closure must be sharable in order to be passed between threads. If the closure is mutable, then it cannot be safely shared.
+
+    In std::iter::Iterator::map, on the other hand, since it is a single-threaded operation, the closure can be mutable, so the FnMut trait is used.

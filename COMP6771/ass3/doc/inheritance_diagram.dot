@@ -1,0 +1,40 @@
+digraph G {
+  node [style="filled",shape=box]
+  label="Inheritance Diagram"
+  labelloc="t"
+
+  subgraph cluster_user {
+    label="User Components"
+    labelloc="b"
+    bgcolor="#FFFF88"
+
+    node [shape=circle,label="..."]
+    rank=same
+    other1 other2 other3
+  }
+
+  subgraph cluster_student {
+    label="Types for you to define"
+    labelloc="t"
+    bgcolor="#88FF88"
+
+    PipelineError
+    Pipeline
+    Node 
+    Producer [label="Producer<O>"]
+    Component [label="Component<I, O>"]
+    Source [label="Source<O>"]
+    Sink [label="Sink<I>"]
+  }
+
+  subgraph cluster_standard {
+    label="Types defined by the standard library"
+    bgcolor="#8888FF"
+    exception [label="std::exception"]
+  }
+
+  exception -> PipelineError
+  Node -> Producer -> Component -> { Sink Source other1 }
+  Sink -> other2
+  Source -> other3
+}

@@ -1,0 +1,10 @@
+digraph G {
+  "1 hello"
+  "2 world"
+  "4 foobar"
+
+  "2 world" -> "1 hello"
+  "2 world" -> "4 foobar"
+  "4 foobar" -> "1 hello"
+}
+

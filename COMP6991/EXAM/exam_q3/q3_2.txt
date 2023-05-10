@@ -1,0 +1,22 @@
+#[macro_export]
+macro_rules! car {
+    (
+        brand = $brand:ident;
+        models = [
+            $( $name:ident = $horsepower:literal ),* $(,)?
+        ];
+    ) => {
+        $(
+            pub struct $name;
+            impl Car for $name {
+                fn brand(&self) -> CarBrand {
+                    use CarBrand::*;
+                    $brand
+                }
+                fn horsepower(&self) -> u32 {
+                    $horsepower
+                }
+            }
+        )*
+    };
+}

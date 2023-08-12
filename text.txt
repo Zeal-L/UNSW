@@ -1,9 +1,0 @@
-Before doing this project I never thought I would write my own keylogger or Trojan horse one day.
-I really learned a lot about security engineering and the underlying operating system.
-
-In the process of writing my program, I encountered several difficulties.
-The first was how to hook the program to the keyboard and listen to the input, the second was how to package the message and send it to the mail. And how to add the program to the system boot. So in the process of overcoming these difficulties I learned to use the pyHook module to listen. And how to call win32api to access the OS. And how to set your mailbox to allow low-security programs to access it.
-
-In the first few versions, whenever I compiled my program into an executable, windows security center immediately identified it as dangerous and deleted it.
-So it took me a long time to study and learn how to add shells to programs.
-I also learned that shelling not only prevents detection by security software, but also speeds up the program through the c language, which is really cool.

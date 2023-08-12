@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+matplotlib = "*"
+opencv-python = "*"
+scikit-image = "*"
+scikit-learn = "*"
+ultralytics = "*"
+tensorflow = "*"
+
+[dev-packages]
+rich = "*"
+pylint = "*"
+ipykernel = "*"
+
+[requires]
+python_version = "3.11"

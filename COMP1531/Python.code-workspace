@@ -20,13 +20,25 @@
 			"path": "../../BiliBili-Manga-Downloader"
 		},
 		{
-			"path": "../../Qt-For-Python-PySide6-GUI-For-Beginners-The-Fundamentals--main"
-		},
-		{
 			"path": "../Python"
 		},
 		{
 			"path": "../../../AppData/Roaming/BiliBili-Manga-Downloader"
+		},
+		{
+			"name": "Honkai-Star-Rail-Wallpaper",
+			"path": "../../Honkai-Star-Rail-Wallpaper"
+		},
+		{
+			"path": "../COMP9517"
+		},
+		{
+			"name": "capstone-project-3900w18aZEAL",
+			"path": "../../capstone-project-3900w18aZEAL"
+		},
+		{
+			"name": "Zeal-L",
+			"path": "../../Zeal-L"
 		}
 	],
 	"settings": {
@@ -86,6 +98,26 @@
 				"database": "footy",
 				"username": "zeal",
 				"password": ""
+			},
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "backend3900",
+				"database": "backend3900",
+				"username": "zeal",
+				"password": "517517"
+			},
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"driver": "PostgreSQL",
+				"name": "backend3900_test",
+				"database": "backend3900_test",
+				"username": "zeal",
+				"password": "517517"
 			}
 		],
 		"cSpell.words": [
@@ -105,12 +137,53 @@
 			"pyplot",
 			"Pytest",
 			"senddm",
+			"stmp",
 			"sympy",
 			"tqdm",
 			"unpickle"
 		],
 		"wolf.disableHotModeWarning": true,
 		"liveServer.settings.multiRootWorkspaceName": "BiliBili-Manga-Downloader",
+		"MicroPython.executeButton": [
+			{
+				"text": "▶",
+				"tooltip": "运行",
+				"alignment": "left",
+				"command": "extension.executeFile",
+				"priority": 3.5
+			}
+		],
+		"MicroPython.syncButton": [
+			{
+				"text": "$(sync)",
+				"tooltip": "同步",
+				"alignment": "left",
+				"command": "extension.execute",
+				"priority": 4
+			}
+		],
+		"python.autoComplete.extraPaths": [
+			"c:/Users/Zeal/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.11/microExamples/code-completion"
+		],
+		"python.linting.pylintArgs": [
+			"--disable=W0012",
+			"--disable=R0022",
+			"--disable=W1203",
+			"--extension-pkg-whitelist=PySide6",
+			"--init-hook",
+			"import sys; sys.path.append('c:/Users/Zeal/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.11/microExamples/code-completion')"
+		],
+		"files.associations": {
+			".mpyproject.json": "jsonc"
+		},
+		"python.analysis.extraPaths": [
+			"c:/Users/Zeal/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.11/microExamples/code-completion"
+		],
+		"sqltools.useNodeRuntime": true,
+		"[python]": {
+			"editor.defaultFormatter": "ms-python.black-formatter"
+		},
+		"python.formatting.provider": "none",
 	},
 	"launch": {
 		"version": "0.2.0",

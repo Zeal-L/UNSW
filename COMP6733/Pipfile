@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flirpy = "*"
+opencv-python = "*"
+numpy = "*"
+matplotlib = "*"
+pylint = "*"
+mediapipe = "*"
+pyrealsense2 = "*"
+tensorflow = "*"
+bleak = "*"
+awsiotpythonsdk = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

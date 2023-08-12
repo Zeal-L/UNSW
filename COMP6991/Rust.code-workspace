@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "x-zone"
+		},
+		{
+			"path": "../../mahjong"
 		}
 	],
 	"settings": {
@@ -15,7 +18,8 @@
 		"lldb.consoleMode": "evaluate",
 		"docwriter.style": "RustDoc",
 		"rust-analyzer.linkedProjects": [
-			"${workspaceFolder}/x-zone/Cargo.toml"
+			"${workspaceFolder}/x-zone/Cargo.toml",
+			"${workspaceFolder}/../../mahjong/Cargo.toml"
 		]
 	}
 

@@ -15,11 +15,10 @@ psql -l         --服务器列表
 psql test
 drop table R;
 DROP TABLE  table(s)  [ CASCADE ];
-TRUNCATE TABLE  table(s)  [ CASCADE ];
+TRUNCATE TABLE table(s)  [ CASCADE ];
 \q
 
-dropdb test     --删除服务器
-psql -l
+dropdb backend3900     --删除服务器
 
 pg_ctl stop
 

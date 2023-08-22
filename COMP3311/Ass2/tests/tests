@@ -1,0 +1,18 @@
+01	./trans
+02	./trans 5124159
+03	./trans 5123788
+04	./trans 5143550
+05	./trans 5124862
+06	./trans 5146401
+07	./trans 5159189
+08	./rules
+09	./rules 3707
+10	./rules 3778
+11	./rules COMPAS
+12	./rules COMPA1
+13	./rules COMPSS
+14	./prog
+15	./prog 5197273 3707 COMPBH
+16	./prog 5123788
+17	./prog 5198386
+18	./prog 5198386 3778 COMPA1

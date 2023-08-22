@@ -1,5 +1,10 @@
 # Introduction
 
+![GitHub top language](https://img.shields.io/github/languages/top/Zeal-L/UNSW)
+![GitHub Lines of code](https://img.shields.io/tokei/lines/github/Zeal-L/UNSW)
+![GitHub repo size](https://img.shields.io/github/repo-size/Zeal-L/UNSW)
+![GitHub - License](https://img.shields.io/github/license/Zeal-L/UNSW)
+
 This repository contains all of the assignments and lab exercises and exams and slides for all of the computer electives I completed at UNSW.
 
 I hope that it will serve as a reference for future students who may find it inspiring.

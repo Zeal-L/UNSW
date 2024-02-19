@@ -4,10 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "x-zone"
+			"path": "../../mahjong"
 		},
 		{
-			"path": "../../mahjong"
+			"path": "x_zone"
 		}
 	],
 	"settings": {
@@ -17,10 +17,10 @@
 		"lldb.dereferencePointers": true,
 		"lldb.consoleMode": "evaluate",
 		"docwriter.style": "RustDoc",
-		"rust-analyzer.linkedProjects": [
-			"${workspaceFolder}/x-zone/Cargo.toml",
-			"${workspaceFolder}/../../mahjong/Cargo.toml"
-		]
+		// "rust-analyzer.linkedProjects": [
+		// 	"${workspaceFolder}/x-zone/Cargo.toml",
+		// 	"${workspaceFolder}/../../mahjong/Cargo.toml"
+		// ]
 	}
 
 

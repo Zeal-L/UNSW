@@ -31,10 +31,6 @@ struct Arguments {
     port: u16,
 }
 
-pub fn run() {
-
-}
-
 // This is specifically to allow the use of write!() in logger format with a literal string
 // purple = "\x1b[35m", which makes code more readable
 #[allow(clippy::write_literal)]

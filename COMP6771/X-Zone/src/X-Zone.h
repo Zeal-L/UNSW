@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <unordered_set>
 #include <algorithm>
+#include <cassert>
 #include <compare>
 #include <cstdint>
 #include <exception>
@@ -24,7 +25,5 @@
 #include <typeinfo>
 #include <utility>
 #include <vector>
-
-using namespace std;
 
 #endif // X_ZONE_H

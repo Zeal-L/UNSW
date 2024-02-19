@@ -330,7 +330,10 @@ send a signal to processes matching selection criteria
 
 
 # wsl
-- nano ~/.bashrc
+- vim ~/.bashrc
 - source ~/.bashrc
 - sudo -u zeal startxfce4
 - wsl --shutdown
+- sfc/scannow
+
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0 # in WSL 2

@@ -23,18 +23,11 @@
 			"path": "../Python"
 		},
 		{
-			"path": "../../../AppData/Roaming/BiliBili-Manga-Downloader"
-		},
-		{
 			"name": "Honkai-Star-Rail-Wallpaper",
 			"path": "../../Honkai-Star-Rail-Wallpaper"
 		},
 		{
 			"path": "../COMP9517"
-		},
-		{
-			"name": "capstone-project-3900w18aZEAL",
-			"path": "../../capstone-project-3900w18aZEAL"
 		},
 		{
 			"name": "Zeal-L",
@@ -133,6 +126,7 @@
 			"ndim",
 			"networkx",
 			"nums",
+			"psutil",
 			"psycopg",
 			"pyplot",
 			"Pytest",
@@ -162,9 +156,6 @@
 				"priority": 4
 			}
 		],
-		"python.autoComplete.extraPaths": [
-			"c:/Users/Zeal/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.11/microExamples/code-completion"
-		],
 		"python.linting.pylintArgs": [
 			"--disable=W0012",
 			"--disable=R0022",
@@ -176,29 +167,11 @@
 		"files.associations": {
 			".mpyproject.json": "jsonc"
 		},
-		"python.analysis.extraPaths": [
-			"c:/Users/Zeal/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.11/microExamples/code-completion"
-		],
 		"sqltools.useNodeRuntime": true,
 		"[python]": {
 			"editor.defaultFormatter": "ms-python.black-formatter"
 		},
 		"python.formatting.provider": "none",
 		"svg.preview.background": "editor",
-	},
-	"launch": {
-		"version": "0.2.0",
-		"configurations": [
-			{
-				"name": "Python: 当前文件",
-				"type": "python",
-				"request": "launch",
-				"program": "${file}",
-				"console": "integratedTerminal",
-				"args": ["8888", "3"],
-				"cwd": "~/Desktop/COMP/COMP3331/Assignment/Server/"
-
-			}
-		]
 	},
 }

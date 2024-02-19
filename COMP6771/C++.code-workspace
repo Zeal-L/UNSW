@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "X-Zone"
+		},
+		{
+			"path": "../../Job"
+		},
+		{
+			"path": "../../easy-taskbar-progress-main"
 		}
 	],
 	"settings": {

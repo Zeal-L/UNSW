@@ -13,24 +13,24 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # helpful compiler flags for gcc/clang
 add_compile_options(
-  # -Wall
-  # -Wextra
-  # -Werror
-  # -pedantic-errors
-  # -Wconversion
-  # -Wsign-conversion
-  # -Wdouble-promotion
-  # -Wcast-align
-  # -Wformat=2
-  # -Wuninitialized
-  # -Wnull-dereference
-  # -Wnon-virtual-dtor
-  # -Woverloaded-virtual
-  # -Wdeprecated-copy-dtor
-  # -Wold-style-cast
-  # -Wzero-as-null-pointer-constant
-  # -Wsuggest-override
-  # -fstack-protector-strong
+  -Wall
+  -Wextra
+  -Werror
+  -pedantic-errors
+  -Wconversion
+  -Wsign-conversion
+  -Wdouble-promotion
+  -Wcast-align
+  -Wformat=2
+  -Wuninitialized
+  -Wnull-dereference
+  -Wnon-virtual-dtor
+  -Woverloaded-virtual
+  -Wdeprecated-copy-dtor
+  -Wold-style-cast
+  -Wzero-as-null-pointer-constant
+  -Wsuggest-override
+  -fstack-protector-strong
 )
 
 # debug builds should be compiled with sanitizers
